@@ -7,10 +7,7 @@ class Dashboard extends Component {
     return (
       <div>
         <h1>Hello</h1>
-        <a href="/addUser">Dodaj korisnika</a>
-        <br />
-        <a href="/userList">Lista korisnika</a>
-      </div>
+        </div>
     );
   }
 }

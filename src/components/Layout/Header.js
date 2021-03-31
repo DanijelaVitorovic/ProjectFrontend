@@ -17,21 +17,21 @@ class Header extends Component {
     const { validToken, loggedUser } = this.props.loggedUser;
 
     const userIsAuthenticated = (
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div className="collapse navbar-collapse" id="navbarSupportedContent">
         {authorizationService.canAccessAdminPanel(loggedUser) ? (
           <MenuBarUsers />
         ) : null}
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <Link to="/dashboard" class="nav-link ">
+        <ul className="navbar-nav ml-auto">
+          <li className="nav-item">
+            <Link to="/dashboard" className="nav-link ">
               {loggedUser.firstName} {loggedUser.lastName}
             </Link>
           </li>
 
-          <li class="nav-item">
+          <li className="nav-item">
             <Link
               to="/logout"
-              class="nav-link "
+              className="nav-link "
               onClick={this.logout.bind(this)}
             >
               Odjava
@@ -58,7 +58,7 @@ class Header extends Component {
             APP
           </Link>
           <button
-            class="navbar-toggler"
+            className="navbar-toggler"
             type="button"
             data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -66,7 +66,7 @@ class Header extends Component {
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <span class="navbar-toggler-icon" />
+            <span className="navbar-toggler-icon" />
           </button>
           {headerLinks}
         </nav>

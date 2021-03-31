@@ -1,10 +1,11 @@
 import axios from "axios";
-import  {GET_ERRORS, GET_LEGAL_ENTITY, GET_lEGAL_ENTITIES, DELETE_LEGAL_ENTITY} from "./types";
+import  {GET_ERRORS, GET_LEGAL_ENTITY, GET_LEGAL_ENTITIES, DELETE_LEGAL_ENTITY} from "./types";
 
 export const createLegalEntity =  (legalEntity, history) => async dispatch => {
     try{
-        await axios.post("/api/legalEntity", legalEntity);
-        history.push("/dashoard");
+        await axios.post("/api/legalEntity/create", legalEntity);
+        console.log("erorrrororo");
+        history.push("/dashboard");
         dispatch({
             type: GET_ERRORS,
             payload:{}
@@ -17,36 +18,50 @@ export const createLegalEntity =  (legalEntity, history) => async dispatch => {
     }
 };
 
-export  const getLegalEntites = () => async dispatch => {
+export const updateLegalEntity = (legalEntity, history) => async dispatch => {
     try{
-        const res = await axios.get("/api/legalEntity/findAll");
+        await axios.post("/api/legalEntity/update", legalEntity);
+        history.push("/dashboard");
         dispatch({
-            type: GET_lEGAL_ENTITIES,
-            payload: res.data
+            type: GET_ERRORS,
+            payload:{}
         });
-    }catch(e){
-        
-    }
+    }catch(e) {
+        dispatch({
+            type: GET_ERRORS,
+            payload: e.response.data
+        });
+    }    
 };
 
-export const getLegalEntity = (id) => async dispatch => {
+export  const getLegalEntites = () => async dispatch => {
+        const res = await axios.get("/api/legalEntity/findAll");
+        console.log(res.data)
+        dispatch({
+            type: GET_LEGAL_ENTITIES,
+            payload: res.data
+        });
+    
+};
+
+export const getLegalEntity = (id, history) => async dispatch => {
     try{
-        const res = await axios.get(`/api/legalEntity/${id}`);
+        const res = await axios.get(`/api/legalEntity/find/${id}`);
         dispatch({
             type: GET_LEGAL_ENTITY,
             payload: res.data
         });
     }catch(e){
-
+        history.push("/dashboard");
     }
 };
 
-export const deleteLegalEntity = (id, history) => async dispatc => {
+export const deleteLegalEntity = (id, history) => async dispatch => {
     try{
-        await axios.delete(`/api/legalEntity/${id}`);
+        await axios.delete(`/api/legalEntity/delete/${id}`);
         history.push("/dashoard");
         dispatch({
-            tyre: DELETE_LEGAL_ENTITY,
+            type: DELETE_LEGAL_ENTITY,
             payload: id
         });
     }catch(e){
