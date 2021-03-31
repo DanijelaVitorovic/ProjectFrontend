@@ -4,7 +4,6 @@ import  {GET_ERRORS, GET_LEGAL_ENTITY, GET_LEGAL_ENTITIES, DELETE_LEGAL_ENTITY} 
 export const createLegalEntity =  (legalEntity, history) => async dispatch => {
     try{
         await axios.post("/api/legalEntity/create", legalEntity);
-        console.log("erorrrororo");
         history.push("/dashboard");
         dispatch({
             type: GET_ERRORS,
@@ -57,9 +56,13 @@ export const getLegalEntity = (id, history) => async dispatch => {
 };
 
 export const deleteLegalEntity = (id, history) => async dispatch => {
+    if (
+        window.confirm(
+          "Are you sure? This will delete the project and all the data related to it"
+        )
+      ) {
     try{
         await axios.delete(`/api/legalEntity/delete/${id}`);
-        history.push("/dashoard");
         dispatch({
             type: DELETE_LEGAL_ENTITY,
             payload: id
@@ -67,4 +70,5 @@ export const deleteLegalEntity = (id, history) => async dispatch => {
     }catch(e){
         
     }
+}
 };

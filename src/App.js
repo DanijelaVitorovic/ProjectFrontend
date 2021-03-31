@@ -19,6 +19,9 @@ import UpdateUser from "./components/User/UpdateUser";
 import LegalEntityList from "./components/Containers/LegalEntityList";
 import AddLegalEntity from "./components/LegalEntity/AddLegalEntity";
 import UpdateLegalEntity from "./components/LegalEntity/UpdateLegalEntity";
+import ProcessTypeList from "./components/Containers/ProcessTypeList";
+import AddProcessType from "./components/ProcessType/AddProcessType";
+import UpdateProcessType from "./components/ProcessType/UpdateProcessType";
 
 var jwtDecode = require("jwt-decode");
 
@@ -55,11 +58,11 @@ class App extends Component {
               <Route exact path="/userList" component={UserList} />
               <Route exact path="/addLegalEntity" component={AddLegalEntity} />
               <Route exact path="/legalEntityList" component={LegalEntityList} />
-              
+              <Route exact path="/processTypeList" component={ProcessTypeList} />
+              <Route exact path="/addProcessType" component={AddProcessType} />
               <Route exact path="/updateUser/:id" component={UpdateUser} />
               <Route exact path="/updateLegalEntity/:id" component={UpdateLegalEntity} />
-              
-              <Route exact path="/legalEntityList" component={LegalEntityList} />
+              <Route exact path="/updateProcessType/:id" component={UpdateProcessType} />
             </Switch>
           </div>
         </Router>
