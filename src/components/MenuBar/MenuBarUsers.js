@@ -24,6 +24,28 @@ class MenuBarUsers extends Component {
               </Link>
             </div>
           </li>
+          <li className="nav-item dropdown">
+            <a
+              className="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdownUsersLink"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Zaposlena lica
+            </a>
+            <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+              <Link className="dropdown-item" to="/employeeList">
+                Prikaz zaposlenih lica
+              </Link>
+              <br />
+              <Link className="dropdown-item" to="/addEmployee">
+                Dodaj novog zaposlenog
+              </Link>
+            </div>
+          </li>
         </ul>
       </div>
     );

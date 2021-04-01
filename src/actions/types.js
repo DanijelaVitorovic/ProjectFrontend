@@ -5,3 +5,6 @@ export const GET_USERS = "GET_USERS";
 export const DEACTIVATE_USER = "DEACTIVATE_USER";
 export const ACTIVATE_USER = "ACTIVATE_USER";
 export const DELETE_USER = "DELETE_USER";
+export const GET_EMPLOYEE = "GET_EMPLOYEE";
+export const GET_EMPLOYEES = "GET_EMPLOYEES";
+export const DELETE_EMPLOYEE = "DELETE_EMPLOYEE";
