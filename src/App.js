@@ -16,6 +16,7 @@ import SecuredRoute from "./securityUtils/secureRoute";
 import AddUser from "./components/User/AddUser";
 import UserList from "./components/User/UserList";
 import UpdateUser from "./components/User/UpdateUser";
+import EmployeeList from "./components/Containers/EmployeeList";
 
 var jwtDecode = require("jwt-decode");
 
@@ -26,7 +27,7 @@ if (jwtToken) {
   const decoded_jwtToken = jwtDecode(jwtToken);
   store.dispatch({
     type: SET_CURRENT_USER,
-    payload: decoded_jwtToken
+    payload: decoded_jwtToken,
   });
 
   const currentTime = Date.now() / 1000;
@@ -51,6 +52,7 @@ class App extends Component {
               <Route exact path="/addUser" component={AddUser} />
               <Route exact path="/userList" component={UserList} />
               <Route exact path="/updateUser/:id" component={UpdateUser} />
+              <Route exact path="/employeeList" component={EmployeeList} />
             </Switch>
           </div>
         </Router>
