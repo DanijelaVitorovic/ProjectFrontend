@@ -13,7 +13,6 @@ export default function(state = initialState, action) {
                 legalEntity: action.payload
             };
         case GET_LEGAL_ENTITIES:
-            console.log(action)
             return{
                 ...state,
                 legalEntities: action.payload

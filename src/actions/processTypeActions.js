@@ -4,13 +4,12 @@ import {GET_PROCESS_TYPE, GET_PROCESS_TYPES, DELETE_PROCESS_TYPE, GET_ERRORS} fr
 export const createProcessType = (processType, history) => async dispatch => {
     try{
     await axios.post("/api/processType/create", processType);
-    history.push("/dashboard");
+    history.push("/processTypeList");
     dispatch({
         type: GET_ERRORS,
         payload: {}
     });
     }catch(exception)  {
-    history.push("/dashboard");
     }   
 };
 

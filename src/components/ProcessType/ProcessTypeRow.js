@@ -37,8 +37,4 @@ class ProcessTypeRow extends Component {
     }
 }
 
-const mapStateToProps =  state => {
-  
-};
-
 export default connect(null, {updateProcessType, deleteProcessType})(ProcessTypeRow);

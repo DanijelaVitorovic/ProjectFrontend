@@ -25,11 +25,11 @@ class AddProcessType extends Component {
         }
     }
 
-    onChange(e) {
+    onChange = (e) => {
         this.setState({[e.target.name]: e.target.value});
     }
 
-    onSubmit(e) {
+    onSubmit = (e) => {
         e.preventDefault();
 
         const newProcessType = {
@@ -50,9 +50,9 @@ class AddProcessType extends Component {
             <div className="container">
               <div className="row">
                 <div className="col-md-6 m-auto">
-                  <h5 className="display-4 text-center">
-                    Create new<p></p>Process Type
-                  </h5>
+                  <h6 className="display-4 text-center">
+                    
+                  </h6>
                   <hr />
                   <form onSubmit={this.onSubmit}>
 
