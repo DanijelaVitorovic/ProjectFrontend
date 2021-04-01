@@ -24,11 +24,8 @@ class UpdatePhysicalEntity extends Component {
         apartmanNumber: "",
         zipCode: "",
       },
-
       errors: {},
     };
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -61,13 +58,13 @@ class UpdatePhysicalEntity extends Component {
     this.props.getPhysicalEntity(id, this.props.history);
   }
 
-  onChange(e) {
+  onChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
-  }
+  };
 
-  onSubmit(e) {
+  onSubmit = (e) => {
     e.preventDefault();
-    const updatePhysicalEntity = {
+    const updatedPhysicalEntity = {
       id: this.state.id,
       firstName: this.state.firstName,
       lastName: this.state.lastName,
@@ -75,29 +72,27 @@ class UpdatePhysicalEntity extends Component {
       profession: this.state.profession,
       email: this.state.email,
       address: {
-        city: this.state.city,
-        street: this.state.street,
-        streetNumber: this.state.streetNumber,
-        floor: this.state.floor,
-        apartmanNumber: this.state.apartmanNumber,
-        zipCode: this.state.zipCode,
+        city: this.state.address.city,
+        street: this.state.address.street,
+        streetNumber: this.state.address.streetNumber,
+        floor: this.state.address.floor,
+        apartmanNumber: this.state.address.apartmanNumber,
+        zipCode: this.state.address.zipCode,
       },
     };
-
-    this.props.updatePhysicalEntity(updatePhysicalEntity, this.props.history);
-  }
+    this.props.updatePhysicalEntity(updatedPhysicalEntity, this.props.history);
+  };
 
   render() {
     const { errors } = this.state;
+    console.log(this.state);
     return (
       <div>
         <div className="register">
           <div className="container">
             <div className="row">
               <div className="col-md-6 m-auto">
-                <h5 className="display-4 text-center">
-                  Унос новог физичког лица
-                </h5>
+                <h5 className="display-4 text-center">Измена физичког лица</h5>
                 <hr />
                 <form onSubmit={this.onSubmit}>
                   <div className="form-group">
@@ -177,7 +172,7 @@ class UpdatePhysicalEntity extends Component {
                       })}
                       placeholder="Место пребивалишта"
                       name="city"
-                      value={this.state.city}
+                      value={this.state.address.city}
                       onChange={this.onChange}
                     />
                     {errors.city && (
@@ -191,7 +186,7 @@ class UpdatePhysicalEntity extends Component {
                       className="form-control"
                       placeholder="Улица"
                       name="street"
-                      value={this.state.street}
+                      value={this.state.address.street}
                       onChange={this.onChange}
                     />
                   </div>
@@ -202,7 +197,7 @@ class UpdatePhysicalEntity extends Component {
                       className="form-control"
                       placeholder="Број улице"
                       name="streetNumber"
-                      value={this.state.streetNumber}
+                      value={this.state.address.streetNumber}
                       onChange={this.onChange}
                     />
                   </div>
@@ -212,7 +207,7 @@ class UpdatePhysicalEntity extends Component {
                       className="form-control"
                       placeholder="Спрат"
                       name="floor"
-                      value={this.state.floor}
+                      value={this.state.address.floor}
                       onChange={this.onChange}
                     />
                   </div>
@@ -222,7 +217,7 @@ class UpdatePhysicalEntity extends Component {
                       className="form-control"
                       placeholder="Број стана"
                       name="apartmanNumber"
-                      value={this.state.apartmanNumber}
+                      value={this.state.address.apartmanNumber}
                       onChange={this.onChange}
                     />
                   </div>
@@ -233,7 +228,7 @@ class UpdatePhysicalEntity extends Component {
                       className="form-control"
                       placeholder="Поштански број"
                       name="zipCode"
-                      value={this.state.zipCode}
+                      value={this.state.address.zipCode}
                       onChange={this.onChange}
                     />
                   </div>

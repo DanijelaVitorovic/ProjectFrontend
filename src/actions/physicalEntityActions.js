@@ -32,7 +32,7 @@ export const updatePhysicalEntity = (physicalEntity, history) => async (
     await axios.post("/api/physicalEntity/update", physicalEntity);
     history.push("/physicalEntityList");
     dispatch({
-      type: GET_PHYSICAL_ENTITIES,
+      type: GET_ERRORS,
       payload: {},
     });
   } catch (err) {

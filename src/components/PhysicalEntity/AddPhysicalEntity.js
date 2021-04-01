@@ -21,8 +21,6 @@ class AddPhysicalEntity extends Component {
       zipCode: "",
       errors: {},
     };
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -31,11 +29,11 @@ class AddPhysicalEntity extends Component {
     }
   }
 
-  onChange(e) {
+  onChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
-  }
+  };
 
-  onSubmit(e) {
+  onSubmit = (e) => {
     e.preventDefault();
     const newPhysicalEntity = {
       firstName: this.state.firstName,
@@ -52,13 +50,11 @@ class AddPhysicalEntity extends Component {
         zipCode: this.state.zipCode,
       },
     };
-    console.log(newPhysicalEntity);
     this.props.createPhysicalEntity(newPhysicalEntity, this.props.history);
-  }
+  };
 
   render() {
     const { errors } = this.state;
-    console.log(this.state);
     return (
       <div>
         <div className="register">

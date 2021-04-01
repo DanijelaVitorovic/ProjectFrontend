@@ -8,14 +8,7 @@ class PhysicalEntityRow extends Component {
     this.props.deletePhysicalEntity(id);
   };
 
-  constructor(props) {
-    super(props);
-    this.state = { physicalEntities: [], isLoading: true };
-    this.onDeleteClick = this.onDeleteClick.bind(this);
-  }
-
   render() {
-    console.log(this.props.physicalEntity);
     return (
       <tr>
         <td>{this.props.physicalEntity.identificationNumber}</td>
