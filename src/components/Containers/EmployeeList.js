@@ -1,6 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getEmployees } from "../../actions/employeeActions.js";
+import {
+  createEmployee,
+  updateEmployee,
+  getEmployees,
+  getEmployee,
+  deleteEmployee,
+} from "../../actions/employeeActions";
 import EmployeeTable from "../Employee/EmployeeTable";
 
 class EmployeeList extends Component {
@@ -36,5 +42,9 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
+  createEmployee,
+  updateEmployee,
   getEmployees,
+  getEmployee,
+  deleteEmployee,
 })(EmployeeList);
