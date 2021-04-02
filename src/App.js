@@ -28,6 +28,7 @@ import AddEmployee from "./components/Employee/AddEmployee";
 import PhysicalEntityList from "./components/Containers/PhysicalEntityList";
 import AddPhysicalEntity from "./components/PhysicalEntity/AddPhysicalEntity";
 import UpdatePhysicalEntity from "./components/PhysicalEntity/UpdatePhysicalEntity";
+import ModalAddProcesType from "./components/ProcessType/ModalAddProcesType";
 
 var jwtDecode = require("jwt-decode");
 
