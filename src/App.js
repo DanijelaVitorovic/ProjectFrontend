@@ -16,6 +16,9 @@ import SecuredRoute from "./securityUtils/secureRoute";
 import AddUser from "./components/User/AddUser";
 import UserList from "./components/User/UserList";
 import UpdateUser from "./components/User/UpdateUser";
+import EmployeeList from "./components/Containers/EmployeeList";
+import UpdateEmployee from "./components/Employee/UpdateEmployee";
+import AddEmployee from "./components/Employee/AddEmployee";
 import PhysicalEntityList from "./components/Containers/PhysicalEntityList";
 import AddPhysicalEntity from "./components/PhysicalEntity/AddPhysicalEntity";
 import UpdatePhysicalEntity from "./components/PhysicalEntity/UpdatePhysicalEntity";
@@ -54,6 +57,13 @@ class App extends Component {
               <Route exact path="/addUser" component={AddUser} />
               <Route exact path="/userList" component={UserList} />
               <Route exact path="/updateUser/:id" component={UpdateUser} />
+              <Route exact path="/employeeList" component={EmployeeList} />
+              <Route
+                exact
+                path="/updateEmployee/:id"
+                component={UpdateEmployee}
+              />
+              <Route exact path="/addEmployee" component={AddEmployee} />
               <Route
                 exact
                 path="/physicalEntityList"

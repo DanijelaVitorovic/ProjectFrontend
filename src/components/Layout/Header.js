@@ -77,15 +77,12 @@ class Header extends Component {
 
 Header.propTypes = {
   logout: PropTypes.func.isRequired,
-  loggedUser: PropTypes.object.isRequired
+  loggedUser: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   loggedUser: state.loggedUser,
-  error: state.errors
+  error: state.errors,
 });
 
-export default connect(
-  mapStateToProps,
-  { logout }
-)(Header);
+export default connect(mapStateToProps, { logout })(Header);
