@@ -6,8 +6,9 @@ import ReactDOM from 'react-dom';
 class Dashboard extends Component {
   render() {
     return (
-      <div>
+      <div class="jumbotron">
         <h1>Hello</h1>
+        <p>DMSpraksa primer</p>
       </div>
     );
   }

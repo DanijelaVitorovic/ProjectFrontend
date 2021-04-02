@@ -4,11 +4,15 @@ import userReducer from "./userReducer";
 import securityReducer from "./securityReducer";
 import legalEntityReducer from "./legalEntityReducer";
 import processTypesReducer from "./processTypeReducer";
+import employeeReducer from "./employeeReducer";
+import physicalEntityReducer from "./physicalEntityReducer";
 
 export default combineReducers({
   errors: errorReducer,
   loggedUser: securityReducer,
   user: userReducer,
   legalEntity: legalEntityReducer,
-  processType: processTypesReducer
+  processType: processTypesReducer,
+  employee: employeeReducer,
+  physicalEntity: physicalEntityReducer,
 });
