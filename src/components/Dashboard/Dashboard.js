@@ -5,11 +5,9 @@ import classnames from "classnames";
 class Dashboard extends Component {
   render() {
     return (
-      <div>
+      <div class="jumbotron">
         <h1>Hello</h1>
-        <a href="/addUser">Dodaj korisnika</a>
-        <br />
-        <a href="/userList">Lista korisnika</a>
+        <p>DMSpraksa primer</p>
       </div>
     );
   }

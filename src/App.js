@@ -19,6 +19,9 @@ import UpdateUser from "./components/User/UpdateUser";
 import EmployeeList from "./components/Containers/EmployeeList";
 import UpdateEmployee from "./components/Employee/UpdateEmployee";
 import AddEmployee from "./components/Employee/AddEmployee";
+import PhysicalEntityList from "./components/Containers/PhysicalEntityList";
+import AddPhysicalEntity from "./components/PhysicalEntity/AddPhysicalEntity";
+import UpdatePhysicalEntity from "./components/PhysicalEntity/UpdatePhysicalEntity";
 
 var jwtDecode = require("jwt-decode");
 
@@ -46,7 +49,7 @@ class App extends Component {
         <Router>
           <div className="App">
             <Header />
-            <Route exact path="/" component={LandingPage} />
+            <Route exact path="/" component={Dashboard} />
             <Route exact path="/login" component={Login} />
 
             <Switch>
@@ -61,6 +64,21 @@ class App extends Component {
                 component={UpdateEmployee}
               />
               <Route exact path="/addEmployee" component={AddEmployee} />
+              <Route
+                exact
+                path="/physicalEntityList"
+                component={PhysicalEntityList}
+              />
+              <Route
+                exact
+                path="/addPhysicalEntity"
+                component={AddPhysicalEntity}
+              />
+              <Route
+                exact
+                path="/updatePhysicalEntity/:id"
+                component={UpdatePhysicalEntity}
+              />
             </Switch>
           </div>
         </Router>
