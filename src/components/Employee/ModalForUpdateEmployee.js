@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Modal, Button } from "react-bootstrap";
+import { Modal, ModalFooter } from "react-bootstrap";
 
 class ModalForUpdateEmployee extends Component {
   constructor() {
@@ -45,16 +45,18 @@ class ModalForUpdateEmployee extends Component {
         onHide={this.props.closeModal}
         onRequestClose={this.props.closeModal}
         size="lg"
+        centered
+        animation
       >
         <Modal.Header closeButton></Modal.Header>
 
         <div className="register">
           <div className="container">
             <div className="row">
-              <div className="col-md-6 m-auto">
-                <h5 className="display-4 text-center">
-                  Izmena zaposlenog lica
-                </h5>
+              <div className="col-md-8 m-auto">
+                <h3 className="display-5 text-center">
+                  Измена запосленог лица
+                </h3>
                 <hr />
                 <form onSubmit={this.onSubmit}>
                   <div className="form-group">
@@ -77,14 +79,17 @@ class ModalForUpdateEmployee extends Component {
                       onChange={this.onChange}
                     >
                       <option value="" selected disabled>
-                        Promenite poziciju?
+                        Промените статус менаџер
                       </option>
-                      <option value="true">Da</option>
-                      <option value="false">Ne</option>
+                      <option value="true">Да</option>
+                      <option value="false">Не</option>
                     </select>
                   </div>
 
-                  <button type="submit" className="btn btn-primary float-right">
+                  <button
+                    type="submit"
+                    className="btn btn-primary float-right btn-success"
+                  >
                     <i className="fas fa-check fa-2x" />
                   </button>
                 </form>
@@ -92,14 +97,8 @@ class ModalForUpdateEmployee extends Component {
             </div>
           </div>
         </div>
-
-        <Button
-          onClick={() => {
-            this.props.closeModal();
-          }}
-        >
-          Zatvori
-        </Button>
+        <br />
+        <ModalFooter></ModalFooter>
       </Modal>
     );
   }

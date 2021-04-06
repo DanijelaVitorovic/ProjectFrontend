@@ -58,7 +58,7 @@ class PhysicalEntityTable extends Component {
                 this.showModal();
               }}
             >
-              Napravi novo fizicko lice
+              Направи ново физичко лице
             </Button>
             <br />
             <br />

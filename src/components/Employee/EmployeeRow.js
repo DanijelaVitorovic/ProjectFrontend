@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { Button, Badge } from "react-bootstrap";
+import { Button, Badge, Alert } from "react-bootstrap";
 import ModalForUpdateEmployee from "./ModalForUpdateEmployee";
 
 class EmployeeRow extends Component {
@@ -29,8 +29,8 @@ class EmployeeRow extends Component {
     const { employee } = this.props;
     let managerType;
 
-    if (employee.manager === true) managerType = "Da";
-    else managerType = "Ne";
+    if (employee.manager === true) managerType = "Да";
+    else managerType = "Не";
 
     const row = (
       <tr>
@@ -45,7 +45,7 @@ class EmployeeRow extends Component {
               this.showModal();
             }}
           >
-            Izmeni
+            Измени
           </Button>
         </td>
 

@@ -59,7 +59,7 @@ export const getEmployee = (id) => async (dispatch) => {
 };
 
 export const deleteEmployee = (id) => async (dispatch) => {
-  if (window.confirm("Da li zaista želite da trajno obrišete zaposlenog?")) {
+  if (window.confirm("Да ли заиста желите трајно да обришете запосленог?")) {
     const res = await axios.delete(`/api/employee/delete/${id}`);
     dispatch({
       type: DELETE_EMPLOYEE,

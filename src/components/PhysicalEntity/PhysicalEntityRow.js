@@ -47,7 +47,7 @@ class PhysicalEntityRow extends Component {
               this.showModal();
             }}
           >
-            Izmeni
+            Измени
           </Button>
         </td>
         <td className="text-center">

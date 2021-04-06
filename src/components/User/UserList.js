@@ -11,24 +11,22 @@ class UserList extends Component {
   componentDidMount() {
     this.props.getUsers();
   }
-  
 
   render() {
     const { users } = this.props.user;
-  console.log("Filtrirani1:"+users.length);
+    console.log("Filtrirani1:" + users.length);
 
     return (
       <div className="container">
         <div className="row">
           <div className="col-md-12 m-auto">
             <div className="card text-left mb-3">
-              <div className="card-header text-white">
+              <div className="card-header text-black">
                 <h3>Корисници</h3>
               </div>
               <div className="card-body">
-               <UserTable users={users} />
+                <UserTable users={users} />
                 <div id="msg" />
-               
               </div>
             </div>
           </div>
@@ -40,14 +38,11 @@ class UserList extends Component {
 
 UserList.propTypes = {
   user: PropTypes.object.isRequired,
-  getUsers: PropTypes.func.isRequired
+  getUsers: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
-  user: state.user
+const mapStateToProps = (state) => ({
+  user: state.user,
 });
 
-export default connect(
-  mapStateToProps,
-  { getUsers }
-)(UserList);
+export default connect(mapStateToProps, { getUsers })(UserList);

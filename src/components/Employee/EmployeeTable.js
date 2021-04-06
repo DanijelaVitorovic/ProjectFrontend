@@ -54,7 +54,7 @@ class EmployeeTable extends Component {
                 this.showModal();
               }}
             >
-              Unesi novog zaposlenog
+              Унеси новог запосленог
             </Button>
             <br />
             <br />
@@ -69,9 +69,7 @@ class EmployeeTable extends Component {
           <Link to={`/dashboard`}>
             <i className="fas fa-arrow-circle-left fa-3x fa-pull-left" />
           </Link>
-          <Link to={`/addEmployee`}>
-            <i className="fas fa-plus-circle fa-3x fa-pull" />
-          </Link>
+
           <br />
         </table>
       </div>

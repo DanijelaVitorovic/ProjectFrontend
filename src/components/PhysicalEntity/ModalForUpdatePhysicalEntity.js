@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import classnames from "classnames";
-import { Modal, Button } from "react-bootstrap";
+import { Modal, Button, Row, Col, ModalFooter } from "react-bootstrap";
 
 class ModalForUpdatePhysicalEntity extends Component {
   constructor() {
@@ -88,153 +88,191 @@ class ModalForUpdatePhysicalEntity extends Component {
         show={this.props.show}
         onHide={this.props.closeModal}
         onRequestClose={this.props.closeModal}
+        size="xl"
+        centered
+        animation
       >
         <Modal.Header closeButton></Modal.Header>
         <div className="register">
           <div className="container">
             <div className="row">
-              <div className="col-md-6 m-auto">
-                <h5 className="display-4 text-center">Измена физичког лица</h5>
+              <div className="col-md-8 m-auto">
+                <h3 className="display-5 text-center">Измена физичког лица</h3>
                 <hr />
                 <form onSubmit={this.onSubmit}>
-                  <div className="form-group col-md-6">
-                    <input
-                      type="text"
-                      className={classnames("form-control", {
-                        "is-invalid": errors.firstName,
-                      })}
-                      placeholder="Име"
-                      name="firstName"
-                      value={this.state.firstName}
-                      onChange={this.onChange}
-                    />
-                    {errors.firstName && (
-                      <div className="invalid-feedback">{errors.firstName}</div>
-                    )}
-                  </div>
-                  <div className="form-group">
-                    <input
-                      type="text"
-                      className={classnames("form-control", {
-                        "is-invalid": errors.lastName,
-                      })}
-                      placeholder="Презиме"
-                      name="lastName"
-                      value={this.state.lastName}
-                      onChange={this.onChange}
-                    />
-                    {errors.lastName && (
-                      <div className="invalid-feedback">{errors.lastName}</div>
-                    )}
-                  </div>
+                  <Row>
+                    <Col xs={6} md={4}>
+                      <div className="form-group">
+                        <input
+                          type="text"
+                          className={classnames("form-control", {
+                            "is-invalid": errors.firstName,
+                          })}
+                          placeholder="Име"
+                          name="firstName"
+                          value={this.state.firstName}
+                          onChange={this.onChange}
+                        />
+                        {errors.firstName && (
+                          <div className="invalid-feedback">
+                            {errors.firstName}
+                          </div>
+                        )}
+                      </div>
+                    </Col>
+                    <Col xs={6} md={4}>
+                      <div className="form-group">
+                        <input
+                          type="text"
+                          className={classnames("form-control", {
+                            "is-invalid": errors.lastName,
+                          })}
+                          placeholder="Презиме"
+                          name="lastName"
+                          value={this.state.lastName}
+                          onChange={this.onChange}
+                        />
+                        {errors.lastName && (
+                          <div className="invalid-feedback">
+                            {errors.lastName}
+                          </div>
+                        )}
+                      </div>
+                    </Col>
+                    <Col xs={6} md={4}>
+                      <div className="form-group">
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="Име оца"
+                          name="middleName"
+                          value={this.state.middleName}
+                          onChange={this.onChange}
+                        />
+                      </div>
+                    </Col>
+                  </Row>
 
-                  <div className="form-group">
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Име оца"
-                      name="middleName"
-                      value={this.state.middleName}
-                      onChange={this.onChange}
-                    />
-                  </div>
+                  <Row>
+                    <Col xs={6} md={4}>
+                      <div className="form-group">
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="Занимање"
+                          name="profession"
+                          value={this.state.profession}
+                          onChange={this.onChange}
+                        />
+                      </div>
+                    </Col>
+                    <Col xs={6} md={4}>
+                      <div className="form-group">
+                        <input
+                          type="text"
+                          className={classnames("form-control", {
+                            "is-invalid": errors.email,
+                          })}
+                          placeholder="E-мејл"
+                          name="email"
+                          value={this.state.email}
+                          onChange={this.onChange}
+                        />
+                        {errors.email && (
+                          <div className="invalid-feedback">{errors.email}</div>
+                        )}
+                      </div>
+                    </Col>
+                    <Col xs={6} md={4}>
+                      <div className="form-group">
+                        <input
+                          type="text"
+                          className={classnames("form-control", {
+                            "is-invalid": errors.city,
+                          })}
+                          placeholder="Место пребивалишта"
+                          name="city"
+                          value={this.state.city}
+                          onChange={this.onChange}
+                        />
+                        {errors.city && (
+                          <div className="invalid-feedback">{errors.city}</div>
+                        )}
+                      </div>
+                    </Col>
+                  </Row>
 
-                  <div className="form-group">
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Занимање"
-                      name="profession"
-                      value={this.state.profession}
-                      onChange={this.onChange}
-                    />
-                  </div>
+                  <Row>
+                    <Col xs={6} md={4}>
+                      <div className="form-group">
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="Улица"
+                          name="street"
+                          value={this.state.street}
+                          onChange={this.onChange}
+                        />
+                      </div>
+                    </Col>
+                    <Col xs={6} md={4}>
+                      <div className="form-group">
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="Број улице"
+                          name="streetNumber"
+                          value={this.state.streetNumber}
+                          onChange={this.onChange}
+                        />
+                      </div>
+                    </Col>
+                    <Col xs={6} md={4}>
+                      <div className="form-group">
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="Спрат"
+                          name="floor"
+                          value={this.state.floor}
+                          onChange={this.onChange}
+                        />
+                      </div>
+                    </Col>
+                  </Row>
 
-                  <div className="form-group">
-                    <input
-                      type="text"
-                      className={classnames("form-control", {
-                        "is-invalid": errors.email,
-                      })}
-                      placeholder="E-мејл"
-                      name="email"
-                      value={this.state.email}
-                      onChange={this.onChange}
-                    />
-                    {errors.email && (
-                      <div className="invalid-feedback">{errors.email}</div>
-                    )}
-                  </div>
+                  <Row>
+                    <Col xs={12} md={6}>
+                      <div className="form-group">
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="Број стана"
+                          name="apartmanNumber"
+                          value={this.state.apartmanNumber}
+                          onChange={this.onChange}
+                        />
+                      </div>
+                    </Col>
+                    <Col xs={6} md={6}>
+                      <div className="form-group">
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="Поштански број"
+                          name="zipCode"
+                          value={this.state.zipCode}
+                          onChange={this.onChange}
+                        />
+                      </div>
+                    </Col>
+                  </Row>
 
-                  <div className="form-group">
-                    <input
-                      type="text"
-                      className={classnames("form-control", {
-                        "is-invalid": errors.city,
-                      })}
-                      placeholder="Место пребивалишта"
-                      name="city"
-                      value={this.state.city}
-                      onChange={this.onChange}
-                    />
-                    {errors.city && (
-                      <div className="invalid-feedback">{errors.city}</div>
-                    )}
-                  </div>
-
-                  <div className="form-group">
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Улица"
-                      name="street"
-                      value={this.state.street}
-                      onChange={this.onChange}
-                    />
-                  </div>
-
-                  <div className="form-group">
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Број улице"
-                      name="streetNumber"
-                      value={this.state.streetNumber}
-                      onChange={this.onChange}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Спрат"
-                      name="floor"
-                      value={this.state.floor}
-                      onChange={this.onChange}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Број стана"
-                      name="apartmanNumber"
-                      value={this.state.apartmanNumber}
-                      onChange={this.onChange}
-                    />
-                  </div>
-
-                  <div className="form-group">
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Поштански број"
-                      name="zipCode"
-                      value={this.state.zipCode}
-                      onChange={this.onChange}
-                    />
-                  </div>
-                  <button type="submit" className="btn btn-primary float-right">
+                  <button
+                    type="submit"
+                    className="btn btn-primary float-right btn-success"
+                    variant="success"
+                  >
                     <i className="fas fa-check fa-2x" />
                   </button>
                 </form>
@@ -243,13 +281,7 @@ class ModalForUpdatePhysicalEntity extends Component {
           </div>
         </div>
         <br />
-        <Button
-          onClick={() => {
-            this.props.closeModal();
-          }}
-        >
-          Zatvori
-        </Button>
+        <ModalFooter></ModalFooter>
       </Modal>
     );
   }

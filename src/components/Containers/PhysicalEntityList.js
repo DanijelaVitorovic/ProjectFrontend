@@ -21,7 +21,7 @@ class PhysicalEntityList extends Component {
           <div className="col-md-12 m-auto">
             <div className="card text-left mb-3">
               <div className="card-header text-black">
-                <h3>Fizička lica</h3>
+                <h3>Физичка лица</h3>
               </div>
               <div className="card-body">
                 <PhysicalEntityTable
