@@ -1,13 +1,8 @@
+import { Modal, Button } from "react-bootstrap";
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import classnames from "classnames";
-import {
-  updatePhysicalEntity,
-  getPhysicalEntity,
-} from "../../actions/physicalEntityActions";
 
-class UpdatePhysicalEntity extends Component {
+class ModalForAddPhysicalEntity extends Component {
   constructor() {
     super();
     this.state = {
@@ -16,14 +11,12 @@ class UpdatePhysicalEntity extends Component {
       middleName: "",
       profession: "",
       email: "",
-      address: {
-        city: "",
-        street: "",
-        streetNumber: "",
-        floor: "",
-        apartmanNumber: "",
-        zipCode: "",
-      },
+      city: "",
+      street: "",
+      streetNumber: "",
+      floor: "",
+      apartmanNumber: "",
+      zipCode: "",
       errors: {},
     };
   }
@@ -32,30 +25,6 @@ class UpdatePhysicalEntity extends Component {
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
     }
-    const {
-      id,
-      firstName,
-      lastName,
-      middleName,
-      profession,
-      email,
-      address: { city, street, streetNumber, floor, apartmanNumber, zipCode },
-    } = nextProps.physicalEntity;
-
-    this.setState({
-      id,
-      firstName,
-      lastName,
-      middleName,
-      profession,
-      email,
-      address: { city, street, streetNumber, floor, apartmanNumber, zipCode },
-    });
-  }
-
-  componentDidMount() {
-    const { id } = this.props.match.params;
-    this.props.getPhysicalEntity(id, this.props.history);
   }
 
   onChange = (e) => {
@@ -64,34 +33,40 @@ class UpdatePhysicalEntity extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    const updatedPhysicalEntity = {
-      id: this.state.id,
+    const newPhysicalEntity = {
       firstName: this.state.firstName,
       lastName: this.state.lastName,
       middleName: this.state.middleName,
       profession: this.state.profession,
       email: this.state.email,
       address: {
-        city: this.state.address.city,
-        street: this.state.address.street,
-        streetNumber: this.state.address.streetNumber,
-        floor: this.state.address.floor,
-        apartmanNumber: this.state.address.apartmanNumber,
-        zipCode: this.state.address.zipCode,
+        city: this.state.city,
+        street: this.state.street,
+        streetNumber: this.state.streetNumber,
+        floor: this.state.floor,
+        apartmanNumber: this.state.apartmanNumber,
+        zipCode: this.state.zipCode,
       },
     };
-    this.props.updatePhysicalEntity(updatedPhysicalEntity, this.props.history);
+    this.props.handleAdd(newPhysicalEntity);
   };
-
   render() {
     const { errors } = this.state;
     return (
-      <div>
+      <Modal
+        show={this.props.show}
+        onHide={this.props.closeModal}
+        onRequestClose={this.props.closeModal}
+      >
+        <Modal.Header closeButton></Modal.Header>
+
         <div className="register">
           <div className="container">
             <div className="row">
               <div className="col-md-6 m-auto">
-                <h5 className="display-4 text-center">Измена физичког лица</h5>
+                <h5 className="display-4 text-center">
+                  Унос новог физичког лица
+                </h5>
                 <hr />
                 <form onSubmit={this.onSubmit}>
                   <div className="form-group">
@@ -171,7 +146,7 @@ class UpdatePhysicalEntity extends Component {
                       })}
                       placeholder="Место пребивалишта"
                       name="city"
-                      value={this.state.address.city}
+                      value={this.state.city}
                       onChange={this.onChange}
                     />
                     {errors.city && (
@@ -185,7 +160,7 @@ class UpdatePhysicalEntity extends Component {
                       className="form-control"
                       placeholder="Улица"
                       name="street"
-                      value={this.state.address.street}
+                      value={this.state.street}
                       onChange={this.onChange}
                     />
                   </div>
@@ -196,7 +171,7 @@ class UpdatePhysicalEntity extends Component {
                       className="form-control"
                       placeholder="Број улице"
                       name="streetNumber"
-                      value={this.state.address.streetNumber}
+                      value={this.state.streetNumber}
                       onChange={this.onChange}
                     />
                   </div>
@@ -206,7 +181,7 @@ class UpdatePhysicalEntity extends Component {
                       className="form-control"
                       placeholder="Спрат"
                       name="floor"
-                      value={this.state.address.floor}
+                      value={this.state.floor}
                       onChange={this.onChange}
                     />
                   </div>
@@ -216,7 +191,7 @@ class UpdatePhysicalEntity extends Component {
                       className="form-control"
                       placeholder="Број стана"
                       name="apartmanNumber"
-                      value={this.state.address.apartmanNumber}
+                      value={this.state.apartmanNumber}
                       onChange={this.onChange}
                     />
                   </div>
@@ -227,33 +202,30 @@ class UpdatePhysicalEntity extends Component {
                       className="form-control"
                       placeholder="Поштански број"
                       name="zipCode"
-                      value={this.state.address.zipCode}
+                      value={this.state.zipCode}
                       onChange={this.onChange}
                     />
                   </div>
+
                   <button type="submit" className="btn btn-primary float-right">
                     <i className="fas fa-check fa-2x" />
                   </button>
-
-                  <Link to={`/physicalEntityList`}>
-                    <i className="fas fa-arrow-circle-left fa-3x fa-pull-left" />
-                  </Link>
                 </form>
               </div>
             </div>
           </div>
         </div>
-      </div>
+        <br />
+        <Button
+          onClick={() => {
+            this.props.closeModal();
+          }}
+        >
+          Zatvori
+        </Button>
+      </Modal>
     );
   }
 }
 
-const mapStateToProps = (state) => ({
-  physicalEntity: state.physicalEntity.physicalEntity,
-  errors: state.errors,
-});
-
-export default connect(mapStateToProps, {
-  getPhysicalEntity,
-  updatePhysicalEntity,
-})(UpdatePhysicalEntity);
+export default ModalForAddPhysicalEntity;

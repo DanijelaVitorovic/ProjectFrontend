@@ -1,14 +1,12 @@
-import React, { Component } from "react";
-import { createEmployee } from "../../actions/employeeActions";
+import React, { Component, Fragment } from "react";
+import { Modal, Button } from "react-bootstrap";
 import { connect } from "react-redux";
+import { createEmployee } from "../../actions/employeeActions";
 
-class AddEmployee extends Component {
+class ModalForAddEmployee extends Component {
   constructor() {
     super();
-    this.state = {
-      profession: "",
-      manager: "",
-    };
+    this.state = { profession: "", manager: "" };
   }
 
   onChange = (e) => {
@@ -21,12 +19,17 @@ class AddEmployee extends Component {
       profession: this.state.profession,
       manager: this.state.manager,
     };
-    this.props.createEmployee(newEmployee, this.props.history);
+    this.props.handleAdd(newEmployee);
   };
 
   render() {
     return (
-      <div>
+      <Modal
+        show={this.props.show}
+        onHide={this.props.closeModal}
+        onRequestClose={this.props.closeModal}
+      >
+        <Modal.Header closeButton></Modal.Header>
         <div className="register">
           <div className="container">
             <div className="row">
@@ -69,9 +72,17 @@ class AddEmployee extends Component {
             </div>
           </div>
         </div>
-      </div>
+        <br />
+        <Button
+          onClick={() => {
+            this.props.closeModal();
+          }}
+        >
+          Zatvori
+        </Button>
+      </Modal>
     );
   }
 }
 
-export default connect(null, { createEmployee })(AddEmployee);
+export default ModalForAddEmployee;

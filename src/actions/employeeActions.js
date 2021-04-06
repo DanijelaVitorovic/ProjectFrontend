@@ -4,15 +4,17 @@ import {
   GET_EMPLOYEE,
   GET_EMPLOYEES,
   DELETE_EMPLOYEE,
+  ADD_EMPLOYEE,
+  UPDATE_EMPLOYEE,
 } from "./types";
 
-export const createEmployee = (employee, history) => async (dispatch) => {
+export const createEmployee = (employee) => async (dispatch) => {
   try {
-    await axios.post("/api/employee/create", employee);
-    history.push("/employeeList");
-    dispatch({
-      type: GET_ERRORS,
-      payload: {},
+    await axios.post("/api/employee/create", employee).then((response) => {
+      dispatch({
+        type: ADD_EMPLOYEE,
+        payload: response.data,
+      });
     });
   } catch (err) {
     dispatch({
@@ -22,13 +24,13 @@ export const createEmployee = (employee, history) => async (dispatch) => {
   }
 };
 
-export const updateEmployee = (employee, history) => async (dispatch) => {
+export const updateEmployee = (employee) => async (dispatch) => {
   try {
-    await axios.post("/api/employee/update", employee);
-    history.push("/employeeList");
-    dispatch({
-      type: GET_ERRORS,
-      payload: {},
+    await axios.post("/api/employee/update", employee).then((response) => {
+      dispatch({
+        type: UPDATE_EMPLOYEE,
+        payload: response.data,
+      });
     });
   } catch (err) {
     dispatch({
@@ -46,16 +48,14 @@ export const getEmployees = () => async (dispatch) => {
   });
 };
 
-export const getEmployee = (id, history) => async (dispatch) => {
+export const getEmployee = (id) => async (dispatch) => {
   try {
     const res = await axios.get(`/api/employee/find/${id}`);
     dispatch({
       type: GET_EMPLOYEE,
       payload: res.data,
     });
-  } catch (e) {
-    history.push("/userList");
-  }
+  } catch (e) {}
 };
 
 export const deleteEmployee = (id) => async (dispatch) => {

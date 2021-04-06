@@ -19,10 +19,10 @@ class MenuBarUsers extends Component {
               Korisnici
             </a>
             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-              <Link className="dropdown-item" to="/addUser">
+              <Link className="dropdown-item" to="/userList">
                 Prikaz korisnika
               </Link>
-              <Link className="dropdown-item" to="/physicalEntityList">
+              <Link className="dropdown-item" to="/addUser">
                 Kreiraj novog korisnika
               </Link>
             </div>

@@ -1,26 +1,68 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import PhysicalEntityRow from "./PhysicalEntityRow";
 import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
+import ModalForAddPhysicalEntity from "./ModalForAddPhysicalEntity";
 
 class PhysicalEntityTable extends Component {
+  constructor() {
+    super();
+    this.state = {
+      show: false,
+    };
+  }
+
+  showModal = () => {
+    this.setState({ show: true });
+  };
+
+  closeModal = () => {
+    this.setState({ show: false });
+  };
+
+  onChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  handleAdd = (newPhysicalEntity) => {
+    this.props.createPhysicalEntity(newPhysicalEntity);
+    this.closeModal();
+  };
+
   render() {
     const physicalEntities = this.props.physicalEntities.map(
       (physicalEntity) => (
         <PhysicalEntityRow
           key={physicalEntity.id}
           physicalEntity={physicalEntity}
+          updatePhysicalEntity={this.props.updatePhysicalEntity}
+          getPhysicalEntity={this.props.getPhysicalEntity}
+          physicalEntityForUpdate={this.props.physicalEntityForUpdate}
+          deletePhysicalEntity={this.props.deletePhysicalEntity}
         />
       )
     );
-    return (
+
+    const table = (
       <div className="table-responsive tableHeight">
         <table
           id="example"
           className="table table-sm table-striped table-bordered "
         >
           <thead>
+            <Button
+              class="btn btn-default"
+              type="submit"
+              variant="success"
+              onClick={() => {
+                this.showModal();
+              }}
+            >
+              Napravi novo fizicko lice
+            </Button>
+            <br />
+            <br />
             <tr>
-              <th>Идентификациони број</th>
               <th>Име</th>
               <th>Презиме</th>
               <th>Име оца</th>
@@ -32,11 +74,24 @@ class PhysicalEntityTable extends Component {
             </tr>
           </thead>
           <tbody>{physicalEntities}</tbody>
-          <Link to={`/physicalEntityList`}>
+          <Link to={`/dashboard`}>
             <i className="fas fa-arrow-circle-left fa-3x fa-pull-left" />
           </Link>
         </table>
       </div>
+    );
+
+    return (
+      <Fragment>
+        {table}
+        {this.state.show && (
+          <ModalForAddPhysicalEntity
+            show={this.state.show}
+            closeModal={this.closeModal}
+            handleAdd={this.handleAdd}
+          />
+        )}
+      </Fragment>
     );
   }
 }
