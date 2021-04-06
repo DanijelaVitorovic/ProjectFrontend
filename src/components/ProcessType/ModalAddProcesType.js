@@ -8,53 +8,50 @@ import AddProcessType from "../ProcessType/AddProcessType";
 import ProcessTypeList from "../Containers/ProcessTypeList";
 
 class ModalAddProcessType extends Component {
-    constructor() {
-        super();
-    
-        this.state = {
-            show:false
-        };
-      }
-      handleModal(stanje) {
-        this.setState({show: this.state.show})
-      }
+  constructor() {
+    super();
 
-      handleClose = () => {
-        this.props.handleClose();
-      }
-    
-    
-    render() {
-        const show = this.props.show;
-      
-    console.log("---------" + show);
-     return (
-        <div>
-      <div className="container">
-        <div className="row">
-          <div className="col-md-12 m-auto">
-        <Modal show={this.props.show} onHide={() => {this.handleModal()}}>
-        <Modal.Header closeButton>
-          <Modal.Title>Create new Process Type</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <AddProcessType />
-        </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={this.props.handleClose}>
-          Close</Button>
-        </Modal.Footer>
-      </Modal>
+    this.state = {
+      show: false,
+    };
+  }
+  handleModal(stanje) {
+    this.setState({ show: this.state.show });
+  }
+
+  handleClose = () => {
+    this.props.handleClose();
+  };
+
+  render() {
+    const show = this.props.show;
+    return (
+      <div>
+        <div className="container">
+          <div className="row">
+            <div className="col-md-12 m-auto">
+              <Modal
+                show={this.props.show}
+                onHide={() => {
+                  this.handleModal();
+                }}
+              >
+                <Modal.Header closeButton>
+                  <Modal.Title>Create new Process Type</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <AddProcessType />
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button onClick={this.props.handleClose}>Close</Button>
+                </Modal.Footer>
+              </Modal>
+            </div>
           </div>
         </div>
       </div>
-      </div>
     );
-    
   }
 }
 
-
-export default (
-  ModalAddProcessType
-);
+export default ModalAddProcessType;

@@ -1,36 +1,21 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import ProcessTypeTable from "../ProcessType/ProcessTypeTable";
-import { getProcessTypes } from "../../actions/processTypeActions";
-import { Link } from "react-router-dom";
-import { Button, Modal } from "react-bootstrap";
-import AddProcessType from "../ProcessType/AddProcessType";
-import ModalAddProcesType from "../ProcessType/ModalAddProcesType";
+import {
+  getProcessTypes,
+  getProcessType,
+  createProcessType,
+  updateProcessType,
+  deleteProcessType
+} from "../../actions/processTypeActions";
 
 class ProcessTypeList extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      show: false,
-    };
-  }
-
   componentDidMount() {
     this.props.getProcessTypes();
   }
 
-  handleModal() {
-    this.setState({ show: !this.state.show });
-  }
-  
-  handleClose = () => {
-    this.setState({show:false});
-  }
-
   render() {
-    const { processTypes } = this.props.processType;
-    const {show} = this.state.show;
+    const { processTypes, processType } = this.props.processType;
 
     const listContent = (
       <div className="container">
@@ -38,22 +23,16 @@ class ProcessTypeList extends Component {
           <div className="col-md-12 m-auto">
             <div className="card text-left mb-3">
               <div className="card-body">
+                <h3>Process Type</h3>
 
-              <h3>Process Type</h3>
-
-              <Link 
-              onClick={() => {
-                this.handleModal();
-              }}
-            >
-              <i className="fas fa-plus-circle fa-3x fa-pull-right"></i>
-            </Link>
-
-            <ModalAddProcesType  show={this.state.show}
-            handleClose={this.handleClose}/>
-         
-
-                <ProcessTypeTable processTypes={processTypes} />
+                <ProcessTypeTable
+                  processTypes={processTypes}
+                  processTypeForUpdate={processType}
+                  createProcessType={this.props.createProcessType}
+                  getProcessType={this.props.getProcessType}
+                  updateProcessType={this.props.updateProcessType}
+                  deleteProcessType = {this.props.deleteProcessType}
+                />
 
                 <div id="msg" />
               </div>
@@ -62,20 +41,20 @@ class ProcessTypeList extends Component {
         </div>
       </div>
     );
-    
-    console.log(this.state.show);
-    return (
-      <div>
-      {listContent}
-      
-      </div>
 
-    )
+    return <div>{listContent}</div>;
   }
 }
 
 const mapStateToProps = (state) => ({
-  processType: state.processType
+  processType: state.processType,
+  errors: state.errors,
 });
 
-export default connect(mapStateToProps, { getProcessTypes })(ProcessTypeList);
+export default connect(mapStateToProps, {
+  createProcessType,
+  getProcessType,
+  updateProcessType,
+  getProcessTypes,
+  deleteProcessType
+})(ProcessTypeList);
