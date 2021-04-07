@@ -15,17 +15,24 @@ class EmployeeList extends Component {
   }
 
   render() {
-    const { employees } = this.props.employee;
+    const { employees, employee } = this.props.employee;
     return (
       <div className="container">
         <div className="row">
           <div className="col-md-12 m-auto">
             <div className="card text-left mb-3">
               <div className="card-header text-black">
-                <h3>Zaposleno lice</h3>
+                <h3>Запослена лица</h3>
               </div>
               <div className="card-body">
-                <EmployeeTable employees={employees} />
+                <EmployeeTable
+                  employees={employees}
+                  createEmployee={this.props.createEmployee}
+                  updateEmployee={this.props.updateEmployee}
+                  getEmployee={this.props.getEmployee}
+                  employeeForUpdate={employee}
+                  deleteEmployee={this.props.deleteEmployee}
+                />
                 <div id="msg" />
               </div>
             </div>

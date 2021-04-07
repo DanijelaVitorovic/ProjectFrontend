@@ -2,6 +2,8 @@ import {
   GET_PHYSICAL_ENTITY,
   GET_PHYSICAL_ENTITIES,
   DELETE_PHYSICAL_ENTITY,
+  UPDATE_PHYSICAL_ENTITY,
+  ADD_PHYSICAL_ENTITY,
 } from "../actions/types";
 
 const initialState = {
@@ -25,6 +27,18 @@ export default function (state = initialState, action) {
       return {
         ...state,
         physicalEntities: action.payload,
+      };
+    case ADD_PHYSICAL_ENTITY:
+      return {
+        ...state,
+        physicalEntities: state.physicalEntities.concat(action.payload),
+      };
+    case UPDATE_PHYSICAL_ENTITY:
+      return {
+        ...state,
+        physicalEntities: state.physicalEntities
+          .filter((physicalEntity) => physicalEntity.id != action.payload.id)
+          .concat(action.payload),
       };
     default:
       return state;

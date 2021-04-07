@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import { createEmployee } from "../../actions/employeeActions";
-import { connect } from "react-redux";
+import { Modal, ModalFooter } from "react-bootstrap";
 
-class AddEmployee extends Component {
+class ModalForUpdateEmployee extends Component {
   constructor() {
     super();
     this.state = {
@@ -11,41 +10,66 @@ class AddEmployee extends Component {
     };
   }
 
+  componentDidMount() {
+    this.props.getEmployee(this.props.id);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { id, profession, manager } = nextProps.employeeForUpdate;
+
+    this.setState({
+      id,
+      profession,
+      manager,
+    });
+  }
+
   onChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
   onSubmit = (e) => {
     e.preventDefault();
-    const newEmployee = {
+    const updatedEmployee = {
+      id: this.state.id,
       profession: this.state.profession,
       manager: this.state.manager,
     };
-    this.props.createEmployee(newEmployee, this.props.history);
+    this.props.handleUpdate(updatedEmployee);
   };
 
   render() {
     return (
-      <div>
+      <Modal
+        show={this.props.show}
+        onHide={this.props.closeModal}
+        onRequestClose={this.props.closeModal}
+        size="lg"
+        centered
+        animation
+      >
+        <Modal.Header closeButton></Modal.Header>
+
         <div className="register">
           <div className="container">
             <div className="row">
-              <div className="col-md-6 m-auto">
-                <h5 className="display-4 text-center">
-                  Unos novog zaposlenog lica
-                </h5>
+              <div className="col-md-8 m-auto">
+                <h3 className="display-5 text-center">
+                  Измена запосленог лица
+                </h3>
                 <hr />
                 <form onSubmit={this.onSubmit}>
                   <div className="form-group">
                     <input
                       type="text"
                       className="form-control"
-                      placeholder="Unesite profesiju"
+                      placeholder="Promenite profesiju"
                       name="profession"
                       value={this.state.profession}
                       onChange={this.onChange}
                     />
                   </div>
+
                   <div className="form-group">
                     <select
                       className="form-control"
@@ -55,13 +79,17 @@ class AddEmployee extends Component {
                       onChange={this.onChange}
                     >
                       <option value="" selected disabled>
-                        Da li ste menadzer?
+                        Промените статус менаџер
                       </option>
-                      <option value="true">Da</option>
-                      <option value="false">Ne</option>
+                      <option value="true">Да</option>
+                      <option value="false">Не</option>
                     </select>
                   </div>
-                  <button type="submit" className="btn btn-primary float-right">
+
+                  <button
+                    type="submit"
+                    className="btn btn-primary float-right btn-success"
+                  >
                     <i className="fas fa-check fa-2x" />
                   </button>
                 </form>
@@ -69,9 +97,10 @@ class AddEmployee extends Component {
             </div>
           </div>
         </div>
-      </div>
+        <br />
+        <ModalFooter></ModalFooter>
+      </Modal>
     );
   }
 }
-
-export default connect(null, { createEmployee })(AddEmployee);
+export default ModalForUpdateEmployee;
