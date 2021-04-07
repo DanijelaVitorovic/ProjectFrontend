@@ -16,12 +16,19 @@ import SecuredRoute from "./securityUtils/secureRoute";
 import AddUser from "./components/User/AddUser";
 import UserList from "./components/User/UserList";
 import UpdateUser from "./components/User/UpdateUser";
+import LegalEntityList from "./components/Containers/LegalEntityList";
+import AddLegalEntity from "./components/LegalEntity/AddLegalEntity";
+import UpdateLegalEntity from "./components/LegalEntity/UpdateLegalEntity";
+import ProcessTypeList from "./components/Containers/ProcessTypeList";
+import AddProcessType from "./components/ProcessType/AddProcessType";
+import UpdateProcessType from "./components/ProcessType/UpdateProcessType";
 import EmployeeList from "./components/Containers/EmployeeList";
 import UpdateEmployee from "./components/Employee/UpdateEmployee";
 import AddEmployee from "./components/Employee/AddEmployee";
 import PhysicalEntityList from "./components/Containers/PhysicalEntityList";
 import AddPhysicalEntity from "./components/PhysicalEntity/AddPhysicalEntity";
 import UpdatePhysicalEntity from "./components/PhysicalEntity/UpdatePhysicalEntity";
+import ModalAddProcesType from "./components/ProcessType/ModalAddProcesType";
 
 var jwtDecode = require("jwt-decode");
 
@@ -56,7 +63,13 @@ class App extends Component {
               <SecuredRoute exact path="/dashboard" component={Dashboard} />
               <Route exact path="/addUser" component={AddUser} />
               <Route exact path="/userList" component={UserList} />
+              <Route exact path="/addLegalEntity" component={AddLegalEntity} />
+              <Route exact path="/legalEntityList" component={LegalEntityList} />
+              <Route exact path="/processTypeList" component={ProcessTypeList} />
+              <Route exact path="/addProcessType" component={AddProcessType} />
               <Route exact path="/updateUser/:id" component={UpdateUser} />
+              <Route exact path="/updateLegalEntity/:id" component={UpdateLegalEntity} />
+              <Route exact path="/updateProcessType/:id" component={UpdateProcessType} />
               <Route exact path="/employeeList" component={EmployeeList} />
               <Route
                 exact
