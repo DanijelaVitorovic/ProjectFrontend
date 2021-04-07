@@ -59,6 +59,7 @@ class ProcessTypeTable extends Component {
           >
             Add new Process Type
           </Button>
+          <p></p>
           <tr className=" card-body">
             <th scope="col">#</th>
             <th scope="col">Type</th>

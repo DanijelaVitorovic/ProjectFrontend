@@ -43,7 +43,7 @@ class ProcessTypeRow extends Component {
         <td>{this.props.processType.id}</td>
         <td>{this.props.processType.type}</td>
         <td>{this.props.processType.description}</td>
-        <td className="text-center">
+        <td className="text-left">
           <Button
             variant="link"
             onClick={() => {
@@ -54,7 +54,7 @@ class ProcessTypeRow extends Component {
           </Button>
         </td>
 
-        <td className="text-center">
+        <td className="text-centre">
           <Link
             to={`/processTypeList`}
             id="deleteEntity"

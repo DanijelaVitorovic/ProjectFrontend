@@ -41,14 +41,18 @@ class ModalForAddProcessType extends Component {
     if (!this.props.show) {
       return <Redirect to="/processTypeList" />;
     }
+    
     return (
+      
       <Modal
         show={this.props.show}
         onHide={this.props.closeModal}
         onRequest={this.props.closeModal}
         size="lg"
       >
-        <Modal.Header closeButton><h5>Create new Process Type</h5> </Modal.Header>
+        <Modal.Header closeButton>
+          <h5>Create new Process Type</h5>{" "}
+        </Modal.Header>
         <div className="register">
           <div className="container">
             <div className="row">
@@ -88,24 +92,21 @@ class ModalForAddProcessType extends Component {
                       </div>
                     )}
                   </div>
-                  <Button variant = 'success'
-                    to="/processTypeList"
+                  <div className = "text-center">
+                  <Button
+                    variant="success"
                     type="submit"
+                    className="col-md-2 m-auto float-right"
                   >
-                  <i class="fas fa-check fa-2x"></i>
+                    <i class="fas fa-check fa-2x"></i>
                   </Button>
+                  </div>
                 </form>
               </div>
             </div>
           </div>
         </div>
         <br></br>
-        <Button
-          onClick={() => {
-            this.props.closeModal();
-          }}
-        > Close
-        </Button>
       </Modal>
     );
   }
