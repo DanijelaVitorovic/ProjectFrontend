@@ -85,7 +85,6 @@ class UpdatePhysicalEntity extends Component {
 
   render() {
     const { errors } = this.state;
-    console.log(this.state);
     return (
       <div>
         <div className="register">

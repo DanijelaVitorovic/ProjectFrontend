@@ -1,14 +1,10 @@
-import React, { Component } from "react";
-import { createEmployee } from "../../actions/employeeActions";
-import { connect } from "react-redux";
+import React, { Component, Fragment } from "react";
+import { Modal, ModalFooter } from "react-bootstrap";
 
-class AddEmployee extends Component {
+class ModalForAddEmployee extends Component {
   constructor() {
     super();
-    this.state = {
-      profession: "",
-      manager: "",
-    };
+    this.state = { profession: "", manager: "" };
   }
 
   onChange = (e) => {
@@ -21,19 +17,27 @@ class AddEmployee extends Component {
       profession: this.state.profession,
       manager: this.state.manager,
     };
-    this.props.createEmployee(newEmployee, this.props.history);
+    this.props.handleAdd(newEmployee);
   };
 
   render() {
     return (
-      <div>
+      <Modal
+        show={this.props.show}
+        onHide={this.props.closeModal}
+        onRequestClose={this.props.closeModal}
+        size="lg"
+        centered
+        animation
+      >
+        <Modal.Header closeButton></Modal.Header>
         <div className="register">
           <div className="container">
             <div className="row">
-              <div className="col-md-6 m-auto">
-                <h5 className="display-4 text-center">
-                  Unos novog zaposlenog lica
-                </h5>
+              <div className="col-md-8 m-auto">
+                <h3 className="display-5 text-center">
+                  Унос новог запосленог лица
+                </h3>
                 <hr />
                 <form onSubmit={this.onSubmit}>
                   <div className="form-group">
@@ -55,13 +59,16 @@ class AddEmployee extends Component {
                       onChange={this.onChange}
                     >
                       <option value="" selected disabled>
-                        Da li ste menadzer?
+                        Да ли сте менаџер?
                       </option>
-                      <option value="true">Da</option>
-                      <option value="false">Ne</option>
+                      <option value="true">Да</option>
+                      <option value="false">Не</option>
                     </select>
                   </div>
-                  <button type="submit" className="btn btn-primary float-right">
+                  <button
+                    type="submit"
+                    className="btn btn-primary float-right btn-success"
+                  >
                     <i className="fas fa-check fa-2x" />
                   </button>
                 </form>
@@ -69,9 +76,11 @@ class AddEmployee extends Component {
             </div>
           </div>
         </div>
-      </div>
+        <br />
+        <ModalFooter></ModalFooter>
+      </Modal>
     );
   }
 }
 
-export default connect(null, { createEmployee })(AddEmployee);
+export default ModalForAddEmployee;

@@ -16,14 +16,14 @@ class MenuBarUsers extends Component {
               aria-haspopup="true"
               aria-expanded="false"
             >
-              Korisnici
+              Корисници
             </a>
             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-              <Link className="dropdown-item" to="/addUser">
-                Prikaz korisnika
+              <Link className="dropdown-item" to="/userList">
+                Приказ корисника
               </Link>
-              <Link className="dropdown-item" to="/physicalEntityList">
-                Kreiraj novog korisnika
+              <Link className="dropdown-item" to="/addUser">
+                Креирај новог корисника
               </Link>
             </div>
           </li>
@@ -38,14 +38,11 @@ class MenuBarUsers extends Component {
               aria-haspopup="true"
               aria-expanded="false"
             >
-              Fizička lica
+              Физичка лица
             </a>
             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
               <Link className="dropdown-item" to="/physicalEntityList">
-                Prikaz fizičkih lica
-              </Link>
-              <Link className="dropdown-item" to="/addPhysicalEntity">
-                Kreiraj novo fizičko lice
+                Приказ физичких лица
               </Link>
             </div>
           </li>
@@ -59,15 +56,11 @@ class MenuBarUsers extends Component {
               aria-haspopup="true"
               aria-expanded="false"
             >
-              Zaposlena lica
+              Запослена лица
             </a>
             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
               <Link className="dropdown-item" to="/employeeList">
-                Prikaz zaposlenih lica
-              </Link>
-              <br />
-              <Link className="dropdown-item" to="/addEmployee">
-                Dodaj novog zaposlenog
+                Приказ запослених лица
               </Link>
             </div>
           </li>

@@ -1,4 +1,10 @@
-import { DELETE_EMPLOYEE, GET_EMPLOYEES, GET_EMPLOYEE } from "../actions/types";
+import {
+  DELETE_EMPLOYEE,
+  GET_EMPLOYEES,
+  GET_EMPLOYEE,
+  ADD_EMPLOYEE,
+  UPDATE_EMPLOYEE,
+} from "../actions/types";
 
 const initialState = {
   employees: [],
@@ -22,6 +28,21 @@ export default function (state = initialState, action) {
         ...state,
         employees: action.payload,
       };
+
+    case ADD_EMPLOYEE:
+      return {
+        ...state,
+        employees: state.employees.concat(action.payload),
+      };
+
+    case UPDATE_EMPLOYEE:
+      return {
+        ...state,
+        employees: state.employees
+          .filter((employee) => employee.id != action.payload.id)
+          .concat(action.payload),
+      };
+
     default:
       return state;
   }
