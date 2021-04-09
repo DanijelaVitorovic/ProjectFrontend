@@ -1,18 +1,15 @@
+import { Modal, Button, Row, Col, ModalFooter } from "react-bootstrap";
 import React, { Component } from "react";
 import classnames from "classnames";
-import { Link } from "react-router-dom";
-import { Modal, Button } from "react-bootstrap";
-import { Statement } from "../../../src/globals";
 
-class AddModalLegalEntity extends Component {
+class ModalForAddOrganizationalUnit extends Component {
   constructor() {
     super();
 
     this.state = {
       name: "",
-      pib: "",
-      email: "",
-      statment: "",
+      code: "",
+      legalEntity: "",
       errors: {},
     };
   }
@@ -30,19 +27,21 @@ class AddModalLegalEntity extends Component {
   onSubmit = (e) => {
     e.preventDefault();
 
-    const newLegalEntity = {
+    const newOrganizaationalUnit = {
       name: this.state.name,
-      pib: this.state.pib,
-      email: this.state.email,
-      statment: this.state.statment,
-      errors: {},
+      code: this.state.code,
+      legalEntity: {
+        id: this.state.legalEntity,
+      },
     };
 
-    this.props.handleAdd(newLegalEntity);
+    this.props.handleAdd(newOrganizaationalUnit);
   };
 
   render() {
     const { errors } = this.state;
+    const legalEntities = this.props.legalEntities;
+    
     return (
       <div>
         <Modal
@@ -51,7 +50,7 @@ class AddModalLegalEntity extends Component {
           onRequest={this.props.closeModal}
         >
           <Modal.Header closeButton>
-            <h4>Unos novog pravnog lica</h4>
+            <h4>Унос нове организационе јединице</h4>
           </Modal.Header>
 
           <div className="register">
@@ -66,7 +65,7 @@ class AddModalLegalEntity extends Component {
                         className={classnames("form-control", {
                           "is-invalid": errors.name,
                         })}
-                        placeholder="Ime"
+                        placeholder="Име"
                         name="name"
                         value={this.state.name}
                         onChange={this.onChange}
@@ -75,64 +74,47 @@ class AddModalLegalEntity extends Component {
                         <div className="invalid-feedback">{errors.name}</div>
                       )}
                     </div>
+
                     <div className="form-group">
                       <input
                         type="text"
                         className={classnames("form-control", {
-                          "is-invalid": errors.pib,
+                          "is-invalid": errors.code,
                         })}
-                        placeholder="Prezime"
-                        name="pib"
-                        value={this.state.pib}
+                        placeholder="Шифра"
+                        name="code"
+                        value={this.state.code}
                         onChange={this.onChange}
                       />
-                      {errors.pib && (
-                        <div className="invalid-feedback">{errors.pib}</div>
-                      )}
-                    </div>
-                    <div className="form-group">
-                      <input
-                        type="text"
-                        className={classnames("form-control", {
-                          "is-invalid": errors.email,
-                        })}
-                        placeholder="E-mail"
-                        name="email"
-                        value={this.state.email}
-                        onChange={this.onChange}
-                      />
-                      {errors.email && (
-                        <div className="invalid-feedback">{errors.email}</div>
+                      {errors.code && (
+                        <div className="invalid-feedback">{errors.code}</div>
                       )}
                     </div>
 
                     <div className="form-group">
                       <select
                         className="form-control form-control-lg"
-                        name="statment"
-                        value={this.state.statment}
+                        legalEntities={legalEntities}
+                        name="legalEntity"
+                        placeholder="Одаберите правно лице"
                         onChange={this.onChange}
                         style={{ fontSize: "1rem" }}
                       >
-                        <option value={1}>Select Priority</option>
-                        <option value={Statement.ACTIVE.value}>
-                          {Statement.ACTIVE.translation}
+                        <option value="" selected disabled>
+                          Одаберите правно лице
                         </option>
-                        <option value={Statement.PASSIVE.value}>
-                          {Statement.PASSIVE.translation}
-                        </option>
+                        {legalEntities.map((legalEntity) => {
+                          return (
+                            <option value={legalEntity.id}>
+                              {legalEntity.name}
+                            </option>
+                          );
+                        })}
                       </select>
-
-                      {errors.statment && (
-                        <div className="invalid-feedback">
-                          {errors.statment}
-                        </div>
-                      )}
                     </div>
 
                     <Button
                       variant="success"
-                      to="/processTypeList"
                       type="submit"
                     >
                       <i class="fas fa-check fa-2x"></i>
@@ -156,4 +138,4 @@ class AddModalLegalEntity extends Component {
   }
 }
 
-export default AddModalLegalEntity;
+export default ModalForAddOrganizationalUnit;

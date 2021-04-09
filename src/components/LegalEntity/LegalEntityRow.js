@@ -9,6 +9,7 @@ import {
 import { connect } from "react-redux";
 import { Button } from "react-bootstrap";
 import ModalForUpdateLegalEntity from "./ModalForUpdateLegalEntity";
+import { Statement } from "../../../src/globals";
 
 class LegalEntityRow extends Component {
   constructor(props) {
@@ -47,6 +48,8 @@ class LegalEntityRow extends Component {
   };
 
   render() {
+    const statement = this.props.legalEntity.statment;
+
     const row = (
       <tr>
         <td>{this.props.legalEntity.id}</td>
@@ -54,7 +57,9 @@ class LegalEntityRow extends Component {
         <td>{this.props.legalEntity.pib}</td>
         <td>{this.props.legalEntity.registrationNumber}</td>
         <td>{this.props.legalEntity.email}</td>
-        <td>{this.props.legalEntity.statment}</td>
+        <td style={{ color: Statement[statement].color }}>
+          {Statement[statement].translation}
+        </td>
         <td className="text-center">
           <Button
             variant="link"
@@ -67,14 +72,14 @@ class LegalEntityRow extends Component {
         </td>
 
         <td className="text-center">
-        <Link
-        to={`/LegalEntityList`}
-        id="deleteEntity"
-        onClick={() => this.onDeleteClick(this.props.legalEntity.id)}
-        >
-        <i className="fas fa-trash-alt fa-2x" />
-      </Link>
-    </td>
+          <Link
+            to={`/LegalEntityList`}
+            id="deleteEntity"
+            onClick={() => this.onDeleteClick(this.props.legalEntity.id)}
+          >
+            <i className="fas fa-trash-alt fa-2x" />
+          </Link>
+        </td>
       </tr>
     );
     return (
