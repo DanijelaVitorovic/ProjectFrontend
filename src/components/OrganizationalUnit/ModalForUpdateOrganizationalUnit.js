@@ -9,7 +9,9 @@ class ModalForUpdateOrganizationalUnit extends Component {
     this.state = {
       name: "",
       code: "",
-      idLE: "",
+      legalEntity:{
+        id:0,
+      },
       errors: {},
     };
   }
@@ -27,19 +29,23 @@ class ModalForUpdateOrganizationalUnit extends Component {
       id,
       name,
       code,
-      legalEntity: {idLE},
+      legalEntity,
     } = nextProps.organizationalUnitForUpdate;
 
     this.setState({
       id,
       name,
       code,
-      idLE,
+      legalEntity,
     });
   }
 
   onChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
+  };
+
+  onChangeCombo = (e) => {
+    this.setState({ [e.target.name]: {id: e.target.value }});
   };
 
   onSubmit = (e) => {
@@ -50,7 +56,7 @@ class ModalForUpdateOrganizationalUnit extends Component {
       name: this.state.name,
       code: this.state.code,
       legalEntity: {
-        id: this.state.legalEntity,
+        id: this.state.legalEntity.id,
       }
     };
     console.log(updatedOrganizationalUnit);
@@ -114,8 +120,9 @@ class ModalForUpdateOrganizationalUnit extends Component {
                       legalEntities={legalEntities}
                       name="legalEntity"
                       placeholder="Одаберите правно лице"
-                      onChange={this.onChange}
+                      onChange={this.onChangeCombo}
                       style={{ fontSize: "1rem" }}
+                      value={this.state.legalEntity.id}
                     >
                       <option value="" selected disabled>
                         Одаберите правно лице
