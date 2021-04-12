@@ -50,12 +50,12 @@ export const updateOrganizationalUnit = (organizationalUnit) => async (
 };
 
 export const getOrganizationalUnit = (id) => async (dispatch) => {
-  const res = await axios
+  await axios
     .get(`/api/organizationalUnit/find/${id}`)
     .then((response) => {
       dispatch({
         type: GET_ORGANIZATIONAL_UNIT,
-        payload: res.data,
+        payload: response.data,
       });
     });
 };

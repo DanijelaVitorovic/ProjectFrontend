@@ -1,27 +1,15 @@
 import React, { Component } from "react";
-import styled from "styled-components";
+import style from "./style.css";
 
 class Dashboard extends Component {
   render() {
-    const Title = styled.h1`
-      font-size: 1.5em;
-      text-align: center;
-      color: rgb(114, 91, 115);
-    `;
-
-    const Wrapper = styled.section`
-      padding: 4em;
-      background: rgb(
-        237, 230, 237
-        );
-    `;
     return (
-      <Wrapper>
-        <Title>
+      <div className="wrapper">
+        <div className="title">
           <h1 class="text-center">Добродошли</h1>
           <p class="text-center">ДМС пракса</p>
-        </Title>
-      </Wrapper>
+        </div>
+      </div>
     );
   }
 }

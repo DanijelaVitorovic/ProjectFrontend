@@ -73,7 +73,7 @@ class LegalEntityRow extends Component {
 
         <td className="text-center">
           <Link
-            to={`/LegalEntityList`}
+            to="#"
             id="deleteEntity"
             onClick={() => this.onDeleteClick(this.props.legalEntity.id)}
           >

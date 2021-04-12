@@ -1,0 +1,10 @@
+.title {
+  font-size: 1.5em;
+  text-align: center;
+  color: rgb(114, 91, 115);
+}
+
+.wrapper {
+  padding: 4em;
+  background: rgb(237, 230, 237);
+}

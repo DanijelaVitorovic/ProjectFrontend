@@ -25,7 +25,6 @@ class ModalForUpdateLegalEntity extends Component {
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
     }
-    console.log(this.props.legalEntityForUpdate)
     const {
       id,
       name,

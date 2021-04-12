@@ -28,11 +28,6 @@ class OrganizationalUnitTable extends Component {
   };
 
   render() {
-    const style = {
-      ':hover':  {
-        backgroundColor: 'darkgreen'
-      }
-    }
 
     const organizationalUnits = this.props.organizationalUnits.map(
       (organizationalUnit) => (
@@ -56,7 +51,6 @@ class OrganizationalUnitTable extends Component {
               className="btn btn-default"
               type="submit"
               variant="success"
-              style = {style}
               onClick={() => {
                 this.showModal();
               }}

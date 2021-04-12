@@ -59,7 +59,6 @@ class ModalForUpdateOrganizationalUnit extends Component {
         id: this.state.legalEntity.id,
       }
     };
-    console.log(updatedOrganizationalUnit);
     this.props.handleUpdate(updatedOrganizationalUnit);
   };
 
