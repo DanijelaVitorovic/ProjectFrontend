@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import ModalForUpdateCase from "./ModalForUpdateCase";
 import { Button } from "react-bootstrap";
+import { formatDateFromBackend } from "../../utils";
 
 class CaseRow extends Component {
   constructor() {
@@ -28,7 +29,7 @@ class CaseRow extends Component {
         <td>{this.props.case.owner.profession}</td>
         <td>{this.props.case.processor.profession}</td>
         <td>{this.props.case.refersTo.firstName}</td>
-        <td>{this.props.case.startDate}</td>
+        <td>{formatDateFromBackend(this.props.case.startDate)}</td>
         <td>{this.props.case.caseStatus}</td>
         <td className="text-center">
           <Button
