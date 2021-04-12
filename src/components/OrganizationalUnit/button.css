@@ -1,5 +1,5 @@
 .button {
-  position: absolute;
+  position: center;
   cursor: pointer;
   box-shadow: rgba(255, 255, 255) 0px 3px 15px;
   border-width: initial;
