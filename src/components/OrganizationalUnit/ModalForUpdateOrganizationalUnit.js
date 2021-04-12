@@ -71,6 +71,7 @@ class ModalForUpdateOrganizationalUnit extends Component {
         show={this.props.show}
         onHide={this.props.closeModal}
         onRequest={this.props.closeModal}
+        size= "lg"
       >
         <Modal.Header closeButton>
           <h4>Измени организациону јединицу</h4>
@@ -146,13 +147,6 @@ class ModalForUpdateOrganizationalUnit extends Component {
           </div>
         </div>
         <br></br>
-        <Button
-          onClick={() => {
-            this.closeButton();
-          }}
-        >
-          Close
-        </Button>
       </Modal>
     );
   }
