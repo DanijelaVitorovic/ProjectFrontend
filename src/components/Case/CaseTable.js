@@ -47,7 +47,7 @@ class CaseTable extends Component {
             <Button
               class="btn btn-default"
               type="submit"
-              variant="success"
+              variant="info"
               onClick={() => {
                 this.showModal();
               }}

@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from "react";
 import ModalForUpdateCase from "./ModalForUpdateCase";
 import { Button } from "react-bootstrap";
-import * as moment from "moment";
 
 class CaseRow extends Component {
   constructor() {
