@@ -6,6 +6,7 @@ import { logout } from "../../actions/securityActions";
 import authorizationService from "../../securityUtils/authorizationService";
 import MenuBarUsers from "../MenuBar/MenuBarUsers";
 import MenuBarUserNotAuthenticated from "../MenuBar/MenuBarUserNotAuthenticated";
+import { Navbar } from "react-bootstrap";
 
 class Header extends Component {
   logout() {
@@ -54,9 +55,11 @@ class Header extends Component {
     return (
       <div>
         <nav className="navbar navbar-expand-lg navbar-dark mb-4">
+          <Navbar.Toggle />
           <Link className="navbar-brand" to="/">
             APP
           </Link>
+
           <button
             className="navbar-toggler"
             type="button"
