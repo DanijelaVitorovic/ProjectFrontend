@@ -3,6 +3,7 @@ import { Button } from "react-bootstrap";
 import OrganizationalUnitRow from "./OrganizationalUnitRow";
 import { Link } from "react-router-dom";
 import ModalForAddOrganizationalUnit from "./ModalForAddOrganizationalUnit";
+import style from "styled-components";
 
 class OrganizationalUnitTable extends Component {
   constructor() {
@@ -27,6 +28,11 @@ class OrganizationalUnitTable extends Component {
   };
 
   render() {
+    const style = {
+      ':hover':  {
+        backgroundColor: 'darkgreen'
+      }
+    }
 
     const organizationalUnits = this.props.organizationalUnits.map(
       (organizationalUnit) => (
@@ -51,11 +57,12 @@ class OrganizationalUnitTable extends Component {
               className="btn btn-default"
               type="submit"
               variant="success"
+              style = {style}
               onClick={() => {
                 this.showModal();
               }}
             >
-              Направи нову организациону јединицу
+              Направи нову организациону јединицу 
             </Button>
             <p></p>
             <tr className=" card-body">
@@ -63,11 +70,6 @@ class OrganizationalUnitTable extends Component {
               <th scope="col">Име јединице</th>
               <th scope="col">Шифра</th>
               <th scope="col">Име правног лица</th>
-              <th scope="col">ПИБ</th>
-              <th scope="col">Имејл</th>
-              <th scope="col" className="text-center">
-                Стање
-              </th>
               <th scope="col" className="text-center">
                 Измена
               </th>

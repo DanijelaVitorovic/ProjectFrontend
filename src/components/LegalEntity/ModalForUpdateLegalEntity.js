@@ -25,7 +25,7 @@ class ModalForUpdateLegalEntity extends Component {
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
     }
-
+    console.log(this.props.legalEntityForUpdate)
     const {
       id,
       name,
@@ -165,11 +165,7 @@ class ModalForUpdateLegalEntity extends Component {
             </div>
           </div>
 <br></br>
-          <Button
-            onClick={() => {
-              this.props.closeModal();
-            }}
-          >Close</Button>
+         
         </Modal>
       </div>
     );

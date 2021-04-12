@@ -143,13 +143,7 @@ class AddModalLegalEntity extends Component {
             </div>
           </div>
           <br></br>
-          <Button
-            onClick={() => {
-              this.closeButton();
-            }}
-          >
-            Close
-          </Button>
+         
         </Modal>
       </div>
     );
