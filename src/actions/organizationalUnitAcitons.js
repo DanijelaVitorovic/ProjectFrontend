@@ -29,7 +29,9 @@ export const createNewOrganizationalUnit = (organizationalUnit) => async (
   }
 };
 
-export const updateOrganizationalUnit = (organizationalUnit) => async (dispatch) => {
+export const updateOrganizationalUnit = (organizationalUnit) => async (
+  dispatch
+) => {
   try {
     await axios
       .post("/api/organizationalUnit/update", organizationalUnit)
@@ -48,13 +50,14 @@ export const updateOrganizationalUnit = (organizationalUnit) => async (dispatch)
 };
 
 export const getOrganizationalUnit = (id) => async (dispatch) => {
-  try {
-    const res = await axios.get(`/api/organizationalUnit/find/${id}`);
-    dispatch({
-      type: GET_ORGANIZATIONAL_UNIT,
-      payload: res.data,
+  const res = await axios
+    .get(`/api/organizationalUnit/find/${id}`)
+    .then((response) => {
+      dispatch({
+        type: GET_ORGANIZATIONAL_UNIT,
+        payload: res.data,
+      });
     });
-  } catch (exception) {}
 };
 
 export const getOrganizationalUnits = () => async (dispatch) => {
@@ -71,13 +74,13 @@ export const deleteOrganizationalUnit = (id) => async (dispatch) => {
       "Da li si siguran da zelis da obrises organizacionu jedinicu?"
     )
   ) {
-    try {
-      await axios.delete(`/api/organizationalUnit/delete/${id}`, id);
-      dispatch({
-        type: DELETE_ORGANIZATIONAL_UNIT,
-        payload: id,
+    await axios
+      .delete(`/api/organizationalUnit/delete/${id}`)
+      .then((response) => {
+        dispatch({
+          type: DELETE_ORGANIZATIONAL_UNIT,
+          payload: id,
+        });
       });
-    } catch (exception) {
-    }
   }
 };
