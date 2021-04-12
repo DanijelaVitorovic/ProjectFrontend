@@ -29,6 +29,7 @@ import PhysicalEntityList from "./components/Containers/PhysicalEntityList";
 import AddPhysicalEntity from "./components/PhysicalEntity/AddPhysicalEntity";
 import UpdatePhysicalEntity from "./components/PhysicalEntity/UpdatePhysicalEntity";
 import ModalAddProcesType from "./components/ProcessType/ModalAddProcesType";
+import OrganizationalUnitList from "./components/Containers/OrganizationalUnitList";
 import CaseList from "./components/Containers/CaseList";
 
 var jwtDecode = require("jwt-decode");
@@ -64,6 +65,7 @@ class App extends Component {
               <SecuredRoute exact path="/dashboard" component={Dashboard} />
               <Route exact path="/addUser" component={AddUser} />
               <Route exact path="/userList" component={UserList} />
+              <Route exact path="/organizationalUnitList" component={OrganizationalUnitList} />
               <Route exact path="/addLegalEntity" component={AddLegalEntity} />
               <Route
                 exact
