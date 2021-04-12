@@ -17,10 +17,7 @@ class OraganizationalUnitList extends Component {
   }
 
   render() {
-    const {
-      organizationalUnit,
-      organizationalUnits,
-    } = this.props.organizationalUnit;
+    const { organizationalUnits } = this.props.organizationalUnit;
     const { legalEntities } = this.props.legalEntity;
 
     return (
@@ -34,7 +31,6 @@ class OraganizationalUnitList extends Component {
               <div className="card-body">
                 <OrganizationalUnitTable
                   organizationalUnits={organizationalUnits}
-                  organizationalUnitForUpdate={organizationalUnit}
                   createNewOrganizationalUnit={
                     this.props.createNewOrganizationalUnit
                   }

@@ -86,7 +86,7 @@ export default class OrganizationalUnitRow extends Component {
           <ModalForUpdateOrganizationalUnit
             show={this.state.show}
             id={this.props.organizationalUnit.id}
-            organizationalUnitForUpdate={this.props.organizationalUnitForUpdate}
+            organizationalUnitForUpdate={this.props.organizationalUnit}
             closeModal={this.closeModal}
             handleUpdate={this.handleUpdate}
             getOrganizationalUnit={this.props.getOrganizationalUnit}

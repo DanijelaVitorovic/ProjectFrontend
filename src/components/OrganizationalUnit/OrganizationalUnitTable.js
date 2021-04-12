@@ -39,7 +39,6 @@ class OrganizationalUnitTable extends Component {
         <OrganizationalUnitRow
           key={organizationalUnit.id}
           organizationalUnit={organizationalUnit}
-          organizationalUnitForUpdate={this.props.organizationalUnitForUpdate}
           createNewOrganizationalUnit={this.props.createNewOrganizationalUnit}
           getOrganizationalUnit = {this.props.getOrganizationalUnit}
           updateOrganizationalUnit={this.props.updateOrganizationalUnit}
