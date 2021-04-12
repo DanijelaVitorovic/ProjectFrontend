@@ -7,6 +7,7 @@ import processTypesReducer from "./processTypeReducer";
 import employeeReducer from "./employeeReducer";
 import physicalEntityReducer from "./physicalEntityReducer";
 import organizationalUnitReducer from "./organizationalUnitReducer";
+import caseReducer from "./caseReducer";
 
 export default combineReducers({
   errors: errorReducer,
@@ -17,4 +18,5 @@ export default combineReducers({
   employee: employeeReducer,
   physicalEntity: physicalEntityReducer,
   organizationalUnit: organizationalUnitReducer,
+  case: caseReducer,
 });

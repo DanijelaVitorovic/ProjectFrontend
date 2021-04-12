@@ -30,6 +30,7 @@ import AddPhysicalEntity from "./components/PhysicalEntity/AddPhysicalEntity";
 import UpdatePhysicalEntity from "./components/PhysicalEntity/UpdatePhysicalEntity";
 import ModalAddProcesType from "./components/ProcessType/ModalAddProcesType";
 import OrganizationalUnitList from "./components/Containers/OrganizationalUnitList";
+import CaseList from "./components/Containers/CaseList";
 
 var jwtDecode = require("jwt-decode");
 
@@ -66,12 +67,28 @@ class App extends Component {
               <Route exact path="/userList" component={UserList} />
               <Route exact path="/organizationalUnitList" component={OrganizationalUnitList} />
               <Route exact path="/addLegalEntity" component={AddLegalEntity} />
-              <Route exact path="/legalEntityList" component={LegalEntityList} />
-              <Route exact path="/processTypeList" component={ProcessTypeList} />
+              <Route
+                exact
+                path="/legalEntityList"
+                component={LegalEntityList}
+              />
+              <Route
+                exact
+                path="/processTypeList"
+                component={ProcessTypeList}
+              />
               <Route exact path="/addProcessType" component={AddProcessType} />
               <Route exact path="/updateUser/:id" component={UpdateUser} />
-              <Route exact path="/updateLegalEntity/:id" component={UpdateLegalEntity} />
-              <Route exact path="/updateProcessType/:id" component={UpdateProcessType} />
+              <Route
+                exact
+                path="/updateLegalEntity/:id"
+                component={UpdateLegalEntity}
+              />
+              <Route
+                exact
+                path="/updateProcessType/:id"
+                component={UpdateProcessType}
+              />
               <Route exact path="/employeeList" component={EmployeeList} />
               <Route
                 exact
@@ -94,6 +111,7 @@ class App extends Component {
                 path="/updatePhysicalEntity/:id"
                 component={UpdatePhysicalEntity}
               />
+              <Route exact path="/caseList" component={CaseList} />
             </Switch>
           </div>
         </Router>

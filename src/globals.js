@@ -8,5 +8,14 @@ export const Statement = {
     value: "PASSIVE",
     translation: "PASIVAN",
     color: "red",
+  }
+}
+export const CaseType = {
+  ADMINISTRATIVE_PROCEDURE: {
+    translation: "Administrativne procedure",
+  },
+
+  OTHER: {
+    translation: "Ostalo",
   },
 };
