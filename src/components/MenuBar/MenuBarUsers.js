@@ -56,6 +56,22 @@ class MenuBarUsers extends Component {
               <Link className="dropdown-item" to="/organizationalUnitList">
                 Приказ организациних јединица
               </Link>
+            </div>
+          </li>
+
+          <li className="nav-item dropdown">
+            <a
+              className="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdownUsersLink"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Предмети
+            </a>
+            <div className="dropdown-menu" aria-labelledby="navbarDropdown">
               <Link className="dropdown-item" to="/caseList">
                 Приказ предмета
               </Link>

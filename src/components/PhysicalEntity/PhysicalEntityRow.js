@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { Button, Badge } from "react-bootstrap";
 import ModalForUpdatePhysicalEntity from "./ModalForUpdatePhysicalEntity";
+import { PhysicalEntityRowTranslation } from "../../translations";
 
 class PhysicalEntityRow extends Component {
   onDeleteClick = (id) => {
@@ -33,6 +34,8 @@ class PhysicalEntityRow extends Component {
     const { physicalEntity, getPhysicalEntity, physicalEntityForUpdate } =
       this.props || {};
 
+    const translation = PhysicalEntityRowTranslation || {};
+
     const body = (
       <tr>
         <td>{physicalEntity.firstName}</td>
@@ -50,7 +53,7 @@ class PhysicalEntityRow extends Component {
               this.showModal();
             }}
           >
-            Измени
+            {translation.updateButton}
           </Button>
         </td>
         <td className="text-center">

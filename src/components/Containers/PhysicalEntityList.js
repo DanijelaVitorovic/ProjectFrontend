@@ -8,6 +8,7 @@ import {
   getPhysicalEntity,
 } from "../../actions/physicalEntityActions";
 import PhysicalEntityTable from "../PhysicalEntity/PhysicalEntityTable";
+import { PhysicalEntityListTranslation } from "../../translations";
 
 class PhysicalEntityList extends Component {
   componentDidMount() {
@@ -22,13 +23,16 @@ class PhysicalEntityList extends Component {
       deletePhysicalEntity,
     } = this.props || {};
 
+    const translation = PhysicalEntityListTranslation || {};
+    const { Header } = translation;
+
     return (
       <div className="container">
         <div className="row">
           <div className="col-md-12 m-auto">
             <div className="card text-left mb-3">
               <div className="card-header text-black">
-                <h3>Физичка лица</h3>
+                <h3>{Header.heading}</h3>
               </div>
               <div className="card-body">
                 <PhysicalEntityTable

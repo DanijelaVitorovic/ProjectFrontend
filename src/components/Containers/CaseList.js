@@ -10,6 +10,7 @@ import {
 } from "../../actions/caseActions";
 import { getPhysicalEntities } from "../../actions/physicalEntityActions";
 import { getEmployees } from "../../actions/employeeActions";
+import { CaseListTranslation } from "../../translations";
 
 class CaseList extends Component {
   componentDidMount() {
@@ -26,13 +27,16 @@ class CaseList extends Component {
     const { createCase, updateCase, getCase, getCases, deleteCase } =
       this.props || {};
 
+    const translation = CaseListTranslation || {};
+    const { Header } = translation;
+
     return (
       <div className="container">
         <div className="row">
           <div className="col-md-12 m-auto">
             <div className="card text-left mb-3">
               <div className="card-header text-black">
-                <h3>Предмети</h3>
+                <h3>{Header.heading}</h3>
               </div>
               <div class="col-md-12 m-auto">
                 <div className="card-body"></div>

@@ -3,6 +3,7 @@ import CaseRow from "./CaseRow";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import ModalForAddCase from "./ModalForAddCase";
+import { CaseTableTranslation } from "../../translations";
 
 class CaseTable extends Component {
   constructor() {
@@ -46,6 +47,9 @@ class CaseTable extends Component {
       />
     ));
 
+    const translation = CaseTableTranslation || {};
+    const { HeaderColumns, Buttons } = translation;
+
     const table = (
       <div className="table-responsive tableHeight">
         <table
@@ -61,20 +65,20 @@ class CaseTable extends Component {
                 this.showModal();
               }}
             >
-              Унеси нови предмет
+              {Buttons.addNewCase}
             </Button>
 
             <br />
             <br />
             <tr>
-              <th>Назив</th>
-              <th>Број</th>
-              <th>Власник</th>
-              <th>Обрађивач</th>
-              <th>Односи се на</th>
-              <th>Почетак</th>
-              <th>Статус</th>
-              <th className="text-center">Измена</th>
+              <th>{HeaderColumns.name}</th>
+              <th>{HeaderColumns.number}</th>
+              <th>{HeaderColumns.owner}</th>
+              <th>{HeaderColumns.processor}</th>
+              <th>{HeaderColumns.refersTo}</th>
+              <th>{HeaderColumns.startDate}</th>
+              <th>{HeaderColumns.status}</th>
+              <th className="text-center">{HeaderColumns.update}</th>
             </tr>
           </thead>
           <tbody>{caseListShowedInRow}</tbody>

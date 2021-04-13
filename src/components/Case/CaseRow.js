@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import ModalForUpdateCase from "./ModalForUpdateCase";
 import { Button } from "react-bootstrap";
 import { formatDateFromBackend } from "../../utils";
+import { CaseRowTranslation } from "../../translations";
 
 class CaseRow extends Component {
   constructor() {
@@ -24,6 +25,8 @@ class CaseRow extends Component {
   render() {
     const { getCase, caseForUpdate, physicalEntityList, employeeList } =
       this.props || {};
+
+    const translation = CaseRowTranslation;
 
     const row = (
       <tr>
@@ -49,7 +52,7 @@ class CaseRow extends Component {
               this.showModal();
             }}
           >
-            Измени
+            {translation.updateButton}
           </Button>
         </td>
       </tr>

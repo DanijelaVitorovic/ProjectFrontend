@@ -3,6 +3,7 @@ import PhysicalEntityRow from "./PhysicalEntityRow";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import ModalForAddPhysicalEntity from "./ModalForAddPhysicalEntity";
+import { PhysicalEntityTableTranslation } from "../../translations";
 
 class PhysicalEntityTable extends Component {
   constructor() {
@@ -38,6 +39,9 @@ class PhysicalEntityTable extends Component {
       deletePhysicalEntity,
     } = this.props || {};
 
+    const translation = PhysicalEntityTableTranslation || {};
+    const { HeaderColumns, Buttons } = translation;
+
     const physicalEntityListShowedInRow = physicalEntityList.map(
       (physicalEntity) => (
         <PhysicalEntityRow
@@ -66,19 +70,19 @@ class PhysicalEntityTable extends Component {
                 this.showModal();
               }}
             >
-              Направи ново физичко лице
+              {Buttons.addNewPhysicalEntity}
             </Button>
             <br />
             <br />
             <tr>
-              <th>Име</th>
-              <th>Презиме</th>
-              <th>Име оца</th>
-              <th>Професија</th>
-              <th>Имејл</th>
-              <th className="text-center">Адреса</th>
-              <th className="text-center">Измена</th>
-              <th className="text-center">Брисање</th>
+              <th>{HeaderColumns.name}</th>
+              <th>{HeaderColumns.surName}</th>
+              <th>{HeaderColumns.middleName}</th>
+              <th>{HeaderColumns.profession}</th>
+              <th>{HeaderColumns.email}</th>
+              <th className="text-center">{HeaderColumns.address}</th>
+              <th className="text-center">{HeaderColumns.update}</th>
+              <th className="text-center">{HeaderColumns.delete}</th>
             </tr>
           </thead>
           <tbody>{physicalEntityListShowedInRow}</tbody>

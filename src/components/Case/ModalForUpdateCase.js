@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { CaseType, GetNameAndSurnameOfSomeEntity } from "../../../src/globals";
 import { Modal, ModalFooter, Card } from "react-bootstrap";
+import { CaseModalForAddAndUpdateTranslation } from "../../translations";
 
 class ModalForUpdateCase extends Component {
   constructor() {
@@ -68,6 +69,8 @@ class ModalForUpdateCase extends Component {
 
   render() {
     const { physicalEntityList, show, closeModal } = this.props || {};
+    const translation = CaseModalForAddAndUpdateTranslation || {};
+    const { Header, SelectOptionsAndPlaceholders } = translation;
 
     return (
       <Modal
@@ -85,14 +88,18 @@ class ModalForUpdateCase extends Component {
             <div className="container">
               <div className="row">
                 <div className="col-md-8 m-auto">
-                  <h3 className="display-5 text-center">Измени предмет</h3>
+                  <h3 className="display-5 text-center">
+                    {Header.headingUpdateModal}
+                  </h3>
                   <hr />
                   <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                       <input
                         type="text"
                         className="form-control"
-                        placeholder="Унесите име предмета"
+                        placeholder={
+                          SelectOptionsAndPlaceholders.caseNamePlaceholder
+                        }
                         name="caseName"
                         value={this.state.caseName}
                         onChange={this.onChange}
@@ -102,7 +109,9 @@ class ModalForUpdateCase extends Component {
                       <input
                         type="text"
                         className="form-control"
-                        placeholder="Унесите број предмета"
+                        placeholder={
+                          SelectOptionsAndPlaceholders.caseNumberPlaceholder
+                        }
                         name="caseNumber"
                         value={this.state.caseNumber}
                         onChange={this.onChange}
@@ -114,7 +123,6 @@ class ModalForUpdateCase extends Component {
                         physicalEntityList={physicalEntityList}
                         onChange={this.onChangeCombo}
                         className="form-control form-control-lg"
-                        placeholder="Изаберите на кога се односи"
                         name="refersTo"
                         value={this.state.refersTo.id}
                       >
@@ -134,7 +142,6 @@ class ModalForUpdateCase extends Component {
                     <div className="form-group">
                       <select
                         className="form-control form-control-lg"
-                        placeholder="Унесите тип предмета"
                         name="caseType"
                         value={this.state.caseType}
                         onChange={this.onChange}
