@@ -7,15 +7,23 @@ import {
   getEmployee,
   deleteEmployee,
 } from "../../actions/employeeActions";
+import { getPhysicalEntities } from "../../actions/physicalEntityActions";
 import EmployeeTable from "../Employee/EmployeeTable";
+import { findAllUsersNotUsedAsForeignKeyInTableEmployee } from "../../actions/userActions";
 
 class EmployeeList extends Component {
   componentDidMount() {
     this.props.getEmployees();
+    this.props.getPhysicalEntities();
+    this.props.findAllUsersNotUsedAsForeignKeyInTableEmployee();
   }
 
   render() {
     const { employees, employee } = this.props.employee;
+    const { physicalEntities } = this.props.physicalEntity;
+    const { usersNotUsedAsForeignKeyInTableEmployee } = this.props.user;
+    console.log(usersNotUsedAsForeignKeyInTableEmployee);
+
     return (
       <div className="container">
         <div className="row">
@@ -32,6 +40,10 @@ class EmployeeList extends Component {
                   getEmployee={this.props.getEmployee}
                   employeeForUpdate={employee}
                   deleteEmployee={this.props.deleteEmployee}
+                  physicalEntities={physicalEntities}
+                  usersNotUsedAsForeignKeyInTableEmployee={
+                    usersNotUsedAsForeignKeyInTableEmployee
+                  }
                 />
                 <div id="msg" />
               </div>
@@ -45,7 +57,9 @@ class EmployeeList extends Component {
 
 const mapStateToProps = (state) => ({
   employee: state.employee,
+  user: state.user,
   errors: state.errors,
+  physicalEntity: state.physicalEntity,
 });
 
 export default connect(mapStateToProps, {
@@ -54,4 +68,6 @@ export default connect(mapStateToProps, {
   getEmployees,
   getEmployee,
   deleteEmployee,
+  getPhysicalEntities,
+  findAllUsersNotUsedAsForeignKeyInTableEmployee,
 })(EmployeeList);

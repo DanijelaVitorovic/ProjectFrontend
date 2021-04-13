@@ -1,10 +1,11 @@
 import React, { Component, Fragment } from "react";
 import { Modal, ModalFooter } from "react-bootstrap";
+import { GetNameAndSurnameOfSomeEntity } from "../../../src/globals";
 
 class ModalForAddEmployee extends Component {
   constructor() {
     super();
-    this.state = { profession: "", manager: "" };
+    this.state = { profession: "", manager: "", physicalEntity: "", user: "" };
   }
 
   onChange = (e) => {
@@ -16,11 +17,17 @@ class ModalForAddEmployee extends Component {
     const newEmployee = {
       profession: this.state.profession,
       manager: this.state.manager,
+      physicalEntity: { id: this.state.physicalEntity },
+      user: { id: this.state.user },
     };
     this.props.handleAdd(newEmployee);
   };
 
   render() {
+    const physicalEntities = this.props.physicalEntities;
+    const usersNotUsedAsForeignKeyInTableEmployee = this.props
+      .usersNotUsedAsForeignKeyInTableEmployee;
+
     return (
       <Modal
         show={this.props.show}
@@ -65,6 +72,51 @@ class ModalForAddEmployee extends Component {
                       <option value="false">Не</option>
                     </select>
                   </div>
+
+                  <div className="form-group">
+                    <select
+                      physicalEntities={physicalEntities}
+                      onChange={this.onChange}
+                      className="form-control form-control-lg"
+                      placeholder="Изаберите физичко лице"
+                      name="physicalEntity"
+                    >
+                      <option value="" selected disabled>
+                        Изаберите физичко лице
+                      </option>
+                      {physicalEntities.map((physicalEntity) => {
+                        return (
+                          <option value={physicalEntity.id}>
+                            {GetNameAndSurnameOfSomeEntity(physicalEntity)}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  </div>
+
+                  <div className="form-group">
+                    <select
+                      usersNotUsedAsForeignKeyInTableEmployee={
+                        usersNotUsedAsForeignKeyInTableEmployee
+                      }
+                      onChange={this.onChange}
+                      className="form-control form-control-lg"
+                      placeholder="Изаберите корисника"
+                      name="user"
+                    >
+                      <option value="" selected disabled>
+                        Изаберите корисника
+                      </option>
+                      {usersNotUsedAsForeignKeyInTableEmployee.map((user) => {
+                        return (
+                          <option value={user.id}>
+                            {GetNameAndSurnameOfSomeEntity(user)}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  </div>
+
                   <button
                     type="submit"
                     className="btn btn-primary float-right btn-success"

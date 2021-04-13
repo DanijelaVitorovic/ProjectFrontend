@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Modal, ModalFooter, Card } from "react-bootstrap";
-import { CaseType } from "../../../src/globals";
+import { CaseType, GetNameandSurname } from "../../../src/globals";
 
 class ModalForAddCase extends Component {
   constructor() {
@@ -26,8 +26,8 @@ class ModalForAddCase extends Component {
       caseNumber: this.state.caseNumber,
       refersTo: { id: this.state.refersTo },
       caseType: this.state.caseType,
-      owner: { id: this.state.owner },
-      processor: { id: this.state.owner },
+      owner: null,
+      processor: null,
     };
     this.props.handleAdd(newCase);
   };
@@ -110,7 +110,7 @@ class ModalForAddCase extends Component {
                         {employees.map((employee) => {
                           return (
                             <option value={employee.id}>
-                              {employee.profession}
+                              {GetNameandSurname(employee)}
                             </option>
                           );
                         })}
@@ -131,7 +131,7 @@ class ModalForAddCase extends Component {
                         {employees.map((employee) => {
                           return (
                             <option value={employee.id}>
-                              {employee.profession}
+                              {GetNameandSurname(employee)}
                             </option>
                           );
                         })}

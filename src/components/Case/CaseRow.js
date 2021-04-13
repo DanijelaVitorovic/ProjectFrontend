@@ -26,10 +26,12 @@ class CaseRow extends Component {
       <tr>
         <td>{this.props.case.caseName}</td>
         <td>{this.props.case.caseNumber}</td>
-        <td>{this.props.case.owner.profession}</td>
-        <td>{this.props.case.processor.profession}</td>
+        <td>{this.props.case.owner && this.props.case.owner.profession}</td>
+        <td>
+          {this.props.case.processor && this.props.case.processor.profession}
+        </td>
         <td>{this.props.case.refersTo.firstName}</td>
-        <td>{formatDateFromBackend(this.props.case.startDate)}</td>
+        <td>{formatDateFromBackend(new Date())}</td>
         <td>{this.props.case.caseStatus}</td>
         <td className="text-center">
           <Button

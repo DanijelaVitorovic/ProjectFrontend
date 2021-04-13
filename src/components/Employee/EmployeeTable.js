@@ -83,6 +83,10 @@ class EmployeeTable extends Component {
             show={this.state.show}
             closeModal={this.closeModal}
             handleAdd={this.handleAdd}
+            physicalEntities={this.props.physicalEntities}
+            usersNotUsedAsForeignKeyInTableEmployee={
+              this.props.usersNotUsedAsForeignKeyInTableEmployee
+            }
           />
         )}
       </Fragment>
