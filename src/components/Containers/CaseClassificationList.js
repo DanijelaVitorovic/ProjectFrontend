@@ -1,0 +1,72 @@
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import {
+  getCaseClassification,
+  getCaseClassificationList,
+  createCaseClassification,
+  updateCaseClassification,
+  deleteCaseClassification,
+} from "../../actions/caseClassificationActions";
+import { getOrganizationalUnits } from "../../actions/organizationalUnitAcitons";
+import CaseClassificationTable from "../CaseClassification/CaseClassificationTable";
+
+class CaseClassificationList extends Component {
+  componentDidMount() {
+    this.props.getCaseClassificationList();
+    this.props.getOrganizationalUnits();
+  }
+
+  render() {
+    const { caseClassification, caseClassificationList } =
+      this.props.caseClassification || {};
+    const { organizationalUnits } = this.props.organizationalUnit || {};
+    const {
+      getCaseClassification,
+      createCaseClassification,
+      updateCaseClassification,
+      deleteCaseClassification,
+    } = this.props || {};
+
+    return (
+      <div className="container">
+        <div className="row">
+          <div className="col-md-12 m-auto">
+            <div className="card text-left mb-3">
+              <div className="card-header text-black">
+                <h3>Класификације предмета</h3>
+              </div>
+              <div class="col-md-12 m-auto">
+                <div className="card-body"></div>
+                <CaseClassificationTable
+                  caseClassificationList={caseClassificationList}
+                  organizationalUnits={organizationalUnits}
+                  createCaseClassification={createCaseClassification}
+                  updateCaseClassification={updateCaseClassification}
+                  getCaseClassification={getCaseClassification}
+                  deleteCaseClassification={deleteCaseClassification}
+                  caseClassificationForUpdate={caseClassification}
+                />
+                <div id="msg" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+const mapStateToProps = (state) => ({
+  caseClassification: state.caseClassification,
+  organizationalUnit: state.organizationalUnit,
+  errors: state.errors,
+});
+
+export default connect(mapStateToProps, {
+  getCaseClassification,
+  getCaseClassificationList,
+  createCaseClassification,
+  updateCaseClassification,
+  deleteCaseClassification,
+  getOrganizationalUnits,
+})(CaseClassificationList);

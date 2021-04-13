@@ -68,7 +68,6 @@ class ModalForUpdateCase extends Component {
 
   render() {
     const physicalEntities = this.props.physicalEntities;
-    console.log(this.state);
 
     return (
       <Modal
