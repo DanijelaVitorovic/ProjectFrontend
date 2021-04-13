@@ -24,16 +24,25 @@ class CaseTable extends Component {
   };
 
   render() {
-    const caseList = this.props.caseList.map((_case) => (
+    const {
+      updateCase,
+      getCase,
+      deleteCase,
+      caseForUpdate,
+      physicalEntityList,
+      employeeList,
+    } = this.props || {};
+
+    const caseListShowedInRow = this.props.caseList.map((_case) => (
       <CaseRow
         key={_case.id}
         case={_case}
-        updateCase={this.props.updateCase}
-        getCase={this.props.getCase}
-        deleteCase={this.props.deleteCase}
-        caseForUpdate={this.props.caseForUpdate}
-        physicalEntities={this.props.physicalEntities}
-        employees={this.props.employees}
+        updateCase={updateCase}
+        getCase={getCase}
+        deleteCase={deleteCase}
+        caseForUpdate={caseForUpdate}
+        physicalEntityList={physicalEntityList}
+        employeeList={employeeList}
       />
     ));
 
@@ -68,7 +77,7 @@ class CaseTable extends Component {
               <th className="text-center">Измена</th>
             </tr>
           </thead>
-          <tbody>{caseList}</tbody>
+          <tbody>{caseListShowedInRow}</tbody>
           <Link to={`/dashboard`}>
             <i className="fas fa-arrow-circle-left fa-3x fa-pull-left" />
           </Link>
@@ -86,8 +95,8 @@ class CaseTable extends Component {
             show={this.state.show}
             closeModal={this.closeModal}
             handleAdd={this.handleAdd}
-            physicalEntities={this.props.physicalEntities}
-            employees={this.props.employees}
+            physicalEntityList={physicalEntityList}
+            employeeList={employeeList}
           />
         )}
       </Fragment>

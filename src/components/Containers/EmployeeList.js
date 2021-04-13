@@ -19,10 +19,11 @@ class EmployeeList extends Component {
   }
 
   render() {
-    const { employees, employee } = this.props.employee;
-    const { physicalEntities } = this.props.physicalEntity;
-    const { usersNotUsedAsForeignKeyInTableEmployee } = this.props.user;
-    console.log(usersNotUsedAsForeignKeyInTableEmployee);
+    const { createEmployee, updateEmployee, getEmployee, deleteEmployee } =
+      this.props || {};
+    const { employeeList, employee } = this.props.employee || {};
+    const { physicalEntityList } = this.props.physicalEntity || {};
+    const { usersNotUsedAsForeignKeyInTableEmployee } = this.props.user || {};
 
     return (
       <div className="container">
@@ -34,13 +35,13 @@ class EmployeeList extends Component {
               </div>
               <div className="card-body">
                 <EmployeeTable
-                  employees={employees}
-                  createEmployee={this.props.createEmployee}
-                  updateEmployee={this.props.updateEmployee}
-                  getEmployee={this.props.getEmployee}
+                  employeeList={employeeList}
+                  createEmployee={createEmployee}
+                  updateEmployee={updateEmployee}
+                  getEmployee={getEmployee}
                   employeeForUpdate={employee}
-                  deleteEmployee={this.props.deleteEmployee}
-                  physicalEntities={physicalEntities}
+                  deleteEmployee={deleteEmployee}
+                  physicalEntityList={physicalEntityList}
                   usersNotUsedAsForeignKeyInTableEmployee={
                     usersNotUsedAsForeignKeyInTableEmployee
                   }

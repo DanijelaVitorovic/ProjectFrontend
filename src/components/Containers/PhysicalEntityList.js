@@ -14,7 +14,14 @@ class PhysicalEntityList extends Component {
     this.props.getPhysicalEntities();
   }
   render() {
-    const { physicalEntities, physicalEntity } = this.props.physicalEntity;
+    const { physicalEntityList, physicalEntity } = this.props.physicalEntity;
+    const {
+      createPhysicalEntity,
+      updatePhysicalEntity,
+      getPhysicalEntity,
+      deletePhysicalEntity,
+    } = this.props || {};
+
     return (
       <div className="container">
         <div className="row">
@@ -25,12 +32,12 @@ class PhysicalEntityList extends Component {
               </div>
               <div className="card-body">
                 <PhysicalEntityTable
-                  physicalEntities={physicalEntities}
-                  createPhysicalEntity={this.props.createPhysicalEntity}
-                  updatePhysicalEntity={this.props.updatePhysicalEntity}
-                  getPhysicalEntity={this.props.getPhysicalEntity}
+                  physicalEntityList={physicalEntityList}
+                  createPhysicalEntity={createPhysicalEntity}
+                  updatePhysicalEntity={updatePhysicalEntity}
+                  getPhysicalEntity={getPhysicalEntity}
                   physicalEntityForUpdate={physicalEntity}
-                  deletePhysicalEntity={this.props.deletePhysicalEntity}
+                  deletePhysicalEntity={deletePhysicalEntity}
                 />
                 <div id="msg" />
               </div>

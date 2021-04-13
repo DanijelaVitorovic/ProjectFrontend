@@ -50,13 +50,16 @@ class ModalForAddPhysicalEntity extends Component {
     };
     this.props.handleAdd(newPhysicalEntity);
   };
+
   render() {
     const { errors } = this.state;
+    const { show, closeModal } = this.props || {};
+
     return (
       <Modal
-        show={this.props.show}
-        onHide={this.props.closeModal}
-        onRequestClose={this.props.closeModal}
+        show={show}
+        onHide={closeModal}
+        onRequestClose={closeModal}
         size="xl"
         centered
         animation

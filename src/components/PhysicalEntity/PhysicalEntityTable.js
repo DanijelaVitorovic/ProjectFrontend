@@ -30,15 +30,23 @@ class PhysicalEntityTable extends Component {
   };
 
   render() {
-    const physicalEntities = this.props.physicalEntities.map(
+    const {
+      physicalEntityList,
+      updatePhysicalEntity,
+      getPhysicalEntity,
+      physicalEntityForUpdate,
+      deletePhysicalEntity,
+    } = this.props || {};
+
+    const physicalEntityListShowedInRow = physicalEntityList.map(
       (physicalEntity) => (
         <PhysicalEntityRow
           key={physicalEntity.id}
           physicalEntity={physicalEntity}
-          updatePhysicalEntity={this.props.updatePhysicalEntity}
-          getPhysicalEntity={this.props.getPhysicalEntity}
-          physicalEntityForUpdate={this.props.physicalEntityForUpdate}
-          deletePhysicalEntity={this.props.deletePhysicalEntity}
+          updatePhysicalEntity={updatePhysicalEntity}
+          getPhysicalEntity={getPhysicalEntity}
+          physicalEntityForUpdate={physicalEntityForUpdate}
+          deletePhysicalEntity={deletePhysicalEntity}
         />
       )
     );
@@ -73,7 +81,7 @@ class PhysicalEntityTable extends Component {
               <th className="text-center">Брисање</th>
             </tr>
           </thead>
-          <tbody>{physicalEntities}</tbody>
+          <tbody>{physicalEntityListShowedInRow}</tbody>
           <Link to={`/dashboard`}>
             <i className="fas fa-arrow-circle-left fa-3x fa-pull-left" />
           </Link>

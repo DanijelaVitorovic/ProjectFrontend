@@ -3,7 +3,6 @@ import { Button } from "react-bootstrap";
 import OrganizationalUnitRow from "./OrganizationalUnitRow";
 import { Link } from "react-router-dom";
 import ModalForAddOrganizationalUnit from "./ModalForAddOrganizationalUnit";
-import style from "styled-components";
 
 class OrganizationalUnitTable extends Component {
   constructor() {
@@ -28,14 +27,13 @@ class OrganizationalUnitTable extends Component {
   };
 
   render() {
-
     const organizationalUnits = this.props.organizationalUnits.map(
       (organizationalUnit) => (
         <OrganizationalUnitRow
           key={organizationalUnit.id}
           organizationalUnit={organizationalUnit}
           createNewOrganizationalUnit={this.props.createNewOrganizationalUnit}
-          getOrganizationalUnit = {this.props.getOrganizationalUnit}
+          getOrganizationalUnit={this.props.getOrganizationalUnit}
           updateOrganizationalUnit={this.props.updateOrganizationalUnit}
           deleteOrganizationalUnit={this.props.deleteOrganizationalUnit}
           legalEntities={this.props.legalEntities}
@@ -55,7 +53,7 @@ class OrganizationalUnitTable extends Component {
                 this.showModal();
               }}
             >
-              Направи нову организациону јединицу 
+              Направи нову организациону јединицу
             </Button>
             <p></p>
             <tr className=" card-body">

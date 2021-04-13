@@ -19,10 +19,12 @@ class CaseList extends Component {
   }
 
   render() {
-    const { physicalEntities } = this.props.physicalEntity;
-    const { employees } = this.props.employee;
+    const { physicalEntityList } = this.props.physicalEntity;
+    const { employeeList } = this.props.employee;
     const _case = this.props.case.case;
     const caseList = this.props.case.caseList;
+    const { createCase, updateCase, getCase, getCases, deleteCase } =
+      this.props || {};
 
     return (
       <div className="container">
@@ -36,14 +38,14 @@ class CaseList extends Component {
                 <div className="card-body"></div>
                 <CaseTable
                   caseList={caseList}
-                  createCase={this.props.createCase}
-                  updateCase={this.props.updateCase}
-                  getCase={this.props.getCase}
-                  getCases={this.props.getCases}
-                  deleteCase={this.props.deleteCase}
-                  physicalEntities={physicalEntities}
+                  createCase={createCase}
+                  updateCase={updateCase}
+                  getCase={getCase}
+                  getCases={getCases}
+                  deleteCase={deleteCase}
+                  physicalEntityList={physicalEntityList}
                   caseForUpdate={_case}
-                  employees={employees}
+                  employeeList={employeeList}
                 />
                 <div id="msg" />
               </div>

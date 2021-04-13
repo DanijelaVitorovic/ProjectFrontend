@@ -30,14 +30,17 @@ class PhysicalEntityRow extends Component {
   };
 
   render() {
+    const { physicalEntity, getPhysicalEntity, physicalEntityForUpdate } =
+      this.props || {};
+
     const body = (
       <tr>
-        <td>{this.props.physicalEntity.firstName}</td>
-        <td>{this.props.physicalEntity.lastName}</td>
-        <td>{this.props.physicalEntity.middleName}</td>
-        <td>{this.props.physicalEntity.profession}</td>
-        <td>{this.props.physicalEntity.email}</td>
-        <td>{this.props.physicalEntity.address.city}</td>
+        <td>{physicalEntity.firstName}</td>
+        <td>{physicalEntity.lastName}</td>
+        <td>{physicalEntity.middleName}</td>
+        <td>{physicalEntity.profession}</td>
+        <td>{physicalEntity.email}</td>
+        <td>{physicalEntity.address.city}</td>
         <td className="text-center">
           <Button
             class="btn btn-default"
@@ -52,9 +55,7 @@ class PhysicalEntityRow extends Component {
         </td>
         <td className="text-center">
           <Badge pill variant="danger">
-            <div
-              onClick={() => this.onDeleteClick(this.props.physicalEntity.id)}
-            >
+            <div onClick={() => this.onDeleteClick(physicalEntity.id)}>
               <i className="fas fa-trash-alt fa-2x" />
             </div>
           </Badge>{" "}
@@ -70,9 +71,9 @@ class PhysicalEntityRow extends Component {
             show={this.state.show}
             closeModal={this.closeModal}
             handleUpdate={this.handleUpdate}
-            id={this.props.physicalEntity.id}
-            getPhysicalEntity={this.props.getPhysicalEntity}
-            physicalEntityForUpdate={this.props.physicalEntityForUpdate}
+            id={physicalEntity.id}
+            getPhysicalEntity={getPhysicalEntity}
+            physicalEntityForUpdate={physicalEntityForUpdate}
           />
         )}
       </Fragment>

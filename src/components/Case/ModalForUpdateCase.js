@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { CaseType } from "../../../src/globals";
+import { CaseType, GetNameAndSurnameOfSomeEntity } from "../../../src/globals";
 import { Modal, ModalFooter, Card } from "react-bootstrap";
 
 class ModalForUpdateCase extends Component {
@@ -60,21 +60,20 @@ class ModalForUpdateCase extends Component {
       caseNumber: this.state.caseNumber,
       caseType: this.state.caseType,
       refersTo: { id: this.state.refersTo.id },
-      owner: { id: this.state.owner.id },
-      processor: { id: this.state.processor.id },
+      processor: this.state.processor,
+      owner: this.state.owner,
     };
     this.props.handleUpdate(updatedCase);
   };
 
   render() {
-    const physicalEntities = this.props.physicalEntities;
-    console.log(this.state);
+    const { physicalEntityList, show, closeModal } = this.props || {};
 
     return (
       <Modal
-        show={this.props.show}
-        onHide={this.props.closeModal}
-        onRequestClose={this.props.closeModal}
+        show={show}
+        onHide={closeModal}
+        onRequestClose={closeModal}
         size="lg"
         centered
         animation
@@ -112,7 +111,7 @@ class ModalForUpdateCase extends Component {
 
                     <div className="form-group">
                       <select
-                        physicalEntities={physicalEntities}
+                        physicalEntityList={physicalEntityList}
                         onChange={this.onChangeCombo}
                         className="form-control form-control-lg"
                         placeholder="Изаберите на кога се односи"
@@ -122,12 +121,10 @@ class ModalForUpdateCase extends Component {
                         <option value="" selected disabled>
                           Изаберите на кога се односи
                         </option>
-                        {physicalEntities.map((physicalEntity) => {
+                        {physicalEntityList.map((physicalEntity) => {
                           return (
                             <option value={physicalEntity.id}>
-                              {physicalEntity.firstName +
-                                " " +
-                                physicalEntity.lastName}
+                              {GetNameAndSurnameOfSomeEntity(physicalEntity)}
                             </option>
                           );
                         })}
