@@ -10,6 +10,7 @@ import {
 import { getPhysicalEntities } from "../../actions/physicalEntityActions";
 import EmployeeTable from "../Employee/EmployeeTable";
 import { findAllUsersNotUsedAsForeignKeyInTableEmployee } from "../../actions/userActions";
+import { EmployeeListTranslation } from "../../translations";
 
 class EmployeeList extends Component {
   componentDidMount() {
@@ -24,6 +25,8 @@ class EmployeeList extends Component {
     const { employeeList, employee } = this.props.employee || {};
     const { physicalEntityList } = this.props.physicalEntity || {};
     const { usersNotUsedAsForeignKeyInTableEmployee } = this.props.user || {};
+    const translation = EmployeeListTranslation || {};
+    const { Header } = translation;
 
     return (
       <div className="container">
@@ -31,7 +34,7 @@ class EmployeeList extends Component {
           <div className="col-md-12 m-auto">
             <div className="card text-left mb-3">
               <div className="card-header text-black">
-                <h3>Запослена лица</h3>
+                <h3>{Header.heading}</h3>
               </div>
               <div className="card-body">
                 <EmployeeTable

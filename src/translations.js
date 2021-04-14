@@ -117,3 +117,41 @@ export const DashboardTranslation = {
     welcomeParagraph: "ДМС пракса",
   },
 };
+
+export const EmployeeListTranslation = {
+  Header: { heading: "Запослена лица" },
+};
+
+export const EmployeeTableTranslation = {
+  HeaderColumns: {
+    profession: "Професија",
+    manager: "Менаџер",
+    update: "Измена",
+    delete: "Брисање",
+  },
+  Buttons: {
+    addNewCase: "Унеси новог запосленог",
+  },
+};
+
+export const EmployeeRowTranslation = {
+  updateButton: "Измени",
+};
+
+export const EmployeeModalForAddAndUpdateTranslation = {
+  Header: {
+    headingAddModal: "Унос новог запосленог лица",
+    headingUpdateModal: "Измена запосленог лица",
+  },
+  SelectOptionsAndPlaceholders: {
+    professionPlaceholder: "Унесите професију",
+    managerPlaceholder: "Менаџер",
+    managerOption: "Да ли сте менаџер?",
+    managerOptionTrue: "Дa",
+    managerOptionFalse: "Не",
+    physicalEntityPlaceholder: "Изаберите физичко лице",
+    physicalEntityOption: "Изаберите физичко лице",
+    userPlaceholder: "Изаберите корисника",
+    userOption: "Изаберите корисника",
+  },
+};
