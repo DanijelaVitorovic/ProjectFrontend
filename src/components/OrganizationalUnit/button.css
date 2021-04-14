@@ -1,10 +1,8 @@
 .button {
   position: center;
   cursor: pointer;
-  box-shadow: rgba(255, 255, 255) 0px 3px 15px;
   border-width: initial;
-  background-color: white;
-  color: rgb(245, 218, 47);
+  color: #f7e92c;
   border-style: none;
   border-color: initial;
   border-image: initial;
@@ -14,6 +12,10 @@
 }
 
 .button:hover {
-  background-color: rgb(237, 237, 232);
-  color: rgb(135, 9, 9);
+  color: rgb(58, 100, 58);
+}
+
+.Badge:hover  {
+  background-color: black;
+  color: silver
 }

@@ -8,6 +8,7 @@ import employeeReducer from "./employeeReducer";
 import physicalEntityReducer from "./physicalEntityReducer";
 import organizationalUnitReducer from "./organizationalUnitReducer";
 import caseReducer from "./caseReducer";
+import documentReducer from "./documentReducer";
 import caseClassificationReducer from "./caseClassificationReducer";
 
 export default combineReducers({
@@ -20,5 +21,6 @@ export default combineReducers({
   physicalEntity: physicalEntityReducer,
   organizationalUnit: organizationalUnitReducer,
   case: caseReducer,
+  document: documentReducer,
   caseClassification: caseClassificationReducer,
 });
