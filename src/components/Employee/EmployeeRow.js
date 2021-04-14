@@ -26,7 +26,7 @@ class EmployeeRow extends Component {
   };
 
   render() {
-    const { employee } = this.props;
+    const { employee, getEmployee, employeeForUpdate } = this.props || {};
     let managerType;
 
     if (employee.manager === true) managerType = "Да";
@@ -67,9 +67,9 @@ class EmployeeRow extends Component {
             show={this.state.show}
             closeModal={this.closeModal}
             handleUpdate={this.handleUpdate}
-            id={this.props.employee.id}
-            getEmployee={this.props.getEmployee}
-            employeeForUpdate={this.props.employeeForUpdate}
+            id={employee.id}
+            getEmployee={getEmployee}
+            employeeForUpdate={employeeForUpdate}
           />
         )}
       </Fragment>

@@ -24,15 +24,18 @@ class ModalForAddEmployee extends Component {
   };
 
   render() {
-    const physicalEntities = this.props.physicalEntities;
-    const usersNotUsedAsForeignKeyInTableEmployee = this.props
-      .usersNotUsedAsForeignKeyInTableEmployee;
+    const {
+      physicalEntityList,
+      usersNotUsedAsForeignKeyInTableEmployee,
+      show,
+      closeModal,
+    } = this.props || {};
 
     return (
       <Modal
-        show={this.props.show}
-        onHide={this.props.closeModal}
-        onRequestClose={this.props.closeModal}
+        show={show}
+        onHide={closeModal}
+        onRequestClose={closeModal}
         size="lg"
         centered
         animation
@@ -75,7 +78,7 @@ class ModalForAddEmployee extends Component {
 
                   <div className="form-group">
                     <select
-                      physicalEntities={physicalEntities}
+                      physicalEntityList={physicalEntityList}
                       onChange={this.onChange}
                       className="form-control form-control-lg"
                       placeholder="Изаберите физичко лице"
@@ -84,7 +87,7 @@ class ModalForAddEmployee extends Component {
                       <option value="" selected disabled>
                         Изаберите физичко лице
                       </option>
-                      {physicalEntities.map((physicalEntity) => {
+                      {physicalEntityList.map((physicalEntity) => {
                         return (
                           <option value={physicalEntity.id}>
                             {GetNameAndSurnameOfSomeEntity(physicalEntity)}

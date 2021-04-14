@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import classnames from "classnames";
 import { Modal, Button, Row, Col, ModalFooter } from "react-bootstrap";
+import { PhysicalEntityModalForAddAndUpdateTranslation } from "../../translations";
 
 class ModalForUpdatePhysicalEntity extends Component {
   constructor() {
@@ -82,12 +83,15 @@ class ModalForUpdatePhysicalEntity extends Component {
 
   render() {
     const { errors } = this.state;
+    const { show, closeModal } = this.props || {};
+    const translation = PhysicalEntityModalForAddAndUpdateTranslation || {};
+    const { Header, SelectOptionsAndPlaceholders } = translation;
 
     return (
       <Modal
-        show={this.props.show}
-        onHide={this.props.closeModal}
-        onRequestClose={this.props.closeModal}
+        show={show}
+        onHide={closeModal}
+        onRequestClose={closeModal}
         size="xl"
         centered
         animation
@@ -97,7 +101,9 @@ class ModalForUpdatePhysicalEntity extends Component {
           <div className="container">
             <div className="row">
               <div className="col-md-8 m-auto">
-                <h3 className="display-5 text-center">Измена физичког лица</h3>
+                <h3 className="display-5 text-center">
+                  {Header.headingUpdateModal}
+                </h3>
                 <hr />
                 <form onSubmit={this.onSubmit}>
                   <Row>
@@ -108,7 +114,9 @@ class ModalForUpdatePhysicalEntity extends Component {
                           className={classnames("form-control", {
                             "is-invalid": errors.firstName,
                           })}
-                          placeholder="Име"
+                          placeholder={
+                            SelectOptionsAndPlaceholders.firstNamePlaceholder
+                          }
                           name="firstName"
                           value={this.state.firstName}
                           onChange={this.onChange}
@@ -127,7 +135,9 @@ class ModalForUpdatePhysicalEntity extends Component {
                           className={classnames("form-control", {
                             "is-invalid": errors.lastName,
                           })}
-                          placeholder="Презиме"
+                          placeholder={
+                            SelectOptionsAndPlaceholders.lastNamePlaceholder
+                          }
                           name="lastName"
                           value={this.state.lastName}
                           onChange={this.onChange}
@@ -144,7 +154,9 @@ class ModalForUpdatePhysicalEntity extends Component {
                         <input
                           type="text"
                           className="form-control"
-                          placeholder="Име оца"
+                          placeholder={
+                            SelectOptionsAndPlaceholders.middleNamePlaceholder
+                          }
                           name="middleName"
                           value={this.state.middleName}
                           onChange={this.onChange}
@@ -159,7 +171,9 @@ class ModalForUpdatePhysicalEntity extends Component {
                         <input
                           type="text"
                           className="form-control"
-                          placeholder="Занимање"
+                          placeholder={
+                            SelectOptionsAndPlaceholders.professionPlaceholder
+                          }
                           name="profession"
                           value={this.state.profession}
                           onChange={this.onChange}
@@ -174,7 +188,7 @@ class ModalForUpdatePhysicalEntity extends Component {
                             "is-invalid": errors.email,
                           })}
                           placeholder="E-мејл"
-                          name="email"
+                          name={SelectOptionsAndPlaceholders.emailPlaceholder}
                           value={this.state.email}
                           onChange={this.onChange}
                         />
@@ -190,7 +204,9 @@ class ModalForUpdatePhysicalEntity extends Component {
                           className={classnames("form-control", {
                             "is-invalid": errors.city,
                           })}
-                          placeholder="Место пребивалишта"
+                          placeholder={
+                            SelectOptionsAndPlaceholders.cityPlaceholder
+                          }
                           name="city"
                           value={this.state.city}
                           onChange={this.onChange}
@@ -208,7 +224,9 @@ class ModalForUpdatePhysicalEntity extends Component {
                         <input
                           type="text"
                           className="form-control"
-                          placeholder="Улица"
+                          placeholder={
+                            SelectOptionsAndPlaceholders.streetPlaceholder
+                          }
                           name="street"
                           value={this.state.street}
                           onChange={this.onChange}
@@ -220,7 +238,9 @@ class ModalForUpdatePhysicalEntity extends Component {
                         <input
                           type="text"
                           className="form-control"
-                          placeholder="Број улице"
+                          placeholder={
+                            SelectOptionsAndPlaceholders.streetNumberPlaceholder
+                          }
                           name="streetNumber"
                           value={this.state.streetNumber}
                           onChange={this.onChange}
@@ -232,7 +252,9 @@ class ModalForUpdatePhysicalEntity extends Component {
                         <input
                           type="text"
                           className="form-control"
-                          placeholder="Спрат"
+                          placeholder={
+                            SelectOptionsAndPlaceholders.floorPlaceholder
+                          }
                           name="floor"
                           value={this.state.floor}
                           onChange={this.onChange}
@@ -247,7 +269,9 @@ class ModalForUpdatePhysicalEntity extends Component {
                         <input
                           type="text"
                           className="form-control"
-                          placeholder="Број стана"
+                          placeholder={
+                            SelectOptionsAndPlaceholders.apartmanNumberPlaceholder
+                          }
                           name="apartmanNumber"
                           value={this.state.apartmanNumber}
                           onChange={this.onChange}
@@ -259,7 +283,9 @@ class ModalForUpdatePhysicalEntity extends Component {
                         <input
                           type="text"
                           className="form-control"
-                          placeholder="Поштански број"
+                          placeholder={
+                            SelectOptionsAndPlaceholders.zipCodePlaceholder
+                          }
                           name="zipCode"
                           value={this.state.zipCode}
                           onChange={this.onChange}

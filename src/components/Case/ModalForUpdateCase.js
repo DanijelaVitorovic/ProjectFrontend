@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { CaseType } from "../../../src/globals";
+import { CaseType, GetNameAndSurnameOfSomeEntity } from "../../../src/globals";
 import { Modal, ModalFooter, Card } from "react-bootstrap";
+import { CaseModalForAddAndUpdateTranslation } from "../../translations";
 
 class ModalForUpdateCase extends Component {
   constructor() {
@@ -60,21 +61,22 @@ class ModalForUpdateCase extends Component {
       caseNumber: this.state.caseNumber,
       caseType: this.state.caseType,
       refersTo: { id: this.state.refersTo.id },
-      owner: { id: this.state.owner.id },
-      processor: { id: this.state.processor.id },
+      processor: this.state.processor,
+      owner: this.state.owner,
     };
     this.props.handleUpdate(updatedCase);
   };
 
   render() {
-    const physicalEntities = this.props.physicalEntities;
-    console.log(this.state);
+    const { physicalEntityList, show, closeModal } = this.props || {};
+    const translation = CaseModalForAddAndUpdateTranslation || {};
+    const { Header, SelectOptionsAndPlaceholders } = translation;
 
     return (
       <Modal
-        show={this.props.show}
-        onHide={this.props.closeModal}
-        onRequestClose={this.props.closeModal}
+        show={show}
+        onHide={closeModal}
+        onRequestClose={closeModal}
         size="lg"
         centered
         animation
@@ -86,14 +88,18 @@ class ModalForUpdateCase extends Component {
             <div className="container">
               <div className="row">
                 <div className="col-md-8 m-auto">
-                  <h3 className="display-5 text-center">Измени предмет</h3>
+                  <h3 className="display-5 text-center">
+                    {Header.headingUpdateModal}
+                  </h3>
                   <hr />
                   <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                       <input
                         type="text"
                         className="form-control"
-                        placeholder="Унесите име предмета"
+                        placeholder={
+                          SelectOptionsAndPlaceholders.caseNamePlaceholder
+                        }
                         name="caseName"
                         value={this.state.caseName}
                         onChange={this.onChange}
@@ -103,7 +109,9 @@ class ModalForUpdateCase extends Component {
                       <input
                         type="text"
                         className="form-control"
-                        placeholder="Унесите број предмета"
+                        placeholder={
+                          SelectOptionsAndPlaceholders.caseNumberPlaceholder
+                        }
                         name="caseNumber"
                         value={this.state.caseNumber}
                         onChange={this.onChange}
@@ -112,22 +120,19 @@ class ModalForUpdateCase extends Component {
 
                     <div className="form-group">
                       <select
-                        physicalEntities={physicalEntities}
+                        physicalEntityList={physicalEntityList}
                         onChange={this.onChangeCombo}
                         className="form-control form-control-lg"
-                        placeholder="Изаберите на кога се односи"
                         name="refersTo"
                         value={this.state.refersTo.id}
                       >
                         <option value="" selected disabled>
                           Изаберите на кога се односи
                         </option>
-                        {physicalEntities.map((physicalEntity) => {
+                        {physicalEntityList.map((physicalEntity) => {
                           return (
                             <option value={physicalEntity.id}>
-                              {physicalEntity.firstName +
-                                " " +
-                                physicalEntity.lastName}
+                              {GetNameAndSurnameOfSomeEntity(physicalEntity)}
                             </option>
                           );
                         })}
@@ -137,7 +142,6 @@ class ModalForUpdateCase extends Component {
                     <div className="form-group">
                       <select
                         className="form-control form-control-lg"
-                        placeholder="Унесите тип предмета"
                         name="caseType"
                         value={this.state.caseType}
                         onChange={this.onChange}

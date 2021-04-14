@@ -8,7 +8,7 @@ import {
 
 const initialState = {
   physicalEntity: {},
-  physicalEntities: [],
+  physicalEntityList: [],
 };
 
 export default function (state = initialState, action) {
@@ -16,7 +16,7 @@ export default function (state = initialState, action) {
     case GET_PHYSICAL_ENTITIES:
       return {
         ...state,
-        physicalEntities: action.payload,
+        physicalEntityList: action.payload,
       };
     case GET_PHYSICAL_ENTITY:
       return {
@@ -26,17 +26,17 @@ export default function (state = initialState, action) {
     case DELETE_PHYSICAL_ENTITY:
       return {
         ...state,
-        physicalEntities: action.payload,
+        physicalEntityList: action.payload,
       };
     case ADD_PHYSICAL_ENTITY:
       return {
         ...state,
-        physicalEntities: state.physicalEntities.concat(action.payload),
+        physicalEntityList: state.physicalEntityList.concat(action.payload),
       };
     case UPDATE_PHYSICAL_ENTITY:
       return {
         ...state,
-        physicalEntities: state.physicalEntities
+        physicalEntityList: state.physicalEntityList
           .filter((physicalEntity) => physicalEntity.id != action.payload.id)
           .concat(action.payload),
       };
