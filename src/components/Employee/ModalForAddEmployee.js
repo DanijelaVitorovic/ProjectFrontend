@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { Modal, ModalFooter } from "react-bootstrap";
 import { GetNameAndSurnameOfSomeEntity } from "../../../src/globals";
+import { EmployeeModalForAddAndUpdateTranslation } from "../../translations";
 
 class ModalForAddEmployee extends Component {
   constructor() {
@@ -30,6 +31,8 @@ class ModalForAddEmployee extends Component {
       show,
       closeModal,
     } = this.props || {};
+    const translation = EmployeeModalForAddAndUpdateTranslation || {};
+    const { Header, SelectOptionsAndPlaceholders } = translation;
 
     return (
       <Modal
@@ -46,15 +49,17 @@ class ModalForAddEmployee extends Component {
             <div className="row">
               <div className="col-md-8 m-auto">
                 <h3 className="display-5 text-center">
-                  Унос новог запосленог лица
+                  {Header.headingAddModal}
                 </h3>
                 <hr />
                 <form onSubmit={this.onSubmit}>
                   <div className="form-group">
                     <input
                       type="text"
-                      className="form-control"
-                      placeholder="Unesite profesiju"
+                      className="form-control form-control-lg"
+                      placeholder={
+                        SelectOptionsAndPlaceholders.professionPlaceholder
+                      }
                       name="profession"
                       value={this.state.profession}
                       onChange={this.onChange}
@@ -62,17 +67,23 @@ class ModalForAddEmployee extends Component {
                   </div>
                   <div className="form-group">
                     <select
-                      className="form-control"
-                      placeholder="Menadzer"
+                      className="form-control form-control-lg"
+                      placeholder={
+                        SelectOptionsAndPlaceholders.managerPlaceholder
+                      }
                       name="manager"
                       value={this.state.manager}
                       onChange={this.onChange}
                     >
                       <option value="" selected disabled>
-                        Да ли сте менаџер?
+                        {SelectOptionsAndPlaceholders.managerOption}
                       </option>
-                      <option value="true">Да</option>
-                      <option value="false">Не</option>
+                      <option value="true">
+                        {SelectOptionsAndPlaceholders.managerOptionTrue}
+                      </option>
+                      <option value="false">
+                        {SelectOptionsAndPlaceholders.managerOptionFalse}
+                      </option>
                     </select>
                   </div>
 
@@ -81,11 +92,13 @@ class ModalForAddEmployee extends Component {
                       physicalEntityList={physicalEntityList}
                       onChange={this.onChange}
                       className="form-control form-control-lg"
-                      placeholder="Изаберите физичко лице"
+                      placeholder={
+                        SelectOptionsAndPlaceholders.physicalEntityPlaceholder
+                      }
                       name="physicalEntity"
                     >
                       <option value="" selected disabled>
-                        Изаберите физичко лице
+                        {SelectOptionsAndPlaceholders.physicalEntityOption}
                       </option>
                       {physicalEntityList.map((physicalEntity) => {
                         return (
@@ -104,11 +117,11 @@ class ModalForAddEmployee extends Component {
                       }
                       onChange={this.onChange}
                       className="form-control form-control-lg"
-                      placeholder="Изаберите корисника"
+                      placeholder={SelectOptionsAndPlaceholders.userPlaceholder}
                       name="user"
                     >
                       <option value="" selected disabled>
-                        Изаберите корисника
+                        {SelectOptionsAndPlaceholders.userOption}
                       </option>
                       {usersNotUsedAsForeignKeyInTableEmployee.map((user) => {
                         return (

@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { Button, Badge, Alert } from "react-bootstrap";
 import ModalForUpdateEmployee from "./ModalForUpdateEmployee";
+import { EmployeeRowTranslation } from "../../translations";
 
 class EmployeeRow extends Component {
   onDeleteClick = (id) => {
@@ -32,6 +33,8 @@ class EmployeeRow extends Component {
     if (employee.manager === true) managerType = "Да";
     else managerType = "Не";
 
+    const translation = EmployeeRowTranslation || {};
+
     const row = (
       <tr>
         <td>{employee.profession}</td>
@@ -45,7 +48,7 @@ class EmployeeRow extends Component {
               this.showModal();
             }}
           >
-            Измени
+            {translation.updateButton}
           </Button>
         </td>
 

@@ -3,6 +3,7 @@ import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import EmployeeRow from "./EmployeeRow";
 import ModalForAddEmployee from "./ModalForAddEmployee";
+import { EmployeeTableTranslation } from "../../translations";
 
 class EmployeeTable extends Component {
   constructor() {
@@ -37,6 +38,8 @@ class EmployeeTable extends Component {
       physicalEntityList,
       usersNotUsedAsForeignKeyInTableEmployee,
     } = this.props || {};
+    const translation = EmployeeTableTranslation || {};
+    const { HeaderColumns, Buttons } = translation;
 
     const employeeListShowedInRow = employeeList.map((employee) => (
       <EmployeeRow
@@ -64,15 +67,15 @@ class EmployeeTable extends Component {
                 this.showModal();
               }}
             >
-              Унеси новог запосленог
+              {Buttons.addNewCase}
             </Button>
             <br />
             <br />
             <tr>
-              <th>Професија</th>
-              <th>Менаџер</th>
-              <th className="text-center">Измена</th>
-              <th className="text-center">Брисање</th>
+              <th>{HeaderColumns.profession}</th>
+              <th>{HeaderColumns.manager}</th>
+              <th className="text-center">{HeaderColumns.update}</th>
+              <th className="text-center">{HeaderColumns.delete}</th>
             </tr>
           </thead>
           <tbody>{employeeListShowedInRow}</tbody>
