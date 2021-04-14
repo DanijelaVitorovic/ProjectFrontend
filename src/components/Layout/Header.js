@@ -7,6 +7,7 @@ import authorizationService from "../../securityUtils/authorizationService";
 import MenuBarUsers from "../MenuBar/MenuBarUsers";
 import MenuBarUserNotAuthenticated from "../MenuBar/MenuBarUserNotAuthenticated";
 import { Navbar } from "react-bootstrap";
+import { HeaderTranslation } from "../../translations";
 
 class Header extends Component {
   logout() {
@@ -16,6 +17,8 @@ class Header extends Component {
 
   render() {
     const { validToken, loggedUser } = this.props.loggedUser;
+    const translation = HeaderTranslation || {};
+    const { HeaderItems } = translation;
 
     const userIsAuthenticated = (
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
@@ -35,7 +38,7 @@ class Header extends Component {
               className="nav-link "
               onClick={this.logout.bind(this)}
             >
-              Odjava
+              {HeaderItems.logout}
             </Link>
           </li>
         </ul>
@@ -57,7 +60,7 @@ class Header extends Component {
         <nav className="navbar navbar-expand-lg navbar-dark mb-4">
           <Navbar.Toggle />
           <Link className="navbar-brand" to="/">
-            APP
+            {HeaderItems.navbarBrand}
           </Link>
 
           <button

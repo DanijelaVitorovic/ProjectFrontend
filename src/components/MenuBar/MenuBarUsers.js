@@ -1,8 +1,12 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { Menus } from "../../translations";
 
 class MenuBarUsers extends Component {
   render() {
+    const translation = Menus || {};
+    const { UsersMenuBar } = translation;
+
     return (
       <div id="navbarNavDropdownUsersDiv">
         <ul className="navbar-nav mr-auto">
@@ -16,14 +20,14 @@ class MenuBarUsers extends Component {
               aria-haspopup="true"
               aria-expanded="false"
             >
-              Корисници
+              {UsersMenuBar.heading}
             </a>
             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
               <Link className="dropdown-item" to="/userList">
-                Приказ корисника
+                {UsersMenuBar.userList}
               </Link>
               <Link className="dropdown-item" to="/addUser">
-                Креирај новог корисника
+                {UsersMenuBar.addUser}
               </Link>
             </div>
           </li>
@@ -38,23 +42,23 @@ class MenuBarUsers extends Component {
               aria-haspopup="true"
               aria-expanded="false"
             >
-              Субјекти
+              {UsersMenuBar.Subjects.heading}
             </a>
             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
               <Link className="dropdown-item" to="/physicalEntityList">
-                Приказ физичких лица
+                {UsersMenuBar.Subjects.physicalEntityList}
               </Link>
               <Link className="dropdown-item" to="/employeeList">
-                Приказ запослених лица
+                {UsersMenuBar.Subjects.employeeList}
               </Link>
               <Link className="dropdown-item" to="/legalEntityList">
-                Приказ правних лица
+                {UsersMenuBar.Subjects.legalEntityList}
               </Link>
               <Link className="dropdown-item" to="/processTypeList">
-                Приказ типова процеса
+                {UsersMenuBar.Subjects.processTypeList}
               </Link>
               <Link className="dropdown-item" to="/organizationalUnitList">
-                Приказ организациних јединица
+                {UsersMenuBar.Subjects.organizationalUnitList}
               </Link>
             </div>
           </li>
@@ -69,11 +73,11 @@ class MenuBarUsers extends Component {
               aria-haspopup="true"
               aria-expanded="false"
             >
-              Предмети
+              {UsersMenuBar.Cases.heading}
             </a>
             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
               <Link className="dropdown-item" to="/caseList">
-                Приказ предмета
+                {UsersMenuBar.Cases.caseList}
               </Link>
             </div>
           </li>

@@ -78,3 +78,42 @@ export const PhysicalEntityModalForAddAndUpdateTranslation = {
     zipCodePlaceholder: "Поштански број",
   },
 };
+
+export const Menus = {
+  UserNotAuthenticatedMenuBar: {
+    registration: "Регистрација",
+    login: "Пријава",
+  },
+  UsersMenuBar: {
+    heading: "Корисници",
+    userList: "Приказ корисника",
+    addUser: "Креирај новог корисника",
+
+    Subjects: {
+      heading: "Субјекти",
+      physicalEntityList: "Приказ физичких лица",
+      employeeList: "Приказ запослених лица",
+      legalEntityList: "Приказ правних лица",
+      processTypeList: "Приказ типова процеса",
+      organizationalUnitList: "Приказ организациних јединица",
+    },
+    Cases: {
+      heading: "Предмети",
+      caseList: "Приказ предмета",
+    },
+  },
+};
+
+export const HeaderTranslation = {
+  HeaderItems: {
+    logout: "Одјава",
+    navbarBrand: "АРР",
+  },
+};
+
+export const DashboardTranslation = {
+  DashboardItems: {
+    welcomeTitle: "Добродошли",
+    welcomeParagraph: "ДМС пракса",
+  },
+};
