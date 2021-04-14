@@ -10,6 +10,7 @@ import {
 } from "../../actions/caseActions";
 import { getPhysicalEntities } from "../../actions/physicalEntityActions";
 import { getEmployees } from "../../actions/employeeActions";
+import { CaseListTranslation } from "../../translations";
 
 class CaseList extends Component {
   componentDidMount() {
@@ -19,10 +20,15 @@ class CaseList extends Component {
   }
 
   render() {
-    const { physicalEntities } = this.props.physicalEntity;
-    const { employees } = this.props.employee;
+    const { physicalEntityList } = this.props.physicalEntity;
+    const { employeeList } = this.props.employee;
     const _case = this.props.case.case;
     const caseList = this.props.case.caseList;
+    const { createCase, updateCase, getCase, getCases, deleteCase } =
+      this.props || {};
+
+    const translation = CaseListTranslation || {};
+    const { Header } = translation;
 
     return (
       <div className="container">
@@ -30,20 +36,20 @@ class CaseList extends Component {
           <div className="col-md-12 m-auto">
             <div className="card text-left mb-3">
               <div className="card-header text-black">
-                <h3>Предмети</h3>
+                <h3>{Header.heading}</h3>
               </div>
               <div class="col-md-12 m-auto">
                 <div className="card-body"></div>
                 <CaseTable
                   caseList={caseList}
-                  createCase={this.props.createCase}
-                  updateCase={this.props.updateCase}
-                  getCase={this.props.getCase}
-                  getCases={this.props.getCases}
-                  deleteCase={this.props.deleteCase}
-                  physicalEntities={physicalEntities}
+                  createCase={createCase}
+                  updateCase={updateCase}
+                  getCase={getCase}
+                  getCases={getCases}
+                  deleteCase={deleteCase}
+                  physicalEntityList={physicalEntityList}
                   caseForUpdate={_case}
-                  employees={employees}
+                  employeeList={employeeList}
                 />
                 <div id="msg" />
               </div>

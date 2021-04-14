@@ -3,6 +3,7 @@ import PhysicalEntityRow from "./PhysicalEntityRow";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import ModalForAddPhysicalEntity from "./ModalForAddPhysicalEntity";
+import { PhysicalEntityTableTranslation } from "../../translations";
 
 class PhysicalEntityTable extends Component {
   constructor() {
@@ -30,15 +31,26 @@ class PhysicalEntityTable extends Component {
   };
 
   render() {
-    const physicalEntities = this.props.physicalEntities.map(
+    const {
+      physicalEntityList,
+      updatePhysicalEntity,
+      getPhysicalEntity,
+      physicalEntityForUpdate,
+      deletePhysicalEntity,
+    } = this.props || {};
+
+    const translation = PhysicalEntityTableTranslation || {};
+    const { HeaderColumns, Buttons } = translation;
+
+    const physicalEntityListShowedInRow = physicalEntityList.map(
       (physicalEntity) => (
         <PhysicalEntityRow
           key={physicalEntity.id}
           physicalEntity={physicalEntity}
-          updatePhysicalEntity={this.props.updatePhysicalEntity}
-          getPhysicalEntity={this.props.getPhysicalEntity}
-          physicalEntityForUpdate={this.props.physicalEntityForUpdate}
-          deletePhysicalEntity={this.props.deletePhysicalEntity}
+          updatePhysicalEntity={updatePhysicalEntity}
+          getPhysicalEntity={getPhysicalEntity}
+          physicalEntityForUpdate={physicalEntityForUpdate}
+          deletePhysicalEntity={deletePhysicalEntity}
         />
       )
     );
@@ -58,22 +70,22 @@ class PhysicalEntityTable extends Component {
                 this.showModal();
               }}
             >
-              Направи ново физичко лице
+              {Buttons.addNewPhysicalEntity}
             </Button>
             <br />
             <br />
             <tr>
-              <th>Име</th>
-              <th>Презиме</th>
-              <th>Име оца</th>
-              <th>Професија</th>
-              <th>Имејл</th>
-              <th className="text-center">Адреса</th>
-              <th className="text-center">Измена</th>
-              <th className="text-center">Брисање</th>
+              <th>{HeaderColumns.name}</th>
+              <th>{HeaderColumns.surName}</th>
+              <th>{HeaderColumns.middleName}</th>
+              <th>{HeaderColumns.profession}</th>
+              <th>{HeaderColumns.email}</th>
+              <th className="text-center">{HeaderColumns.address}</th>
+              <th className="text-center">{HeaderColumns.update}</th>
+              <th className="text-center">{HeaderColumns.delete}</th>
             </tr>
           </thead>
-          <tbody>{physicalEntities}</tbody>
+          <tbody>{physicalEntityListShowedInRow}</tbody>
           <Link to={`/dashboard`}>
             <i className="fas fa-arrow-circle-left fa-3x fa-pull-left" />
           </Link>

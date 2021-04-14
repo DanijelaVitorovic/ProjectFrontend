@@ -7,7 +7,7 @@ import {
 } from "../actions/types";
 
 const initialState = {
-  employees: [],
+  employeeList: [],
   employee: {},
 };
 
@@ -16,7 +16,7 @@ export default function (state = initialState, action) {
     case GET_EMPLOYEES:
       return {
         ...state,
-        employees: action.payload,
+        employeeList: action.payload,
       };
     case GET_EMPLOYEE:
       return {
@@ -26,19 +26,19 @@ export default function (state = initialState, action) {
     case DELETE_EMPLOYEE:
       return {
         ...state,
-        employees: action.payload,
+        employeeList: action.payload,
       };
 
     case ADD_EMPLOYEE:
       return {
         ...state,
-        employees: state.employees.concat(action.payload),
+        employeeList: state.employeeList.concat(action.payload),
       };
 
     case UPDATE_EMPLOYEE:
       return {
         ...state,
-        employees: state.employees
+        employeeList: state.employeeList
           .filter((employee) => employee.id != action.payload.id)
           .concat(action.payload),
       };

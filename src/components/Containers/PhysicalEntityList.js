@@ -8,29 +8,40 @@ import {
   getPhysicalEntity,
 } from "../../actions/physicalEntityActions";
 import PhysicalEntityTable from "../PhysicalEntity/PhysicalEntityTable";
+import { PhysicalEntityListTranslation } from "../../translations";
 
 class PhysicalEntityList extends Component {
   componentDidMount() {
     this.props.getPhysicalEntities();
   }
   render() {
-    const { physicalEntities, physicalEntity } = this.props.physicalEntity;
+    const { physicalEntityList, physicalEntity } = this.props.physicalEntity;
+    const {
+      createPhysicalEntity,
+      updatePhysicalEntity,
+      getPhysicalEntity,
+      deletePhysicalEntity,
+    } = this.props || {};
+
+    const translation = PhysicalEntityListTranslation || {};
+    const { Header } = translation;
+
     return (
       <div className="container">
         <div className="row">
           <div className="col-md-12 m-auto">
             <div className="card text-left mb-3">
               <div className="card-header text-black">
-                <h3>Физичка лица</h3>
+                <h3>{Header.heading}</h3>
               </div>
               <div className="card-body">
                 <PhysicalEntityTable
-                  physicalEntities={physicalEntities}
-                  createPhysicalEntity={this.props.createPhysicalEntity}
-                  updatePhysicalEntity={this.props.updatePhysicalEntity}
-                  getPhysicalEntity={this.props.getPhysicalEntity}
+                  physicalEntityList={physicalEntityList}
+                  createPhysicalEntity={createPhysicalEntity}
+                  updatePhysicalEntity={updatePhysicalEntity}
+                  getPhysicalEntity={getPhysicalEntity}
                   physicalEntityForUpdate={physicalEntity}
-                  deletePhysicalEntity={this.props.deletePhysicalEntity}
+                  deletePhysicalEntity={deletePhysicalEntity}
                 />
                 <div id="msg" />
               </div>

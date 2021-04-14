@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { Button, Badge, Alert } from "react-bootstrap";
 import ModalForUpdateEmployee from "./ModalForUpdateEmployee";
+import { EmployeeRowTranslation } from "../../translations";
 
 class EmployeeRow extends Component {
   onDeleteClick = (id) => {
@@ -26,11 +27,13 @@ class EmployeeRow extends Component {
   };
 
   render() {
-    const { employee } = this.props;
+    const { employee, getEmployee, employeeForUpdate } = this.props || {};
     let managerType;
 
     if (employee.manager === true) managerType = "Да";
     else managerType = "Не";
+
+    const translation = EmployeeRowTranslation || {};
 
     const row = (
       <tr>
@@ -45,7 +48,7 @@ class EmployeeRow extends Component {
               this.showModal();
             }}
           >
-            Измени
+            {translation.updateButton}
           </Button>
         </td>
 
@@ -67,9 +70,9 @@ class EmployeeRow extends Component {
             show={this.state.show}
             closeModal={this.closeModal}
             handleUpdate={this.handleUpdate}
-            id={this.props.employee.id}
-            getEmployee={this.props.getEmployee}
-            employeeForUpdate={this.props.employeeForUpdate}
+            id={employee.id}
+            getEmployee={getEmployee}
+            employeeForUpdate={employeeForUpdate}
           />
         )}
       </Fragment>

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Modal, ModalFooter } from "react-bootstrap";
+import { EmployeeModalForAddAndUpdateTranslation } from "../../translations";
 
 class ModalForUpdateEmployee extends Component {
   constructor() {
@@ -39,11 +40,15 @@ class ModalForUpdateEmployee extends Component {
   };
 
   render() {
+    const { show, closeModal } = this.props || {};
+    const translation = EmployeeModalForAddAndUpdateTranslation || {};
+    const { Header, SelectOptionsAndPlaceholders } = translation;
+
     return (
       <Modal
-        show={this.props.show}
-        onHide={this.props.closeModal}
-        onRequestClose={this.props.closeModal}
+        show={show}
+        onHide={closeModal}
+        onRequestClose={closeModal}
         size="lg"
         centered
         animation
@@ -55,15 +60,17 @@ class ModalForUpdateEmployee extends Component {
             <div className="row">
               <div className="col-md-8 m-auto">
                 <h3 className="display-5 text-center">
-                  Измена запосленог лица
+                  {Header.headingUpdateModal}
                 </h3>
                 <hr />
                 <form onSubmit={this.onSubmit}>
                   <div className="form-group">
                     <input
                       type="text"
-                      className="form-control"
-                      placeholder="Promenite profesiju"
+                      className="form-control form-control-lg"
+                      placeholder={
+                        SelectOptionsAndPlaceholders.professionPlaceholder
+                      }
                       name="profession"
                       value={this.state.profession}
                       onChange={this.onChange}
@@ -72,17 +79,23 @@ class ModalForUpdateEmployee extends Component {
 
                   <div className="form-group">
                     <select
-                      className="form-control"
-                      placeholder="Menadzer"
+                      className="form-control form-control-lg"
+                      placeholder={
+                        SelectOptionsAndPlaceholders.managerPlaceholder
+                      }
                       name="manager"
                       value={this.state.manager}
                       onChange={this.onChange}
                     >
                       <option value="" selected disabled>
-                        Промените статус менаџер
+                        {SelectOptionsAndPlaceholders.managerOption}
                       </option>
-                      <option value="true">Да</option>
-                      <option value="false">Не</option>
+                      <option value="true">
+                        {SelectOptionsAndPlaceholders.managerOptionTrue}
+                      </option>
+                      <option value="false">
+                        {SelectOptionsAndPlaceholders.managerOptionFalse}
+                      </option>
                     </select>
                   </div>
 

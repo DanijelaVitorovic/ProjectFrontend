@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { Modal, ModalFooter } from "react-bootstrap";
 import { GetNameAndSurnameOfSomeEntity } from "../../../src/globals";
+import { EmployeeModalForAddAndUpdateTranslation } from "../../translations";
 
 class ModalForAddEmployee extends Component {
   constructor() {
@@ -24,15 +25,20 @@ class ModalForAddEmployee extends Component {
   };
 
   render() {
-    const physicalEntities = this.props.physicalEntities;
-    const usersNotUsedAsForeignKeyInTableEmployee = this.props
-      .usersNotUsedAsForeignKeyInTableEmployee;
+    const {
+      physicalEntityList,
+      usersNotUsedAsForeignKeyInTableEmployee,
+      show,
+      closeModal,
+    } = this.props || {};
+    const translation = EmployeeModalForAddAndUpdateTranslation || {};
+    const { Header, SelectOptionsAndPlaceholders } = translation;
 
     return (
       <Modal
-        show={this.props.show}
-        onHide={this.props.closeModal}
-        onRequestClose={this.props.closeModal}
+        show={show}
+        onHide={closeModal}
+        onRequestClose={closeModal}
         size="lg"
         centered
         animation
@@ -43,15 +49,17 @@ class ModalForAddEmployee extends Component {
             <div className="row">
               <div className="col-md-8 m-auto">
                 <h3 className="display-5 text-center">
-                  Унос новог запосленог лица
+                  {Header.headingAddModal}
                 </h3>
                 <hr />
                 <form onSubmit={this.onSubmit}>
                   <div className="form-group">
                     <input
                       type="text"
-                      className="form-control"
-                      placeholder="Unesite profesiju"
+                      className="form-control form-control-lg"
+                      placeholder={
+                        SelectOptionsAndPlaceholders.professionPlaceholder
+                      }
                       name="profession"
                       value={this.state.profession}
                       onChange={this.onChange}
@@ -59,32 +67,40 @@ class ModalForAddEmployee extends Component {
                   </div>
                   <div className="form-group">
                     <select
-                      className="form-control"
-                      placeholder="Menadzer"
+                      className="form-control form-control-lg"
+                      placeholder={
+                        SelectOptionsAndPlaceholders.managerPlaceholder
+                      }
                       name="manager"
                       value={this.state.manager}
                       onChange={this.onChange}
                     >
                       <option value="" selected disabled>
-                        Да ли сте менаџер?
+                        {SelectOptionsAndPlaceholders.managerOption}
                       </option>
-                      <option value="true">Да</option>
-                      <option value="false">Не</option>
+                      <option value="true">
+                        {SelectOptionsAndPlaceholders.managerOptionTrue}
+                      </option>
+                      <option value="false">
+                        {SelectOptionsAndPlaceholders.managerOptionFalse}
+                      </option>
                     </select>
                   </div>
 
                   <div className="form-group">
                     <select
-                      physicalEntities={physicalEntities}
+                      physicalEntityList={physicalEntityList}
                       onChange={this.onChange}
                       className="form-control form-control-lg"
-                      placeholder="Изаберите физичко лице"
+                      placeholder={
+                        SelectOptionsAndPlaceholders.physicalEntityPlaceholder
+                      }
                       name="physicalEntity"
                     >
                       <option value="" selected disabled>
-                        Изаберите физичко лице
+                        {SelectOptionsAndPlaceholders.physicalEntityOption}
                       </option>
-                      {physicalEntities.map((physicalEntity) => {
+                      {physicalEntityList.map((physicalEntity) => {
                         return (
                           <option value={physicalEntity.id}>
                             {GetNameAndSurnameOfSomeEntity(physicalEntity)}
@@ -101,11 +117,11 @@ class ModalForAddEmployee extends Component {
                       }
                       onChange={this.onChange}
                       className="form-control form-control-lg"
-                      placeholder="Изаберите корисника"
+                      placeholder={SelectOptionsAndPlaceholders.userPlaceholder}
                       name="user"
                     >
                       <option value="" selected disabled>
-                        Изаберите корисника
+                        {SelectOptionsAndPlaceholders.userOption}
                       </option>
                       {usersNotUsedAsForeignKeyInTableEmployee.map((user) => {
                         return (

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Modal, ModalFooter, Card } from "react-bootstrap";
-import { CaseType, GetNameandSurname } from "../../../src/globals";
+import { CaseType, GetNameAndSurnameOfSomeEntity } from "../../../src/globals";
+import { CaseModalForAddAndUpdateTranslation } from "../../translations";
 
 class ModalForAddCase extends Component {
   constructor() {
@@ -9,9 +10,9 @@ class ModalForAddCase extends Component {
       caseName: "",
       caseNumber: "",
       caseType: "",
-      owner: "",
-      processor: "",
-      refersTo: "",
+      refersTo: {},
+      owner: {},
+      processor: {},
     };
   }
 
@@ -33,14 +34,17 @@ class ModalForAddCase extends Component {
   };
 
   render() {
-    const physicalEntities = this.props.physicalEntities;
-    const employees = this.props.employees;
+    const { employeeList, physicalEntityList, show, closeModal } =
+      this.props || {};
+
+    const translation = CaseModalForAddAndUpdateTranslation || {};
+    const { Header, SelectOptionsAndPlaceholders } = translation;
 
     return (
       <Modal
-        show={this.props.show}
-        onHide={this.props.closeModal}
-        onRequestClose={this.props.closeModal}
+        show={show}
+        onHide={closeModal}
+        onRequestClose={closeModal}
         size="lg"
         centered
         animation
@@ -51,14 +55,18 @@ class ModalForAddCase extends Component {
             <div className="container">
               <div className="row">
                 <div className="col-md-8 m-auto">
-                  <h3 className="display-5 text-center">Унос новог предмета</h3>
+                  <h3 className="display-5 text-center">
+                    {Header.headingAddModal}
+                  </h3>
                   <hr />
                   <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                       <input
                         type="text"
                         className="form-control form-control-lg"
-                        placeholder="Унесите име предмета"
+                        placeholder={
+                          SelectOptionsAndPlaceholders.caseNamePlaceholder
+                        }
                         name="caseName"
                         value={this.state.caseName}
                         onChange={this.onChange}
@@ -68,7 +76,9 @@ class ModalForAddCase extends Component {
                       <input
                         type="text"
                         className="form-control form-control-lg"
-                        placeholder="Унесите број предмета"
+                        placeholder={
+                          SelectOptionsAndPlaceholders.caseNumberPlaceholder
+                        }
                         name="caseNumber"
                         value={this.state.caseNumber}
                         onChange={this.onChange}
@@ -76,62 +86,18 @@ class ModalForAddCase extends Component {
                     </div>
                     <div className="form-group">
                       <select
-                        physicalEntities={physicalEntities}
+                        physicalEntityList={physicalEntityList}
                         onChange={this.onChange}
                         className="form-control form-control-lg"
-                        placeholder="Изаберите на кога се односи"
                         name="refersTo"
                       >
                         <option value="" selected disabled>
-                          Изаберите на кога се односи
+                          {SelectOptionsAndPlaceholders.refersToOption}
                         </option>
-                        {physicalEntities.map((physicalEntity) => {
+                        {physicalEntityList.map((physicalEntity) => {
                           return (
                             <option value={physicalEntity.id}>
-                              {physicalEntity.firstName +
-                                " " +
-                                physicalEntity.lastName}
-                            </option>
-                          );
-                        })}
-                      </select>
-                    </div>
-                    <div className="form-group">
-                      <select
-                        employees={employees}
-                        onChange={this.onChange}
-                        className="form-control form-control-lg"
-                        placeholder="Изаберите обрађивача"
-                        name="processor"
-                      >
-                        <option value="" selected disabled>
-                          Изаберите обрађивача
-                        </option>
-                        {employees.map((employee) => {
-                          return (
-                            <option value={employee.id}>
-                              {GetNameandSurname(employee)}
-                            </option>
-                          );
-                        })}
-                      </select>
-                    </div>
-
-                    <div className="form-group">
-                      <select
-                        employees={employees}
-                        onChange={this.onChange}
-                        className="form-control form-control-lg"
-                        placeholder="Изаберите власника"
-                        name="owner"
-                      >
-                        <option value="" selected disabled>
-                          Изаберите власника
-                        </option>
-                        {employees.map((employee) => {
-                          return (
-                            <option value={employee.id}>
-                              {GetNameandSurname(employee)}
+                              {GetNameAndSurnameOfSomeEntity(physicalEntity)}
                             </option>
                           );
                         })}
@@ -141,13 +107,12 @@ class ModalForAddCase extends Component {
                     <div className="form-group">
                       <select
                         className="form-control form-control-lg"
-                        placeholder="Унесите тип предмета"
                         name="caseType"
                         value={this.state.caseType}
                         onChange={this.onChange}
                       >
                         <option value="" selected disabled>
-                          Унесите тип предмета
+                          {SelectOptionsAndPlaceholders.caseType}
                         </option>
                         {Object.keys(CaseType).map((key) => (
                           <option key={key} value={key}>

@@ -3,11 +3,12 @@ import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import EmployeeRow from "./EmployeeRow";
 import ModalForAddEmployee from "./ModalForAddEmployee";
+import { EmployeeTableTranslation } from "../../translations";
 
 class EmployeeTable extends Component {
   constructor() {
     super();
-    this.state = { show: false, profession: "", manager: "" };
+    this.state = { show: false };
   }
 
   showModal = () => {
@@ -28,14 +29,26 @@ class EmployeeTable extends Component {
   };
 
   render() {
-    const employees = this.props.employees.map((employee) => (
+    const {
+      employeeList,
+      getEmployee,
+      updateEmployee,
+      employeeForUpdate,
+      deleteEmployee,
+      physicalEntityList,
+      usersNotUsedAsForeignKeyInTableEmployee,
+    } = this.props || {};
+    const translation = EmployeeTableTranslation || {};
+    const { HeaderColumns, Buttons } = translation;
+
+    const employeeListShowedInRow = employeeList.map((employee) => (
       <EmployeeRow
         key={employee.id}
         employee={employee}
-        getEmployee={this.props.getEmployee}
-        updateEmployee={this.props.updateEmployee}
-        employeeForUpdate={this.props.employeeForUpdate}
-        deleteEmployee={this.props.deleteEmployee}
+        getEmployee={getEmployee}
+        updateEmployee={updateEmployee}
+        employeeForUpdate={employeeForUpdate}
+        deleteEmployee={deleteEmployee}
       />
     ));
 
@@ -54,18 +67,18 @@ class EmployeeTable extends Component {
                 this.showModal();
               }}
             >
-              Унеси новог запосленог
+              {Buttons.addNewCase}
             </Button>
             <br />
             <br />
             <tr>
-              <th>Професија</th>
-              <th>Менаџер</th>
-              <th className="text-center">Измена</th>
-              <th className="text-center">Брисање</th>
+              <th>{HeaderColumns.profession}</th>
+              <th>{HeaderColumns.manager}</th>
+              <th className="text-center">{HeaderColumns.update}</th>
+              <th className="text-center">{HeaderColumns.delete}</th>
             </tr>
           </thead>
-          <tbody>{employees}</tbody>
+          <tbody>{employeeListShowedInRow}</tbody>
           <Link to={`/dashboard`}>
             <i className="fas fa-arrow-circle-left fa-3x fa-pull-left" />
           </Link>
@@ -83,9 +96,9 @@ class EmployeeTable extends Component {
             show={this.state.show}
             closeModal={this.closeModal}
             handleAdd={this.handleAdd}
-            physicalEntities={this.props.physicalEntities}
+            physicalEntityList={physicalEntityList}
             usersNotUsedAsForeignKeyInTableEmployee={
-              this.props.usersNotUsedAsForeignKeyInTableEmployee
+              usersNotUsedAsForeignKeyInTableEmployee
             }
           />
         )}
