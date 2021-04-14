@@ -85,6 +85,9 @@ class MenuBarUsers extends Component {
               <Link className="dropdown-item" to="/caseClassificationList">
                 Приказ класификација предмета
               </Link>
+              <Link className="dropdown-item" to="/documentList">
+                Приказ докумената
+              </Link>
             </div>
           </li>
         </ul>

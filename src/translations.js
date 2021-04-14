@@ -155,3 +155,42 @@ export const EmployeeModalForAddAndUpdateTranslation = {
     userOption: "Изаберите корисника",
   },
 };
+
+export const documentListTranslation = {
+  Header: { heading: "Документи" },
+};
+
+export const documentTableTranslation = {
+  HeaderColumns: {
+    id: "Ид",
+    title: "Наслов",
+    description: "Опис",
+    type:  "Тип",
+    status: "Статус",
+    employee: "Запослени",
+    _case: "Случај",
+    update: "Измена",
+    delete: "Брисање",
+  },
+  Buttons: {
+    addNew: "Унеси нови документ",
+  },
+}
+ export const documentModalForAddAndUpdateTranslation ={
+  Header: {
+    headingAddModal: "Унос новог документа",
+    headingUpdateModal: "Измена документа",
+  },
+  SelectOptionsAndPlaceholders: {
+    titlePlaceholder: "Наслов",
+    descriptionPlaceholder: "Опис",
+    typePlaceholder:  "Унесите тип предмета",
+    typeOption: "Унесите тип документа",
+    statusPlaceholder: "Унесите статус документа",
+    statusOption: "Унесите статус документа",
+    employeePlaceholder: "Одаберите запослено лице",
+    employeeOption:  "Одаберите запослено лице",
+    _casePlaceholder: "Одаберите случај",
+    _caseOption: "Одаберите случај"
+  },
+ }
