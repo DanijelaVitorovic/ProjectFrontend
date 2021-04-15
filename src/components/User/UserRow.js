@@ -7,7 +7,7 @@ import {
   deleteUser,
   deactivateUser,
   activateUser,
-  createUser
+  createUser,
 } from "../../actions/userActions";
 
 var msg;
@@ -15,10 +15,10 @@ class UserRow extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      redirectMe: false
+      redirectMe: false,
     };
   }
-  
+
   // checkPermitionForUpdate() {
   //   if (this.props.user1.user.id != this.props.user.id) {
   //     this.setErrorMessage("Ne možete menjati podatke drugih korisnika!");
@@ -66,14 +66,14 @@ class UserRow extends Component {
   //   }, 3000);
   // }
 
-  onDeactivateClick = id => {
+  onDeactivateClick = (id) => {
     this.props.deactivateUser(id);
   };
-  onActivateClick = id => {
+  onActivateClick = (id) => {
     this.props.activateUser(id);
   };
-  
-  onDeleteClick = id => {
+
+  onDeleteClick = (id) => {
     this.props.deleteUser(id);
   };
   render() {
@@ -84,27 +84,24 @@ class UserRow extends Component {
     // }
     return (
       <tr>
-        <td>{this.props.user.firstName}</td>
-        <td>{this.props.user.lastName}</td>
         <td>{this.props.user.username}</td>
         <td>{this.props.user.address}</td>
         <td>{this.props.user.phoneNumber}</td>
         <td className="text-center">{this.props.user.active}</td>
         <td className="text-center">
-        <Link to={`/updateUser/${this.props.user.id}`}>
+          <Link to={`/updateUser/${this.props.user.id}`}>
             <i className="fas fa-edit fa-2x" />
           </Link>
-         </td>
-         
-       
-          <td className="text-center">
+        </td>
+
+        <td className="text-center">
           <Link
             id="dectivateUser"
             onClick={this.onDeactivateClick.bind(this, this.props.user.id)}
           >
             <i className="fas fa-times-circle fa-2x" />
           </Link>
-        </td> 
+        </td>
         <td className="text-center">
           <Link
             id="activateUser"
@@ -112,16 +109,14 @@ class UserRow extends Component {
           >
             <i className="fas fa-play-circle fa-2x" />
           </Link>
-        </td>  
+        </td>
         {/* <td>
            <Link onClick={this.checkPermitionForUpdate.bind(this)}>
             <i className="fas fa-edit fa-2x" />
           </Link> 
         </td> */}
-         {/* <td className="text-center">{this.props.user.active}</td> */}
-       
-        
-        
+        {/* <td className="text-center">{this.props.user.active}</td> */}
+
         <td className="text-center">
           <Link
             id="deleteUser"
@@ -129,25 +124,27 @@ class UserRow extends Component {
           >
             <i className="fas fa-trash-alt fa-2x" />
           </Link>
-        </td> 
+        </td>
       </tr>
     );
   }
 }
 
 UserRow.propTypes = {
-   // user1: PropTypes.object.isRequired,
-    deleteUser: PropTypes.func.isRequired,
-    deactivateUser: PropTypes.func.isRequired,
-    activateUser: PropTypes.func.isRequired
-   //getUsers: PropTypes.func.isRequired
+  // user1: PropTypes.object.isRequired,
+  deleteUser: PropTypes.func.isRequired,
+  deactivateUser: PropTypes.func.isRequired,
+  activateUser: PropTypes.func.isRequired,
+  //getUsers: PropTypes.func.isRequired
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   // user1: state.user
 });
 
-export default connect(
-  mapStateToProps,
-  { createUser, deactivateUser, activateUser, deleteUser}
-)(UserRow);
+export default connect(mapStateToProps, {
+  createUser,
+  deactivateUser,
+  activateUser,
+  deleteUser,
+})(UserRow);

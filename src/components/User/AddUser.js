@@ -11,18 +11,15 @@ class AddUser extends Component {
   constructor() {
     super();
     this.state = {
-     
-      firstName: "",
-      lastName: "",
       username: "",
       password: "",
-    //  confirmPassword: "",
+      //  confirmPassword: "",
       address: "",
       phoneNumber: "",
       confirmUseConditions: true,
-     // operationType: "",
+      // operationType: "",
       errors: {},
-      roles: []
+      roles: [],
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -45,9 +42,7 @@ class AddUser extends Component {
   onSubmit(e) {
     e.preventDefault();
     const newUser = {
-     // clubNameUser: "USER",
-      firstName: this.state.firstName,
-      lastName: this.state.lastName,
+      // clubNameUser: "USER",
       username: this.state.username,
       password: this.state.password,
       confirmPassword: this.state.confirmPassword,
@@ -88,37 +83,7 @@ class AddUser extends Component {
                     <input
                       type="text"
                       className={classnames("form-control", {
-                        "is-invalid": errors.firstName
-                      })}
-                      placeholder="Ime"
-                      name="firstName"
-                      value={this.state.firstName}
-                      onChange={this.onChange}
-                    />
-                    {errors.firstName && (
-                      <div className="invalid-feedback">{errors.firstName}</div>
-                    )}
-                  </div>
-                  <div className="form-group">
-                    <input
-                      type="text"
-                      className={classnames("form-control", {
-                        "is-invalid": errors.lastName
-                      })}
-                      placeholder="Prezime"
-                      name="lastName"
-                      value={this.state.lastName}
-                      onChange={this.onChange}
-                    />
-                    {errors.lastName && (
-                      <div className="invalid-feedback">{errors.lastName}</div>
-                    )}
-                  </div>
-                  <div className="form-group">
-                    <input
-                      type="text"
-                      className={classnames("form-control", {
-                        "is-invalid": errors.username
+                        "is-invalid": errors.username,
                       })}
                       placeholder="E-mail"
                       name="username"
@@ -133,7 +98,7 @@ class AddUser extends Component {
                     <input
                       type="text"
                       className={classnames("form-control", {
-                        "is-invalid": errors.address
+                        "is-invalid": errors.address,
                       })}
                       placeholder="Adresa"
                       name="address"
@@ -148,7 +113,7 @@ class AddUser extends Component {
                     <input
                       type="text"
                       className={classnames("form-control", {
-                        "is-invalid": errors.phoneNumber
+                        "is-invalid": errors.phoneNumber,
                       })}
                       placeholder="Broj telefona"
                       name="phoneNumber"
@@ -166,7 +131,7 @@ class AddUser extends Component {
                       id="password"
                       type="password"
                       className={classnames("form-control", {
-                        "is-invalid": errors.password
+                        "is-invalid": errors.password,
                       })}
                       placeholder="Lozinka"
                       name="password"
@@ -182,7 +147,7 @@ class AddUser extends Component {
                       id="confirmPassword"
                       type="password"
                       className={classnames("form-control", {
-                        "is-invalid": errors.confirmPassword
+                        "is-invalid": errors.confirmPassword,
                       })}
                       placeholder="Ponovljena lozinka"
                       name="confirmPassword"
@@ -220,17 +185,14 @@ class AddUser extends Component {
 }
 
 AddUser.propTypes = {
- // getRoles: PropTypes.func.isRequired,
+  // getRoles: PropTypes.func.isRequired,
   createUser: PropTypes.func.isRequired,
-  errors: PropTypes.object.isRequired
+  errors: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
- // availableRoles: state.role.roles,
-  errors: state.errors
+const mapStateToProps = (state) => ({
+  // availableRoles: state.role.roles,
+  errors: state.errors,
 });
 
-export default connect(
-  mapStateToProps,
-  { createUser}
-)(AddUser);
+export default connect(mapStateToProps, { createUser })(AddUser);
