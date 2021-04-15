@@ -67,7 +67,7 @@ class DocumentList extends Component {
 
 const mapStateToProps = (state) => ({
   documents: state.document.documents,
-  employees: state.employee.employees,
+  employees: state.employee.employeeList,
   physicalEntities: state.physicalEntities,
   caseList: state.case.caseList,
   errors: state.errors,
