@@ -173,7 +173,7 @@ export const documentTableTranslation = {
     delete: "Брисање",
   },
   Buttons: {
-    addNew: "Унеси нови документ",
+    addNewDocument: "Унеси нови документ",
   },
 }
  export const documentModalForAddAndUpdateTranslation ={
