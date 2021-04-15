@@ -3,7 +3,7 @@ import UserRow from "./UserRow";
 
 class UserTable extends Component {
   render() {
-    var users = this.props.users.map(user => (
+    var users = this.props.users.map((user) => (
       <UserRow key={user.id} user={user} />
     ));
 
@@ -15,16 +15,14 @@ class UserTable extends Component {
         >
           <thead>
             <tr>
-              <th>Име</th>
-              <th>Презиме</th>
               <th>Имејл</th>
               <th>Адреса</th>
               <th>Телефон</th>
-              <th className="text-center">Активан</th> 
+              <th className="text-center">Активан</th>
               <th className="text-center">Измена</th>
-               <th className="text-center">Деактивација</th>
+              <th className="text-center">Деактивација</th>
               <th className="text-center">Активација</th>
-              <th className="text-center">Брисање</th> 
+              <th className="text-center">Брисање</th>
             </tr>
           </thead>
           <tbody>{users}</tbody>
