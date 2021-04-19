@@ -34,14 +34,14 @@ export default class DocumentRow extends Component {
     const lastName = document.employeeCreated.physicalEntity.lastName;
     const row = (
       <tr>
-        <td className="red">{document.id}</td>
-        <td className="red">{document.title}</td>
-        <td className="red">{document.description}</td>
-        <td className="red">{document.documentType}</td>
-        <td className="red">{document.documentStatus}</td>
-        <td className="red">{firstName + " " + lastName}</td>
-        <td className="red">{document._case.caseName}</td>
-        <td className="text-center" className="red">
+        <td>{document.id}</td>
+        <td>{document.title}</td>
+        <td>{document.description}</td>
+        <td>{document.documentType}</td>
+        <td>{document.documentStatus}</td>
+        <td>{firstName + " " + lastName}</td>
+        <td>{document._case.caseName}</td>
+        <td className="text-center">
           <Button
             className="button"
             variant="link"
@@ -52,8 +52,8 @@ export default class DocumentRow extends Component {
             <i className="fas fa-pen-alt fa-2x"></i>
           </Button>
         </td>
-        <td className="text-center" className="red">
-          <Badge pill variant="danger">
+        <td className="text-center">
+          <Badge variant="danger">
             <div onClick={() => this.onDeleteClick(document.id)}>
               <i className="fas fa-trash-alt fa-2x" />
             </div>

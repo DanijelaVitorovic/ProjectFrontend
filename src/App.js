@@ -67,8 +67,12 @@ class App extends Component {
               <SecuredRoute exact path="/dashboard" component={Dashboard} />
               <Route exact path="/addUser" component={AddUser} />
               <Route exact path="/userList" component={UserList} />
-              <Route exact path="/organizationalUnitList" component={OrganizationalUnitList} />
-              
+              <Route
+                exact
+                path="/organizationalUnitList"
+                component={OrganizationalUnitList}
+              />
+
               <Route exact path="/documentList" component={DocumentList} />
               <Route
                 exact

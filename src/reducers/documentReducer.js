@@ -4,6 +4,7 @@ import {
   GET_DOCUMENT,
   GET_DOCUMENTS,
   DELETE_DOCUMENT,
+  ADD_CASE_DOCUMENT_DTO,
 } from "../actions/types";
 
 const initialState = {
@@ -43,6 +44,13 @@ export default function (state = initialState, action) {
           (document) => document.id !== action.payload
         ),
       };
+
+    case ADD_CASE_DOCUMENT_DTO:
+      return {
+        ...state,
+        documents: state.documents.concat(action.payload),
+      };
+
     default:
       return state;
   }

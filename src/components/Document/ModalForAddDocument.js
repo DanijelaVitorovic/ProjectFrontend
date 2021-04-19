@@ -140,7 +140,7 @@ class ModalForAddDocument extends Component {
                         style={{ fontSize: "1rem" }}
                       >
                         <option value="" selected disabled>
-                          {SelectOptionsAndPlaceholders}
+                          {SelectOptionsAndPlaceholders.statusOption}
                         </option>
                         {Object.keys(documentStatus).map((key) => (
                           <option key={key} value={key}>

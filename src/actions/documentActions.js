@@ -5,6 +5,7 @@ import {
   ADD_DOCUMENT,
   UPDATE_DOCUMENT,
   GET_ERRORS,
+  ADD_CASE_DOCUMENT_DTO,
 } from "./types";
 import axios from "axios";
 
@@ -74,6 +75,24 @@ export const deleteDocument = (id) => async (dispatch) => {
         type: DELETE_DOCUMENT,
         payload: id,
       });
+    });
+  }
+};
+
+export const createCaseAndDocumentDTO = (newDocument) => async (dispatch) => {
+  try {
+    await axios
+      .post("/api/document/createDocumentWithCase", newDocument)
+      .then((response) => {
+        dispatch({
+          type: ADD_CASE_DOCUMENT_DTO,
+          payload: response.data,
+        });
+      });
+  } catch (err) {
+    dispatch({
+      type: GET_ERRORS,
+      payload: err.response.data,
     });
   }
 };

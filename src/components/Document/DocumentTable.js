@@ -1,9 +1,11 @@
 import React, { Component, Fragment } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 import DocumentRow from "./DocumentRow";
 import ModalForAddDocument from "./ModalForAddDocument";
 import table from "./table.css";
 import { documentTableTranslation } from "../../translations";
+import ModalForAddCaseAndDocument from "./ModalForAddCaseAndDocument";
+
 export default class DocumentTable extends Component {
   constructor() {
     super();
@@ -26,6 +28,19 @@ export default class DocumentTable extends Component {
     this.closeModal();
   };
 
+  showModalForAddCaseAndDocument = () => {
+    this.setState({ showModalForAddingCaseAndDocument: true });
+  };
+
+  closeModalForAddCaseAndDocument = () => {
+    this.setState({ showModalForAddingCaseAndDocument: false });
+  };
+
+  handleAddCaseAndDocument = (newCaseDocumentDTO) => {
+    this.props.createCaseAndDocumentDTO(newCaseDocumentDTO);
+    this.closeModalForAddCaseAndDocument();
+  };
+
   render() {
     const {
       documents,
@@ -39,7 +54,7 @@ export default class DocumentTable extends Component {
     } = this.props || {};
 
     const translation = documentTableTranslation || {};
-    const {HeaderColumns,  Buttons} = translation;
+    const { HeaderColumns, Buttons } = translation;
     const documentList = documents.map((document) => (
       <DocumentRow
         key={document.id}
@@ -58,16 +73,35 @@ export default class DocumentTable extends Component {
       <div className="table-responsive tableHeight">
         <table id="example" className="table table-hover">
           <thead className="thead-light">
-            <Button
-              className="btn btn-default"
-              type="submit"
-              variant="success"
-              onClick={() => {
-                this.showModal();
-              }}
-            >
-              {Buttons.addNewDocument}
-            </Button>
+            <Row>
+              <Col>
+                <Button
+                  className="btn btn-default"
+                  type="submit"
+                  size="sm"
+                  variant="success"
+                  onClick={() => {
+                    this.showModal();
+                  }}
+                >
+                  {Buttons.addNewDocument}
+                </Button>
+              </Col>
+              <Col>
+                <Button
+                  class="btn btn-default"
+                  type="submit"
+                  variant="info"
+                  size="sm"
+                  onClick={() => {
+                    this.showModalForAddCaseAndDocument();
+                  }}
+                >
+                  Dodaj dokument sa predmetom
+                </Button>
+              </Col>
+            </Row>
+
             <p></p>
             <tr className="card-body table-success">
               <th scope="col">{HeaderColumns.id}</th>
@@ -93,16 +127,32 @@ export default class DocumentTable extends Component {
     return (
       <Fragment>
         {table}
-        <ModalForAddDocument
-          show={this.state.show}
-          handleAdd={this.handleAdd}
-          closeModal={this.closeModal}
-          createDocument={createDocument}
-          caseList={caseList}
-          employees={employees}
-          documents={documents}
-          physicalEntities={physicalEntities}
-        />
+        {
+          <ModalForAddDocument
+            show={this.state.show}
+            handleAdd={this.handleAdd}
+            closeModal={this.closeModal}
+            createDocument={createDocument}
+            caseList={caseList}
+            employees={employees}
+            documents={documents}
+            physicalEntities={physicalEntities}
+          />
+        }
+        {this.state.showModalForAddingCaseAndDocument && (
+          <ModalForAddCaseAndDocument
+            showModalForAddingCaseAndDocument={
+              this.state.showModalForAddingCaseAndDocument
+            }
+            closeModalForAddCaseAndDocument={
+              this.closeModalForAddCaseAndDocument
+            }
+            handleAddCaseAndDocument={this.handleAddCaseAndDocument}
+            employees={employees}
+            physicalEntities={physicalEntities}
+            caseList={caseList}
+          />
+        )}
       </Fragment>
     );
   }

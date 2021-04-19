@@ -8,7 +8,7 @@ import { CaseTableTranslation } from "../../translations";
 class CaseTable extends Component {
   constructor() {
     super();
-    this.state = { show: false };
+    this.state = { show: false, showModalForAddingCaseAndDocument: false };
   }
 
   showModal = () => {
@@ -32,6 +32,7 @@ class CaseTable extends Component {
       caseForUpdate,
       physicalEntityList,
       employeeList,
+      caseList,
     } = this.props || {};
 
     const caseListShowedInRow = this.props.caseList.map((_case) => (
@@ -67,7 +68,6 @@ class CaseTable extends Component {
             >
               {Buttons.addNewCase}
             </Button>
-
             <br />
             <br />
             <tr>
