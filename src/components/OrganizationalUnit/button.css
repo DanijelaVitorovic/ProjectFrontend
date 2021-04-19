@@ -15,7 +15,7 @@
   color: rgb(58, 100, 58);
 }
 
-.Badge:hover  {
+.Badge:hover {
   background-color: black;
-  color: silver
+  color: silver;
 }

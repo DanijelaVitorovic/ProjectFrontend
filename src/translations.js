@@ -24,6 +24,7 @@ export const CaseRowTranslation = {
 
 export const CaseModalForAddAndUpdateTranslation = {
   Header: {
+    heading: "Унос предмета и документа",
     headingAddModal: "Унос новог предмета",
     headingUpdateModal: "Измени предмет",
   },
@@ -165,7 +166,7 @@ export const documentTableTranslation = {
     id: "Ид",
     title: "Наслов",
     description: "Опис",
-    type:  "Тип",
+    type: "Тип",
     status: "Статус",
     employee: "Запослени",
     _case: "Случај",
@@ -175,8 +176,8 @@ export const documentTableTranslation = {
   Buttons: {
     addNewDocument: "Унеси нови документ",
   },
-}
- export const documentModalForAddAndUpdateTranslation ={
+};
+export const documentModalForAddAndUpdateTranslation = {
   Header: {
     headingAddModal: "Унос новог документа",
     headingUpdateModal: "Измена документа",
@@ -184,13 +185,13 @@ export const documentTableTranslation = {
   SelectOptionsAndPlaceholders: {
     titlePlaceholder: "Наслов",
     descriptionPlaceholder: "Опис",
-    typePlaceholder:  "Унесите тип предмета",
+    typePlaceholder: "Унесите тип предмета",
     typeOption: "Унесите тип документа",
     statusPlaceholder: "Унесите статус документа",
     statusOption: "Унесите статус документа",
     employeePlaceholder: "Одаберите запослено лице",
-    employeeOption:  "Одаберите запослено лице",
+    employeeOption: "Одаберите запослено лице",
     _casePlaceholder: "Одаберите случај",
-    _caseOption: "Одаберите случај"
+    _caseOption: "Одаберите случај",
   },
- }
+};

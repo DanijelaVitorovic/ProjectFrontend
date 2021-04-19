@@ -5,6 +5,7 @@ import {
   getDocument,
   getDocuments,
   deleteDocument,
+  createDocumentWithCase,
 } from "../../actions/documentActions";
 import { getCases } from "../../actions/caseActions";
 import { getEmployees } from "../../actions/employeeActions";
@@ -32,10 +33,11 @@ class DocumentList extends Component {
       createDocument,
       updateDocument,
       getDocument,
-      deleteDocument
+      deleteDocument,
+      createDocumentWithCase,
     } = this.props || {};
     const translation = documentListTranslation || {};
-    const {Header} = translation;
+    const { Header } = translation;
     return (
       <div className="container ">
         <div className="row">
@@ -54,6 +56,7 @@ class DocumentList extends Component {
                   employees={employees}
                   caseList={caseList}
                   physicalEntities={physicalEntities}
+                  createDocumentWithCase={createDocumentWithCase}
                 />
                 <div id="msg" />
               </div>
@@ -68,7 +71,7 @@ class DocumentList extends Component {
 const mapStateToProps = (state) => ({
   documents: state.document.documents,
   employees: state.employee.employeeList,
-  physicalEntities: state.physicalEntities,
+  physicalEntities: state.physicalEntity.physicalEntityList,
   caseList: state.case.caseList,
   errors: state.errors,
 });
@@ -82,4 +85,5 @@ export default connect(mapStateToProps, {
   getCases,
   getEmployees,
   getPhysicalEntities,
+  createDocumentWithCase,
 })(DocumentList);

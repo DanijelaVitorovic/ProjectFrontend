@@ -1,12 +1,12 @@
 .title {
   font-size: 1.5em;
   text-align: center;
-  color: rgb(114, 91, 115);
+  color: rgb(78, 78, 78);
 }
 
 .wrapper {
   padding: 4em;
-  background: rgb(248, 240, 248);
+  background: #c9f7fd;
 }
 
 .card-dashboard {
