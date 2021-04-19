@@ -113,11 +113,11 @@ class Login extends Component {
                   )}
                 </div>
                 <button type="submit" className="btn btn-primary float-right">
-                  <i class="fas fa-check fa-2x" />
+                  <i className="fas fa-check fa-2x" />
                 </button>
 
                 <Link to="/">
-                  <i class="fas fa-arrow-circle-left fa-3x fa-pull-left" />
+                  <i className="fas fa-arrow-circle-left fa-3x fa-pull-left" />
                 </Link>
               </form>
             </div>

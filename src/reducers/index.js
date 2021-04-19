@@ -2,6 +2,7 @@ import { combineReducers } from "redux";
 import errorReducer from "./errorReducer";
 import userReducer from "./userReducer";
 import securityReducer from "./securityReducer";
+import processReducer from "./processReducer";
 import legalEntityReducer from "./legalEntityReducer";
 import processTypesReducer from "./processTypeReducer";
 import employeeReducer from "./employeeReducer";
@@ -15,6 +16,7 @@ export default combineReducers({
   errors: errorReducer,
   loggedUser: securityReducer,
   user: userReducer,
+  process: processReducer,
   legalEntity: legalEntityReducer,
   processType: processTypesReducer,
   employee: employeeReducer,
