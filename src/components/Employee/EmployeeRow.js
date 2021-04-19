@@ -2,6 +2,8 @@ import React, { Component, Fragment } from "react";
 import { Button, Badge, Alert } from "react-bootstrap";
 import ModalForUpdateEmployee from "./ModalForUpdateEmployee";
 import { EmployeeRowTranslation } from "../../translations";
+import UpdateButton from "../Reusable/UpdateButton";
+import DeleteButton from "../Reusable/DeleteButton";
 
 class EmployeeRow extends Component {
   onDeleteClick = (id) => {
@@ -39,26 +41,13 @@ class EmployeeRow extends Component {
       <tr>
         <td>{employee.profession}</td>
         <td>{managerType}</td>
-        <td className="text-center">
-          <Button
-            class="btn btn-default"
-            type="submit"
-            variant="outline-warning"
-            onClick={() => {
-              this.showModal();
-            }}
-          >
-            {translation.updateButton}
-          </Button>
-        </td>
-
-        <td className="text-center">
-          <Badge variant="danger">
-            <div onClick={() => this.onDeleteClick(employee.id)}>
-              <i className="fas fa-trash-alt fa-2x" />
-            </div>
-          </Badge>
-        </td>
+        <td className="text-center" className="red">
+        <UpdateButton showModal={this.showModal} id={document} />
+      </td>
+      
+      <td className="text-center" className="red">
+        <DeleteButton onDeleteClick={this.onDeleteClick} id={document.id} />
+      </td>
       </tr>
     );
 

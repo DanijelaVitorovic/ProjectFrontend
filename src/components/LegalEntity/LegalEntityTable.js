@@ -6,6 +6,7 @@ import {
   getLegalEntity,
   updateLegalEntity,
 } from "../../actions/legalEntityAction";
+import {legalEntityTableTranslation} from "../../translations";
 
 class LegalEntityTable extends Component {
   constructor() {
@@ -39,6 +40,8 @@ class LegalEntityTable extends Component {
   };
 
   render() {
+    const translation = legalEntityTableTranslation || {};
+    const {HeaderColumns, Buttons} = translation;
     const legalEntities = this.props.legalEntities.map((legalEntity) => (
       <LegalEntityRow
         key={legalEntity.id}
@@ -56,24 +59,24 @@ class LegalEntityTable extends Component {
         <thead class="thead-light" >
           <Button
             className="btn btn-default"
-            variant="success"
+            variant="info"
             type="submit"
             onClick={() => {
               this.showModal();
             }}
           >
-            Dodaj pravno lice
+           {Buttons.addNewLegalEntity}
           </Button>
           <p></p>
           <tr>
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Pib</th>
-            <th scope="col">Registration number</th>
-            <th scope="col">Email</th>
-            <th scope="col">Statment</th>
-            <th scope="col">Update</th>
-            <th scope="col">Delete</th>
+            <th scope="col">{HeaderColumns.id}</th>
+            <th scope="col">{HeaderColumns.name}</th>
+            <th scope="col">{HeaderColumns.pib}</th>
+            <th scope="col">{HeaderColumns.registrationNumber}</th>
+            <th scope="col">{HeaderColumns.email}</th>
+            <th scope="col">{HeaderColumns.email}</th>
+            <th scope="col">{HeaderColumns.update}</th>
+            <th scope="col">{HeaderColumns.delete}</th>
           </tr>
         </thead>
 

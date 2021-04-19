@@ -1,129 +1,125 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import classnames from "classnames";
 import { Link } from "react-router-dom";
 import { Modal, Button } from "react-bootstrap";
+import { processTypeModalForAddAndUpdateTrasaltion } from "../../translations";
 
 class ModalForUpdateProcessType extends Component {
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        this.state = {
-            type: "",
-            description: "",
-            errors: {}
-        };
-    } 
-    
-    componentDidMount()  {
-        this.props.getProcessType(this.props.id);
+    this.state = {
+      type: "",
+      description: "",
+      errors: {},
+    };
+  }
+
+  componentDidMount() {
+    this.props.getProcessType(this.props.id);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps.processTypeForUpdate + "------")
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
     }
+    console.log(nextProps.processTypeForUpdate + "------")
+    const { id, type, description } = nextProps.processTypeForUpdate;
 
-    componentWillReceiveProps(nextProps) {
-        if(nextProps.errors) {
-            this.setState({errors: nextProps.errors});
-        }
+    this.setState({
+      id,
+      type,
+      description,
+    });
+  }
 
-        const {
-            id,
-            type,
-            description
-        } = nextProps.processTypeForUpdate;
+  onChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
 
-        this.setState({
-            id,
-            type,
-            description
-        });
-    }
+  onSubmit = (e) => {
+    e.preventDefault();
 
-    onChange = (e) => {
-        this.setState({[e.target.name]: e.target.value});
-    }
+    const updatedProcessType = {
+      id: this.state.id,
+      type: this.state.type,
+      description: this.state.description,
+      errors: {},
+    };
 
-    onSubmit = (e) => {
-        e.preventDefault();
+    this.props.handleUpdate(updatedProcessType);
+  };
 
-        const updateProcessType = {
-            id: this.state.id,
-            type: this.state.type,
-            description: this.state.description,
-            errors: {}
-        };
+  render() {
+    const { errors } = this.state;
+    const {show, closeModal} = this.props || {};
+    const translation = processTypeModalForAddAndUpdateTrasaltion || {};
+    const {Header, SelectOptionsAndPlaceholders} = translation;
 
-        this.props.handleUpdate(updateProcessType);
-    }
+    return (
+      <Modal
+        show={show}
+        onHide={closeModal}
+        onRequest={closeModal}
+        size="lg"
+      >
+        <Modal.Header closeButton>
+          <h5>{Header.headingUpdateModal}</h5>
+        </Modal.Header>
 
-    render() {
-        const {errors} = this.state;
-        return (
-            <Modal
-            show={this.props.show}
-            onHide={this.props.closeModal}
-            onRequest={this.props.closeModal}
-            size="lg"
-          >
-            <Modal.Header closeButton><h5> Update Process Type Update</h5></Modal.Header>
-  
-            <div className="register">
-            <div className="container">
-              <div className="row">
-                <div className="col-md-6 m-auto">
-                 
-                  <hr />
-                  <form onSubmit={this.onSubmit}>
+        <div className="register">
+          <div className="container">
+            <div className="row">
+              <div className="col-md-6 m-auto">
+                <hr />
+                <form onSubmit={this.onSubmit}>
+                  <div className="form-group">
+                    <input
+                      type="text"
+                      className={classnames("form-control", {
+                        "is-invalid": errors.type,
+                      })}
+                      placeholder={SelectOptionsAndPlaceholders.typePlaceholder}
+                      name="type"
+                      value={this.state.type}
+                      onChange={this.onChange}
+                    />
+                    {errors.type && (
+                      <div className="invalid-feedback">{errors.type}</div>
+                    )}
+                  </div>
 
-                    <div className="form-group">
-                      <input
-                        type="text"
-                        className={classnames("form-control", {
-                          "is-invalid": errors.type,
-                        })}
-                        placeholder="Type"
-                        name="type"
-                        value={this.state.type}
-                        onChange={this.onChange}
-                      />
-                      {errors.type && (
-                        <div className="invalid-feedback">{errors.type}</div>
-                      )}
-                    </div>
+                  <div className="form-group">
+                    <input
+                      type="text"
+                      className={classnames("form-control", {
+                        "is-invalid": errors.description,
+                      })}
+                      placeholder={Header.descriptionPlaceholder}
+                      name="description"
+                      value={this.state.description}
+                      onChange={this.onChange}
+                    />
+                    {errors.description && (
+                      <div className="invalid-feedback">
+                        {errors.description}
+                      </div>
+                    )}
+                  </div>
 
-                    <div className="form-group">
-                      <input
-                        type="text"
-                        className={classnames("form-control", {
-                          "is-invalid": errors.description,
-                        })}
-                        placeholder="Description"
-                        name="description"
-                        value={this.state.description}
-                        onChange={this.onChange}
-                      />
-                      {errors.description && (
-                        <div className="invalid-feedback">{errors.description}</div>
-                      )}
-                    </div>
-    
-                    <Button variant = 'success'
-                    to="/processTypeList"
-                    type="submit"
-                  >
-                  <i class="fas fa-check fa-2x"></i>
+                  <Button variant="success" to="/processTypeList" type="submit">
+                    <i class="fas fa-check fa-2x"></i>
                   </Button>
-                  </form>
-                </div>
+                </form>
               </div>
             </div>
           </div>
-          <br></br>
-                    <Button
-                      onClick={() => {
-                        this.props.closeModal();
-                      }}
-                    >Close</Button>
-                  </Modal>
-        );
-    }
+        </div>
+        <br></br>
+      </Modal>
+    );
+  }
 }
 
 export default ModalForUpdateProcessType;

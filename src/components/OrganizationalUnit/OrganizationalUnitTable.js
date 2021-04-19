@@ -3,6 +3,7 @@ import { Button } from "react-bootstrap";
 import OrganizationalUnitRow from "./OrganizationalUnitRow";
 import { Link } from "react-router-dom";
 import ModalForAddOrganizationalUnit from "./ModalForAddOrganizationalUnit";
+import { organizationalUnitTableTranslation } from "../../translations";
 
 class OrganizationalUnitTable extends Component {
   constructor() {
@@ -27,16 +28,28 @@ class OrganizationalUnitTable extends Component {
   };
 
   render() {
-    const organizationalUnits = this.props.organizationalUnits.map(
+    const {
+      organizationalUnits,
+      legalEntities,
+      createNewOrganizationalUnit,
+      updateOrganizationalUnit,
+      getOrganizationalUnit,
+      deleteOrganizationalUnit,
+    } = this.props || {};
+
+    const translation = organizationalUnitTableTranslation || {};
+    const {HeaderColumns,Buttons} = translation;
+
+    const organizationalUnitList = organizationalUnits.map(
       (organizationalUnit) => (
         <OrganizationalUnitRow
           key={organizationalUnit.id}
           organizationalUnit={organizationalUnit}
-          createNewOrganizationalUnit={this.props.createNewOrganizationalUnit}
-          getOrganizationalUnit={this.props.getOrganizationalUnit}
-          updateOrganizationalUnit={this.props.updateOrganizationalUnit}
-          deleteOrganizationalUnit={this.props.deleteOrganizationalUnit}
-          legalEntities={this.props.legalEntities}
+          createNewOrganizationalUnit={createNewOrganizationalUnit}
+          getOrganizationalUnit={getOrganizationalUnit}
+          updateOrganizationalUnit={updateOrganizationalUnit}
+          deleteOrganizationalUnit={deleteOrganizationalUnit}
+          legalEntities={legalEntities}
         />
       )
     );
@@ -48,28 +61,26 @@ class OrganizationalUnitTable extends Component {
             <Button
               className="btn btn-default"
               type="submit"
-              variant="success"
+              variant="info"
               onClick={() => {
                 this.showModal();
               }}
-            >
-              Направи нову организациону јединицу
-            </Button>
+            >{Buttons.addNewOrganizationalUnit}</Button>
             <p></p>
             <tr className=" card-body">
-              <th scope="col">#</th>
-              <th scope="col">Име јединице</th>
-              <th scope="col">Шифра</th>
-              <th scope="col">Име правног лица</th>
+              <th scope="col">{HeaderColumns.id}</th>
+              <th scope="col">{HeaderColumns.name}</th>
+              <th scope="col">{HeaderColumns.code}</th>
+              <th scope="col">{HeaderColumns.nameLegalEntity}</th>
               <th scope="col" className="text-center">
-                Измена
+                {HeaderColumns.update}
               </th>
               <th scope="col" className="text-center">
-                Брисање
+                {HeaderColumns.delete}
               </th>
             </tr>
           </thead>
-          <tbody>{organizationalUnits}</tbody>
+          <tbody>{organizationalUnitList}</tbody>
         </table>
       </div>
     );
@@ -83,8 +94,8 @@ class OrganizationalUnitTable extends Component {
             handleAdd={this.handleAdd}
             closeModal={this.closeModal}
             organizationalUnits={organizationalUnits}
-            createNewOrganizationalUnit={this.props.createNewOrganizationalUnit}
-            legalEntities={this.props.legalEntities}
+            createNewOrganizationalUnit={createNewOrganizationalUnit}
+            legalEntities={legalEntities}
           />
         )}
       </Fragment>

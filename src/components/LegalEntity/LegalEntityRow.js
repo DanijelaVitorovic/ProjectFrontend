@@ -10,6 +10,8 @@ import { connect } from "react-redux";
 import { Button } from "react-bootstrap";
 import ModalForUpdateLegalEntity from "./ModalForUpdateLegalEntity";
 import { Statement } from "../../../src/globals";
+import UpdateButton from "../Reusable/UpdateButton";
+import DeleteButton from "../Reusable/DeleteButton";
 
 class LegalEntityRow extends Component {
   constructor(props) {
@@ -48,37 +50,25 @@ class LegalEntityRow extends Component {
   };
 
   render() {
+    const {legalEntity, legalEntityForUpdate, getLegalEntity } = this.props || {};
     const statement = this.props.legalEntity.statment;
 
     const row = (
       <tr>
-        <td>{this.props.legalEntity.id}</td>
-        <td>{this.props.legalEntity.name}</td>
-        <td>{this.props.legalEntity.pib}</td>
-        <td>{this.props.legalEntity.registrationNumber}</td>
-        <td>{this.props.legalEntity.email}</td>
+        <td>{legalEntity.id}</td>
+        <td>{legalEntity.name}</td>
+        <td>{legalEntity.pib}</td>
+        <td>{legalEntity.registrationNumber}</td>
+        <td>{legalEntity.email}</td>
         <td style={{ color: Statement[statement].color }}>
           {Statement[statement].translation}
         </td>
-        <td className="text-center">
-          <Button
-            variant="link"
-            onClick={() => {
-              this.showModal();
-            }}
-          >
-            <i class="fas fa-pen-alt fa-2x"></i>
-          </Button>
+        <td className="text-center" className="red">
+          <UpdateButton showModal={this.showModal} id={document} />
         </td>
-
-        <td className="text-center">
-          <Link
-            to="#"
-            id="deleteEntity"
-            onClick={() => this.onDeleteClick(this.props.legalEntity.id)}
-          >
-            <i className="fas fa-trash-alt fa-2x" />
-          </Link>
+        
+        <td className="text-center" className="red">
+          <DeleteButton onDeleteClick={this.onDeleteClick} id={document.id} />
         </td>
       </tr>
     );
@@ -88,9 +78,9 @@ class LegalEntityRow extends Component {
         {this.state.show && (
           <ModalForUpdateLegalEntity
             show={this.state.show}
-            id={this.props.legalEntity.id}
-            legalEntityForUpdate={this.props.legalEntityForUpdate}
-            getLegalEntity={this.props.getLegalEntity}
+            id={legalEntity.id}
+            legalEntityForUpdate={legalEntityForUpdate}
+            getLegalEntity={getLegalEntity}
             closeModal={this.closeModal}
             handleUpdate={this.handleUpdate}
           />
