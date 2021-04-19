@@ -36,6 +36,7 @@ class DocumentList extends Component {
       deleteDocument,
       createDocumentWithCase,
     } = this.props || {};
+    
     const translation = documentListTranslation || {};
     const { Header } = translation;
     return (

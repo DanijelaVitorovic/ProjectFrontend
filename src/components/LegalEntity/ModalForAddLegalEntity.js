@@ -3,6 +3,10 @@ import classnames from "classnames";
 import { Link } from "react-router-dom";
 import { Modal, Button } from "react-bootstrap";
 import { Statement } from "../../../src/globals";
+import {
+  legalEntityModalForAddAndUpdateTranslation,
+  legalEntityModalForAddAndUpdateTranslationea,
+} from "../../translations";
 
 class AddModalLegalEntity extends Component {
   constructor() {
@@ -43,15 +47,18 @@ class AddModalLegalEntity extends Component {
 
   render() {
     const { errors } = this.state;
+    const { show, closeModal } = this.props || {};
+    const translation = legalEntityModalForAddAndUpdateTranslation || {};
+    const { Header, SelectOptionsAndPlaceholders } = translation;
     return (
       <div>
         <Modal
-          show={this.props.show}
-          onHide={this.props.closeModal}
-          onRequest={this.props.closeModal}
+          show={show}
+          onHide={closeModal}
+          onRequest={closeModal}
         >
           <Modal.Header closeButton>
-            <h4>Unos novog pravnog lica</h4>
+            <h4>{Header.headingAddModal}</h4>
           </Modal.Header>
 
           <div className="register">
@@ -66,7 +73,7 @@ class AddModalLegalEntity extends Component {
                         className={classnames("form-control", {
                           "is-invalid": errors.name,
                         })}
-                        placeholder="Ime"
+                      placeholder={SelectOptionsAndPlaceholders.namePlaceholder}
                         name="name"
                         value={this.state.name}
                         onChange={this.onChange}
@@ -81,7 +88,7 @@ class AddModalLegalEntity extends Component {
                         className={classnames("form-control", {
                           "is-invalid": errors.pib,
                         })}
-                        placeholder="Prezime"
+                        placeholder={SelectOptionsAndPlaceholders.pibPlaceholder}
                         name="pib"
                         value={this.state.pib}
                         onChange={this.onChange}
@@ -96,7 +103,7 @@ class AddModalLegalEntity extends Component {
                         className={classnames("form-control", {
                           "is-invalid": errors.email,
                         })}
-                        placeholder="E-mail"
+                        placeholder={SelectOptionsAndPlaceholders.emailPlaceholder}
                         name="email"
                         value={this.state.email}
                         onChange={this.onChange}
@@ -108,13 +115,14 @@ class AddModalLegalEntity extends Component {
 
                     <div className="form-group">
                       <select
+                      placeholder =  {SelectOptionsAndPlaceholders.statementPlaceholder}
                         className="form-control form-control-lg"
                         name="statment"
                         value={this.state.statment}
                         onChange={this.onChange}
                         style={{ fontSize: "1rem" }}
                       >
-                        <option value={1}>Select Priority</option>
+                        <option value={Statement.PASSIVE.value}>{SelectOptionsAndPlaceholders.statementPlaceholder}</option>
                         <option value={Statement.ACTIVE.value}>
                           {Statement.ACTIVE.translation}
                         </option>
@@ -143,7 +151,6 @@ class AddModalLegalEntity extends Component {
             </div>
           </div>
           <br></br>
-         
         </Modal>
       </div>
     );

@@ -3,6 +3,7 @@ import ProcessTypeRow from "./ProcessTypeRow";
 import { Modal, Button } from "react-bootstrap";
 import { times } from "lodash";
 import ModalForAddProcessType from "./ModalForAddProcessType";
+import { processTypeTableTranslation } from "../../translations";
 
 class ProcessTypeTable extends Component {
   constructor() {
@@ -34,15 +35,25 @@ class ProcessTypeTable extends Component {
   };
 
   render() {
-    const processTypes = this.props.processTypes.map((processType) => (
+    const {
+      processTypes,
+      createProcessType,
+      getProcessType,
+      updateProcessType,
+      deleteProcessType,
+    } = this.props || {};
+
+    const translation = processTypeTableTranslation || {};
+    const {HeaderColumns, Buttons} = translation;
+
+    const processTypeList = processTypes.map((processType) => (
       <ProcessTypeRow
         key={processType.id}
-        processType={processType}
-        getProcessType={this.props.getProcessType}
-        createProcessType={this.props.createProcessType}
-        updateProcessType={this.props.updateProcessType}
-        processTypeForUpdate={this.props.processTypeForUpdate}
-        deleteProcessType = {this.props.deleteProcessType}
+        processType = {processType}
+        getProcessType={getProcessType}
+        createProcessType={createProcessType}
+        updateProcessType={updateProcessType}
+        deleteProcessType={deleteProcessType}
       />
     ));
 
@@ -51,25 +62,25 @@ class ProcessTypeTable extends Component {
         <thead class="thead-light">
           <Button
             class="btn btn-default"
-            variant="success"
+            variant="info"
             type="submit"
             onClick={() => {
               this.showModal();
             }}
           >
-            Add new Process Type
+           {Buttons.addNewProcessType}
           </Button>
           <p></p>
           <tr className=" card-body">
-            <th scope="col">#</th>
-            <th scope="col">Type</th>
-            <th scope="col">Description</th>
-            <th scope="col">Update</th>
-            <th scope="col">Delete</th>
+            <th scope="col">{HeaderColumns.id}</th>
+            <th scope="col">{HeaderColumns.type}</th>
+            <th scope="col">{HeaderColumns.description}</th>
+            <th scope="col">{HeaderColumns.update}</th>
+            <th scope="col">{HeaderColumns.delete}</th>
           </tr>
         </thead>
 
-        <tbody>{processTypes}</tbody>
+        <tbody>{processTypeList}</tbody>
       </table>
     );
 
@@ -81,6 +92,8 @@ class ProcessTypeTable extends Component {
             show={this.state.show}
             closeModal={this.closeModal}
             handleAdd={this.handleAdd}
+            processTypes = {processTypes}
+            createProcessType = {createProcessType}
           />
         )}
       </Fragment>

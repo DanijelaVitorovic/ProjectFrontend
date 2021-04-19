@@ -6,9 +6,10 @@ import {
   getLegalEntites,
   createLegalEntity,
   deleteLegalEntity,
-  updateLegalEntity
+  updateLegalEntity,
 } from "../../actions/legalEntityAction";
 import { Button } from "react-bootstrap";
+import { legalEntityListTranslation } from "../../translations";
 
 class LegalEntityList extends Component {
   componentDidMount() {
@@ -17,20 +18,22 @@ class LegalEntityList extends Component {
 
   render() {
     const { legalEntities, legalEntity } = this.props.legalEntity;
+    const translation = legalEntityListTranslation || {};
+    const { Header } = translation;
     return (
       <div className="container">
         <div className="row">
           <div className="col-md-12 m-auto">
             <div className="card text-left mb-3">
               <div className="card-body">
-                <h3>Pravna lica</h3>
+                <h3>{Header.heading}</h3>
                 <LegalEntityTable
                   legalEntities={legalEntities}
                   createLegalEntity={this.props.createLegalEntity}
                   updateLegalEntity={this.props.updateLegalEntity}
                   getLegalEntity={this.props.getLegalEntity}
                   legalEntityForUpdate={legalEntity}
-                  deleteLegalEntity = {this.props.deleteLegalEntity}
+                  deleteLegalEntity={this.props.deleteLegalEntity}
                 />
 
                 <div id="msg" />
@@ -53,5 +56,5 @@ export default connect(mapStateToProps, {
   getLegalEntites,
   createLegalEntity,
   deleteLegalEntity,
-  updateLegalEntity
+  updateLegalEntity,
 })(LegalEntityList);

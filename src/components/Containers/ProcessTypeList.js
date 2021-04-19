@@ -6,8 +6,9 @@ import {
   getProcessType,
   createProcessType,
   updateProcessType,
-  deleteProcessType
+  deleteProcessType,
 } from "../../actions/processTypeActions";
+import { processTypeListTranslation } from "../../translations";
 
 class ProcessTypeList extends Component {
   componentDidMount() {
@@ -15,7 +16,15 @@ class ProcessTypeList extends Component {
   }
 
   render() {
-    const { processTypes, processType } = this.props.processType;
+    const {
+      processTypes,
+      createProcessType,
+      updateProcessType,
+      getProcessType,
+      deleteProcessType,
+    } = this.props || {};
+    const translation = processTypeListTranslation || {};
+    const {Header} = translation;
 
     const listContent = (
       <div className="container">
@@ -23,15 +32,14 @@ class ProcessTypeList extends Component {
           <div className="col-md-12 m-auto">
             <div className="card text-left mb-3">
               <div className="card-body">
-                <h3>Process Type</h3>
+                <h3>{Header.heading}</h3>
 
                 <ProcessTypeTable
                   processTypes={processTypes}
-                  processTypeForUpdate={processType}
-                  createProcessType={this.props.createProcessType}
-                  getProcessType={this.props.getProcessType}
-                  updateProcessType={this.props.updateProcessType}
-                  deleteProcessType = {this.props.deleteProcessType}
+                  createProcessType={createProcessType}
+                  getProcessType={getProcessType}
+                  updateProcessType={updateProcessType}
+                  deleteProcessType={deleteProcessType}
                 />
 
                 <div id="msg" />
@@ -47,7 +55,7 @@ class ProcessTypeList extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  processType: state.processType,
+  processTypes: state.processType.processTypes,
   errors: state.errors,
 });
 
@@ -56,5 +64,5 @@ export default connect(mapStateToProps, {
   getProcessType,
   updateProcessType,
   getProcessTypes,
-  deleteProcessType
+  deleteProcessType,
 })(ProcessTypeList);

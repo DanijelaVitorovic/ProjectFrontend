@@ -9,6 +9,7 @@ import {
 import { getLegalEntites } from "../../actions/legalEntityAction";
 import { connect } from "react-redux";
 import OrganizationalUnitTable from "../OrganizationalUnit/OrganizationalUnitTable";
+import { organizationalUnitListTranslation } from "../../translations";
 
 class OraganizationalUnitList extends Component {
   componentDidMount() {
@@ -17,26 +18,31 @@ class OraganizationalUnitList extends Component {
   }
 
   render() {
-    const { organizationalUnits } = this.props.organizationalUnit;
-    const { legalEntities } = this.props.legalEntity;
-
+    const {
+      organizationalUnits,
+      legalEntities,
+      createNewOrganizationalUnit,
+      updateOrganizationalUnit,
+      getOrganizationalUnit,
+      deleteOrganizationalUnit,
+    } = this.props || {};
+    const translation = organizationalUnitListTranslation || {};
+    const { Header } = translation;
     return (
       <div className="container">
         <div className="row">
           <div className="col-md-12 m-auto">
             <div className="card text-left mb-3">
               <div className="card-header text-black">
-                <h3>Организационе јединице</h3>
+                <h3>{Header.heading}</h3>
               </div>
               <div className="card-body">
                 <OrganizationalUnitTable
                   organizationalUnits={organizationalUnits}
-                  createNewOrganizationalUnit={
-                    this.props.createNewOrganizationalUnit
-                  }
-                  updateOrganizationalUnit={this.props.updateOrganizationalUnit}
-                  getOrganizationalUnit={this.props.getOrganizationalUnit}
-                  deleteOrganizationalUnit={this.props.deleteOrganizationalUnit}
+                  createNewOrganizationalUnit={createNewOrganizationalUnit}
+                  updateOrganizationalUnit={updateOrganizationalUnit}
+                  getOrganizationalUnit={getOrganizationalUnit}
+                  deleteOrganizationalUnit={deleteOrganizationalUnit}
                   legalEntities={legalEntities}
                 />
                 <div id="msg" />
@@ -50,8 +56,8 @@ class OraganizationalUnitList extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  organizationalUnit: state.organizationalUnit,
-  legalEntity: state.legalEntity,
+  organizationalUnits: state.organizationalUnit.organizationalUnits,
+  legalEntities: state.legalEntity.legalEntities,
   errors: state.error,
 });
 

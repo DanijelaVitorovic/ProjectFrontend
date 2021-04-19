@@ -79,6 +79,7 @@ export default class DocumentTable extends Component {
               title="Унеси нови документ"
               className="btn btn-default "
               type="submit"
+              variant="info"
               size="lm"
               onClick={() => {
                 this.showModal();
@@ -127,32 +128,15 @@ export default class DocumentTable extends Component {
     return (
       <Fragment>
         {table}
-        {
-          <ModalForAddDocument
-            show={this.state.show}
-            handleAdd={this.handleAdd}
-            closeModal={this.closeModal}
-            createDocument={createDocument}
-            caseList={caseList}
-            employees={employees}
-            documents={documents}
-            physicalEntities={physicalEntities}
-          />
-        }
-        {this.state.showModalForAddingCaseAndDocument && (
-          <ModalForAddCaseAndDocument
-            showModalForAddingCaseAndDocument={
-              this.state.showModalForAddingCaseAndDocument
-            }
-            closeModalForAddCaseAndDocument={
-              this.closeModalForAddCaseAndDocument
-            }
-            handleAddCaseAndDocument={this.handleAddCaseAndDocument}
-            employees={employees}
-            physicalEntities={physicalEntities}
-            caseList={caseList}
-          />
-        )}
+        <ModalForAddDocument
+          show={this.state.show}
+          handleAdd={this.handleAdd}
+          closeModal={this.closeModal}
+          createDocument={createDocument}
+          caseList={caseList}
+          employees={employees}
+          physicalEntities={physicalEntities}
+        />
       </Fragment>
     );
   }

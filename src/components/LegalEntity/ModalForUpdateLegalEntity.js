@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import classnames from "classnames";
 import { Link } from "react-router-dom";
 import { Modal, Button } from "react-bootstrap";
+import { legalEntityModalForAddAndUpdateTranslation } from "../../translations";
 
 class ModalForUpdateLegalEntity extends Component {
   constructor() {
@@ -66,24 +67,25 @@ class ModalForUpdateLegalEntity extends Component {
 
   render() {
     const { errors } = this.state;
+    const {show, closeModal} = this.props || {};
+    const translation = legalEntityModalForAddAndUpdateTranslation || {};
+    const {Header, SelectOptionsAndPlaceholders} = translation;
     return (
       <div>
         <Modal
-          show={this.props.show}
-          onHide={this.props.closeModal}
-          onRequest={this.props.closeModal}
+          show={show}
+          onHide={closeModal}
+          onRequest={closeModal}
         >
-          <Modal.Header closeButton><h4>
-          Azuriraj pravno lice
-        </h4></Modal.Header>
+          <Modal.Header closeButton>
+            <h4>{Header.headingUpdateModal}</h4>
+          </Modal.Header>
 
           <div className="register">
             <div className="container">
               <div className="row">
                 <div className="col-md-6 m-auto">
-                  <h5 className="display-4 text-center">
-                    
-                  </h5>
+                  <h5 className="display-4 text-center"></h5>
                   <hr />
                   <form onSubmit={this.onSubmit}>
                     <div className="form-group">
@@ -92,9 +94,9 @@ class ModalForUpdateLegalEntity extends Component {
                         className={classnames("form-control", {
                           "is-invalid": errors.name,
                         })}
-                        placeholder="Ime"
+                        placeholder={SelectOptionsAndPlaceholders.namePlaceholder}
                         name="name"
-                        value={this.props.name}
+                        value={this.state.name}
                         onChange={this.onChange}
                       />
                       {errors.name && (
@@ -107,7 +109,7 @@ class ModalForUpdateLegalEntity extends Component {
                         className={classnames("form-control", {
                           "is-invalid": errors.pib,
                         })}
-                        placeholder="Prezime"
+                        placeholder={SelectOptionsAndPlaceholders.pibPlaceholder}
                         name="pib"
                         value={this.state.pib}
                         onChange={this.onChange}
@@ -122,7 +124,7 @@ class ModalForUpdateLegalEntity extends Component {
                         className={classnames("form-control", {
                           "is-invalid": errors.email,
                         })}
-                        placeholder="E-mail"
+                        placeholder={SelectOptionsAndPlaceholders.emailPlaceholder}
                         name="email"
                         value={this.state.email}
                         onChange={this.onChange}
@@ -134,15 +136,16 @@ class ModalForUpdateLegalEntity extends Component {
 
                     <div className="form-group">
                       <select
+                      placeholder = {SelectOptionsAndPlaceholders.statementPlaceholder}
                         className="form-control form-control-lg"
                         name="statment"
                         value={this.state.statment}
                         onChange={this.onChange}
-                        style={{ fontSize: '1rem' }}
+                        style={{ fontSize: "1rem" }}
                       >
-                        <option value={2}>Select Priority</option>
-                        <option value={0}>ACTIVE</option>
-                        <option value={1}>PASSIVE</option>
+                        <option value={2}>{SelectOptionsAndPlaceholders.statementOption}</option>
+                        <option value={0}>{SelectOptionsAndPlaceholders.statementOptionActive}</option>
+                        <option value={1}>{SelectOptionsAndPlaceholders.statementOptionPassive}</option>
                       </select>
 
                       {errors.statment && (
@@ -152,19 +155,19 @@ class ModalForUpdateLegalEntity extends Component {
                       )}
                     </div>
 
-                    <Button variant = 'success'
-                    to="/processTypeList"
-                    type="submit"
-                  >
-                  <i class="fas fa-check fa-2x"></i>
-                  </Button>
+                    <Button
+                      variant="success"
+                      to="/processTypeList"
+                      type="submit"
+                    >
+                      <i class="fas fa-check fa-2x"></i>
+                    </Button>
                   </form>
                 </div>
               </div>
             </div>
           </div>
-<br></br>
-         
+          <br></br>
         </Modal>
       </div>
     );
