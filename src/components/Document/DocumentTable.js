@@ -5,6 +5,7 @@ import ModalForAddDocument from "./ModalForAddDocument";
 import table from "./table.css";
 import { documentTableTranslation } from "../../translations";
 import ModalForAddCaseAndDocument from "./ModalForAddCaseAndDocument";
+import AddTwoToneIcon from "@material-ui/icons/AddTwoTone";
 
 export default class DocumentTable extends Component {
   constructor() {
@@ -73,36 +74,36 @@ export default class DocumentTable extends Component {
       <div className="table-responsive tableHeight">
         <table id="example" className="table table-hover">
           <thead className="thead-light">
-            <Row>
-              <Col>
+            <div class="btn-group">
+              <div class="btn-group">
                 <Button
-                  className="btn btn-default"
+                  title="Унеси нови документ"
+                  className="btn btn-default "
                   type="submit"
-                  size="sm"
-                  variant="success"
+                  size="lm"
                   onClick={() => {
                     this.showModal();
                   }}
                 >
-                  {Buttons.addNewDocument}
+                  <AddTwoToneIcon />
                 </Button>
-              </Col>
-              <Col>
+              </div>
+              <div class="btn-group">
                 <Button
+                  title="Додај документ са предметом"
                   class="btn btn-default"
                   type="submit"
                   variant="info"
-                  size="sm"
+                  size="lm"
                   onClick={() => {
                     this.showModalForAddCaseAndDocument();
                   }}
                 >
-                  Dodaj dokument sa predmetom
+                  <AddTwoToneIcon />
                 </Button>
-              </Col>
-            </Row>
+              </div>
+            </div>
 
-            <p></p>
             <tr className="card-body table-success">
               <th scope="col">{HeaderColumns.id}</th>
               <th scope="col">{HeaderColumns.title}</th>

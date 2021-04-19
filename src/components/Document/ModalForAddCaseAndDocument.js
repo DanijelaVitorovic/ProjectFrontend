@@ -269,9 +269,10 @@ class ModalForAddCaseAndDocument extends Component {
                       </Stepper>
                       <Typography>{this.getStepContent(activeStep)}</Typography>
                     </div>
+
                     <button
                       type="submit"
-                      className="btn btn-primary float-right btn-success"
+                      className="btn btn-primary float-right btn-default"
                     >
                       <i className="fas fa-check fa-2x" />
                     </button>
