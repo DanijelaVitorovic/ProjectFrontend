@@ -5,7 +5,7 @@ import {
   getDocument,
   getDocuments,
   deleteDocument,
-  createCaseAndDocumentDTO,
+  createDocumentWithCase,
 } from "../../actions/documentActions";
 import { getCases } from "../../actions/caseActions";
 import { getEmployees } from "../../actions/employeeActions";
@@ -34,7 +34,7 @@ class DocumentList extends Component {
       updateDocument,
       getDocument,
       deleteDocument,
-      createCaseAndDocumentDTO,
+      createDocumentWithCase,
     } = this.props || {};
     const translation = documentListTranslation || {};
     const { Header } = translation;
@@ -56,7 +56,7 @@ class DocumentList extends Component {
                   employees={employees}
                   caseList={caseList}
                   physicalEntities={physicalEntities}
-                  createCaseAndDocumentDTO={createCaseAndDocumentDTO}
+                  createDocumentWithCase={createDocumentWithCase}
                 />
                 <div id="msg" />
               </div>
@@ -85,5 +85,5 @@ export default connect(mapStateToProps, {
   getCases,
   getEmployees,
   getPhysicalEntities,
-  createCaseAndDocumentDTO,
+  createDocumentWithCase,
 })(DocumentList);

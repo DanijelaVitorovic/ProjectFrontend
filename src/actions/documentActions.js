@@ -79,7 +79,7 @@ export const deleteDocument = (id) => async (dispatch) => {
   }
 };
 
-export const createCaseAndDocumentDTO = (newDocument) => async (dispatch) => {
+export const createDocumentWithCase = (newDocument) => async (dispatch) => {
   try {
     await axios
       .post("/api/document/createDocumentWithCase", newDocument)

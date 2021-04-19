@@ -22,8 +22,6 @@ class ModalForAddCaseAndDocument extends Component {
       caseNumber: "",
       caseType: "",
       refersTo: "",
-      owner: "",
-      processor: "",
       activeStep: 0,
     };
   }
@@ -45,8 +43,6 @@ class ModalForAddCaseAndDocument extends Component {
         caseNumber: this.state.caseNumber,
         refersTo: { id: this.state.refersTo },
         caseType: this.state.caseType,
-        owner: null,
-        processor: null,
       },
     };
     this.props.handleAddCaseAndDocument(newCaseDocumentDTO);
@@ -90,7 +86,6 @@ class ModalForAddCaseAndDocument extends Component {
                 onChange={this.onChange}
                 className="form-control"
                 name="refersTo"
-                // value={this.state._case.refersTo.id}
               >
                 <option value="" selected disabled>
                   {SelectOptionsAndPlaceholders.refersToOption}

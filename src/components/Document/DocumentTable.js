@@ -38,7 +38,7 @@ export default class DocumentTable extends Component {
   };
 
   handleAddCaseAndDocument = (newCaseDocumentDTO) => {
-    this.props.createCaseAndDocumentDTO(newCaseDocumentDTO);
+    this.props.createDocumentWithCase(newCaseDocumentDTO);
     this.closeModalForAddCaseAndDocument();
   };
 
