@@ -43,6 +43,7 @@ export default class DocumentTable extends Component {
   };
 
   render() {
+
     const {
       documents,
       createDocument,
@@ -69,7 +70,7 @@ export default class DocumentTable extends Component {
         physicalEntities={physicalEntities}
       />
     ));
-
+    
     const table = (
       <div className="table-responsive tableHeight">
         <div class="btn-group">
@@ -106,16 +107,15 @@ export default class DocumentTable extends Component {
             <tr className="card-body table-success">
               <th scope="col">{HeaderColumns.id}</th>
               <th scope="col">{HeaderColumns.title}</th>
-              <th scope="col">{HeaderColumns.description}</th>
               <th scope="col">{HeaderColumns.type}</th>
               <th scope="col">{HeaderColumns.status}</th>
               <th scope="col">{HeaderColumns.employee}</th>
               <th scope="col">{HeaderColumns._case}</th>
               <th scope="col" className="text-center">
-                {HeaderColumns.update}
+                {HeaderColumns.delete}
               </th>
               <th scope="col" className="text-center">
-                {HeaderColumns.delete}
+                {HeaderColumns.update}
               </th>
             </tr>
           </thead>

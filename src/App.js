@@ -33,6 +33,8 @@ import OrganizationalUnitList from "./components/Containers/OrganizationalUnitLi
 import CaseList from "./components/Containers/CaseList";
 import DocumentList from "./components/Containers/DocumentList";
 import CaseClassificationList from "./components/Containers/CaseClassificationList";
+import UpdateForm from "./components/Document/UpdateForm";
+import MenuBarUsers from "./components/MenuBar/MenuBarUserNotAuthenticated";
 
 var jwtDecode = require("jwt-decode");
 
@@ -78,7 +80,8 @@ class App extends Component {
                 exact
                 path="/organizationalUnitList"
                 component={OrganizationalUnitList}
-              />
+              /> 
+               <Route exact path="/updateForm/:id" component={UpdateForm} />
               <Route exact path="/addLegalEntity" component={AddLegalEntity} />
               <Route
                 exact

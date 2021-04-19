@@ -12,7 +12,7 @@ class ModalForAddDocument extends Component {
       title: "",
       description: "",
       documentType: "",
-      documentStatus: "",
+      documentStatus: "PROCEEDING",
       employeeCreated: "",
       _case: "",
       errors: {},
@@ -135,8 +135,7 @@ class ModalForAddDocument extends Component {
                           SelectOptionsAndPlaceholders.statusPlaceholder
                         }
                         name="documentStatus"
-                        value={this.state.documentStatus.statusOption}
-                        onChange={this.onChange}
+                        value="PROCEEDING"
                         style={{ fontSize: "1rem" }}
                       >
                         <option value="" selected disabled>

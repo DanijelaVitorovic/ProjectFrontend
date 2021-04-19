@@ -15,11 +15,10 @@ class Dashboard extends Component {
           <h1 class="text-center">{DashboardItems.welcomeTitle}</h1>
           <p class="text-center">{DashboardItems.welcomeParagraph}</p>
         </div>
-
         <div className="row">
           <div className="card-dashboard">
             <div className="card-header">
-              <h4 className="card-title">Физичка лица</h4>
+              <h4 className="card-title">{DashboardItems.physicalEntity}</h4>
             </div>
             <div className="card-body">
               <Link
@@ -29,14 +28,17 @@ class Dashboard extends Component {
                 to="/physicalEntityList"
                 centered
               >
-                <p className="text-dash"> Приказ физичких лица</p>
+                <p className="text-dash">
+                  {" "}
+                  {DashboardItems.physicalEntityList}
+                </p>
               </Link>
             </div>
           </div>
           <p> </p>
           <div className="card-dashboard">
             <div className="card-header">
-              <h4 className="card-title">Запослена лица</h4>
+              <h4 className="card-title">{DashboardItems.employee}</h4>
             </div>
             <div className="card-body">
               <Link
@@ -46,14 +48,14 @@ class Dashboard extends Component {
                 to="/employeeList"
                 centered
               >
-                <p className="text-dash"> Приказ запослених лица</p>
+                <p className="text-dash">{DashboardItems.employeeList}</p>
               </Link>
             </div>
           </div>
           <p> </p>
           <div className="card-dashboard">
             <div className="card-header">
-              <h4 className="card-title">Правна лица</h4>
+              <h4 className="card-title">{DashboardItems.legalEntity}</h4>
             </div>
             <div className="card-body">
               <Link
@@ -63,7 +65,7 @@ class Dashboard extends Component {
                 to="/legalEntityList"
                 centered
               >
-                <p className="text-dash"> Приказ правних лица</p>
+                <p className="text-dash">{DashboardItems.legalEntityList}</p>
               </Link>
             </div>
           </div>
@@ -72,7 +74,7 @@ class Dashboard extends Component {
         <div className="row">
           <div className="card-dashboard">
             <div className="card-header">
-              <h4 className="card-title">Типови процеса</h4>
+              <h4 className="card-title">{DashboardItems.processType}</h4>
             </div>
             <div className="card-body">
               <Link
@@ -82,14 +84,14 @@ class Dashboard extends Component {
                 to="/processTypeList"
                 centered
               >
-                <p className="text-dash"> Приказ типова</p>
+                <p className="text-dash"> {DashboardItems.processTypeList}</p>
               </Link>
             </div>
           </div>
           <p> </p>
           <div className="card-dashboard">
             <div className="card-header">
-              <h4 className="card-title">Процеси</h4>
+              <h4 className="card-title">{DashboardItems.process}</h4>
             </div>
             <div className="card-body">
               <Link
@@ -99,7 +101,7 @@ class Dashboard extends Component {
                 to="/processTypeList"
                 centered
               >
-                <p className="text-dash"> Приказ процеса</p>
+                <p className="text-dash">{DashboardItems.processList}</p>
               </Link>
             </div>
           </div>
@@ -108,7 +110,9 @@ class Dashboard extends Component {
         <div className="row">
           <div className="card-dashboard">
             <div className="card-header">
-              <h4 className="card-title"> Организационе јединице</h4>
+              <h4 className="card-title">
+                {DashboardItems.organizationalUnit}
+              </h4>
             </div>
             <div className="card-body">
               <Link
@@ -118,14 +122,14 @@ class Dashboard extends Component {
                 to="/organizationalUnitList"
                 centered
               >
-                <p>Приказ организационих јединица</p>
+                <p>{DashboardItems.organizationalUnitList}</p>
               </Link>
             </div>
           </div>
           <p> </p>
           <div className="card-dashboard">
             <div className="card-header">
-              <h4 className="card-title">Документи</h4>
+              <h4 className="card-title">{DashboardItems.document}</h4>
             </div>
             <div className="card-body">
               <Link
@@ -135,7 +139,7 @@ class Dashboard extends Component {
                 to="/documentList"
                 centered
               >
-                <p className="text-dash">Приказ докумената </p>
+                <p className="text-dash">{DashboardItems.documentList}</p>
               </Link>
             </div>
           </div>
