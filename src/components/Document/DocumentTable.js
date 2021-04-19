@@ -72,38 +72,37 @@ export default class DocumentTable extends Component {
 
     const table = (
       <div className="table-responsive tableHeight">
+        <div class="btn-group">
+          <div class="btn-group">
+            <Button
+              title="Унеси нови документ"
+              className="btn btn-default "
+              type="submit"
+              size="lm"
+              onClick={() => {
+                this.showModal();
+              }}
+            >
+              <AddTwoToneIcon />
+            </Button>
+          </div>
+          <div class="btn-group">
+            <Button
+              title="Додај документ са предметом"
+              class="btn btn-default"
+              type="submit"
+              variant="info"
+              size="lm"
+              onClick={() => {
+                this.showModalForAddCaseAndDocument();
+              }}
+            >
+              <AddTwoToneIcon />
+            </Button>
+          </div>
+        </div>
         <table id="example" className="table table-hover">
           <thead className="thead-light">
-            <div class="btn-group">
-              <div class="btn-group">
-                <Button
-                  title="Унеси нови документ"
-                  className="btn btn-default "
-                  type="submit"
-                  size="lm"
-                  onClick={() => {
-                    this.showModal();
-                  }}
-                >
-                  <AddTwoToneIcon />
-                </Button>
-              </div>
-              <div class="btn-group">
-                <Button
-                  title="Додај документ са предметом"
-                  class="btn btn-default"
-                  type="submit"
-                  variant="info"
-                  size="lm"
-                  onClick={() => {
-                    this.showModalForAddCaseAndDocument();
-                  }}
-                >
-                  <AddTwoToneIcon />
-                </Button>
-              </div>
-            </div>
-
             <tr className="card-body table-success">
               <th scope="col">{HeaderColumns.id}</th>
               <th scope="col">{HeaderColumns.title}</th>
