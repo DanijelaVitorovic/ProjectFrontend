@@ -116,6 +116,20 @@ export const DashboardTranslation = {
   DashboardItems: {
     welcomeTitle: "Добродошли",
     welcomeParagraph: "ДМС пракса",
+    physicalEntity: "Физичка лица",
+    physicalEntityList: "Приказ физичких лица",
+    employee: "Запослена лица",
+    employeeList: "Приказ запослених лица",
+    legalEntity: "Правна лица",
+    legalEntityList: "Приказ правних лица",
+    processType: "Типови процеса",
+    processTypeList: " Приказ типова",
+    process: "Процеси",
+    processList: "Приказ процеса",
+    organizationalUnit: "Организационе јединице",
+    organizationalUnitList: "Приказ организационих јединица",
+    document: "Документи",
+    documentList: "Приказ докумената",
   },
 };
 

@@ -28,7 +28,7 @@ class DocumentList extends Component {
     const {
       documents,
       employees,
-      physicalEntities,
+      physicalEntityList,
       caseList,
       createDocument,
       updateDocument,
@@ -49,14 +49,14 @@ class DocumentList extends Component {
               <div className="card-body">
                 <DocumentTable
                   documents={documents}
+                  document={document}
                   createDocument={createDocument}
                   updateDocument={updateDocument}
                   getDocument={getDocument}
                   deleteDocument={deleteDocument}
                   employees={employees}
                   caseList={caseList}
-                  physicalEntities={physicalEntities}
-                  createDocumentWithCase={createDocumentWithCase}
+                  physicalEntities={physicalEntityList}
                 />
                 <div id="msg" />
               </div>
@@ -70,7 +70,9 @@ class DocumentList extends Component {
 
 const mapStateToProps = (state) => ({
   documents: state.document.documents,
+  document: state.document.document,
   employees: state.employee.employeeList,
+  physicalEntityList: state.physicalEntity.physicalEntityList,
   physicalEntities: state.physicalEntity.physicalEntityList,
   caseList: state.case.caseList,
   errors: state.errors,
