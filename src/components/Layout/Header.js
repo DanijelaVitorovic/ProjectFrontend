@@ -26,9 +26,14 @@ class Header extends Component {
           <MenuBarUsers />
         ) : null}
         <ul className="navbar-nav ml-auto">
-          <li className="nav-item">
+          <li
+            className="nav-item"
+            style={{
+              marginRight: 50,
+            }}
+          >
             <Link to="/dashboard" className="nav-link ">
-              {loggedUser.firstName} {loggedUser.lastName}
+              {loggedUser.username}
             </Link>
           </li>
 

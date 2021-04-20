@@ -4,6 +4,9 @@ import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import ModalForAddCase from "./ModalForAddCase";
 import { CaseTableTranslation } from "../../translations";
+import Tooltip from "@material-ui/core/Tooltip";
+import AddIcon from "@material-ui/icons/Add";
+import IconButton from "@material-ui/core/IconButton";
 
 class CaseTable extends Component {
   constructor() {
@@ -53,23 +56,27 @@ class CaseTable extends Component {
 
     const table = (
       <div className="table-responsive tableHeight">
+        <div align="left">
+          <Tooltip title={Buttons.addNewCase} arrow>
+            <IconButton
+              title={Buttons.addNewCase}
+              className="btn btn-info"
+              type="submit"
+              size="lm"
+              onClick={() => {
+                this.showModal();
+              }}
+            >
+              <AddIcon />
+            </IconButton>
+          </Tooltip>
+        </div>
+        <br />
         <table
           id="example"
           className="table table-sm table-striped table-bordered "
         >
           <thead>
-            <Button
-              class="btn btn-default"
-              type="submit"
-              variant="info"
-              onClick={() => {
-                this.showModal();
-              }}
-            >
-              {Buttons.addNewCase}
-            </Button>
-            <br />
-            <br />
             <tr>
               <th>{HeaderColumns.name}</th>
               <th>{HeaderColumns.number}</th>
@@ -79,6 +86,7 @@ class CaseTable extends Component {
               <th>{HeaderColumns.startDate}</th>
               <th>{HeaderColumns.status}</th>
               <th className="text-center">{HeaderColumns.update}</th>
+              <th>{HeaderColumns.documents}</th>
             </tr>
           </thead>
           <tbody>{caseListShowedInRow}</tbody>

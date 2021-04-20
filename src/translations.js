@@ -12,6 +12,7 @@ export const CaseTableTranslation = {
     startDate: "Почетак",
     status: "Статус",
     update: "Измена",
+    documents: "Документа предмета",
   },
   Buttons: {
     addNewCase: "Додај нови предмет",
@@ -20,6 +21,7 @@ export const CaseTableTranslation = {
 
 export const CaseRowTranslation = {
   updateButton: "Измени",
+  listOfDocuments: "Dokumenta predmeta",
 };
 
 export const CaseModalForAddAndUpdateTranslation = {
@@ -34,6 +36,21 @@ export const CaseModalForAddAndUpdateTranslation = {
     refersToOption: "Изаберите на кога се односи",
     caseType: "Унесите тип предмета",
   },
+};
+
+export const CaseProcessingListTranslation = {
+  heading: "Премет",
+  caseName: "Име предмета",
+  caseNamber: "Број предета",
+  caseType: "Тип",
+  caseStatus: "Статус",
+  caseState: "Стање",
+  description: "Опис",
+  owner: "Власник",
+  refersTo: "Односи се на",
+  processor: "Обрађивач",
+  startDate: "Датум креирања",
+  back: "Врати се назад",
 };
 
 export const PhysicalEntityListTranslation = {
@@ -158,7 +175,7 @@ export const EmployeeModalForAddAndUpdateTranslation = {
 };
 
 export const documentListTranslation = {
-  Header: { heading: "Документи" },
+  Header: { heading: "Документи", title: "Унеси нови документ" },
 };
 
 export const documentTableTranslation = {

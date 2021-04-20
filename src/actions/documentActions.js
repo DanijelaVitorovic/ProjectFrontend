@@ -6,6 +6,7 @@ import {
   UPDATE_DOCUMENT,
   GET_ERRORS,
   ADD_CASE_DOCUMENT_DTO,
+  GET_DOCUMENTS_BY_CASE,
 } from "./types";
 import axios from "axios";
 
@@ -95,4 +96,12 @@ export const createDocumentWithCase = (newDocument) => async (dispatch) => {
       payload: err.response.data,
     });
   }
+};
+
+export const getDocumentsByCase = (id) => async (dispatch) => {
+  const res = await axios.get(`/api/document/findAllDocumentByCaseId/${id}`);
+  dispatch({
+    type: GET_DOCUMENTS_BY_CASE,
+    payload: res.data,
+  });
 };

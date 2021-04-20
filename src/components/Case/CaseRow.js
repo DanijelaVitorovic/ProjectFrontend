@@ -1,8 +1,15 @@
 import React, { Component, Fragment } from "react";
 import ModalForUpdateCase from "./ModalForUpdateCase";
-import { Button } from "react-bootstrap";
+
 import { formatDateFromBackend } from "../../utils";
 import { CaseRowTranslation } from "../../translations";
+import DescriptionIcon from "@material-ui/icons/Description";
+import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import CaseProcessingList from "./CaseProcessingList";
+import Tooltip from "@material-ui/core/Tooltip";
 
 class CaseRow extends Component {
   constructor() {
@@ -54,6 +61,18 @@ class CaseRow extends Component {
           >
             {translation.updateButton}
           </Button>
+        </td>
+        <td className="text-center">
+          <Link
+            to={`/caseProcessingList/${this.props.case.id}`}
+            id={this.props.case.id}
+          >
+            <Tooltip title={translation.listOfDocuments} arrow>
+              <IconButton color="primary">
+                <DescriptionIcon />
+              </IconButton>
+            </Tooltip>
+          </Link>
         </td>
       </tr>
     );

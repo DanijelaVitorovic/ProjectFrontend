@@ -33,6 +33,7 @@ import OrganizationalUnitList from "./components/Containers/OrganizationalUnitLi
 import CaseList from "./components/Containers/CaseList";
 import DocumentList from "./components/Containers/DocumentList";
 import CaseClassificationList from "./components/Containers/CaseClassificationList";
+import CaseProcessingList from "./components/Case/CaseProcessingList";
 
 var jwtDecode = require("jwt-decode");
 
@@ -60,7 +61,7 @@ class App extends Component {
         <Router>
           <div className="App">
             <Header />
-            <Route exact path="/" component={Dashboard} />
+            <Route exact path="/" component={LandingPage} />
             <Route exact path="/login" component={Login} />
 
             <Switch>
@@ -129,6 +130,11 @@ class App extends Component {
                 exact
                 path="/caseClassificationList"
                 component={CaseClassificationList}
+              />
+              <Route
+                exact
+                path="/caseProcessingList/:id"
+                component={CaseProcessingList}
               />
             </Switch>
           </div>

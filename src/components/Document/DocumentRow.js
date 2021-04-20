@@ -29,10 +29,17 @@ export default class DocumentRow extends Component {
   };
 
   render() {
-    const { document, getDocument, employees, caseList } = this.props || {};
+    const {
+      document,
+      getDocument,
+      employees,
+      caseList,
+      caseProcessingViewSignal,
+    } = this.props || {};
     const firstName = document.employeeCreated.physicalEntity.firstName;
     const lastName = document.employeeCreated.physicalEntity.lastName;
-    const row = (
+
+    const renderRow = (
       <tr>
         <td>{document.id}</td>
         <td>{document.title}</td>
@@ -40,30 +47,35 @@ export default class DocumentRow extends Component {
         <td>{document.documentType}</td>
         <td>{document.documentStatus}</td>
         <td>{firstName + " " + lastName}</td>
-        <td>{document._case.caseName}</td>
-        <td className="text-center">
-          <Button
-            className="button"
-            variant="link"
-            onClick={() => {
-              this.showModal();
-            }}
-          >
-            <i className="fas fa-pen-alt fa-2x"></i>
-          </Button>
-        </td>
-        <td className="text-center">
-          <Badge variant="danger">
-            <div onClick={() => this.onDeleteClick(document.id)}>
-              <i className="fas fa-trash-alt fa-2x" />
-            </div>
-          </Badge>
-        </td>
+        {!caseProcessingViewSignal && (
+          <Fragment>
+            <td>{document._case.caseName}</td>
+            <td className="text-center">
+              <Button
+                className="button"
+                variant="link"
+                onClick={() => {
+                  this.showModal();
+                }}
+              >
+                <i className="fas fa-pen-alt fa-2x"></i>
+              </Button>
+            </td>
+            <td className="text-center">
+              <Badge variant="danger">
+                <div onClick={() => this.onDeleteClick(document.id)}>
+                  <i className="fas fa-trash-alt fa-2x" />
+                </div>
+              </Badge>
+            </td>
+          </Fragment>
+        )}
       </tr>
     );
+
     return (
       <Fragment>
-        {row}
+        {renderRow}
         <ModalForUpdateDocument
           show={this.state.show}
           id={document.id}

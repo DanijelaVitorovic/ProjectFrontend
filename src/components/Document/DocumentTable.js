@@ -52,6 +52,8 @@ export default class DocumentTable extends Component {
       caseList,
       employees,
       physicalEntities,
+      signalRow,
+      caseProcessingViewSignal,
     } = this.props || {};
 
     const translation = documentTableTranslation || {};
@@ -67,40 +69,45 @@ export default class DocumentTable extends Component {
         caseList={caseList}
         employees={employees}
         physicalEntities={physicalEntities}
+        caseProcessingViewSignal={caseProcessingViewSignal}
       />
     ));
 
-    const table = (
+    const renderTable = (
       <div className="table-responsive tableHeight">
-        <div class="btn-group">
-          <div class="btn-group">
-            <Button
-              title="Унеси нови документ"
-              className="btn btn-default "
-              type="submit"
-              size="lm"
-              onClick={() => {
-                this.showModal();
-              }}
-            >
-              <AddTwoToneIcon />
-            </Button>
-          </div>
-          <div class="btn-group">
-            <Button
-              title="Додај документ са предметом"
-              class="btn btn-default"
-              type="submit"
-              variant="info"
-              size="lm"
-              onClick={() => {
-                this.showModalForAddCaseAndDocument();
-              }}
-            >
-              <AddTwoToneIcon />
-            </Button>
-          </div>
-        </div>
+        {!caseProcessingViewSignal && (
+          <Fragment>
+            <div class="btn-group">
+              <div class="btn-group">
+                <Button
+                  title="Унеси нови документ"
+                  className="btn btn-default "
+                  type="submit"
+                  size="lm"
+                  onClick={() => {
+                    this.showModal();
+                  }}
+                >
+                  <AddTwoToneIcon />
+                </Button>
+              </div>
+              <div class="btn-group">
+                <Button
+                  title="Додај документ са предметом"
+                  class="btn btn-default"
+                  type="submit"
+                  variant="info"
+                  size="lm"
+                  onClick={() => {
+                    this.showModalForAddCaseAndDocument();
+                  }}
+                >
+                  <AddTwoToneIcon />
+                </Button>
+              </div>
+            </div>
+          </Fragment>
+        )}
         <table id="example" className="table table-hover">
           <thead className="thead-light">
             <tr className="card-body table-success">
@@ -110,13 +117,17 @@ export default class DocumentTable extends Component {
               <th scope="col">{HeaderColumns.type}</th>
               <th scope="col">{HeaderColumns.status}</th>
               <th scope="col">{HeaderColumns.employee}</th>
-              <th scope="col">{HeaderColumns._case}</th>
-              <th scope="col" className="text-center">
-                {HeaderColumns.update}
-              </th>
-              <th scope="col" className="text-center">
-                {HeaderColumns.delete}
-              </th>
+              {!caseProcessingViewSignal && (
+                <Fragment>
+                  <th scope="col">{HeaderColumns._case}</th>
+                  <th scope="col" className="text-center">
+                    {HeaderColumns.update}
+                  </th>
+                  <th scope="col" className="text-center">
+                    {HeaderColumns.delete}
+                  </th>
+                </Fragment>
+              )}
             </tr>
           </thead>
           <tbody>{documentList}</tbody>
@@ -126,7 +137,8 @@ export default class DocumentTable extends Component {
 
     return (
       <Fragment>
-        {table}
+        {renderTable}
+
         {
           <ModalForAddDocument
             show={this.state.show}
