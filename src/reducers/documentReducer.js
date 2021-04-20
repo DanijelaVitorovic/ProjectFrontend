@@ -24,9 +24,9 @@ export default function (state = initialState, action) {
     case UPDATE_DOCUMENT:
       return {
         ...state,
-        documents: state.documents.map((document) =>
-          document.id === action.payload.id ? action.payload : document
-        ),
+        documents: state.documents
+          .filter((document) => document.id !== action.payload.id)
+          .concat(action.payload),
       };
     case GET_DOCUMENT:
       return {

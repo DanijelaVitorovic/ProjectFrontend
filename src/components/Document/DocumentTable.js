@@ -113,7 +113,6 @@ export default class DocumentTable extends Component {
             <tr className="card-body table-success">
               <th scope="col">{HeaderColumns.id}</th>
               <th scope="col">{HeaderColumns.title}</th>
-              <th scope="col">{HeaderColumns.description}</th>
               <th scope="col">{HeaderColumns.type}</th>
               <th scope="col">{HeaderColumns.status}</th>
               <th scope="col">{HeaderColumns.employee}</th>

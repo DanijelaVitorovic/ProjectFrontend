@@ -16,6 +16,9 @@ import SecuredRoute from "./securityUtils/secureRoute";
 import AddUser from "./components/User/AddUser";
 import UserList from "./components/User/UserList";
 import UpdateUser from "./components/User/UpdateUser";
+import ProcessList from "./components/Containers/ProcessList";
+import AddProcess from "./components/Process/AddProcess";
+import UpdateProcess from "./components/Process/UpdateProcess";
 import LegalEntityList from "./components/Containers/LegalEntityList";
 import AddLegalEntity from "./components/LegalEntity/AddLegalEntity";
 import UpdateLegalEntity from "./components/LegalEntity/UpdateLegalEntity";
@@ -34,6 +37,8 @@ import CaseList from "./components/Containers/CaseList";
 import DocumentList from "./components/Containers/DocumentList";
 import CaseClassificationList from "./components/Containers/CaseClassificationList";
 import CaseProcessingList from "./components/Case/CaseProcessingList";
+import UpdateForm from "./components/Document/UpdateForm";
+import MenuBarUsers from "./components/MenuBar/MenuBarUserNotAuthenticated";
 
 var jwtDecode = require("jwt-decode");
 
@@ -68,6 +73,20 @@ class App extends Component {
               <SecuredRoute exact path="/dashboard" component={Dashboard} />
               <Route exact path="/addUser" component={AddUser} />
               <Route exact path="/userList" component={UserList} />
+              <Route exact path="/processList" component={ProcessList} />
+              <Route exact path="/addProcess" component={AddProcess} />
+              <Route exact path="/updateUser/:id" component={UpdateUser} />
+              <Route
+                exact
+                path="/updateProcess/:id"
+                component={UpdateProcess}
+              />
+              <Route
+                exact
+                path="/organizationalUnitList"
+                component={OrganizationalUnitList}
+              />
+
               <Route
                 exact
                 path="/organizationalUnitList"
@@ -80,6 +99,7 @@ class App extends Component {
                 path="/organizationalUnitList"
                 component={OrganizationalUnitList}
               />
+              <Route exact path="/updateForm/:id" component={UpdateForm} />
               <Route exact path="/addLegalEntity" component={AddLegalEntity} />
               <Route
                 exact

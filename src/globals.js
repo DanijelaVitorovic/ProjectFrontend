@@ -1,12 +1,12 @@
 export const Statement = {
   ACTIVE: {
     value: "ACTIVE",
-    translation: "AKTIVAN",
+    translation: "Активан",
     color: "green",
   },
   PASSIVE: {
     value: "PASSIVE",
-    translation: "PASIVAN",
+    translation: "Пасиван",
     color: "red",
   },
 };
@@ -40,15 +40,19 @@ export const DocumentType = {
 
 export const documentStatus = {
   PROCEEDING: {
+    value: "PROCEEDING",
     translation: "Подношење",
   },
   VERIFICATION: {
+    value: "VERIFICATION",
     translation: "Верификација",
   },
   SIGNING: {
+    value: "SIGNING",
     translation: "Потписивање",
   },
   SIGNED: {
+    value: "SIGNED",
     translation: "Потписан",
   },
   FIRST_SENDING: {
@@ -70,12 +74,13 @@ export const documentStatus = {
     translation: "Испоручен",
   },
   FINAL: {
+    value: "FINAL",
     translation: "Завршен",
   },
   REVOKED: {
     translation: "Опозван",
-  }
-}
+  },
+};
 export const GetNameandSurname = (employee) => {
   return (
     employee.physicalEntity.firstName + " " + employee.physicalEntity.lastName

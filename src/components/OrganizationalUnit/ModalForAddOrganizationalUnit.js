@@ -1,6 +1,7 @@
 import { Modal, Button, Row, Col, ModalFooter } from "react-bootstrap";
 import React, { Component } from "react";
 import classnames from "classnames";
+import { organizationalUnitModalForAddAndUpdateTranslation } from "../../translations";
 
 class ModalForAddOrganizationalUnit extends Component {
   constructor() {
@@ -39,19 +40,20 @@ class ModalForAddOrganizationalUnit extends Component {
   };
 
   render() {
+    const { show, closeModal, legalEntities } = this.props || {};
     const { errors } = this.state;
-    const legalEntities = this.props.legalEntities;
-    
+    const translation = organizationalUnitModalForAddAndUpdateTranslation || {};
+    const { Header, SelectOptionsAndPlaceholders } = translation;
     return (
       <div>
         <Modal
-          show={this.props.show}
-          onHide={this.props.closeModal}
-          onRequest={this.props.closeModal}
-          size= "lg"
+          show={show}
+          onHide={closeModal}
+          onRequest={closeModal}
+          size="lg"
         >
           <Modal.Header closeButton>
-            <h4>Унос нове организационе јединице</h4>
+            <h4>{Header.headingAddModal}</h4>
           </Modal.Header>
 
           <div className="register">
@@ -66,7 +68,7 @@ class ModalForAddOrganizationalUnit extends Component {
                         className={classnames("form-control", {
                           "is-invalid": errors.name,
                         })}
-                        placeholder="Име"
+                        placeholder={SelectOptionsAndPlaceholders.namePlaceholder}
                         name="name"
                         value={this.state.name}
                         onChange={this.onChange}
@@ -82,7 +84,7 @@ class ModalForAddOrganizationalUnit extends Component {
                         className={classnames("form-control", {
                           "is-invalid": errors.code,
                         })}
-                        placeholder="Шифра"
+                        placeholder={SelectOptionsAndPlaceholders.codePlaceholder}
                         name="code"
                         value={this.state.code}
                         onChange={this.onChange}
@@ -97,12 +99,11 @@ class ModalForAddOrganizationalUnit extends Component {
                         className="form-control form-control-lg"
                         legalEntities={legalEntities}
                         name="legalEntity"
-                        placeholder="Одаберите правно лице"
+                        placeholder={SelectOptionsAndPlaceholders.legalEntityPlaceholder}
                         onChange={this.onChange}
                         style={{ fontSize: "1rem" }}
                       >
-                        <option value="" selected disabled>
-                          Одаберите правно лице
+                        <option value="" selected disabled>{SelectOptionsAndPlaceholders.legalEntityOption}
                         </option>
                         {legalEntities.map((legalEntity) => {
                           return (
@@ -114,10 +115,7 @@ class ModalForAddOrganizationalUnit extends Component {
                       </select>
                     </div>
 
-                    <Button
-                      variant="success"
-                      type="submit"
-                    >
+                    <Button variant="success" type="submit">
                       <i class="fas fa-check fa-2x"></i>
                     </Button>
                   </form>

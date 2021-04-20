@@ -1,6 +1,13 @@
 import React, { Component, Fragment } from "react";
 import { Button, Badge } from "react-bootstrap";
 import ModalForUpdateDocument from "./ModalForUpdateDocument";
+import { DocumentType, documentStatus } from "../../../src/globals";
+import UpdateButton from "../Reusable/UpdateButton";
+import DeleteButton from "../Reusable/DeleteButton";
+import ConfirmAlert from "../Reusable/ConfirmAlert";
+import { deleteDocument } from "../../actions/documentActions";
+import UpdateForm from "./UpdateForm";
+import { Link } from "react-router-dom";
 
 export default class DocumentRow extends Component {
   constructor() {
@@ -25,7 +32,9 @@ export default class DocumentRow extends Component {
   };
 
   onDeleteClick = (id) => {
-    this.props.deleteDocument(id);
+    const string = "Да желите да обришете изабрани документ?";
+    const { deleteDocument } = this.props;
+    ConfirmAlert(id, deleteDocument, string);
   };
 
   render() {
@@ -43,7 +52,6 @@ export default class DocumentRow extends Component {
       <tr>
         <td>{document.id}</td>
         <td>{document.title}</td>
-        <td>{document.description}</td>
         <td>{document.documentType}</td>
         <td>{document.documentStatus}</td>
         <td>{firstName + " " + lastName}</td>
@@ -85,6 +93,7 @@ export default class DocumentRow extends Component {
           getDocument={getDocument}
           employees={employees}
           caseList={caseList}
+          physicalEntities={physicalEntities}
         />
       </Fragment>
     );

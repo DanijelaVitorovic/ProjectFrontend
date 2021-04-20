@@ -2,6 +2,8 @@ import React, { Component, Fragment } from "react";
 import { Button, Badge } from "react-bootstrap";
 import ModalForUpdatePhysicalEntity from "./ModalForUpdatePhysicalEntity";
 import { PhysicalEntityRowTranslation } from "../../translations";
+import UpdateButton from "../Reusable/UpdateButton";
+import DeleteButton from "../Reusable/DeleteButton";
 
 class PhysicalEntityRow extends Component {
   onDeleteClick = (id) => {
@@ -44,24 +46,12 @@ class PhysicalEntityRow extends Component {
         <td>{physicalEntity.profession}</td>
         <td>{physicalEntity.email}</td>
         <td>{physicalEntity.address.city}</td>
-        <td className="text-center">
-          <Button
-            class="btn btn-default"
-            type="submit"
-            variant="outline-warning"
-            onClick={() => {
-              this.showModal();
-            }}
-          >
-            {translation.updateButton}
-          </Button>
+        <td className="text-center" className="red">
+          <UpdateButton showModal={this.showModal} id={document} />
         </td>
-        <td className="text-center">
-          <Badge pill variant="danger">
-            <div onClick={() => this.onDeleteClick(physicalEntity.id)}>
-              <i className="fas fa-trash-alt fa-2x" />
-            </div>
-          </Badge>{" "}
+        
+        <td className="text-center" className="red">
+          <DeleteButton onDeleteClick={this.onDeleteClick} id={document.id} />
         </td>
       </tr>
     );

@@ -12,7 +12,7 @@ class ModalForAddDocument extends Component {
       title: "",
       description: "",
       documentType: "",
-      documentStatus: "",
+      documentStatus: "PROCEEDING",
       employeeCreated: "",
       _case: "",
       errors: {},
@@ -45,16 +45,16 @@ class ModalForAddDocument extends Component {
 
   render() {
     const { errors } = this.state;
-    const employees = this.props.employees;
-    const caseList = this.props.caseList;
+    const { employees, caseList, physicalEntities, show, closeModal } =
+      this.props || {};
     const translation = documentModalForAddAndUpdateTranslation || {};
     const { Header, SelectOptionsAndPlaceholders } = translation;
     return (
       <div>
         <Modal
-          show={this.props.show}
-          onHide={this.props.closeModal}
-          onRequest={this.props.closeModal}
+          show={show}
+          onHide={closeModal}
+          onRequest={closeModal}
           size="lg"
           centered
         >
@@ -135,8 +135,7 @@ class ModalForAddDocument extends Component {
                           SelectOptionsAndPlaceholders.statusPlaceholder
                         }
                         name="documentStatus"
-                        value={this.state.documentStatus.statusOption}
-                        onChange={this.onChange}
+                        value="PROCEEDING"
                         style={{ fontSize: "1rem" }}
                       >
                         <option value="" selected disabled>

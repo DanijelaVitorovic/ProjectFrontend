@@ -1,3 +1,5 @@
+import { Button } from "bootstrap";
+
 export const CaseListTranslation = {
   Header: { heading: "Предмети" },
 };
@@ -114,6 +116,7 @@ export const Menus = {
       legalEntityList: "Приказ правних лица",
       processTypeList: "Приказ типова процеса",
       organizationalUnitList: "Приказ организациних јединица",
+      documentsList: "Приказ докумената",
     },
     Cases: {
       heading: "Предмети",
@@ -133,6 +136,20 @@ export const DashboardTranslation = {
   DashboardItems: {
     welcomeTitle: "Добродошли",
     welcomeParagraph: "ДМС пракса",
+    physicalEntity: "Физичка лица",
+    physicalEntityList: "Приказ физичких лица",
+    employee: "Запослена лица",
+    employeeList: "Приказ запослених лица",
+    legalEntity: "Правна лица",
+    legalEntityList: "Приказ правних лица",
+    processType: "Типови процеса",
+    processTypeList: " Приказ типова",
+    process: "Процеси",
+    processList: "Приказ процеса",
+    organizationalUnit: "Организационе јединице",
+    organizationalUnitList: "Приказ организационих јединица",
+    document: "Документи",
+    documentList: "Приказ докумената",
   },
 };
 
@@ -174,6 +191,100 @@ export const EmployeeModalForAddAndUpdateTranslation = {
   },
 };
 
+export const legalEntityListTranslation = {
+  Header: { heading: "Правна лица" },
+};
+
+export const legalEntityTableTranslation = {
+  HeaderColumns: {
+    id: "Ид",
+    name: "Назив",
+    pib: "Пиб",
+    registrationNumber: "Регистрациони број",
+    email: "Имаил",
+    statement: "Стање",
+    update: "Измени",
+    delete: "Обриши",
+  },
+  Buttons: {
+    addNewLegalEntity: "Додај правно лице",
+  },
+};
+
+export const legalEntityModalForAddAndUpdateTranslation = {
+  Header: {
+    headingAddModal: "Унеси ново правно лице",
+    headingUpdateModal: "Измени правно лице",
+  },
+  SelectOptionsAndPlaceholders: {
+    namePlaceholder: "Име",
+    pibPlaceholder: "Пиб",
+    emailPlaceholder: "Имаил",
+    statementPlaceholder: "Изаберите стање",
+    statementOption: "Изаберите стање",
+    statementOptionActive: "Активан",
+    statementOptionPassive: "Пасиван",
+  },
+};
+
+export const organizationalUnitListTranslation = {
+  Header: { heading: "Организационе јединице" },
+};
+
+export const organizationalUnitTableTranslation = {
+  HeaderColumns: {
+    id: "Ид",
+    name: "Име јединице",
+    code: "Шифра",
+    nameLegalEntity: "Име правног лица",
+    update: "Измени",
+    delete: "Обриши",
+  },
+  Buttons: {
+    addNewOrganizationalUnit: "Направи нову организациону јединицу",
+  },
+};
+
+export const organizationalUnitModalForAddAndUpdateTranslation = {
+  Header: {
+    headingAddModal: "Унеси нову организациону јединицу",
+    headingUpdateModal: "Измени организациону јединицу",
+  },
+  SelectOptionsAndPlaceholders: {
+    namePlaceholder: "Име јединице",
+    codePlaceholder: "Шифра",
+    legalEntityPlaceholder: "Одаберите правно лице",
+    legalEntityOption: "Одаберите правно лице",
+  },
+};
+
+export const processTypeListTranslation = {
+  Header: { heading: "Типови процеса" },
+};
+
+export const processTypeTableTranslation = {
+  HeaderColumns: {
+    id: "Ид",
+    type: "Тип",
+    description: "Опис",
+    update: "Измени",
+    delete: "Обриши",
+  },
+  Buttons: {
+    addNewProcessType: "Додај нови тип",
+  },
+};
+
+export const processTypeModalForAddAndUpdateTrasaltion = {
+  Header: {
+    headingAddModal: "Додај нови тип",
+    headingUpdateModal: "Измени тип",
+  },
+  SelectOptionsAndPlaceholders: {
+    typePlaceholder: "Тип",
+    descriptionPlaceholder: "Опис",
+  },
+};
 export const documentListTranslation = {
   Header: { heading: "Документи", title: "Унеси нови документ" },
 };

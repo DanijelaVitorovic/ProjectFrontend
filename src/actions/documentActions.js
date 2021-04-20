@@ -9,6 +9,7 @@ import {
   GET_DOCUMENTS_BY_CASE,
 } from "./types";
 import axios from "axios";
+import "react-confirm-alert/src/react-confirm-alert.css";
 
 export const createDocument = (document) => async (dispatch) => {
   try {
@@ -68,16 +69,11 @@ export const getDocuments = () => async (dispatch) => {
 };
 
 export const deleteDocument = (id) => async (dispatch) => {
-  if (
-    window.confirm("Da li ste sigurni da zelite da obrisete izabrani dokument?")
-  ) {
-    await axios.delete(`/api/document/delete/${id}`).then((response) => {
-      dispatch({
-        type: DELETE_DOCUMENT,
-        payload: id,
-      });
-    });
-  }
+  await axios.delete(`/api/document/delete/${id}`);
+  dispatch({
+    type: DELETE_DOCUMENT,
+    payload: id,
+  });
 };
 
 export const createDocumentWithCase = (newDocument) => async (dispatch) => {

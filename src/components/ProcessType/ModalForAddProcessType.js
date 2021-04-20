@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import classnames from "classnames";
 import { Modal, Button } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
+import {processTypeModalForAddAndUpdateTrasaltion} from "../../translations";
 
 class ModalForAddProcessType extends Component {
   constructor() {
@@ -37,10 +38,10 @@ class ModalForAddProcessType extends Component {
   };
 
   render() {
-    const { errors } = this.state;
-    if (!this.props.show) {
-      return <Redirect to="/processTypeList" />;
-    }
+    const {show, closeModal} = this.props || {};
+    const {errors} = this.state;
+    const translation = processTypeModalForAddAndUpdateTrasaltion || {};
+    const {Header, SelectOptionsAndPlaceholders} = translation;    
     
     return (
       
@@ -51,7 +52,7 @@ class ModalForAddProcessType extends Component {
         size="lg"
       >
         <Modal.Header closeButton>
-          <h5>Create new Process Type</h5>{" "}
+          <h5>{Header.headingUpdateModal}</h5>
         </Modal.Header>
         <div className="register">
           <div className="container">
@@ -65,7 +66,7 @@ class ModalForAddProcessType extends Component {
                       className={classnames("form-control", {
                         "is-invalid": errors.type,
                       })}
-                      placeholder="Type"
+                      placeholder={SelectOptionsAndPlaceholders.typePlaceholder}
                       name="type"
                       value={this.state.type}
                       onChange={this.onChange}
@@ -81,7 +82,7 @@ class ModalForAddProcessType extends Component {
                       className={classnames("form-control", {
                         "is-invalid": errors.description,
                       })}
-                      placeholder="Description"
+                      placeholder={SelectOptionsAndPlaceholders.descriptionPlaceholder}
                       name="description"
                       value={this.state.description}
                       onChange={this.onChange}

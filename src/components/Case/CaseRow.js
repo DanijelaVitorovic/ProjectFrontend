@@ -50,17 +50,8 @@ class CaseRow extends Component {
         <td>{this.props.case.refersTo.firstName}</td>
         <td>{formatDateFromBackend(new Date())}</td>
         <td>{this.props.case.caseStatus}</td>
-        <td className="text-center">
-          <Button
-            class="btn btn-default"
-            type="submit"
-            variant="outline-warning"
-            onClick={() => {
-              this.showModal();
-            }}
-          >
-            {translation.updateButton}
-          </Button>
+        <td className="text-center" className="red">
+          <UpdateButton showModal={this.showModal} id={document} />
         </td>
         <td className="text-center">
           <Link

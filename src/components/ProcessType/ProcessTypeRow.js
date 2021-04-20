@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import ModalForUpdateProcessType from "./ModalForUpdateProcessType";
+import UpdateButton from "../Reusable/UpdateButton";
+import DeleteButton from "../Reusable/DeleteButton";
 
 class ProcessTypeRow extends Component {
   constructor(props) {
@@ -28,8 +30,8 @@ class ProcessTypeRow extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  handleUpdate = (updateProcessType) => {
-    this.props.updateProcessType(updateProcessType);
+  handleUpdate = (updatedProcessType) => {
+    this.props.updateProcessType(updatedProcessType);
     this.closeModal();
   };
 
@@ -38,50 +40,36 @@ class ProcessTypeRow extends Component {
   };
 
   render() {
+    const { processType, getProcessType } = this.props || {};
     const row = (
       <tr>
-        <td>{this.props.processType.id}</td>
-        <td>{this.props.processType.type}</td>
-        <td>{this.props.processType.description}</td>
-        <td className="text-left">
-          <Button
-            variant="link"
-            onClick={() => {
-              this.showModal();
-            }}
-          >
-            <i class="fas fa-pen-alt fa-2x"></i>
-          </Button>
-        </td>
-
-        <td className="text-centre">
-          <Link
-            to={`/processTypeList`}
-            id="deleteEntity"
-            onClick={() => this.onDeleteClick(this.props.processType.id)}
-          >
-            <i className="fas fa-trash-alt fa-2x" />
-          </Link>
-        </td>
+        <td>{processType.id}</td>
+        <td>{processType.type}</td>
+        <td>{processType.description}</td>
+        <td className="text-center" className="red">
+        <UpdateButton showModal={this.showModal} id={document} />
+      </td>
+      
+      <td className="text-center" className="red">
+        <DeleteButton onDeleteClick={this.onDeleteClick} id={document.id} />
+      </td>
       </tr>
     );
 
     return (
       <Fragment>
         {row}
-        {this.state.show && (
-          <ModalForUpdateProcessType
-            show={this.state.show}
-            id={this.props.processType.id}
-            processTypeForUpdate={this.props.processTypeForUpdate}
-            getProcessType={this.props.getProcessType}
-            closeModal={this.closeModal}
-            handleUpdate={this.handleUpdate}
-          />
-        )}
+        <ModalForUpdateProcessType
+          show={this.state.show}
+          id={processType.id}
+          processTypeForUpdate={processType}
+          getProcessType={getProcessType}
+          closeModal={this.closeModal}
+          handleUpdate={this.handleUpdate}
+        />
       </Fragment>
     );
   }
 }
 
-export default (ProcessTypeRow);
+export default ProcessTypeRow;
