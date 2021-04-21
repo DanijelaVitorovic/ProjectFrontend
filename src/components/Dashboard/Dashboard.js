@@ -25,7 +25,7 @@ class Dashboard extends Component {
       random: 15,
     };
 
-    if (Math.random() > 0.5) {
+    if (Math.random() > 0.85) {
       config = Object.assign(config, {
         onParticleUpdate: (ctx, particle) => {
           ctx.beginPath();

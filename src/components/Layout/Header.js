@@ -9,6 +9,7 @@ import MenuBarUserNotAuthenticated from "../MenuBar/MenuBarUserNotAuthenticated"
 import { Navbar } from "react-bootstrap";
 import { HeaderTranslation } from "../../translations";
 import companyLogo from "../../dex-logo.png";
+import Tooltip from "@material-ui/core/Tooltip";
 
 class Header extends Component {
   logout() {
@@ -33,7 +34,11 @@ class Header extends Component {
               marginRight: 50,
             }}
           >
-            <Link to="/dashboard" className="nav-link ">
+            <Link
+              to="/dashboard"
+              className="nav-link "
+              style={{ textTransform: "uppercase" }}
+            >
               {loggedUser.username}
             </Link>
           </li>
