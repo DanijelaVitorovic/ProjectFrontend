@@ -7,6 +7,7 @@ import { CaseTableTranslation } from "../../translations";
 import Tooltip from "@material-ui/core/Tooltip";
 import AddIcon from "@material-ui/icons/Add";
 import IconButton from "@material-ui/core/IconButton";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 
 class CaseTable extends Component {
   constructor() {
@@ -57,19 +58,11 @@ class CaseTable extends Component {
     const table = (
       <div className="table-responsive tableHeight">
         <div align="left">
-          <Tooltip title={Buttons.addNewCase} arrow>
-            <IconButton
-              title={Buttons.addNewCase}
-              className="btn btn-info"
-              type="submit"
-              size="lm"
-              onClick={() => {
-                this.showModal();
-              }}
-            >
-              <AddIcon />
-            </IconButton>
-          </Tooltip>
+          <Link to={`/dashboard`}>
+            <Tooltip title={Buttons.back} arrow>
+              <ArrowBackIcon style={{ fontSize: 40 }} />
+            </Tooltip>
+          </Link>
         </div>
         <br />
         <table
@@ -90,11 +83,6 @@ class CaseTable extends Component {
             </tr>
           </thead>
           <tbody>{caseListShowedInRow}</tbody>
-          <Link to={`/dashboard`}>
-            <i className="fas fa-arrow-circle-left fa-3x fa-pull-left" />
-          </Link>
-
-          <br />
         </table>
       </div>
     );

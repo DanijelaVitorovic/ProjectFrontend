@@ -6,6 +6,11 @@ import table from "./table.css";
 import { documentTableTranslation } from "../../translations";
 import ModalForAddCaseAndDocument from "./ModalForAddCaseAndDocument";
 import AddTwoToneIcon from "@material-ui/icons/AddTwoTone";
+import Tooltip from "@material-ui/core/Tooltip";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import { Link } from "react-router-dom";
+import AddIcon from "@material-ui/icons/Add";
+import IconButton from "@material-ui/core/IconButton";
 
 export default class DocumentTable extends Component {
   constructor() {
@@ -77,34 +82,25 @@ export default class DocumentTable extends Component {
       <div className="table-responsive tableHeight">
         {!caseProcessingViewSignal && (
           <Fragment>
-            <div class="btn-group">
-              <div class="btn-group">
-                <Button
-                  title="Унеси нови документ"
-                  className="btn btn-default "
+            <div align="left" style={{ paddingBottom: 20 }}>
+              <Link to={`/dashboard`}>
+                <Tooltip title={Buttons.back} arrow>
+                  <ArrowBackIcon style={{ fontSize: 40 }} />
+                </Tooltip>
+              </Link>
+
+              <Tooltip title={Buttons.add} arrow>
+                <IconButton
+                  className="btn btn-info"
                   type="submit"
-                  size="lm"
-                  onClick={() => {
-                    this.showModal();
-                  }}
-                >
-                  <AddTwoToneIcon />
-                </Button>
-              </div>
-              <div class="btn-group">
-                <Button
-                  title="Додај документ са предметом"
-                  class="btn btn-default"
-                  type="submit"
-                  variant="info"
                   size="lm"
                   onClick={() => {
                     this.showModalForAddCaseAndDocument();
                   }}
                 >
-                  <AddTwoToneIcon />
-                </Button>
-              </div>
+                  <AddIcon />
+                </IconButton>
+              </Tooltip>
             </div>
           </Fragment>
         )}

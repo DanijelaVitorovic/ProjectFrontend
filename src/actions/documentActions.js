@@ -6,7 +6,7 @@ import {
   UPDATE_DOCUMENT,
   GET_ERRORS,
   ADD_CASE_DOCUMENT_DTO,
-  GET_DOCUMENTS_BY_CASE,
+  GET_DOCUMENT_LIST_BY_CASE,
 } from "./types";
 import axios from "axios";
 import "react-confirm-alert/src/react-confirm-alert.css";
@@ -97,7 +97,7 @@ export const createDocumentWithCase = (newDocument) => async (dispatch) => {
 export const getDocumentsByCase = (id) => async (dispatch) => {
   const res = await axios.get(`/api/document/findAllDocumentByCaseId/${id}`);
   dispatch({
-    type: GET_DOCUMENTS_BY_CASE,
+    type: GET_DOCUMENT_LIST_BY_CASE,
     payload: res.data,
   });
 };

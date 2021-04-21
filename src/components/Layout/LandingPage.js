@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import ParticlesBg from "particles-bg";
+import { landingPage } from "../../translations";
 
 class Landing extends Component {
   componentDidMount() {
@@ -52,14 +53,14 @@ class Landing extends Component {
           <div className="container">
             <div className="row">
               <div className="col-md-12 text-center">
-                <h1 className="display-3 mb-4">APP</h1>
-                <p className="lead">Kreiraj nalog</p>
+                <h1 className="display-3 mb-4">{landingPage.heading}</h1>
+                <p className="lead">{landingPage.createAcc}</p>
                 <hr />
                 <Link to="/register" className="btn btn-lg btn-primary mr-2">
-                  Registracija
+                  {landingPage.registration}
                 </Link>
                 <Link to="/login" className="btn btn-lg btn-secondary mr-2">
-                  Prijava
+                  {landingPage.login}
                 </Link>
               </div>
             </div>

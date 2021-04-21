@@ -6,7 +6,7 @@ import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepButton from "@material-ui/core/StepButton";
 import Typography from "@material-ui/core/Typography";
-import { CaseType, GetNameAndSurnameOfSomeEntity } from "../../../src/globals";
+import { CaseType, getPhysicalEntityName } from "../../../src/globals";
 import { DocumentType, documentStatus } from "../../../src/globals";
 
 class ModalForAddCaseAndDocument extends Component {
@@ -93,7 +93,7 @@ class ModalForAddCaseAndDocument extends Component {
                 {physicalEntities.map((physicalEntity) => {
                   return (
                     <option value={physicalEntity.id}>
-                      {GetNameAndSurnameOfSomeEntity(physicalEntity)}
+                      {getPhysicalEntityName(physicalEntity)}
                     </option>
                   );
                 })}
@@ -245,7 +245,7 @@ class ModalForAddCaseAndDocument extends Component {
         centered
         animation
       >
-        <Card bg={"white"} text={"black"}>
+        <Card bg={"white"} text={"black"} style={{ paddingBottom: 20 }}>
           <Modal.Header closeButton> {Header.heading}</Modal.Header>
           <div className="register">
             <div className="container">
@@ -277,9 +277,6 @@ class ModalForAddCaseAndDocument extends Component {
             </div>
           </div>
         </Card>
-        <ModalFooter>
-          <br />
-        </ModalFooter>
       </Modal>
     );
   }

@@ -8,6 +8,7 @@ import MenuBarUsers from "../MenuBar/MenuBarUsers";
 import MenuBarUserNotAuthenticated from "../MenuBar/MenuBarUserNotAuthenticated";
 import { Navbar } from "react-bootstrap";
 import { HeaderTranslation } from "../../translations";
+import companyLogo from "../../dex-logo.png";
 
 class Header extends Component {
   logout() {
@@ -64,9 +65,7 @@ class Header extends Component {
       <div>
         <nav className="navbar navbar-expand-lg navbar-dark mb-4">
           <Navbar.Toggle />
-          <Link className="navbar-brand" to="/">
-            {HeaderItems.navbarBrand}
-          </Link>
+          <img src={companyLogo} style={{ width: 60, height: 35 }} />
 
           <button
             className="navbar-toggler"

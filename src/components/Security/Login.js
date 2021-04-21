@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import classnames from "classnames";
 import { login } from "../../actions/securityActions";
 import { Link } from "react-router-dom";
+import { loginTranslation } from "../../translations";
 
 class Login extends Component {
   constructor() {
@@ -11,7 +12,7 @@ class Login extends Component {
     this.state = {
       username: "",
       password: "",
-      errors: {}
+      errors: {},
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -40,7 +41,7 @@ class Login extends Component {
     e.preventDefault();
     const LoginRequest = {
       username: this.state.username,
-      password: this.state.password
+      password: this.state.password,
     };
     this.props.login(LoginRequest);
   }
@@ -49,7 +50,7 @@ class Login extends Component {
     const { errors } = this.state;
 
     let ExpiredTrialPeriodDiv;
-    const expiredTrialPeriod = errors => {
+    const expiredTrialPeriod = (errors) => {
       if (errors.expired) {
         return (
           <div className="alert alert-danger text-center" role="alert">
@@ -60,7 +61,7 @@ class Login extends Component {
     };
 
     let AccountNotActiveDiv;
-    const accountNotActive = errors => {
+    const accountNotActive = (errors) => {
       if (errors.locked) {
         return (
           <div className="alert alert-danger text-center" role="alert">
@@ -77,7 +78,9 @@ class Login extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-6 m-auto">
-              <h1 className="display-4 text-center">Prijava</h1>
+              <h1 className="display-4 text-center">
+                {loginTranslation.heading}
+              </h1>
               <hr />
               <form onSubmit={this.onSubmit}>
                 <div className="form-group">
@@ -86,7 +89,7 @@ class Login extends Component {
                   <input
                     type="text"
                     className={classnames("form-control form-control-lg", {
-                      "is-invalid": errors.username
+                      "is-invalid": errors.username,
                     })}
                     placeholder="Korisničko ime"
                     name="username"
@@ -101,7 +104,7 @@ class Login extends Component {
                   <input
                     type="password"
                     className={classnames("form-control form-control-lg", {
-                      "is-invalid": errors.password
+                      "is-invalid": errors.password,
                     })}
                     placeholder="Lozinka"
                     name="password"
@@ -131,15 +134,12 @@ class Login extends Component {
 Login.propTypes = {
   login: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
-  loggedUser: PropTypes.object.isRequired
+  loggedUser: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   loggedUser: state.loggedUser,
-  errors: state.errors
+  errors: state.errors,
 });
 
-export default connect(
-  mapStateToProps,
-  { login }
-)(Login);
+export default connect(mapStateToProps, { login })(Login);

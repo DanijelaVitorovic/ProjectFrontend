@@ -13,11 +13,11 @@ export const CaseTableTranslation = {
     refersTo: "Односи се на",
     startDate: "Почетак",
     status: "Статус",
-    update: "Измена",
+    update: "Измени",
     documents: "Документа предмета",
   },
   Buttons: {
-    addNewCase: "Додај нови предмет",
+    back: "Врати се на почетну страну",
   },
 };
 
@@ -121,8 +121,29 @@ export const Menus = {
     Cases: {
       heading: "Предмети",
       caseList: "Приказ предмета",
+      caseClassificationList: "Приказ предметних класификација",
+    },
+    Process: {
+      heading: "Процеси",
+      addProcess: "Додај процес",
+      showProcessList: "Приказ процеса",
+    },
+    Document: {
+      heading: "Документа",
+      showDocumentList: "Приказ докумената",
     },
   },
+};
+
+export const landingPage = {
+  heading: "Апликација",
+  createAcc: "Креирај налог",
+  registration: "Регистрација",
+  login: "Пријава",
+};
+
+export const loginTranslation = {
+  heading: "Пријава",
 };
 
 export const HeaderTranslation = {
@@ -150,6 +171,10 @@ export const DashboardTranslation = {
     organizationalUnitList: "Приказ организационих јединица",
     document: "Документи",
     documentList: "Приказ докумената",
+    case: "Предмети",
+    caseList: "Приказ предмета",
+    caseClassification: "Класификације предмета",
+    caseClassificationList: "Приказ класификација предмета",
   },
 };
 
@@ -302,7 +327,8 @@ export const documentTableTranslation = {
     delete: "Брисање",
   },
   Buttons: {
-    addNewDocument: "Унеси нови документ",
+    back: "Врати се на почетну страну",
+    add: "Додај документ са предметом",
   },
 };
 export const documentModalForAddAndUpdateTranslation = {
@@ -321,5 +347,11 @@ export const documentModalForAddAndUpdateTranslation = {
     employeeOption: "Одаберите запослено лице",
     _casePlaceholder: "Одаберите случај",
     _caseOption: "Одаберите случај",
+  },
+};
+
+export const caseClassificationListTranslation = {
+  Header: {
+    heading: "Класификације предмета",
   },
 };

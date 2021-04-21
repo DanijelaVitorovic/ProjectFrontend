@@ -5,7 +5,7 @@ import {
   GET_DOCUMENTS,
   DELETE_DOCUMENT,
   ADD_CASE_DOCUMENT_DTO,
-  GET_DOCUMENTS_BY_CASE,
+  GET_DOCUMENT_LIST_BY_CASE,
 } from "../actions/types";
 
 const initialState = {
@@ -39,7 +39,7 @@ export default function (state = initialState, action) {
         documents: action.payload,
       };
 
-    case GET_DOCUMENTS_BY_CASE:
+    case GET_DOCUMENT_LIST_BY_CASE:
       return {
         ...state,
         documents: action.payload,

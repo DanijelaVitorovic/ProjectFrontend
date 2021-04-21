@@ -25,6 +25,13 @@ import DocumentTable from "../Document/DocumentTable";
 import Tooltip from "@material-ui/core/Tooltip";
 import { Link } from "react-router-dom";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import {
+  getEmployeeName,
+  getPhysicalEntityName,
+  getCaseProcessor,
+  getCaseOwner,
+  getCaseRefersTo,
+} from "../../globals";
 
 class CaseProcessingList extends Component {
   constructor() {
@@ -55,20 +62,15 @@ class CaseProcessingList extends Component {
   }
 
   render() {
-    const translation = CaseModalForAddAndUpdateTranslation || {};
-    const { SelectOptionsAndPlaceholders } = translation;
-    const translation1 = documentTableTranslation || {};
-    const { HeaderColumns } = translation1;
-    const translation2 = documentListTranslation || {};
-    const { Header } = translation2;
-    const translation3 = CaseProcessingListTranslation || {};
+    const translationCaseModal = CaseModalForAddAndUpdateTranslation || {};
+    const { SelectOptionsAndPlaceholders } = translationCaseModal;
+    const translationDocumentList = documentListTranslation || {};
+    const { Header } = translationDocumentList;
+    const translationCaseProcessing = CaseProcessingListTranslation || {};
     const _case = this.props.case.case || {};
     const { documents } = this.props.document || {};
     const { createDocument, physicalEntityList } = this.props || {};
     const employees = this.props.employee.employeeList || {};
-    const processor = _case?.processor?.physicalEntity?.firstName;
-    const owner = _case?.owner?.physicalEntity?.firstName;
-    const refersTo = _case.refersTo?.firstName;
     const startDate = _case?.startDate;
     const { caseList, getDocument } = this.props || {};
 
@@ -77,7 +79,7 @@ class CaseProcessingList extends Component {
         <div className="register">
           <div className="container">
             <Link to={`/caseList`}>
-              <Tooltip title={translation3.back} arrow>
+              <Tooltip title={translationCaseProcessing.back} arrow>
                 <ArrowBackIcon style={{ fontSize: 40 }} />
               </Tooltip>
             </Link>
@@ -87,14 +89,14 @@ class CaseProcessingList extends Component {
                   className="display-5 text-center"
                   style={{ paddingBottom: 20, paddingTop: 20 }}
                 >
-                  {translation3.heading} {_case.id}
+                  {translationCaseProcessing.heading} {_case.id}
                 </h3>
                 <hr />
                 <Row>
                   <Col xs={6} md={4}>
                     <div className="form-group">
                       <label>
-                        {translation3.caseName}
+                        {translationCaseProcessing.caseName}
                         <input
                           type="text"
                           className="form-control"
@@ -108,7 +110,7 @@ class CaseProcessingList extends Component {
                   <Col xs={6} md={4}>
                     <div className="form-group">
                       <label>
-                        {translation3.caseNamber}
+                        {translationCaseProcessing.caseNamber}
                         <input
                           type="text"
                           className="form-control"
@@ -125,7 +127,7 @@ class CaseProcessingList extends Component {
                   <Col xs={6} md={4}>
                     <div className="form-group">
                       <label>
-                        {translation3.caseType}
+                        {translationCaseProcessing.caseType}
                         <input
                           className="form-control"
                           name="caseType"
@@ -140,7 +142,7 @@ class CaseProcessingList extends Component {
                   <Col xs={6} md={4}>
                     <div className="form-group">
                       <label>
-                        {translation3.caseStatus}
+                        {translationCaseProcessing.caseStatus}
                         <input
                           type="text"
                           className="form-control"
@@ -154,7 +156,7 @@ class CaseProcessingList extends Component {
                   <Col xs={6} md={4}>
                     <div className="form-group">
                       <label>
-                        {translation3.caseState}
+                        {translationCaseProcessing.caseState}
                         <input
                           type="text"
                           className="form-control"
@@ -168,7 +170,7 @@ class CaseProcessingList extends Component {
                   <Col xs={6} md={4}>
                     <div className="form-group">
                       <label>
-                        {translation3.description}
+                        {translationCaseProcessing.description}
                         <input
                           className="form-control"
                           name="description"
@@ -183,11 +185,11 @@ class CaseProcessingList extends Component {
                   <Col xs={12} md={6}>
                     <div className="form-group">
                       <label>
-                        {translation3.owner}
+                        {translationCaseProcessing.owner}
                         <input
                           className="form-control"
                           name="owner"
-                          value={owner}
+                          value={getCaseOwner(_case)}
                           disabled
                         />
                       </label>
@@ -196,11 +198,11 @@ class CaseProcessingList extends Component {
                   <Col xs={12} md={6}>
                     <div className="form-group">
                       <label>
-                        {translation3.refersTo}
+                        {translationCaseProcessing.refersTo}
                         <input
                           className="form-control"
                           name="refersTo"
-                          value={refersTo}
+                          value={getCaseRefersTo(_case)}
                           disabled
                         />
                       </label>
@@ -211,11 +213,11 @@ class CaseProcessingList extends Component {
                   <Col xs={12} md={6}>
                     <div className="form-group">
                       <label>
-                        {translation3.processor}
+                        {translationCaseProcessing.processor}
                         <input
                           className="form-control"
                           name="processor"
-                          value={processor}
+                          value={getCaseProcessor(_case)}
                           disabled
                         />
                       </label>
@@ -224,7 +226,7 @@ class CaseProcessingList extends Component {
                   <Col xs={12} md={6}>
                     <div className="form-group">
                       <label>
-                        {translation3.startDate}
+                        {translationCaseProcessing.startDate}
                         <input
                           className="form-control"
                           name="startDate"

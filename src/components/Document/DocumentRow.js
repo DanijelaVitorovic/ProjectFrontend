@@ -1,13 +1,19 @@
 import React, { Component, Fragment } from "react";
 import { Button, Badge } from "react-bootstrap";
 import ModalForUpdateDocument from "./ModalForUpdateDocument";
-import { DocumentType, documentStatus } from "../../../src/globals";
+import {
+  DocumentType,
+  documentStatus,
+  getDocumentEmployeeCreated,
+} from "../../../src/globals";
 import UpdateButton from "../Reusable/UpdateButton";
 import DeleteButton from "../Reusable/DeleteButton";
 import ConfirmAlert from "../Reusable/ConfirmAlert";
 import { deleteDocument } from "../../actions/documentActions";
 import UpdateForm from "./UpdateForm";
 import { Link } from "react-router-dom";
+import { CenterFocusStrong } from "@material-ui/icons";
+import { blue } from "@material-ui/core/colors";
 
 export default class DocumentRow extends Component {
   constructor() {
@@ -33,7 +39,7 @@ export default class DocumentRow extends Component {
 
   onDeleteClick = (id) => {
     const string = "Да желите да обришете изабрани документ?";
-    const { deleteDocument } = this.props;
+    const { deleteDocument } = this.props || {};
     ConfirmAlert(id, deleteDocument, string);
   };
 
@@ -45,8 +51,6 @@ export default class DocumentRow extends Component {
       caseList,
       caseProcessingViewSignal,
     } = this.props || {};
-    const firstName = document.employeeCreated.physicalEntity.firstName;
-    const lastName = document.employeeCreated.physicalEntity.lastName;
 
     const renderRow = (
       <tr>
@@ -54,7 +58,7 @@ export default class DocumentRow extends Component {
         <td>{document.title}</td>
         <td>{document.documentType}</td>
         <td>{document.documentStatus}</td>
-        <td>{firstName + " " + lastName}</td>
+        <td>{getDocumentEmployeeCreated(document)}</td>
         {!caseProcessingViewSignal && (
           <Fragment>
             <td>{document._case.caseName}</td>
@@ -93,7 +97,6 @@ export default class DocumentRow extends Component {
           getDocument={getDocument}
           employees={employees}
           caseList={caseList}
-          physicalEntities={physicalEntities}
         />
       </Fragment>
     );

@@ -10,6 +10,8 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import CaseProcessingList from "./CaseProcessingList";
 import Tooltip from "@material-ui/core/Tooltip";
+import UpdateButton from "../Reusable/UpdateButton";
+import button from "../Reusable/button.css";
 
 class CaseRow extends Component {
   constructor() {
@@ -50,7 +52,7 @@ class CaseRow extends Component {
         <td>{this.props.case.refersTo.firstName}</td>
         <td>{formatDateFromBackend(new Date())}</td>
         <td>{this.props.case.caseStatus}</td>
-        <td className="text-center" className="red">
+        <td className="text-center">
           <UpdateButton showModal={this.showModal} id={document} />
         </td>
         <td className="text-center">

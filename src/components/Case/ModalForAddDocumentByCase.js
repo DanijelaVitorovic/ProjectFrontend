@@ -3,7 +3,7 @@ import { Modal, ModalFooter, Card, Button } from "react-bootstrap";
 import {
   DocumentType,
   documentStatus,
-  GetNameandSurname,
+  getEmployeeName,
 } from "../../../src/globals";
 import { documentModalForAddAndUpdateTranslation } from "../../translations";
 
@@ -147,7 +147,7 @@ class ModalForAddDocumentByCase extends Component {
                         {employeeList.map((employee) => {
                           return (
                             <option value={employee.id}>
-                              {GetNameandSurname(employee)}
+                              {getEmployeeName(employee)}
                             </option>
                           );
                         })}

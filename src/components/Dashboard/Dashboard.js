@@ -20,13 +20,12 @@ class Dashboard extends Component {
       alpha: [0.6, 0],
       scale: [0.1, 0.4],
       position: "all",
-      color: ["random", "#ff0000"],
+      color: ["random"],
       cross: "dead",
-      // emitter: "follow",
       random: 15,
     };
 
-    if (Math.random() > 0.85) {
+    if (Math.random() > 0.5) {
       config = Object.assign(config, {
         onParticleUpdate: (ctx, particle) => {
           ctx.beginPath();
@@ -140,6 +139,28 @@ class Dashboard extends Component {
               </Link>
             </div>
           </div>
+          <div className="card-dashboard">
+            <div className="card-header">
+              <h4 className="card-title">
+                {DashboardItems.caseClassification}
+              </h4>
+            </div>
+            <div className="card-body">
+              <Link
+                className="btn-dashboard"
+                type="submit"
+                variant="success"
+                to="/caseClassificationList"
+                centered
+              >
+                <p className="text-dash" style={{ paddingBotton: 10 }}>
+                  {" "}
+                  {DashboardItems.caseClassificationList}
+                </p>
+              </Link>
+            </div>
+          </div>
+          <p> </p>
         </div>
 
         <div className="row">
@@ -175,6 +196,23 @@ class Dashboard extends Component {
                 centered
               >
                 <p className="text-dash">{DashboardItems.documentList}</p>
+              </Link>
+            </div>
+          </div>
+          <p> </p>
+          <div className="card-dashboard">
+            <div className="card-header">
+              <h4 className="card-title">{DashboardItems.case}</h4>
+            </div>
+            <div className="card-body">
+              <Link
+                className="btn-dashboard"
+                type="submit"
+                variant="success"
+                to="/caseList"
+                centered
+              >
+                <p className="text-dash">{DashboardItems.caseList}</p>
               </Link>
             </div>
           </div>

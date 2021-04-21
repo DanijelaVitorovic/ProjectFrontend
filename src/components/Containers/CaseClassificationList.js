@@ -9,6 +9,7 @@ import {
 } from "../../actions/caseClassificationActions";
 import { getOrganizationalUnits } from "../../actions/organizationalUnitAcitons";
 import CaseClassificationTable from "../CaseClassification/CaseClassificationTable";
+import { caseClassificationListTranslation } from "../../translations";
 
 class CaseClassificationList extends Component {
   componentDidMount() {
@@ -26,6 +27,8 @@ class CaseClassificationList extends Component {
       updateCaseClassification,
       deleteCaseClassification,
     } = this.props || {};
+    const translation = caseClassificationListTranslation || {};
+    const { Header } = translation;
 
     return (
       <div className="container">
@@ -33,7 +36,7 @@ class CaseClassificationList extends Component {
           <div className="col-md-12 m-auto">
             <div className="card text-left mb-3">
               <div className="card-header text-black">
-                <h3>Класификације предмета</h3>
+                <h3>{Header.heading}</h3>
               </div>
               <div class="col-md-12 m-auto">
                 <div className="card-body"></div>

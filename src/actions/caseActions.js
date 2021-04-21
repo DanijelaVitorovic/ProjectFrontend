@@ -6,7 +6,6 @@ import {
   DELETE_CASE,
   GET_CASES,
   GET_CASE,
-  GET_DOCUMENTS_BY_CASE,
 } from "./types";
 
 export const createCase = (caseForCreate) => async (dispatch) => {
