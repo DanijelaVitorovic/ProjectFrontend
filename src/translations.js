@@ -355,3 +355,17 @@ export const caseClassificationListTranslation = {
     heading: "Класификације предмета",
   },
 };
+
+export const caseClassificationTableTranslation = {
+  Buttons: {
+    back: "Врати се назад",
+    addNewCaseClassification: "Унеси нову класификацију",
+  },
+  RowItems: {
+    id: "Шифра",
+    name: "Име класификације",
+    namOfOrganizationalUnit: "Име организационе јединице",
+    update: "Измена",
+    delete: "Брисање",
+  },
+};
