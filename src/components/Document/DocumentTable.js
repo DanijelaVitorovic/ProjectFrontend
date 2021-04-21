@@ -6,6 +6,11 @@ import table from "./table.css";
 import { documentTableTranslation } from "../../translations";
 import ModalForAddCaseAndDocument from "./ModalForAddCaseAndDocument";
 import AddTwoToneIcon from "@material-ui/icons/AddTwoTone";
+import Tooltip from "@material-ui/core/Tooltip";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import { Link } from "react-router-dom";
+import AddIcon from "@material-ui/icons/Add";
+import IconButton from "@material-ui/core/IconButton";
 
 export default class DocumentTable extends Component {
   constructor() {
@@ -43,7 +48,6 @@ export default class DocumentTable extends Component {
   };
 
   render() {
-
     const {
       documents,
       createDocument,
@@ -53,6 +57,8 @@ export default class DocumentTable extends Component {
       caseList,
       employees,
       physicalEntities,
+      signalRow,
+      caseProcessingViewSignal,
     } = this.props || {};
 
     const translation = documentTableTranslation || {};
@@ -68,41 +74,36 @@ export default class DocumentTable extends Component {
         caseList={caseList}
         employees={employees}
         physicalEntities={physicalEntities}
+        caseProcessingViewSignal={caseProcessingViewSignal}
       />
     ));
-    
-    const table = (
+
+    const renderTable = (
       <div className="table-responsive tableHeight">
-        <div class="btn-group">
-          <div class="btn-group">
-            <Button
-              title="Унеси нови документ"
-              className="btn btn-default "
-              type="submit"
-              variant="info"
-              size="lm"
-              onClick={() => {
-                this.showModal();
-              }}
-            >
-              <AddTwoToneIcon />
-            </Button>
-          </div>
-          <div class="btn-group">
-            <Button
-              title="Додај документ са предметом"
-              class="btn btn-default"
-              type="submit"
-              variant="info"
-              size="lm"
-              onClick={() => {
-                this.showModalForAddCaseAndDocument();
-              }}
-            >
-              <AddTwoToneIcon />
-            </Button>
-          </div>
-        </div>
+        {!caseProcessingViewSignal && (
+          <Fragment>
+            <div align="left" style={{ paddingBottom: 20 }}>
+              <Link to={`/dashboard`}>
+                <Tooltip title={Buttons.back} arrow>
+                  <ArrowBackIcon style={{ fontSize: 40 }} />
+                </Tooltip>
+              </Link>
+
+              <Tooltip title={Buttons.add} arrow>
+                <IconButton
+                  className="btn btn-info"
+                  type="submit"
+                  size="lm"
+                  onClick={() => {
+                    this.showModalForAddCaseAndDocument();
+                  }}
+                >
+                  <AddIcon />
+                </IconButton>
+              </Tooltip>
+            </div>
+          </Fragment>
+        )}
         <table id="example" className="table table-hover">
           <thead className="thead-light">
             <tr className="card-body table-success">
@@ -111,13 +112,17 @@ export default class DocumentTable extends Component {
               <th scope="col">{HeaderColumns.type}</th>
               <th scope="col">{HeaderColumns.status}</th>
               <th scope="col">{HeaderColumns.employee}</th>
-              <th scope="col">{HeaderColumns._case}</th>
-              <th scope="col" className="text-center">
-                {HeaderColumns.delete}
-              </th>
-              <th scope="col" className="text-center">
-                {HeaderColumns.update}
-              </th>
+              {!caseProcessingViewSignal && (
+                <Fragment>
+                  <th scope="col">{HeaderColumns._case}</th>
+                  <th scope="col" className="text-center">
+                    {HeaderColumns.update}
+                  </th>
+                  <th scope="col" className="text-center">
+                    {HeaderColumns.delete}
+                  </th>
+                </Fragment>
+              )}
             </tr>
           </thead>
           <tbody>{documentList}</tbody>
@@ -127,16 +132,34 @@ export default class DocumentTable extends Component {
 
     return (
       <Fragment>
-        {table}
-        <ModalForAddDocument
-          show={this.state.show}
-          handleAdd={this.handleAdd}
-          closeModal={this.closeModal}
-          createDocument={createDocument}
-          caseList={caseList}
-          employees={employees}
-          physicalEntities={physicalEntities}
-        />
+        {renderTable}
+
+        {
+          <ModalForAddDocument
+            show={this.state.show}
+            handleAdd={this.handleAdd}
+            closeModal={this.closeModal}
+            createDocument={createDocument}
+            caseList={caseList}
+            employees={employees}
+            documents={documents}
+            physicalEntities={physicalEntities}
+          />
+        }
+        {this.state.showModalForAddingCaseAndDocument && (
+          <ModalForAddCaseAndDocument
+            showModalForAddingCaseAndDocument={
+              this.state.showModalForAddingCaseAndDocument
+            }
+            closeModalForAddCaseAndDocument={
+              this.closeModalForAddCaseAndDocument
+            }
+            handleAddCaseAndDocument={this.handleAddCaseAndDocument}
+            employees={employees}
+            physicalEntities={physicalEntities}
+            caseList={caseList}
+          />
+        )}
       </Fragment>
     );
   }

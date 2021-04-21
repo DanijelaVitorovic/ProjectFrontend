@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { Modal, ModalFooter } from "react-bootstrap";
-import { GetNameAndSurnameOfSomeEntity } from "../../../src/globals";
+import { getPhysicalEntityName } from "../../../src/globals";
 import { EmployeeModalForAddAndUpdateTranslation } from "../../translations";
 
 class ModalForAddEmployee extends Component {
@@ -103,7 +103,7 @@ class ModalForAddEmployee extends Component {
                       {physicalEntityList.map((physicalEntity) => {
                         return (
                           <option value={physicalEntity.id}>
-                            {GetNameAndSurnameOfSomeEntity(physicalEntity)}
+                            {getPhysicalEntityName(physicalEntity)}
                           </option>
                         );
                       })}
@@ -126,7 +126,7 @@ class ModalForAddEmployee extends Component {
                       {usersNotUsedAsForeignKeyInTableEmployee.map((user) => {
                         return (
                           <option value={user.id}>
-                            {GetNameAndSurnameOfSomeEntity(user)}
+                            {getPhysicalEntityName(user)}
                           </option>
                         );
                       })}

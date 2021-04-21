@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { CaseType, GetNameAndSurnameOfSomeEntity } from "../../../src/globals";
+import { CaseType, getPhysicalEntityName } from "../../../src/globals";
 import { Modal, ModalFooter, Card } from "react-bootstrap";
 import { CaseModalForAddAndUpdateTranslation } from "../../translations";
 
@@ -132,7 +132,7 @@ class ModalForUpdateCase extends Component {
                         {physicalEntityList.map((physicalEntity) => {
                           return (
                             <option value={physicalEntity.id}>
-                              {GetNameAndSurnameOfSomeEntity(physicalEntity)}
+                              {getPhysicalEntityName(physicalEntity)}
                             </option>
                           );
                         })}

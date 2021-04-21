@@ -44,11 +44,11 @@ class CaseClassificationRow extends Component {
             caseClassification.organizationalUnit.name}
         </td>
 
-        <td className="text-center" className="red">
+        <td className="text-center">
           <UpdateButton showModal={this.showModal} id={document} />
         </td>
-        
-        <td className="text-center" className="red">
+
+        <td className="text-center" style={{ paddingTop: 25 }}>
           <DeleteButton onDeleteClick={this.onDeleteClick} id={document.id} />
         </td>
       </tr>

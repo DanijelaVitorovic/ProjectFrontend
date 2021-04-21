@@ -3,6 +3,11 @@ import CaseClassificationRow from "./CaseClassificationRow";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import ModalForAddCaseClassification from "./ModalForAddCaseClassification";
+import Tooltip from "@material-ui/core/Tooltip";
+import AddIcon from "@material-ui/icons/Add";
+import IconButton from "@material-ui/core/IconButton";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import { caseClassificationTableTranslation } from "../../translations";
 
 class CaseClassificationTable extends Component {
   constructor() {
@@ -46,40 +51,45 @@ class CaseClassificationTable extends Component {
       )
     );
 
+    const translation = caseClassificationTableTranslation || {};
+    const { RowItems, Buttons } = translation;
+
     const table = (
       <div className="table-responsive tableHeight">
+        <div align="left" style={{ paddingBottom: 20 }}>
+          <Link to={`/dashboard`}>
+            <Tooltip title={Buttons.back} arrow>
+              <ArrowBackIcon style={{ fontSize: 40 }} />
+            </Tooltip>
+          </Link>
+          <Tooltip title={Buttons.addNewCaseClassification} arrow>
+            <IconButton
+              className="btn btn-info"
+              type="submit"
+              size="lm"
+              onClick={() => {
+                this.showModal();
+              }}
+            >
+              <AddIcon />
+            </IconButton>
+          </Tooltip>
+        </div>
+
         <table
           id="example"
           className="table table-sm table-striped table-bordered "
         >
           <thead>
-            <Button
-              class="btn btn-default"
-              type="submit"
-              variant="info"
-              onClick={() => {
-                this.showModal();
-              }}
-            >
-              Унеси нову класификацију
-            </Button>
-
-            <br />
-            <br />
             <tr>
-              <th>Шифра</th>
-              <th>Име класификације</th>
-              <th>Име организационе јединице</th>
-              <th className="text-center">Измена</th>
-              <th className="text-center">Брисање</th>
+              <th>{RowItems.id}</th>
+              <th>{RowItems.name}</th>
+              <th>{RowItems.namOfOrganizationalUnit}</th>
+              <th className="text-center">{RowItems.update}</th>
+              <th className="text-center">{RowItems.delete}</th>
             </tr>
           </thead>
           <tbody>{caseClassificationList}</tbody>
-          <Link to={`/dashboard`}>
-            <i className="fas fa-arrow-circle-left fa-3x fa-pull-left" />
-          </Link>
-
-          <br />
         </table>
       </div>
     );

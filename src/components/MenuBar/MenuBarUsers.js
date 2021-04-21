@@ -72,14 +72,14 @@ class MenuBarUsers extends Component {
               aria-haspopup="true"
               aria-expanded="false"
             >
-              Procesi
+              {UsersMenuBar.Process.heading}
             </a>
             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-            <Link className="dropdown-item" to="/addProcess">
-                Dodaj proces
+              <Link className="dropdown-item" to="/addProcess">
+                {UsersMenuBar.Process.addProcess}
               </Link>
               <Link className="dropdown-item" to="/processList">
-                Prikaz procesa
+                {UsersMenuBar.Process.showProcessList}
               </Link>
             </div>
           </li>
@@ -100,14 +100,27 @@ class MenuBarUsers extends Component {
               <Link className="dropdown-item" to="/caseList">
                 {UsersMenuBar.Cases.caseList}
               </Link>
-              <Link className="dropdown-item" to="/caseList">
-                Приказ предмета
-              </Link>
               <Link className="dropdown-item" to="/caseClassificationList">
-                Приказ класификација предмета
+                {UsersMenuBar.Cases.caseClassificationList}
               </Link>
+            </div>
+          </li>
+
+          <li className="nav-item dropdown">
+            <a
+              className="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdownUsersLink"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              {UsersMenuBar.Document.heading}
+            </a>
+            <div className="dropdown-menu" aria-labelledby="navbarDropdown">
               <Link className="dropdown-item" to="/documentList">
-                Приказ докумената
+                {UsersMenuBar.Document.showDocumentList}
               </Link>
             </div>
           </li>

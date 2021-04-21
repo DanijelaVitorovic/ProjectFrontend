@@ -36,6 +36,7 @@ import OrganizationalUnitList from "./components/Containers/OrganizationalUnitLi
 import CaseList from "./components/Containers/CaseList";
 import DocumentList from "./components/Containers/DocumentList";
 import CaseClassificationList from "./components/Containers/CaseClassificationList";
+import CaseProcessingList from "./components/Case/CaseProcessingList";
 import UpdateForm from "./components/Document/UpdateForm";
 import MenuBarUsers from "./components/MenuBar/MenuBarUserNotAuthenticated";
 
@@ -65,7 +66,7 @@ class App extends Component {
         <Router>
           <div className="App">
             <Header />
-            <Route exact path="/" component={Dashboard} />
+            <Route exact path="/" component={LandingPage} />
             <Route exact path="/login" component={Login} />
 
             <Switch>
@@ -75,9 +76,17 @@ class App extends Component {
               <Route exact path="/processList" component={ProcessList} />
               <Route exact path="/addProcess" component={AddProcess} />
               <Route exact path="/updateUser/:id" component={UpdateUser} />
-              <Route exact path="/updateProcess/:id" component={UpdateProcess} />
-              <Route exact path="/organizationalUnitList" component={OrganizationalUnitList} />
-              
+              <Route
+                exact
+                path="/updateProcess/:id"
+                component={UpdateProcess}
+              />
+              <Route
+                exact
+                path="/organizationalUnitList"
+                component={OrganizationalUnitList}
+              />
+
               <Route
                 exact
                 path="/organizationalUnitList"
@@ -89,8 +98,8 @@ class App extends Component {
                 exact
                 path="/organizationalUnitList"
                 component={OrganizationalUnitList}
-              /> 
-               <Route exact path="/updateForm/:id" component={UpdateForm} />
+              />
+              <Route exact path="/updateForm/:id" component={UpdateForm} />
               <Route exact path="/addLegalEntity" component={AddLegalEntity} />
               <Route
                 exact
@@ -141,6 +150,11 @@ class App extends Component {
                 exact
                 path="/caseClassificationList"
                 component={CaseClassificationList}
+              />
+              <Route
+                exact
+                path="/caseProcessingList/:id"
+                component={CaseProcessingList}
               />
             </Switch>
           </div>

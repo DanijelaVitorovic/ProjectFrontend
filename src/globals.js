@@ -81,12 +81,42 @@ export const documentStatus = {
     translation: "Опозван",
   },
 };
-export const GetNameandSurname = (employee) => {
+export const getEmployeeName = (employee) => {
   return (
-    employee.physicalEntity.firstName + " " + employee.physicalEntity.lastName
+    employee?.physicalEntity?.firstName +
+    " " +
+    employee?.physicalEntity?.lastName
   );
 };
 
-export const GetNameAndSurnameOfSomeEntity = (entity) => {
-  return entity.firstName + " " + entity.lastName;
+export const getPhysicalEntityName = (physicalEntity) => {
+  return physicalEntity?.firstName + " " + physicalEntity?.lastName;
+};
+
+export const getCaseOwner = (_case) => {
+  return (
+    _case?.owner?.physicalEntity?.firstName +
+    " " +
+    _case?.owner?.physicalEntity?.lastName
+  );
+};
+
+export const getCaseProcessor = (_case) => {
+  return (
+    _case?.processor?.physicalEntity?.firstName +
+    " " +
+    _case?.processor?.physicalEntity?.lastName
+  );
+};
+
+export const getCaseRefersTo = (_case) => {
+  return _case.refersTo?.firstName + " " + _case.refersTo?.lastName;
+};
+
+export const getDocumentEmployeeCreated = (document) => {
+  return (
+    document?.employeeCreated?.physicalEntity?.firstName +
+    " " +
+    document?.employeeCreated?.physicalEntity?.lastName
+  );
 };
