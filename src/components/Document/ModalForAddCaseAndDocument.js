@@ -128,7 +128,7 @@ class ModalForAddCaseAndDocument extends Component {
     switch (step) {
       case 0:
         return (
-          <div>
+          <div style={{ height: 300, paddingTop: 40 }}>
             <div className="form-group">
               <input
                 type="text"
@@ -211,7 +211,7 @@ class ModalForAddCaseAndDocument extends Component {
 
       case 1:
         return (
-          <div>
+          <div style={{ height: 300 }}>
             <div className="form-group">
               <input
                 type="text"

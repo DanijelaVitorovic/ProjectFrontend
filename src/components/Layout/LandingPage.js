@@ -47,7 +47,13 @@ class Landing extends Component {
 
     return (
       <div className="landing">
-        <ParticlesBg type="custom" config={config} bg={true} />
+        <ParticlesBg
+          type="cobweb"
+          config={config}
+          bg={true}
+          color="#17A2B8"
+          num={150}
+        />
 
         <div className="light-overlay landing-inner text-dark">
           <div className="container">
@@ -55,7 +61,6 @@ class Landing extends Component {
               <div className="col-md-12 text-center">
                 <h1 className="display-3 mb-4">{landingPage.heading}</h1>
                 <p className="lead">{landingPage.createAcc}</p>
-                <hr />
                 <Link to="/register" className="btn btn-lg btn-primary mr-2">
                   {landingPage.registration}
                 </Link>
