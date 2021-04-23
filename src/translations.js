@@ -190,7 +190,8 @@ export const EmployeeTableTranslation = {
     delete: "Брисање",
   },
   Buttons: {
-    addNewCase: "Унеси новог запосленог",
+    addNewEmployee: "Унеси новог запосленог",
+    back: "Врати се на почетну страну",
   },
 };
 
@@ -368,4 +369,49 @@ export const caseClassificationTableTranslation = {
     update: "Измена",
     delete: "Брисање",
   },
+};
+
+export const physicalEntityValidationsTranslation = {
+  Modals: {
+    firstName: "Име је обавезнo и треба имати минимум 2 карактера",
+    lastName: "Prezime је обавезнo и треба имати минимум 2 карактера",
+    city: "Град је обавезан и треба имати минимум 2 карактера",
+    email: "Неодговарајући формат",
+  },
+};
+
+export const employeeValidationsTranslation = {
+  Modals: {
+    profession: "Морате унети професију",
+    physicalEntity: "Морате унети физичко лице",
+    user: "Морате унети корисника",
+  },
+};
+
+export const caseValidationsTranslation = {
+  Modals: {
+    title: "Морате унети наслов документа",
+    employeeCreated: "Морате унети запослено лице",
+    caseName: "Морате унети назив предмета",
+    refersTo: "Морате изабрати",
+    title: "Морате унети наслов документа",
+    alertCase: "Нисте попунили сва потребна поља прве старне",
+    alertDocument: "Нисте попунили сва потребна поља друге стране",
+  },
+};
+
+export const caseClassificationValidationsTranslation = {
+  Modals: {
+    code: "Шифра је обавезна и треба имати минимум 2 цифре",
+    name: "Име је обавезнo и треба имати минимум 2 карактера",
+    organizationalUnit: "Организациона јединица је обавезна",
+  },
+};
+
+export const caseClassificationTranslation = {
+  heading: "Шифра је обавезна и треба имати минимум 2 цифре",
+  headingUpdate: "Измени класификације предмета",
+  codePlaceholder: "Унесите шифру класификације",
+  namePlaceholder: "Организациона јединица је обавезна",
+  organizationalUnitSelect: "Изаберите којој организационој јединици припада",
 };

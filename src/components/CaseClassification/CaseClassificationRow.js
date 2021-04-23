@@ -3,6 +3,7 @@ import { Button, Badge } from "react-bootstrap";
 import ModalForUpdateCaseClassification from "./ModalForUpdateCaseClassification";
 import UpdateButton from "../Reusable/UpdateButton";
 import DeleteButton from "../Reusable/DeleteButton";
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 
 class CaseClassificationRow extends Component {
   constructor() {
@@ -49,7 +50,11 @@ class CaseClassificationRow extends Component {
         </td>
 
         <td className="text-center" style={{ paddingTop: 25 }}>
-          <DeleteButton onDeleteClick={this.onDeleteClick} id={document.id} />
+          <Badge variant="danger">
+            <div onClick={() => this.onDeleteClick(caseClassification.id)}>
+              <DeleteForeverIcon />
+            </div>
+          </Badge>{" "}
         </td>
       </tr>
     );

@@ -1,7 +1,15 @@
-import { Modal, Button, Row, Col, ModalFooter } from "react-bootstrap";
+import { Modal, Row, Col, ModalFooter } from "react-bootstrap";
 import React, { Component } from "react";
 import classnames from "classnames";
-import { PhysicalEntityModalForAddAndUpdateTranslation } from "../../translations";
+import {
+  PhysicalEntityModalForAddAndUpdateTranslation,
+  physicalEntityValidationsTranslation,
+} from "../../translations";
+import { handleErrorMessage } from "../../globals";
+
+const validEmailRegex = RegExp(
+  /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+);
 
 class ModalForAddPhysicalEntity extends Component {
   constructor() {
@@ -22,18 +30,50 @@ class ModalForAddPhysicalEntity extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.errors) {
-      this.setState({ errors: nextProps.errors });
-    }
-  }
-
   onChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  handleValidation = () => {
+    const translationValidation = physicalEntityValidationsTranslation;
+    const { Modals } = translationValidation;
+
+    let errors = {};
+    let hasErrors = false;
+    let { firstName, lastName, city, email } = this.state;
+
+    if (firstName.length < 2) {
+      errors["firstName"] = Modals.firstName;
+      hasErrors = true;
+    }
+
+    if (lastName.length < 2) {
+      errors["lastName"] = Modals.lastName;
+      hasErrors = true;
+    }
+
+    if (!city) {
+      errors["city"] = Modals.city;
+
+      hasErrors = true;
+    }
+
+    if (!validEmailRegex.test(email)) {
+      errors["email"] = Modals.email;
+      hasErrors = true;
+    }
+
+    this.setState({ errors: errors });
+    return hasErrors;
+  };
+
   onSubmit = (e) => {
     e.preventDefault();
+
+    if (this.handleValidation()) {
+      return;
+    }
+
     const newPhysicalEntity = {
       firstName: this.state.firstName,
       lastName: this.state.lastName,
@@ -92,10 +132,13 @@ class ModalForAddPhysicalEntity extends Component {
                           value={this.state.firstName}
                           onChange={this.onChange}
                         />
-                        {errors.firstName && (
-                          <div className="invalid-feedback">
+                        {handleErrorMessage(errors.firstName) && (
+                          <span
+                            className="invalid-feedback"
+                            style={{ fontSize: 16, color: "red" }}
+                          >
                             {errors.firstName}
-                          </div>
+                          </span>
                         )}
                       </div>
                     </Col>
@@ -113,10 +156,13 @@ class ModalForAddPhysicalEntity extends Component {
                           value={this.state.lastName}
                           onChange={this.onChange}
                         />
-                        {errors.lastName && (
-                          <div className="invalid-feedback">
+                        {handleErrorMessage(errors.lastName) && (
+                          <span
+                            className="invalid-feedback"
+                            style={{ fontSize: 16, color: "red" }}
+                          >
                             {errors.lastName}
-                          </div>
+                          </span>
                         )}
                       </div>
                     </Col>
@@ -165,8 +211,13 @@ class ModalForAddPhysicalEntity extends Component {
                           value={this.state.email}
                           onChange={this.onChange}
                         />
-                        {errors.email && (
-                          <div className="invalid-feedback">{errors.email}</div>
+                        {handleErrorMessage(errors.email) && (
+                          <span
+                            className="invalid-feedback"
+                            style={{ fontSize: 16, color: "red" }}
+                          >
+                            {errors.email}
+                          </span>
                         )}
                       </div>
                     </Col>
@@ -184,8 +235,13 @@ class ModalForAddPhysicalEntity extends Component {
                           value={this.state.city}
                           onChange={this.onChange}
                         />
-                        {errors.city && (
-                          <div className="invalid-feedback">{errors.city}</div>
+                        {handleErrorMessage(errors.city) && (
+                          <span
+                            className="invalid-feedback"
+                            style={{ fontSize: 16, color: "red" }}
+                          >
+                            {errors.city}
+                          </span>
                         )}
                       </div>
                     </Col>

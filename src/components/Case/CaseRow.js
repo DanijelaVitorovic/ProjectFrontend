@@ -12,6 +12,7 @@ import CaseProcessingList from "./CaseProcessingList";
 import Tooltip from "@material-ui/core/Tooltip";
 import UpdateButton from "../Reusable/UpdateButton";
 import button from "../Reusable/button.css";
+import { getCaseOwner, getCaseProcessor } from "../../globals";
 
 class CaseRow extends Component {
   constructor() {
@@ -41,14 +42,8 @@ class CaseRow extends Component {
       <tr>
         <td>{this.props.case.caseName}</td>
         <td>{this.props.case.caseNumber}</td>
-        <td>
-          {this.props.case.owner &&
-            this.props.case.owner.physicalEntity.firstName}
-        </td>
-        <td>
-          {this.props.case.processor &&
-            this.props.case.processor.physicalEntity.firstName}
-        </td>
+        <td>{getCaseOwner(this.props.case)}</td>
+        <td>{getCaseProcessor(this.props.case)}</td>
         <td>{this.props.case.refersTo.firstName}</td>
         <td>{formatDateFromBackend(new Date())}</td>
         <td>{this.props.case.caseStatus}</td>

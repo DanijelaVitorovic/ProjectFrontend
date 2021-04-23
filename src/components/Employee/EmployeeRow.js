@@ -4,6 +4,7 @@ import ModalForUpdateEmployee from "./ModalForUpdateEmployee";
 import { EmployeeRowTranslation } from "../../translations";
 import UpdateButton from "../Reusable/UpdateButton";
 import DeleteButton from "../Reusable/DeleteButton";
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 
 class EmployeeRow extends Component {
   onDeleteClick = (id) => {
@@ -41,13 +42,17 @@ class EmployeeRow extends Component {
       <tr>
         <td>{employee.profession}</td>
         <td>{managerType}</td>
-        <td className="text-center" className="red">
-        <UpdateButton showModal={this.showModal} id={document} />
-      </td>
-      
-      <td className="text-center" className="red">
-        <DeleteButton onDeleteClick={this.onDeleteClick} id={document.id} />
-      </td>
+        <td className="text-center">
+          <UpdateButton showModal={this.showModal} id={employee} />
+        </td>
+
+        <td className="text-center">
+          <Badge variant="danger">
+            <div onClick={() => this.onDeleteClick(employee.id)}>
+              <DeleteForeverIcon />
+            </div>
+          </Badge>{" "}
+        </td>
       </tr>
     );
 

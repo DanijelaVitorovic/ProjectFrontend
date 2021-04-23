@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import classnames from "classnames";
-import { Modal, Button, Row, Col, ModalFooter } from "react-bootstrap";
-import { PhysicalEntityModalForAddAndUpdateTranslation } from "../../translations";
+import { Modal, Row, Col, ModalFooter } from "react-bootstrap";
+import {
+  PhysicalEntityModalForAddAndUpdateTranslation,
+  physicalEntityValidationsTranslation,
+} from "../../translations";
+import { handleErrorMessage } from "../../globals";
 
 class ModalForUpdatePhysicalEntity extends Component {
   constructor() {
@@ -27,9 +31,6 @@ class ModalForUpdatePhysicalEntity extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.errors) {
-      this.setState({ errors: nextProps.errors });
-    }
     const {
       id,
       firstName,
@@ -60,8 +61,39 @@ class ModalForUpdatePhysicalEntity extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  handleValidation = () => {
+    const translationValidation = physicalEntityValidationsTranslation;
+    const { Modals } = translationValidation;
+
+    let errors = {};
+    let hasErrors = false;
+
+    if (this.state.firstName.length < 2) {
+      errors["firstName"] = Modals.firstName;
+      hasErrors = true;
+    }
+
+    if (this.state.lastName.length < 2) {
+      errors["lastName"] = Modals.lastName;
+      hasErrors = true;
+    }
+
+    if (!this.state.city) {
+      errors["city"] = Modals.city;
+      hasErrors = true;
+    }
+
+    this.setState({ errors: errors });
+    return hasErrors;
+  };
+
   onSubmit = (e) => {
     e.preventDefault();
+
+    if (this.handleValidation()) {
+      return;
+    }
+
     const updatedPhysicalEntity = {
       id: this.state.id,
       firstName: this.state.firstName,
@@ -121,10 +153,13 @@ class ModalForUpdatePhysicalEntity extends Component {
                           value={this.state.firstName}
                           onChange={this.onChange}
                         />
-                        {errors.firstName && (
-                          <div className="invalid-feedback">
+                        {handleErrorMessage(errors.firstName) && (
+                          <span
+                            className="invalid-feedback"
+                            style={{ fontSize: 16, color: "red" }}
+                          >
                             {errors.firstName}
-                          </div>
+                          </span>
                         )}
                       </div>
                     </Col>
@@ -142,10 +177,13 @@ class ModalForUpdatePhysicalEntity extends Component {
                           value={this.state.lastName}
                           onChange={this.onChange}
                         />
-                        {errors.lastName && (
-                          <div className="invalid-feedback">
+                        {handleErrorMessage(errors.lastName) && (
+                          <span
+                            className="invalid-feedback"
+                            style={{ fontSize: 16, color: "red" }}
+                          >
                             {errors.lastName}
-                          </div>
+                          </span>
                         )}
                       </div>
                     </Col>
@@ -184,17 +222,12 @@ class ModalForUpdatePhysicalEntity extends Component {
                       <div className="form-group">
                         <input
                           type="text"
-                          className={classnames("form-control", {
-                            "is-invalid": errors.email,
-                          })}
+                          className="form-control"
                           placeholder="E-мејл"
                           name={SelectOptionsAndPlaceholders.emailPlaceholder}
                           value={this.state.email}
                           onChange={this.onChange}
                         />
-                        {errors.email && (
-                          <div className="invalid-feedback">{errors.email}</div>
-                        )}
                       </div>
                     </Col>
                     <Col xs={6} md={4}>
@@ -211,8 +244,13 @@ class ModalForUpdatePhysicalEntity extends Component {
                           value={this.state.city}
                           onChange={this.onChange}
                         />
-                        {errors.city && (
-                          <div className="invalid-feedback">{errors.city}</div>
+                        {handleErrorMessage(errors.city) && (
+                          <span
+                            className="invalid-feedback"
+                            style={{ fontSize: 16, color: "red" }}
+                          >
+                            {errors.city}
+                          </span>
                         )}
                       </div>
                     </Col>

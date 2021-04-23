@@ -1,20 +1,63 @@
 import React, { Component, Fragment } from "react";
 import { Modal, ModalFooter } from "react-bootstrap";
 import { getPhysicalEntityName } from "../../../src/globals";
-import { EmployeeModalForAddAndUpdateTranslation } from "../../translations";
+import {
+  EmployeeModalForAddAndUpdateTranslation,
+  employeeValidationsTranslation,
+} from "../../translations";
+import { handleErrorMessage } from "../../globals";
+import classnames from "classnames";
 
 class ModalForAddEmployee extends Component {
   constructor() {
     super();
-    this.state = { profession: "", manager: "", physicalEntity: "", user: "" };
+    this.state = {
+      profession: "",
+      manager: "",
+      physicalEntity: "",
+      user: "",
+      errors: {},
+    };
   }
 
   onChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  handleValidation = () => {
+    const translationValidation = employeeValidationsTranslation;
+    const { Modals } = translationValidation;
+
+    let errors = {};
+    let hasErrors = false;
+    let { profession, physicalEntity, user } = this.state;
+
+    if (profession.length < 2) {
+      errors["profession"] = Modals.profession;
+      hasErrors = true;
+    }
+
+    if (!physicalEntity) {
+      errors["physicalEntity"] = Modals.physicalEntity;
+      hasErrors = true;
+    }
+
+    if (!user) {
+      errors["user"] = Modals.user;
+      hasErrors = true;
+    }
+
+    this.setState({ errors: errors });
+    return hasErrors;
+  };
+
   onSubmit = (e) => {
     e.preventDefault();
+
+    if (this.handleValidation()) {
+      return;
+    }
+
     const newEmployee = {
       profession: this.state.profession,
       manager: this.state.manager,
@@ -25,6 +68,7 @@ class ModalForAddEmployee extends Component {
   };
 
   render() {
+    const { errors } = this.state;
     const {
       physicalEntityList,
       usersNotUsedAsForeignKeyInTableEmployee,
@@ -44,10 +88,11 @@ class ModalForAddEmployee extends Component {
         animation
       >
         <Modal.Header closeButton></Modal.Header>
+
         <div className="register">
           <div className="container">
             <div className="row">
-              <div className="col-md-8 m-auto">
+              <div className="col-md-8 m-auto" style={{ paddingBottom: 20 }}>
                 <h3 className="display-5 text-center">
                   {Header.headingAddModal}
                 </h3>
@@ -56,7 +101,9 @@ class ModalForAddEmployee extends Component {
                   <div className="form-group">
                     <input
                       type="text"
-                      className="form-control form-control-lg"
+                      className={classnames("form-control", {
+                        "is-invalid": errors.profession,
+                      })}
                       placeholder={
                         SelectOptionsAndPlaceholders.professionPlaceholder
                       }
@@ -64,10 +111,18 @@ class ModalForAddEmployee extends Component {
                       value={this.state.profession}
                       onChange={this.onChange}
                     />
+                    {handleErrorMessage(errors.profession) && (
+                      <span
+                        className="invalid-feedback"
+                        style={{ fontSize: 16, color: "red" }}
+                      >
+                        {errors.profession}
+                      </span>
+                    )}
                   </div>
                   <div className="form-group">
                     <select
-                      className="form-control form-control-lg"
+                      className="form-control"
                       placeholder={
                         SelectOptionsAndPlaceholders.managerPlaceholder
                       }
@@ -91,7 +146,9 @@ class ModalForAddEmployee extends Component {
                     <select
                       physicalEntityList={physicalEntityList}
                       onChange={this.onChange}
-                      className="form-control form-control-lg"
+                      className={classnames("form-control", {
+                        "is-invalid": errors.physicalEntity,
+                      })}
                       placeholder={
                         SelectOptionsAndPlaceholders.physicalEntityPlaceholder
                       }
@@ -108,15 +165,24 @@ class ModalForAddEmployee extends Component {
                         );
                       })}
                     </select>
+                    {handleErrorMessage(errors.physicalEntity) && (
+                      <span
+                        className="invalid-feedback"
+                        style={{ fontSize: 16, color: "red" }}
+                      >
+                        {errors.physicalEntity}
+                      </span>
+                    )}
                   </div>
-
                   <div className="form-group">
                     <select
                       usersNotUsedAsForeignKeyInTableEmployee={
                         usersNotUsedAsForeignKeyInTableEmployee
                       }
                       onChange={this.onChange}
-                      className="form-control form-control-lg"
+                      className={classnames("form-control", {
+                        "is-invalid": errors.user,
+                      })}
                       placeholder={SelectOptionsAndPlaceholders.userPlaceholder}
                       name="user"
                     >
@@ -124,28 +190,31 @@ class ModalForAddEmployee extends Component {
                         {SelectOptionsAndPlaceholders.userOption}
                       </option>
                       {usersNotUsedAsForeignKeyInTableEmployee.map((user) => {
-                        return (
-                          <option value={user.id}>
-                            {getPhysicalEntityName(user)}
-                          </option>
-                        );
+                        return <option value={user.id}>{user.username}</option>;
                       })}
                     </select>
+                    {handleErrorMessage(errors.user) && (
+                      <span
+                        className="invalid-feedback"
+                        style={{ fontSize: 16, color: "red" }}
+                      >
+                        {errors.user}
+                      </span>
+                    )}
                   </div>
-
-                  <button
-                    type="submit"
-                    className="btn btn-primary float-right btn-success"
-                  >
-                    <i className="fas fa-check fa-2x" />
-                  </button>
+                  <div>
+                    <button
+                      type="submit"
+                      className="btn btn-primary float-right btn-success"
+                    >
+                      <i className="fas fa-check fa-2x" />
+                    </button>
+                  </div>
                 </form>
               </div>
             </div>
           </div>
         </div>
-        <br />
-        <ModalFooter></ModalFooter>
       </Modal>
     );
   }

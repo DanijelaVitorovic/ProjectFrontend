@@ -48,7 +48,13 @@ class Dashboard extends Component {
           <h1 class="text-center">{DashboardItems.welcomeTitle}</h1>
           <p class="text-center">{DashboardItems.welcomeParagraph}</p>
         </div>
-        <ParticlesBg type="custom" config={config} bg={true} />
+        <ParticlesBg
+          type="cobweb"
+          config={config}
+          bg={true}
+          color="#17A2B8"
+          num={150}
+        />
         <div className="row">
           <div className="card-dashboard">
             <div className="card-header">

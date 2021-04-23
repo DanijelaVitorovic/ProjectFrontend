@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Modal, Button } from "react-bootstrap";
 import classnames from "classnames";
 import { DocumentType, documentStatus } from "../../../src/globals";
+import { getEmployeeName } from "../../globals";
 
 export default class ModalForUpdateDocument extends Component {
   constructor() {
@@ -184,7 +185,7 @@ export default class ModalForUpdateDocument extends Component {
                         name="employeeCreated"
                         placeholder="Одаберите запослено лице"
                         onChange={this.onChangeCombo}
-                        value = {this.state.employeeCreated.id}
+                        value={this.state.employeeCreated.id}
                         style={{ fontSize: "1rem" }}
                       >
                         <option value="" selected disabled>
@@ -193,8 +194,7 @@ export default class ModalForUpdateDocument extends Component {
                         {employees.map((employee) => {
                           return (
                             <option value={employee.id}>
-                              {employee.physicalEntity.firstName}{" "}
-                              {employee.physicalEntity.lastName}
+                              {getEmployeeName(employee)}
                             </option>
                           );
                         })}
@@ -208,7 +208,7 @@ export default class ModalForUpdateDocument extends Component {
                         name="_case"
                         placeholder="Одаберите случај"
                         onChange={this.onChangeCombo}
-                        value = {this.state._case.id}
+                        value={this.state._case.id}
                         style={{ fontSize: "1rem" }}
                       >
                         <option value="" selected disabled>

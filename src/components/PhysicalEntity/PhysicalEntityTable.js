@@ -4,6 +4,10 @@ import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import ModalForAddPhysicalEntity from "./ModalForAddPhysicalEntity";
 import { PhysicalEntityTableTranslation } from "../../translations";
+import Tooltip from "@material-ui/core/Tooltip";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import AddIcon from "@material-ui/icons/Add";
+import IconButton from "@material-ui/core/IconButton";
 
 class PhysicalEntityTable extends Component {
   constructor() {
@@ -57,38 +61,40 @@ class PhysicalEntityTable extends Component {
 
     const table = (
       <div className="table-responsive tableHeight">
-        <table
-          id="example"
-          className="table table-sm table-striped table-bordered "
-        >
-          <thead>
-            <Button
-              class="btn btn-default"
+        <div align="left" style={{ paddingBottom: 20 }}>
+          <Link to={`/dashboard`}>
+            <Tooltip title="Nazad" arrow>
+              <ArrowBackIcon style={{ fontSize: 40 }} />
+            </Tooltip>
+          </Link>
+
+          <Tooltip title={Buttons.addNewPhysicalEntity} arrow>
+            <IconButton
+              className="btn btn-info"
               type="submit"
-              variant="info"
+              size="lm"
               onClick={() => {
                 this.showModal();
               }}
             >
-              {Buttons.addNewPhysicalEntity}
-            </Button>
-            <br />
-            <br />
-            <tr>
+              <AddIcon />
+            </IconButton>
+          </Tooltip>
+        </div>
+        <table id="example" className="table table-sm table-striped">
+          <thead>
+            <tr className="text-center">
               <th>{HeaderColumns.name}</th>
               <th>{HeaderColumns.surName}</th>
               <th>{HeaderColumns.middleName}</th>
               <th>{HeaderColumns.profession}</th>
               <th>{HeaderColumns.email}</th>
-              <th className="text-center">{HeaderColumns.address}</th>
-              <th className="text-center">{HeaderColumns.update}</th>
-              <th className="text-center">{HeaderColumns.delete}</th>
+              <th>{HeaderColumns.address}</th>
+              <th>{HeaderColumns.update}</th>
+              <th>{HeaderColumns.delete}</th>
             </tr>
           </thead>
           <tbody>{physicalEntityListShowedInRow}</tbody>
-          <Link to={`/dashboard`}>
-            <i className="fas fa-arrow-circle-left fa-3x fa-pull-left" />
-          </Link>
         </table>
       </div>
     );
