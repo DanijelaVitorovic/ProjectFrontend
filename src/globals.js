@@ -120,3 +120,7 @@ export const getDocumentEmployeeCreated = (document) => {
     document?.employeeCreated?.physicalEntity?.lastName
   );
 };
+
+export const handleErrorMessage = (clientValidationMessage) => {
+  return clientValidationMessage;
+};

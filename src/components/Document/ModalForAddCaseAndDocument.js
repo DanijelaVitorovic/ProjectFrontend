@@ -1,13 +1,22 @@
 import React, { Component } from "react";
 import { Modal, ModalFooter, Card } from "react-bootstrap";
-import { CaseModalForAddAndUpdateTranslation } from "../../translations";
-import { documentModalForAddAndUpdateTranslation } from "../../translations";
+import {
+  CaseModalForAddAndUpdateTranslation,
+  caseValidationsTranslation,
+  documentModalForAddAndUpdateTranslation,
+} from "../../translations";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepButton from "@material-ui/core/StepButton";
 import Typography from "@material-ui/core/Typography";
-import { CaseType, getPhysicalEntityName } from "../../../src/globals";
+import {
+  CaseType,
+  getEmployeeName,
+  getPhysicalEntityName,
+  handleErrorMessage,
+} from "../../../src/globals";
 import { DocumentType, documentStatus } from "../../../src/globals";
+import classnames from "classnames";
 
 class ModalForAddCaseAndDocument extends Component {
   constructor() {
@@ -23,6 +32,7 @@ class ModalForAddCaseAndDocument extends Component {
       caseType: "",
       refersTo: "",
       activeStep: 0,
+      errors: {},
     };
   }
 
@@ -30,8 +40,66 @@ class ModalForAddCaseAndDocument extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  handleValidationCase = () => {
+    const translationValidation = caseValidationsTranslation;
+    const { Modals } = translationValidation;
+
+    let errors = {};
+    let hasErrors = false;
+    let { caseName, refersTo } = this.state;
+
+    if (caseName.length < 2) {
+      errors["caseName"] = Modals.caseName;
+      hasErrors = true;
+    }
+
+    if (!refersTo) {
+      errors["refersTo"] = Modals.refersTo;
+      hasErrors = true;
+    }
+
+    this.setState({ errors: errors });
+    return hasErrors;
+  };
+
+  handleValidationDocument = () => {
+    const translationValidation = caseValidationsTranslation;
+    const { Modals } = translationValidation;
+
+    let errors = {};
+    let hasErrors = false;
+    let { title, employeeCreated } = this.state;
+
+    if (title.length < 2) {
+      errors["title"] = Modals.title;
+      hasErrors = true;
+    }
+
+    if (!employeeCreated) {
+      errors["employeeCreated"] = Modals.employeeCreated;
+      hasErrors = true;
+    }
+
+    this.setState({ errors: errors });
+    return hasErrors;
+  };
+
   onSubmit = (e) => {
     e.preventDefault();
+
+    const translationValidation = caseValidationsTranslation;
+    const { Modals } = translationValidation;
+
+    if (this.handleValidationCase()) {
+      window.alert(Modals.alertCase);
+      return;
+    }
+
+    if (this.handleValidationDocument()) {
+      window.alert(Modals.alertDocument);
+      return;
+    }
+
     const newCaseDocumentDTO = {
       title: this.state.title,
       description: this.state.description,
@@ -55,6 +123,7 @@ class ModalForAddCaseAndDocument extends Component {
     const translation1 = documentModalForAddAndUpdateTranslation || {};
     const SelectOptionsAndPlaceholders1 =
       translation1.SelectOptionsAndPlaceholders;
+    const { errors } = this.state;
 
     switch (step) {
       case 0:
@@ -63,12 +132,22 @@ class ModalForAddCaseAndDocument extends Component {
             <div className="form-group">
               <input
                 type="text"
-                className="form-control"
+                className={classnames("form-control", {
+                  "is-invalid": errors.caseName,
+                })}
                 placeholder={SelectOptionsAndPlaceholders.caseNamePlaceholder}
                 name="caseName"
                 value={this.state.caseName}
                 onChange={this.onChange}
               />
+              {handleErrorMessage(errors.caseName) && (
+                <span
+                  className="invalid-feedback"
+                  style={{ fontSize: 16, color: "red" }}
+                >
+                  {errors.caseName}
+                </span>
+              )}
             </div>
             <div className="form-group">
               <input
@@ -84,7 +163,9 @@ class ModalForAddCaseAndDocument extends Component {
               <select
                 physicalEntities={physicalEntities}
                 onChange={this.onChange}
-                className="form-control"
+                className={classnames("form-control", {
+                  "is-invalid": errors.refersTo,
+                })}
                 name="refersTo"
               >
                 <option value="" selected disabled>
@@ -98,6 +179,14 @@ class ModalForAddCaseAndDocument extends Component {
                   );
                 })}
               </select>
+              {handleErrorMessage(errors.refersTo) && (
+                <span
+                  className="invalid-feedback"
+                  style={{ fontSize: 16, color: "red" }}
+                >
+                  {errors.refersTo}
+                </span>
+              )}
             </div>
 
             <div className="form-group">
@@ -126,12 +215,22 @@ class ModalForAddCaseAndDocument extends Component {
             <div className="form-group">
               <input
                 type="text"
-                className="form-control"
+                className={classnames("form-control", {
+                  "is-invalid": errors.title,
+                })}
                 placeholder={SelectOptionsAndPlaceholders1.titlePlaceholder}
                 name="title"
                 value={this.state.title}
                 onChange={this.onChange}
               />
+              {handleErrorMessage(errors.title) && (
+                <span
+                  className="invalid-feedback"
+                  style={{ fontSize: 16, color: "red" }}
+                >
+                  {errors.title}
+                </span>
+              )}
             </div>
 
             <div className="form-group">
@@ -189,7 +288,9 @@ class ModalForAddCaseAndDocument extends Component {
 
             <div className="form-group">
               <select
-                className="form-control"
+                className={classnames("form-control", {
+                  "is-invalid": errors.employeeCreated,
+                })}
                 employees={employees}
                 name="employeeCreated"
                 placeholder={SelectOptionsAndPlaceholders1.employeePlaceholder}
@@ -202,12 +303,19 @@ class ModalForAddCaseAndDocument extends Component {
                 {employees.map((employee) => {
                   return (
                     <option value={employee.id}>
-                      {employee.physicalEntity.firstName}{" "}
-                      {employee.physicalEntity.lastName}
+                      {getEmployeeName(employee)}
                     </option>
                   );
                 })}
               </select>
+              {handleErrorMessage(errors.employeeCreated) && (
+                <span
+                  className="invalid-feedback"
+                  style={{ fontSize: 16, color: "red" }}
+                >
+                  {errors.employeeCreated}
+                </span>
+              )}
             </div>
           </div>
         );
@@ -235,6 +343,7 @@ class ModalForAddCaseAndDocument extends Component {
 
     const translation = CaseModalForAddAndUpdateTranslation || {};
     const { Header } = translation;
+    const { errors } = this.state;
 
     return (
       <Modal

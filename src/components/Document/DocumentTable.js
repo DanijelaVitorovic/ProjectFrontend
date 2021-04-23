@@ -57,7 +57,6 @@ export default class DocumentTable extends Component {
       caseList,
       employees,
       physicalEntities,
-      signalRow,
       caseProcessingViewSignal,
     } = this.props || {};
 

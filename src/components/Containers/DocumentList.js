@@ -36,7 +36,7 @@ class DocumentList extends Component {
       deleteDocument,
       createDocumentWithCase,
     } = this.props || {};
-    
+
     const translation = documentListTranslation || {};
     const { Header } = translation;
     return (
@@ -58,6 +58,7 @@ class DocumentList extends Component {
                   employees={employees}
                   caseList={caseList}
                   physicalEntities={physicalEntityList}
+                  createDocumentWithCase={createDocumentWithCase}
                 />
                 <div id="msg" />
               </div>

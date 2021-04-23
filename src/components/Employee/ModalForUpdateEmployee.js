@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import { Modal, ModalFooter } from "react-bootstrap";
-import { EmployeeModalForAddAndUpdateTranslation } from "../../translations";
+import {
+  EmployeeModalForAddAndUpdateTranslation,
+  employeeValidationsTranslation,
+} from "../../translations";
+import { handleErrorMessage } from "../../globals";
+import classnames from "classnames";
 
 class ModalForUpdateEmployee extends Component {
   constructor() {
@@ -8,6 +13,7 @@ class ModalForUpdateEmployee extends Component {
     this.state = {
       profession: "",
       manager: "",
+      errors: {},
     };
   }
 
@@ -29,8 +35,30 @@ class ModalForUpdateEmployee extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  handleValidation = () => {
+    const translationValidation = employeeValidationsTranslation;
+    const { Modals } = translationValidation;
+
+    let errors = {};
+    let hasErrors = false;
+    let { profession } = this.state;
+
+    if (profession.length < 2) {
+      errors["profession"] = Modals.profession;
+      hasErrors = true;
+    }
+
+    this.setState({ errors: errors });
+    return hasErrors;
+  };
+
   onSubmit = (e) => {
     e.preventDefault();
+
+    if (this.handleValidation()) {
+      return;
+    }
+
     const updatedEmployee = {
       id: this.state.id,
       profession: this.state.profession,
@@ -40,6 +68,7 @@ class ModalForUpdateEmployee extends Component {
   };
 
   render() {
+    const { errors } = this.state;
     const { show, closeModal } = this.props || {};
     const translation = EmployeeModalForAddAndUpdateTranslation || {};
     const { Header, SelectOptionsAndPlaceholders } = translation;
@@ -67,7 +96,9 @@ class ModalForUpdateEmployee extends Component {
                   <div className="form-group">
                     <input
                       type="text"
-                      className="form-control form-control-lg"
+                      className={classnames("form-control", {
+                        "is-invalid": errors.profession,
+                      })}
                       placeholder={
                         SelectOptionsAndPlaceholders.professionPlaceholder
                       }
@@ -75,6 +106,14 @@ class ModalForUpdateEmployee extends Component {
                       value={this.state.profession}
                       onChange={this.onChange}
                     />
+                    {handleErrorMessage(errors.profession) && (
+                      <span
+                        className="invalid-feedback"
+                        style={{ fontSize: 16, color: "red" }}
+                      >
+                        {errors.profession}
+                      </span>
+                    )}
                   </div>
 
                   <div className="form-group">

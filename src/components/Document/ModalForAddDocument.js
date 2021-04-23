@@ -3,6 +3,8 @@ import { Modal, Button } from "react-bootstrap";
 import classnames from "classnames";
 import { DocumentType, documentStatus } from "../../../src/globals";
 import { documentModalForAddAndUpdateTranslation } from "../../translations";
+import { getEmployeeName } from "../../globals";
+import { handleErrorMessage } from "../../globals";
 
 class ModalForAddDocument extends Component {
   constructor() {
@@ -19,18 +21,35 @@ class ModalForAddDocument extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.errors) {
-      this.setState({ errors: nextProps.errors });
-    }
-  }
-
   onChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  handleValidation = () => {
+    let errors = {};
+    let hasErrors = false;
+    let { title, employeeCreated } = this.state;
+
+    if (title.length < 2) {
+      errors["title"] = "Морате унети наслов предмета";
+      hasErrors = true;
+    }
+
+    if (!employeeCreated) {
+      errors["employeeCreated"] = "Морате унети запослено лице";
+      hasErrors = true;
+    }
+
+    this.setState({ errors: errors });
+    return hasErrors;
+  };
+
   onSubmit = (e) => {
     e.preventDefault();
+
+    if (this.handleValidation()) {
+      return;
+    }
 
     const newDocument = {
       title: this.state.title,
@@ -81,17 +100,20 @@ class ModalForAddDocument extends Component {
                         value={this.state.title}
                         onChange={this.onChange}
                       />
-                      {errors.title && (
-                        <div className="invalid-feedback">{errors.title}</div>
+                      {handleErrorMessage(errors.title) && (
+                        <span
+                          className="invalid-feedback"
+                          style={{ fontSize: 16, color: "red" }}
+                        >
+                          {errors.title}
+                        </span>
                       )}
                     </div>
 
                     <div className="form-group">
                       <input
                         type="text"
-                        className={classnames("form-control", {
-                          "is-invalid": errors.description,
-                        })}
+                        className="form-control"
                         placeholder={
                           SelectOptionsAndPlaceholders.descriptionPlaceholder
                         }
@@ -99,11 +121,6 @@ class ModalForAddDocument extends Component {
                         value={this.state.description}
                         onChange={this.onChange}
                       />
-                      {errors.description && (
-                        <div className="invalid-feedback">
-                          {errors.description}
-                        </div>
-                      )}
                     </div>
 
                     <div className="form-group">
@@ -151,7 +168,9 @@ class ModalForAddDocument extends Component {
 
                     <div className="form-group">
                       <select
-                        className="form-control form-control-lg"
+                        className={classnames("form-control", {
+                          "is-invalid": errors.employeeCreated,
+                        })}
                         employees={employees}
                         name="employeeCreated"
                         placeholder={
@@ -166,12 +185,19 @@ class ModalForAddDocument extends Component {
                         {employees.map((employee) => {
                           return (
                             <option value={employee.id}>
-                              {employee.physicalEntity.firstName}{" "}
-                              {employee.physicalEntity.lastName}
+                              {getEmployeeName(employee)}
                             </option>
                           );
                         })}
                       </select>
+                      {handleErrorMessage(errors.employeeCreated) && (
+                        <span
+                          className="invalid-feedback"
+                          style={{ fontSize: 16, color: "red" }}
+                        >
+                          {errors.employeeCreated}
+                        </span>
+                      )}
                     </div>
 
                     <div className="form-group">

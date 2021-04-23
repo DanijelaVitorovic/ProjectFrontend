@@ -1,5 +1,11 @@
 import React, { Component } from "react";
 import { Modal, ModalFooter, Card } from "react-bootstrap";
+import { handleErrorMessage } from "../../globals";
+import classnames from "classnames";
+import {
+  caseClassificationValidationsTranslation,
+  caseClassificationTranslation,
+} from "../../translations";
 
 class ModalForUpdateCaseClassification extends Component {
   constructor() {
@@ -10,6 +16,7 @@ class ModalForUpdateCaseClassification extends Component {
       organizationalUnit: {
         id: 0,
       },
+      errors: {},
     };
   }
 
@@ -39,8 +46,35 @@ class ModalForUpdateCaseClassification extends Component {
     this.setState({ [e.target.name]: { id: e.target.value } });
   };
 
+  handleValidation = () => {
+    const translationValidation = caseClassificationValidationsTranslation;
+    const { Modals } = translationValidation;
+
+    let errors = {};
+    let hasErrors = false;
+    let { code, name } = this.state;
+
+    if (code.length < 1) {
+      errors["code"] = Modals.code;
+      hasErrors = true;
+    }
+
+    if (name.length < 2) {
+      errors["name"] = Modals.name;
+      hasErrors = true;
+    }
+
+    this.setState({ errors: errors });
+    return hasErrors;
+  };
+
   onSubmit = (e) => {
     e.preventDefault();
+
+    if (this.handleValidation()) {
+      return;
+    }
+
     const updatedCaseClassification = {
       id: this.props.id,
       code: this.state.code,
@@ -52,6 +86,7 @@ class ModalForUpdateCaseClassification extends Component {
 
   render() {
     const { show, closeModal, organizationalUnits } = this.props || {};
+    const { errors } = this.state;
 
     return (
       <Modal
@@ -70,29 +105,53 @@ class ModalForUpdateCaseClassification extends Component {
               <div className="row">
                 <div className="col-md-8 m-auto">
                   <h3 className="display-5 text-center">
-                    Измени класификације предмета
+                    {caseClassificationTranslation.headingUpdate}
                   </h3>
                   <hr />
                   <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                       <input
                         type="text"
-                        className="form-control"
-                        placeholder="Измените шифру класификације"
+                        className={classnames("form-control", {
+                          "is-invalid": errors.code,
+                        })}
+                        placeholder={
+                          caseClassificationTranslation.codePlaceholder
+                        }
                         name="code"
                         value={this.state.code}
                         onChange={this.onChange}
                       />
+                      {handleErrorMessage(errors.code) && (
+                        <span
+                          className="invalid-feedback"
+                          style={{ fontSize: 16, color: "red" }}
+                        >
+                          {errors.code}
+                        </span>
+                      )}
                     </div>
                     <div className="form-group">
                       <input
                         type="text"
-                        className="form-control"
-                        placeholder="Измените име класификације"
+                        className={classnames("form-control", {
+                          "is-invalid": errors.name,
+                        })}
+                        placeholder={
+                          caseClassificationTranslation.namePlaceholder
+                        }
                         name="name"
                         value={this.state.name}
                         onChange={this.onChange}
                       />
+                      {handleErrorMessage(errors.name) && (
+                        <span
+                          className="invalid-feedback"
+                          style={{ fontSize: 16, color: "red" }}
+                        >
+                          {errors.name}
+                        </span>
+                      )}
                     </div>
 
                     <div className="form-group">
@@ -105,7 +164,9 @@ class ModalForUpdateCaseClassification extends Component {
                         value={this.state.organizationalUnit.id}
                       >
                         <option value="" selected disabled>
-                          Изаберите на кога се односи
+                          {
+                            caseClassificationTranslation.organizationalUnitSelect
+                          }
                         </option>
                         {organizationalUnits.map((organizationalUnit) => {
                           return (

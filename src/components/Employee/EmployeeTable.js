@@ -4,6 +4,10 @@ import { Link } from "react-router-dom";
 import EmployeeRow from "./EmployeeRow";
 import ModalForAddEmployee from "./ModalForAddEmployee";
 import { EmployeeTableTranslation } from "../../translations";
+import Tooltip from "@material-ui/core/Tooltip";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import AddIcon from "@material-ui/icons/Add";
+import IconButton from "@material-ui/core/IconButton";
 
 class EmployeeTable extends Component {
   constructor() {
@@ -54,23 +58,31 @@ class EmployeeTable extends Component {
 
     const table = (
       <div className="table-responsive tableHeight">
+        <div align="left" style={{ paddingBottom: 20 }}>
+          <Link to={`/dashboard`}>
+            <Tooltip title={Buttons.back} arrow>
+              <ArrowBackIcon style={{ fontSize: 40 }} />
+            </Tooltip>
+          </Link>
+
+          <Tooltip title={Buttons.addNewEmployee} arrow>
+            <IconButton
+              className="btn btn-info"
+              type="submit"
+              size="lm"
+              onClick={() => {
+                this.showModal();
+              }}
+            >
+              <AddIcon />
+            </IconButton>
+          </Tooltip>
+        </div>
         <table
           id="example"
           className="table table-sm table-striped table-bordered "
         >
           <thead>
-            <Button
-              class="btn btn-default"
-              type="submit"
-              variant="success"
-              onClick={() => {
-                this.showModal();
-              }}
-            >
-              {Buttons.addNewCase}
-            </Button>
-            <br />
-            <br />
             <tr>
               <th>{HeaderColumns.profession}</th>
               <th>{HeaderColumns.manager}</th>
@@ -79,11 +91,6 @@ class EmployeeTable extends Component {
             </tr>
           </thead>
           <tbody>{employeeListShowedInRow}</tbody>
-          <Link to={`/dashboard`}>
-            <i className="fas fa-arrow-circle-left fa-3x fa-pull-left" />
-          </Link>
-
-          <br />
         </table>
       </div>
     );

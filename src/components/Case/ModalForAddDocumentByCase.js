@@ -5,7 +5,12 @@ import {
   documentStatus,
   getEmployeeName,
 } from "../../../src/globals";
-import { documentModalForAddAndUpdateTranslation } from "../../translations";
+import {
+  documentModalForAddAndUpdateTranslation,
+  caseValidationsTranslation,
+} from "../../translations";
+import { handleErrorMessage } from "../../globals";
+import classnames from "classnames";
 
 class ModalForAddDocumentByCase extends Component {
   constructor() {
@@ -18,6 +23,7 @@ class ModalForAddDocumentByCase extends Component {
       documentStatus: "",
       employeeCreated: "",
       _case: "",
+      errors: {},
     };
   }
 
@@ -25,8 +31,34 @@ class ModalForAddDocumentByCase extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  handleValidation = () => {
+    const translationValidation = caseValidationsTranslation;
+    const { Modals } = translationValidation;
+
+    let errors = {};
+    let hasErrors = false;
+    let { title, employeeCreated } = this.state;
+
+    if (title.length < 2) {
+      errors["title"] = Modals.title;
+      hasErrors = true;
+    }
+
+    if (!employeeCreated) {
+      errors["employeeCreated"] = Modals.employeeCreated;
+      hasErrors = true;
+    }
+
+    this.setState({ errors: errors });
+    return hasErrors;
+  };
+
   onSubmit = (e) => {
     e.preventDefault();
+
+    if (this.handleValidation()) {
+      return;
+    }
 
     const newDocument = {
       title: this.state.title,
@@ -43,6 +75,7 @@ class ModalForAddDocumentByCase extends Component {
     const { employeeList, show, closeModal } = this.props || {};
     const translation = documentModalForAddAndUpdateTranslation || {};
     const { SelectOptionsAndPlaceholders, Header } = translation;
+    const { errors } = this.state;
 
     return (
       <Modal
@@ -70,13 +103,23 @@ class ModalForAddDocumentByCase extends Component {
                     <div className="form-group">
                       <input
                         type="text"
-                        className="form-control"
+                        className={classnames("form-control", {
+                          "is-invalid": errors.title,
+                        })}
                         placeholder={
                           SelectOptionsAndPlaceholders.titlePlaceholder
                         }
                         name="title"
                         onChange={this.onChange}
                       />
+                      {handleErrorMessage(errors.title) && (
+                        <span
+                          className="invalid-feedback"
+                          style={{ fontSize: 16, color: "red" }}
+                        >
+                          {errors.title}
+                        </span>
+                      )}
                     </div>
                     <div className="form-group">
                       <input
@@ -132,7 +175,9 @@ class ModalForAddDocumentByCase extends Component {
                     </div>
                     <div className="form-group">
                       <select
-                        className="form-control form-control-lg"
+                        className={classnames("form-control", {
+                          "is-invalid": errors.employeeCreated,
+                        })}
                         employeeList={employeeList}
                         name="employeeCreated"
                         placeholder={
@@ -152,6 +197,14 @@ class ModalForAddDocumentByCase extends Component {
                           );
                         })}
                       </select>
+                      {handleErrorMessage(errors.employeeCreated) && (
+                        <span
+                          className="invalid-feedback"
+                          style={{ fontSize: 16, color: "red" }}
+                        >
+                          {errors.employeeCreated}
+                        </span>
+                      )}
                     </div>
                     <div align="right">
                       <Button variant="success" type="submit">

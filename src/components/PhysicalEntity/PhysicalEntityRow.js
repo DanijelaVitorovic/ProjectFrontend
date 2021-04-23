@@ -4,6 +4,7 @@ import ModalForUpdatePhysicalEntity from "./ModalForUpdatePhysicalEntity";
 import { PhysicalEntityRowTranslation } from "../../translations";
 import UpdateButton from "../Reusable/UpdateButton";
 import DeleteButton from "../Reusable/DeleteButton";
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 
 class PhysicalEntityRow extends Component {
   onDeleteClick = (id) => {
@@ -39,19 +40,22 @@ class PhysicalEntityRow extends Component {
     const translation = PhysicalEntityRowTranslation || {};
 
     const body = (
-      <tr>
+      <tr className="text-center">
         <td>{physicalEntity.firstName}</td>
         <td>{physicalEntity.lastName}</td>
         <td>{physicalEntity.middleName}</td>
         <td>{physicalEntity.profession}</td>
         <td>{physicalEntity.email}</td>
         <td>{physicalEntity.address.city}</td>
-        <td className="text-center" className="red">
-          <UpdateButton showModal={this.showModal} id={document} />
+        <td>
+          <UpdateButton showModal={this.showModal} id={physicalEntity} />
         </td>
-        
-        <td className="text-center" className="red">
-          <DeleteButton onDeleteClick={this.onDeleteClick} id={document.id} />
+        <td>
+          <Badge variant="danger">
+            <div onClick={() => this.onDeleteClick(physicalEntity.id)}>
+              <DeleteForeverIcon />
+            </div>
+          </Badge>{" "}
         </td>
       </tr>
     );
