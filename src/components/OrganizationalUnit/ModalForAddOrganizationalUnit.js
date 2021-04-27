@@ -1,7 +1,15 @@
-import { Modal, Button, Row, Col, ModalFooter } from "react-bootstrap";
+import {
+  Modal,
+  Button,
+  Row,
+  Col,
+  ModalFooter,
+  Container,
+} from "react-bootstrap";
 import React, { Component } from "react";
 import classnames from "classnames";
 import { organizationalUnitModalForAddAndUpdateTranslation } from "../../translations";
+import { handleErrorMessage } from "../../globals";
 
 class ModalForAddOrganizationalUnit extends Component {
   constructor() {
@@ -15,18 +23,31 @@ class ModalForAddOrganizationalUnit extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.errors) {
-      this.setState({ errors: nextProps.errors });
-    }
-  }
-
   onChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  handleValidation = () => {
+    let errors = {};
+    let hasErrors = false;
+    let { code } = this.state;
+
+    if (code.length > 6 || code.length == 0) {
+      errors["code"] =
+        "Не можете унети шифру дужу од 5 карактера или непостојећу вредност";
+      hasErrors = true;
+    }
+
+    this.setState({ errors: errors });
+    return hasErrors;
+  };
+
   onSubmit = (e) => {
     e.preventDefault();
+
+    if (this.handleValidation()) {
+      return;
+    }
 
     const newOrganizaationalUnit = {
       name: this.state.name,
@@ -36,25 +57,44 @@ class ModalForAddOrganizationalUnit extends Component {
       },
     };
 
+    this.props.resetError();
     this.props.handleAdd(newOrganizaationalUnit);
   };
 
   render() {
-    const { show, closeModal, legalEntities } = this.props || {};
+    const { show, closeModal, legalEntities, error } = this.props || {};
     const { errors } = this.state;
+
     const translation = organizationalUnitModalForAddAndUpdateTranslation || {};
     const { Header, SelectOptionsAndPlaceholders } = translation;
+
     return (
       <div>
-        <Modal
-          show={show}
-          onHide={closeModal}
-          onRequest={closeModal}
-          size="lg"
-        >
+        <Modal show={show} onHide={closeModal} onRequest={closeModal} size="lg">
           <Modal.Header closeButton>
             <h4>{Header.headingAddModal}</h4>
           </Modal.Header>
+
+          {error && (
+            <Container
+              className="col-md-12 text-center "
+              style={{ paddingTop: 20 }}
+            >
+              <div className="row">
+                <div
+                  className="col-md-8 m-auto"
+                  style={{
+                    color: "white",
+                    paddingLeft: 60,
+                    paddingRight: 60,
+                    background: "#EA5252",
+                  }}
+                >
+                  {error.message}
+                </div>
+              </div>
+            </Container>
+          )}
 
           <div className="register">
             <div className="container">
@@ -65,17 +105,14 @@ class ModalForAddOrganizationalUnit extends Component {
                     <div className="form-group">
                       <input
                         type="text"
-                        className={classnames("form-control", {
-                          "is-invalid": errors.name,
-                        })}
-                        placeholder={SelectOptionsAndPlaceholders.namePlaceholder}
+                        className="form-control"
+                        placeholder={
+                          SelectOptionsAndPlaceholders.namePlaceholder
+                        }
                         name="name"
                         value={this.state.name}
                         onChange={this.onChange}
                       />
-                      {errors.name && (
-                        <div className="invalid-feedback">{errors.name}</div>
-                      )}
                     </div>
 
                     <div className="form-group">
@@ -84,13 +121,20 @@ class ModalForAddOrganizationalUnit extends Component {
                         className={classnames("form-control", {
                           "is-invalid": errors.code,
                         })}
-                        placeholder={SelectOptionsAndPlaceholders.codePlaceholder}
+                        placeholder={
+                          SelectOptionsAndPlaceholders.codePlaceholder
+                        }
                         name="code"
                         value={this.state.code}
                         onChange={this.onChange}
                       />
-                      {errors.code && (
-                        <div className="invalid-feedback">{errors.code}</div>
+                      {handleErrorMessage(errors.code) && (
+                        <span
+                          className="invalid-feedback"
+                          style={{ fontSize: 16, color: "red" }}
+                        >
+                          {errors.code}
+                        </span>
                       )}
                     </div>
 
@@ -99,11 +143,14 @@ class ModalForAddOrganizationalUnit extends Component {
                         className="form-control form-control-lg"
                         legalEntities={legalEntities}
                         name="legalEntity"
-                        placeholder={SelectOptionsAndPlaceholders.legalEntityPlaceholder}
+                        placeholder={
+                          SelectOptionsAndPlaceholders.legalEntityPlaceholder
+                        }
                         onChange={this.onChange}
                         style={{ fontSize: "1rem" }}
                       >
-                        <option value="" selected disabled>{SelectOptionsAndPlaceholders.legalEntityOption}
+                        <option value="" selected disabled>
+                          {SelectOptionsAndPlaceholders.legalEntityOption}
                         </option>
                         {legalEntities.map((legalEntity) => {
                           return (

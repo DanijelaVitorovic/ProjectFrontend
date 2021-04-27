@@ -10,11 +10,18 @@ import { getLegalEntites } from "../../actions/legalEntityAction";
 import { connect } from "react-redux";
 import OrganizationalUnitTable from "../OrganizationalUnit/OrganizationalUnitTable";
 import { organizationalUnitListTranslation } from "../../translations";
+import { resetError } from "../../actions/organizationalUnitAcitons";
 
 class OraganizationalUnitList extends Component {
   componentDidMount() {
     this.props.getOrganizationalUnits();
     this.props.getLegalEntites();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.error) {
+      this.setState({ error: nextProps.error });
+    }
   }
 
   render() {
@@ -25,9 +32,13 @@ class OraganizationalUnitList extends Component {
       updateOrganizationalUnit,
       getOrganizationalUnit,
       deleteOrganizationalUnit,
+      error,
+      resetError,
     } = this.props || {};
+
     const translation = organizationalUnitListTranslation || {};
     const { Header } = translation;
+
     return (
       <div className="container">
         <div className="row">
@@ -44,6 +55,8 @@ class OraganizationalUnitList extends Component {
                   getOrganizationalUnit={getOrganizationalUnit}
                   deleteOrganizationalUnit={deleteOrganizationalUnit}
                   legalEntities={legalEntities}
+                  error={error}
+                  resetError={resetError}
                 />
                 <div id="msg" />
               </div>
@@ -58,7 +71,7 @@ class OraganizationalUnitList extends Component {
 const mapStateToProps = (state) => ({
   organizationalUnits: state.organizationalUnit.organizationalUnits,
   legalEntities: state.legalEntity.legalEntities,
-  errors: state.error,
+  error: state.error,
 });
 
 export default connect(mapStateToProps, {
@@ -68,4 +81,5 @@ export default connect(mapStateToProps, {
   getOrganizationalUnits,
   deleteOrganizationalUnit,
   getLegalEntites,
+  resetError,
 })(OraganizationalUnitList);

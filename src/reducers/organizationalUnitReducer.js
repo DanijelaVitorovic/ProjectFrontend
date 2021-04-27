@@ -21,9 +21,12 @@ export default function (state = initialState, action) {
     case UPDATE_ORGANIZATIONAL_UNIT:
       return {
         ...state,
-        organizationalUnits: state.organizationalUnits.map((organizationalUnit) =>
-        organizationalUnit.id === action.payload.id ? action.payload : organizationalUnit
-        )
+        organizationalUnits: state.organizationalUnits.map(
+          (organizationalUnit) =>
+            organizationalUnit.id === action.payload.id
+              ? action.payload
+              : organizationalUnit
+        ),
       };
     case GET_ORGANIZATIONAL_UNIT:
       return {
@@ -42,7 +45,7 @@ export default function (state = initialState, action) {
           (organizationalUnit) => organizationalUnit.id != action.payload
         ),
       };
-      default:
-        return state;
+    default:
+      return state;
   }
 }
