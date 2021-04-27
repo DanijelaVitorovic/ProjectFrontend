@@ -7,11 +7,13 @@ import {
   ADD_ORGANIZATIONAL_UNIT,
   UPDATE_ORGANIZATIONAL_UNIT,
   GET_ERRORS,
+  RESET_ERROR,
 } from "./types";
 
-export const createNewOrganizationalUnit = (organizationalUnit) => async (
-  dispatch
-) => {
+export const createNewOrganizationalUnit = (
+  organizationalUnit,
+  closeModal
+) => async (dispatch) => {
   try {
     await axios
       .post("/api/organizationalUnit/create", organizationalUnit)
@@ -21,6 +23,7 @@ export const createNewOrganizationalUnit = (organizationalUnit) => async (
           payload: response.data,
         });
       });
+    closeModal();
   } catch (exception) {
     dispatch({
       type: GET_ERRORS,
@@ -81,4 +84,10 @@ export const deleteOrganizationalUnit = (id) => async (dispatch) => {
         });
       });
   }
+};
+
+export const resetError = () => {
+  return {
+    type: RESET_ERROR,
+  };
 };

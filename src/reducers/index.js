@@ -13,7 +13,7 @@ import documentReducer from "./documentReducer";
 import caseClassificationReducer from "./caseClassificationReducer";
 
 export default combineReducers({
-  errors: errorReducer,
+  error: errorReducer,
   loggedUser: securityReducer,
   user: userReducer,
   process: processReducer,

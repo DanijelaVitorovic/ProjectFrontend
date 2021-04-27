@@ -19,12 +19,15 @@ class OrganizationalUnitTable extends Component {
   };
 
   closeModal = () => {
+    this.props.resetError();
     this.setState({ show: false });
   };
 
   handleAdd = (newOrganizaationalUnit) => {
-    this.props.createNewOrganizationalUnit(newOrganizaationalUnit);
-    this.closeModal();
+    this.props.createNewOrganizationalUnit(
+      newOrganizaationalUnit,
+      this.closeModal
+    );
   };
 
   render() {
@@ -35,10 +38,11 @@ class OrganizationalUnitTable extends Component {
       updateOrganizationalUnit,
       getOrganizationalUnit,
       deleteOrganizationalUnit,
+      resetError,
     } = this.props || {};
 
     const translation = organizationalUnitTableTranslation || {};
-    const {HeaderColumns,Buttons} = translation;
+    const { HeaderColumns, Buttons } = translation;
 
     const organizationalUnitList = organizationalUnits.map(
       (organizationalUnit) => (
@@ -65,7 +69,9 @@ class OrganizationalUnitTable extends Component {
               onClick={() => {
                 this.showModal();
               }}
-            >{Buttons.addNewOrganizationalUnit}</Button>
+            >
+              {Buttons.addNewOrganizationalUnit}
+            </Button>
             <p></p>
             <tr className=" card-body">
               <th scope="col">{HeaderColumns.id}</th>
@@ -96,6 +102,8 @@ class OrganizationalUnitTable extends Component {
             organizationalUnits={organizationalUnits}
             createNewOrganizationalUnit={createNewOrganizationalUnit}
             legalEntities={legalEntities}
+            error={this.props.error}
+            resetError={resetError}
           />
         )}
       </Fragment>
