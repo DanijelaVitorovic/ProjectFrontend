@@ -62,7 +62,7 @@ class ModalForAddOrganizationalUnit extends Component {
   };
 
   render() {
-    const { show, closeModal, legalEntities, error } = this.props || {};
+    const { show, closeModal, legalEntityList, error } = this.props || {};
     const { errors } = this.state;
 
     const translation = organizationalUnitModalForAddAndUpdateTranslation || {};
@@ -70,7 +70,7 @@ class ModalForAddOrganizationalUnit extends Component {
 
     return (
       <div>
-        <Modal show={show} onHide={closeModal} onRequest={closeModal} size="lg">
+        <Modal show={show} onHide={closeModal} size="lg">
           <Modal.Header closeButton>
             <h4>{Header.headingAddModal}</h4>
           </Modal.Header>
@@ -118,8 +118,8 @@ class ModalForAddOrganizationalUnit extends Component {
                     <div className="form-group">
                       <input
                         type="text"
-                        className={classnames("form-control", {
-                          "is-invalid": errors.code,
+                        className={classnames('form-control', {
+                          'is-invalid': errors.code,
                         })}
                         placeholder={
                           SelectOptionsAndPlaceholders.codePlaceholder
@@ -141,18 +141,18 @@ class ModalForAddOrganizationalUnit extends Component {
                     <div className="form-group">
                       <select
                         className="form-control form-control-lg"
-                        legalEntities={legalEntities}
+                        legalEntityList={legalEntityList}
                         name="legalEntity"
                         placeholder={
                           SelectOptionsAndPlaceholders.legalEntityPlaceholder
                         }
                         onChange={this.onChange}
-                        style={{ fontSize: "1rem" }}
+                        style={{fontSize: '1rem'}}
                       >
                         <option value="" selected disabled>
                           {SelectOptionsAndPlaceholders.legalEntityOption}
                         </option>
-                        {legalEntities.map((legalEntity) => {
+                        {legalEntityList.map((legalEntity) => {
                           return (
                             <option value={legalEntity.id}>
                               {legalEntity.name}

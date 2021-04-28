@@ -11,6 +11,7 @@ import {
   SINGED_DOCUMENT,
   FINAL_DOCUMENT,
   GET_DOCUMENT_LIST_BY_CASE,
+  GET_DOCUMENT_LIST,
 } from './types';
 import axios from 'axios';
 import 'react-confirm-alert/src/react-confirm-alert.css';
@@ -66,7 +67,7 @@ export const getDocument = (id) => async (dispatch) => {
 export const getDocuments = () => async (dispatch) => {
   const res = await axios.get('/api/document/findAll').then((response) => {
     dispatch({
-      type: GET_DOCUMENTS,
+      type: GET_DOCUMENT_LIST,
       payload: response.data,
     });
   });
@@ -99,23 +100,23 @@ export const createDocumentWithCase = (newDocument) => async (dispatch) => {
 };
 
 export const verificationDocument = (document) => async (dispatch) => {
-  try  {
-      await axios
-      
+  try {
+    await axios
+
       .post('/api/document/verification', document)
-      
+
       .then((response) => {
-            dispatch({
-              type: VERIFICATION_DOCUMENT,
-              payload: response.data,
-            });
-          });
-    }  catch  (exception) {
-     dispatch({
-       type: GET_ERRORS,
-       payload: exception.response.data,
-     });
-    }
+        dispatch({
+          type: VERIFICATION_DOCUMENT,
+          payload: response.data,
+        });
+      });
+  } catch (exception) {
+    dispatch({
+      type: GET_ERRORS,
+      payload: exception.response.data,
+    });
+  }
 };
 
 export const signingDocument = (document) => async (dispatch) => {

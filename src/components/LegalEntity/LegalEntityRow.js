@@ -1,17 +1,11 @@
-import React, { Component, Fragment } from "react";
-import { Link } from "react-router-dom";
-import {
-  createLegalEntity,
-  getLegalEntity,
-  updateLegalEntity,
-  deleteLegalEntity,
-} from "../../actions/legalEntityAction";
-import { connect } from "react-redux";
-import { Button } from "react-bootstrap";
-import ModalForUpdateLegalEntity from "./ModalForUpdateLegalEntity";
-import { Statement } from "../../../src/globals";
-import UpdateButton from "../Reusable/UpdateButton";
-import DeleteButton from "../Reusable/DeleteButton";
+import React, {Component, Fragment} from 'react';
+import {connect} from 'react-redux';
+import ModalForUpdateLegalEntity from './ModalForUpdateLegalEntity';
+import {Statement} from '../../../src/globals';
+import UpdateButton from '../Reusable/UpdateButton';
+import DeleteButton from '../Reusable/DeleteButton';
+import ConfirmAlert from '../Reusable/ConfirmAlert';
+import {legalEntityRowTranslation} from '../../translations';
 
 class LegalEntityRow extends Component {
   constructor(props) {
@@ -19,38 +13,42 @@ class LegalEntityRow extends Component {
 
     this.state = {
       show: false,
-      name: "",
-      pib: "",
-      registrationNumber: "",
-      email: "",
-      statment: "PASSIVE",
+      name: '',
+      pib: '',
+      registrationNumber: '',
+      email: '',
+      statment: '',
       errors: {},
     };
   }
 
   showModal = () => {
-    this.setState({ show: true });
+    this.setState({show: true});
   };
 
   closeModal = () => {
-    this.setState({ show: false });
+    this.setState({show: false});
   };
 
   onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({[e.target.name]: e.target.value});
   };
 
-  handleUpdate = (updateLegalEntity) => {
-    this.props.updateLegalEntity(updateLegalEntity);
+  handleUpdate = (updatedLegalEntity) => {
+    this.props.updateLegalEntity(updatedLegalEntity);
     this.closeModal();
   };
 
   onDeleteClick = (id) => {
-    this.props.deleteLegalEntity(id);
+    const translation = legalEntityRowTranslation;
+    const {deleteString} = translation;
+    const {deleteLegalEntity} = this.props || {};
+    ConfirmAlert(id, deleteLegalEntity, deleteString);
   };
 
   render() {
-    const {legalEntity, legalEntityForUpdate, getLegalEntity } = this.props || {};
+    const {legalEntity, legalEntityForUpdate, getLegalEntity} =
+      this.props || {};
     const statement = this.props.legalEntity.statment;
 
     const row = (
@@ -60,7 +58,7 @@ class LegalEntityRow extends Component {
         <td>{legalEntity.pib}</td>
         <td>{legalEntity.registrationNumber}</td>
         <td>{legalEntity.email}</td>
-        <td style={{ color: Statement[statement].color }}>
+        <td style={{color: Statement[statement].color}}>
           {Statement[statement].translation}
         </td>
         <td className="text-center">
@@ -90,6 +88,4 @@ class LegalEntityRow extends Component {
   }
 }
 
-export default connect(null, { updateLegalEntity, deleteLegalEntity })(
-  LegalEntityRow
-);
+export default LegalEntityRow;

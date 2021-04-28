@@ -1,14 +1,14 @@
-import React, { Component } from "react";
-import style from "./style.css";
-import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { DashboardTranslation } from "../../translations";
-import ParticlesBg from "particles-bg";
+import React, {Component} from 'react';
+import style from './style.css';
+import {Button} from 'react-bootstrap';
+import {Link} from 'react-router-dom';
+import {DashboardTranslation} from '../../translations';
+import ParticlesBg from 'particles-bg';
 
 class Dashboard extends Component {
   render() {
     const translation = DashboardTranslation || {};
-    const { DashboardItems } = translation;
+    const {DashboardItems} = translation;
 
     let config = {
       num: [4, 7],
@@ -19,9 +19,9 @@ class Dashboard extends Component {
       tha: [-40, 40],
       alpha: [0.6, 0],
       scale: [0.1, 0.4],
-      position: "all",
-      color: ["random"],
-      cross: "dead",
+      position: 'all',
+      color: ['random'],
+      cross: 'dead',
       random: 15,
     };
 
@@ -69,7 +69,7 @@ class Dashboard extends Component {
                 centered
               >
                 <p className="text-dash">
-                  {" "}
+                  {' '}
                   {DashboardItems.physicalEntityList}
                 </p>
               </Link>
@@ -138,7 +138,7 @@ class Dashboard extends Component {
                 className="btn-dashboard"
                 type="submit"
                 variant="success"
-                to="/processTypeList"
+                to="/processList"
                 centered
               >
                 <p className="text-dash">{DashboardItems.processList}</p>
@@ -159,8 +159,8 @@ class Dashboard extends Component {
                 to="/caseClassificationList"
                 centered
               >
-                <p className="text-dash" style={{ paddingBotton: 10 }}>
-                  {" "}
+                <p className="text-dash" style={{paddingBotton: 10}}>
+                  {' '}
                   {DashboardItems.caseClassificationList}
                 </p>
               </Link>
@@ -202,6 +202,26 @@ class Dashboard extends Component {
                 centered
               >
                 <p className="text-dash">{DashboardItems.documentList}</p>
+              </Link>
+            </div>
+          </div>
+          <div className="card-dashboard">
+            <div className="card-header">
+              <h4 className="card-title">
+                {DashboardItems.documentAttachment}
+              </h4>
+            </div>
+            <div className="card-body">
+              <Link
+                className="btn-dashboard"
+                type="submit"
+                variant="success"
+                to="/documentAttachmentList"
+                centered
+              >
+                <p className="text-dash">
+                  {DashboardItems.documentAttachmentList}
+                </p>
               </Link>
             </div>
           </div>

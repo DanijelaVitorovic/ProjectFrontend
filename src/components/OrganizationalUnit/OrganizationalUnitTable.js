@@ -32,8 +32,8 @@ class OrganizationalUnitTable extends Component {
 
   render() {
     const {
-      organizationalUnits,
-      legalEntities,
+      organizationalUnitList,
+      legalEntityList,
       createNewOrganizationalUnit,
       updateOrganizationalUnit,
       getOrganizationalUnit,
@@ -44,7 +44,7 @@ class OrganizationalUnitTable extends Component {
     const translation = organizationalUnitTableTranslation || {};
     const { HeaderColumns, Buttons } = translation;
 
-    const organizationalUnitList = organizationalUnits.map(
+    const organizationalUnits = organizationalUnitList.map(
       (organizationalUnit) => (
         <OrganizationalUnitRow
           key={organizationalUnit.id}
@@ -53,7 +53,7 @@ class OrganizationalUnitTable extends Component {
           getOrganizationalUnit={getOrganizationalUnit}
           updateOrganizationalUnit={updateOrganizationalUnit}
           deleteOrganizationalUnit={deleteOrganizationalUnit}
-          legalEntities={legalEntities}
+          legalEntityList={legalEntityList}
         />
       )
     );
@@ -86,7 +86,7 @@ class OrganizationalUnitTable extends Component {
               </th>
             </tr>
           </thead>
-          <tbody>{organizationalUnitList}</tbody>
+          <tbody>{organizationalUnits}</tbody>
         </table>
       </div>
     );
@@ -99,9 +99,9 @@ class OrganizationalUnitTable extends Component {
             show={this.state.show}
             handleAdd={this.handleAdd}
             closeModal={this.closeModal}
-            organizationalUnits={organizationalUnits}
+            organizationalUnitList={organizationalUnitList}
             createNewOrganizationalUnit={createNewOrganizationalUnit}
-            legalEntities={legalEntities}
+            legalEntityList={legalEntityList}
             error={this.props.error}
             resetError={resetError}
           />

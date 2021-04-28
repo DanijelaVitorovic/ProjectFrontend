@@ -55,17 +55,9 @@ export const getProcessTypes = () => async (dispatch) => {
 };
 
 export const deleteProcessType = (id) => async (dispatch) => {
-  if (
-    window.confirm(
-      "Are you sure? This will delete the process type and all the data related to it"
-    )
-  ) {
-    try {
-      await axios.delete(`/api/processType/delete/${id}`, id);
-      dispatch({
-        type: DELETE_PROCESS_TYPE,
-        payload: id,
-      });
-    } catch (exception) {}
-  }
+  await axios.delete(`/api/processType/delete/${id}`, id);
+  dispatch({
+    type: DELETE_PROCESS_TYPE,
+    payload: id,
+  });
 };

@@ -17,7 +17,7 @@ class ProcessTypeList extends Component {
 
   render() {
     const {
-      processTypes,
+      processTypeList,
       createProcessType,
       updateProcessType,
       getProcessType,
@@ -35,7 +35,7 @@ class ProcessTypeList extends Component {
                 <h3>{Header.heading}</h3>
 
                 <ProcessTypeTable
-                  processTypes={processTypes}
+                  processTypeList={processTypeList}
                   createProcessType={createProcessType}
                   getProcessType={getProcessType}
                   updateProcessType={updateProcessType}
@@ -55,7 +55,7 @@ class ProcessTypeList extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  processTypes: state.processType.processTypes,
+  processTypeList: state.processType.processTypeList,
   errors: state.errors,
 });
 

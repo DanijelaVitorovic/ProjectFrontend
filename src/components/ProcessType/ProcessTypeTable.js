@@ -36,7 +36,7 @@ class ProcessTypeTable extends Component {
 
   render() {
     const {
-      processTypes,
+      processTypeList,
       createProcessType,
       getProcessType,
       updateProcessType,
@@ -46,7 +46,7 @@ class ProcessTypeTable extends Component {
     const translation = processTypeTableTranslation || {};
     const {HeaderColumns, Buttons} = translation;
 
-    const processTypeList = processTypes.map((processType) => (
+    const processTypes = processTypeList.map((processType) => (
       <ProcessTypeRow
         key={processType.id}
         processType = {processType}
@@ -80,7 +80,7 @@ class ProcessTypeTable extends Component {
           </tr>
         </thead>
 
-        <tbody>{processTypeList}</tbody>
+        <tbody>{processTypes}</tbody>
       </table>
     );
 
@@ -92,7 +92,7 @@ class ProcessTypeTable extends Component {
             show={this.state.show}
             closeModal={this.closeModal}
             handleAdd={this.handleAdd}
-            processTypes = {processTypes}
+            processTypeList = {processTypeList}
             createProcessType = {createProcessType}
           />
         )}

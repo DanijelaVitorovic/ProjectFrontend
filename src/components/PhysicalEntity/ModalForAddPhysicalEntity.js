@@ -99,14 +99,7 @@ class ModalForAddPhysicalEntity extends Component {
     const { Header, SelectOptionsAndPlaceholders } = translation;
 
     return (
-      <Modal
-        show={show}
-        onHide={closeModal}
-        onRequestClose={closeModal}
-        size="xl"
-        centered
-        animation
-      >
+      <Modal show={show} onHide={closeModal} size="xl" centered animation>
         <Modal.Header closeButton></Modal.Header>
         <div className="register">
           <div className="container">
@@ -122,8 +115,8 @@ class ModalForAddPhysicalEntity extends Component {
                       <div className="form-group">
                         <input
                           type="text"
-                          className={classnames("form-control", {
-                            "is-invalid": errors.firstName,
+                          className={classnames('form-control', {
+                            'is-invalid': errors.firstName,
                           })}
                           placeholder={
                             SelectOptionsAndPlaceholders.firstNamePlaceholder
@@ -146,8 +139,8 @@ class ModalForAddPhysicalEntity extends Component {
                       <div className="form-group">
                         <input
                           type="text"
-                          className={classnames("form-control", {
-                            "is-invalid": errors.lastName,
+                          className={classnames('form-control', {
+                            'is-invalid': errors.lastName,
                           })}
                           placeholder={
                             SelectOptionsAndPlaceholders.lastNamePlaceholder
@@ -201,8 +194,8 @@ class ModalForAddPhysicalEntity extends Component {
                       <div className="form-group">
                         <input
                           type="text"
-                          className={classnames("form-control", {
-                            "is-invalid": errors.email,
+                          className={classnames('form-control', {
+                            'is-invalid': errors.email,
                           })}
                           placeholder={
                             SelectOptionsAndPlaceholders.emailPlaceholder
@@ -225,8 +218,8 @@ class ModalForAddPhysicalEntity extends Component {
                       <div className="form-group">
                         <input
                           type="text"
-                          className={classnames("form-control", {
-                            "is-invalid": errors.city,
+                          className={classnames('form-control', {
+                            'is-invalid': errors.city,
                           })}
                           placeholder={
                             SelectOptionsAndPlaceholders.cityPlaceholder

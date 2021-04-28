@@ -7,7 +7,7 @@ import {
 } from "../actions/types";
 
 const initialState = {
-  processTypes: [],
+  processTypeList: [],
   processType: {},
 };
 
@@ -21,24 +21,24 @@ export default function (state = initialState, action) {
     case GET_PROCESS_TYPES:
       return {
         ...state,
-        processTypes: action.payload,
+        processTypeList: action.payload,
       };
     case DELETE_PROCESS_TYPE:
       return {
         ...state,
-        processTypes: state.processTypes.filter(
+        processTypeList: state.processTypeList.filter(
           (processType) => processType.id != action.payload
         ),
       };
     case ADD_PROCESS_TYPE:
       return {
         ...state,
-        processTypes: state.processTypes.concat(action.payload),
+        processTypeList: state.processTypeList.concat(action.payload),
       };
     case UPDATE_PROCESS_TYPE:
       return {
         ...state,
-        processTypes: state.processTypes
+        processTypeList: state.processTypeList
           .filter((processType) => processType.id != action.payload.id)
           .concat(action.payload),
       };

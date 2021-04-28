@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import ProcessRow from "./ProcessRow";
 import { Button } from "react-bootstrap";
 import ModalForAddProcess from "./ModalForAddProcess";
+import {processTableTranslation} from '../../translations';
 
 class ProcessTable extends Component {
   constructor() {
@@ -30,20 +31,28 @@ class ProcessTable extends Component {
   };
 
   render() {
-    const processess = this.props.processess.map((process) => (
+    const translation = processTableTranslation;
+    const {HeaderColumns, Buttons} = translation || {};
+    const {
+      processList,
+      getProcess,
+      updateProcess,
+      deleteProcess,
+      processTypeList,
+      getProcessTypes,
+      process,
+    } = this.props || {};
+    const processes = processList.map((process) => (
       <ProcessRow
         key={process.id}
         process={process}
-        getProcess={this.props.getProcess}
-        updateProcess={this.props.updateProcess}
-        deleteProcess={this.props.deleteProcess}
-        processForUpdate={this.props.processForUpdate}
-        processTypes={this.props.processTypes}
-        getProcessTypes = {this.props.getProcessTypes}
-        getProcessType = {this.props.getProcessType}
+        getProcess={getProcess}
+        updateProcess={updateProcess}
+        deleteProcess={deleteProcess}
+        processTypeList={processTypeList}
+        getProcessTypes={getProcessTypes}
       />
     ));
-
     const table = (
       <div className="table-responsive tableHeight">
         <table
@@ -59,19 +68,19 @@ class ProcessTable extends Component {
                 this.showModal();
               }}
             >
-              Add new Process
+              {Buttons.addNewProcess}
             </Button>
             <br></br>
             <tr>
-              <th>#</th>
-              <th>Process Type</th>
-              <th>Process Type Description</th>
-              <th>Next Case Status</th>
-              <th className="text-center">Update</th>
-              <th className="text-center">Delete</th>
+              <th>{HeaderColumns.id}</th>
+              <th>{HeaderColumns.processType}</th>
+              <th>{HeaderColumns.descriptionType}</th>
+              <th>{HeaderColumns.status}</th>
+              <th className="text-center">{HeaderColumns.update}</th>
+              <th className="text-center">{HeaderColumns.delete}</th>
             </tr>
           </thead>
-          <tbody>{processess}</tbody>
+          <tbody>{processes}</tbody>
         </table>
       </div>
     );
@@ -84,8 +93,8 @@ class ProcessTable extends Component {
             show={this.state.show}
             handleAdd={this.handleAdd}
             closeModal={this.closeModal}
-            processess={this.props.processess}
-            processTypes={this.props.processTypes}
+            processTypeList={processTypeList}
+            process={process}
           />
         )}
       </Fragment>

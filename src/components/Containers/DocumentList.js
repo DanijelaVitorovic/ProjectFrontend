@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, {Component} from 'react';
 import {
   createDocument,
   updateDocument,
@@ -6,16 +6,16 @@ import {
   getDocuments,
   deleteDocument,
   createDocumentWithCase,
-} from "../../actions/documentActions";
-import { getCases } from "../../actions/caseActions";
-import { getEmployees } from "../../actions/employeeActions";
-import { connect } from "react-redux";
-import DocumentTable from "../Document/DocumentTable";
+} from '../../actions/documentActions';
+import {getCases} from '../../actions/caseActions';
+import {getEmployees} from '../../actions/employeeActions';
+import {connect} from 'react-redux';
+import DocumentTable from '../Document/DocumentTable';
 import {
   getPhysicalEntities,
   getPhysicalEntity,
-} from "../../actions/physicalEntityActions";
-import { documentListTranslation } from "../../translations";
+} from '../../actions/physicalEntityActions';
+import {documentListTranslation} from '../../translations';
 
 class DocumentList extends Component {
   componentDidMount() {
@@ -26,8 +26,8 @@ class DocumentList extends Component {
   }
   render() {
     const {
-      documents,
-      employees,
+      documentList,
+      employeeList,
       physicalEntityList,
       caseList,
       createDocument,
@@ -38,7 +38,7 @@ class DocumentList extends Component {
     } = this.props || {};
 
     const translation = documentListTranslation || {};
-    const { Header } = translation;
+    const {Header} = translation;
     return (
       <div className="container ">
         <div className="row">
@@ -49,15 +49,15 @@ class DocumentList extends Component {
               </div>
               <div className="card-body">
                 <DocumentTable
-                  documents={documents}
+                  documentList={documentList}
                   document={document}
                   createDocument={createDocument}
                   updateDocument={updateDocument}
                   getDocument={getDocument}
                   deleteDocument={deleteDocument}
-                  employees={employees}
+                  employeeList={employeeList}
                   caseList={caseList}
-                  physicalEntities={physicalEntityList}
+                  physicalEntityList={physicalEntityList}
                   createDocumentWithCase={createDocumentWithCase}
                 />
                 <div id="msg" />
@@ -71,11 +71,10 @@ class DocumentList extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  documents: state.document.documents,
+  documentList: state.document.documentList,
   document: state.document.document,
-  employees: state.employee.employeeList,
+  employeeList: state.employee.employeeList,
   physicalEntityList: state.physicalEntity.physicalEntityList,
-  physicalEntities: state.physicalEntity.physicalEntityList,
   caseList: state.case.caseList,
   errors: state.errors,
 });

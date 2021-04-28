@@ -1,10 +1,12 @@
-import React, { Component, Fragment } from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { Button } from "react-bootstrap";
-import ModalForUpdateProcessType from "./ModalForUpdateProcessType";
-import UpdateButton from "../Reusable/UpdateButton";
-import DeleteButton from "../Reusable/DeleteButton";
+import React, {Component, Fragment} from 'react';
+import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
+import {Button} from 'react-bootstrap';
+import ModalForUpdateProcessType from './ModalForUpdateProcessType';
+import UpdateButton from '../Reusable/UpdateButton';
+import DeleteButton from '../Reusable/DeleteButton';
+import ConfirmAlert from '../Reusable/ConfirmAlert';
+import {organizationalUnitRowTranslation} from '../../translations';
 
 class ProcessTypeRow extends Component {
   constructor(props) {
@@ -12,22 +14,22 @@ class ProcessTypeRow extends Component {
 
     this.state = {
       show: false,
-      type: "",
-      description: "",
+      type: '',
+      description: '',
       errors: {},
     };
   }
 
   showModal = () => {
-    this.setState({ show: true });
+    this.setState({show: true});
   };
 
   closeModal = () => {
-    this.setState({ show: false });
+    this.setState({show: false});
   };
 
   onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({[e.target.name]: e.target.value});
   };
 
   handleUpdate = (updatedProcessType) => {
@@ -36,23 +38,29 @@ class ProcessTypeRow extends Component {
   };
 
   onDeleteClick = (id) => {
-    this.props.deleteProcessType(id);
+    const translation = organizationalUnitRowTranslation;
+    const {deleteString} = translation;
+    const {deleteProcessType} = this.props || {};
+    ConfirmAlert(id, deleteProcessType, deleteString);
   };
 
   render() {
-    const { processType, getProcessType } = this.props || {};
+    const {processType, getProcessType} = this.props || {};
     const row = (
       <tr>
         <td>{processType.id}</td>
         <td>{processType.type}</td>
         <td>{processType.description}</td>
         <td className="text-center">
-        <UpdateButton showModal={this.showModal} id={processType} />
-      </td>
-      
-      <td className="text-center">
-        <DeleteButton onDeleteClick={this.onDeleteClick} id={processType.id} />
-      </td>
+          <UpdateButton showModal={this.showModal} id={processType} />
+        </td>
+
+        <td className="text-center">
+          <DeleteButton
+            onDeleteClick={this.onDeleteClick}
+            id={processType.id}
+          />
+        </td>
       </tr>
     );
 

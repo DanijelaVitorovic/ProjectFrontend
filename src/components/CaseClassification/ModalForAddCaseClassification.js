@@ -1,51 +1,78 @@
-import React, { Component } from "react";
-import { Modal, ModalFooter, Card } from "react-bootstrap";
-import { handleErrorMessage } from "../../globals";
-import classnames from "classnames";
+import React, {Component} from 'react';
+import {Modal, ModalFooter, Card} from 'react-bootstrap';
+import {handleErrorMessage} from '../../globals';
+import classnames from 'classnames';
 import {
   caseClassificationValidationsTranslation,
   caseClassificationTranslation,
-} from "../../translations";
+} from '../../translations';
 
 class ModalForAddCaseClassification extends Component {
   constructor() {
     super();
     this.state = {
-      code: "",
-      name: "",
-      organizationalUnit: "",
+      code: '',
+      name: '',
+      organizationalUnit: '',
       errors: {},
     };
   }
 
   onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({[e.target.name]: e.target.value});
   };
 
   handleValidation = () => {
     const translationValidation = caseClassificationValidationsTranslation;
-    const { Modals } = translationValidation;
+    const {Modals} = translationValidation;
 
     let errors = {};
     let hasErrors = false;
-    let { code, name, organizationalUnit } = this.state;
+    let {code, name, organizationalUnit} = this.state;
 
     if (code.length < 1) {
-      errors["code"] = Modals.code;
+      errors['code'] = Modals.code;
       hasErrors = true;
     }
 
     if (name.length < 2) {
-      errors["name"] = Modals.name;
+      errors['name'] = Modals.name;
       hasErrors = true;
     }
 
     if (!organizationalUnit) {
-      errors["organizationalUnit"] = Modals.organizationalUnit;
+      errors['organizationalUnit'] = Modals.organizationalUnit;
       hasErrors = true;
     }
 
-    this.setState({ errors: errors });
+    this.setState({errors: errors});
+    return hasErrors;
+  };
+
+  handleValidation = () => {
+    const translationValidation = caseClassificationValidationsTranslation;
+    const {Modals} = translationValidation;
+
+    let errors = {};
+    let hasErrors = false;
+    let {code, name, organizationalUnit} = this.state;
+
+    if (code.length < 1) {
+      errors['code'] = Modals.code;
+      hasErrors = true;
+    }
+
+    if (name.length < 2) {
+      errors['name'] = Modals.name;
+      hasErrors = true;
+    }
+
+    if (!organizationalUnit) {
+      errors['organizationalUnit'] = Modals.organizationalUnit;
+      hasErrors = true;
+    }
+
+    this.setState({errors: errors});
     return hasErrors;
   };
 
@@ -59,14 +86,14 @@ class ModalForAddCaseClassification extends Component {
     const newCaseClassification = {
       code: this.state.code,
       name: this.state.name,
-      organizationalUnit: { id: this.state.organizationalUnit },
+      organizationalUnit: {id: this.state.organizationalUnit},
     };
     this.props.handleAdd(newCaseClassification);
   };
 
   render() {
-    const { errors } = this.state;
-    const { show, closeModal, organizationalUnits } = this.props || {};
+    const {errors} = this.state;
+    const {show, closeModal, organizationalUnitList} = this.props || {};
 
     return (
       <Modal
@@ -77,7 +104,7 @@ class ModalForAddCaseClassification extends Component {
         centered
         animation
       >
-        <Card bg={"white"} text={"black"}>
+        <Card bg={'white'} text={'black'}>
           <Modal.Header closeButton></Modal.Header>
           <div className="register">
             <div className="container">
@@ -91,8 +118,8 @@ class ModalForAddCaseClassification extends Component {
                     <div className="form-group">
                       <input
                         type="text"
-                        className={classnames("form-control", {
-                          "is-invalid": errors.code,
+                        className={classnames('form-control', {
+                          'is-invalid': errors.code,
                         })}
                         placeholder={
                           caseClassificationTranslation.codePlaceholder
@@ -104,7 +131,7 @@ class ModalForAddCaseClassification extends Component {
                       {handleErrorMessage(errors.code) && (
                         <span
                           className="invalid-feedback"
-                          style={{ fontSize: 16, color: "red" }}
+                          style={{fontSize: 16, color: 'red'}}
                         >
                           {errors.code}
                         </span>
@@ -113,8 +140,8 @@ class ModalForAddCaseClassification extends Component {
                     <div className="form-group">
                       <input
                         type="text"
-                        className={classnames("form-control", {
-                          "is-invalid": errors.name,
+                        className={classnames('form-control', {
+                          'is-invalid': errors.name,
                         })}
                         placeholder={
                           caseClassificationTranslation.namePlaceholder
@@ -126,7 +153,7 @@ class ModalForAddCaseClassification extends Component {
                       {handleErrorMessage(errors.name) && (
                         <span
                           className="invalid-feedback"
-                          style={{ fontSize: 16, color: "red" }}
+                          style={{fontSize: 16, color: 'red'}}
                         >
                           {errors.name}
                         </span>
@@ -134,10 +161,10 @@ class ModalForAddCaseClassification extends Component {
                     </div>
                     <div className="form-group">
                       <select
-                        organizationalUnits={organizationalUnits}
+                        organizationalUnitList={organizationalUnitList}
                         onChange={this.onChange}
-                        className={classnames("form-control", {
-                          "is-invalid": errors.organizationalUnit,
+                        className={classnames('form-control', {
+                          'is-invalid': errors.organizationalUnit,
                         })}
                         name="organizationalUnit"
                       >
@@ -146,7 +173,7 @@ class ModalForAddCaseClassification extends Component {
                             caseClassificationTranslation.organizationalUnitSelect
                           }
                         </option>
-                        {organizationalUnits.map((organizationalUnit) => {
+                        {organizationalUnitList.map((organizationalUnit) => {
                           return (
                             <option value={organizationalUnit.id}>
                               {organizationalUnit.name}
@@ -157,7 +184,7 @@ class ModalForAddCaseClassification extends Component {
                       {handleErrorMessage(errors.organizationalUnit) && (
                         <span
                           className="invalid-feedback"
-                          style={{ fontSize: 16, color: "red" }}
+                          style={{fontSize: 16, color: 'red'}}
                         >
                           {errors.organizationalUnit}
                         </span>

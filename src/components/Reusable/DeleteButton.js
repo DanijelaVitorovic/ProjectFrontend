@@ -1,10 +1,8 @@
 import React, { Component } from "react";
-import { Button, Badge } from "react-bootstrap";
-import button from "./button.css";
+import { Badge } from "react-bootstrap";
 
 export default class DeleteButton extends Component {
   render() {
-    console.log(this.props.document);
     return (
       <div>
         <Badge pill variant="danger" className="badge">

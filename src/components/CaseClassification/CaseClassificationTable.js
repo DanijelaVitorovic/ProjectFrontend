@@ -33,7 +33,7 @@ class CaseClassificationTable extends Component {
       getCaseClassification,
       updateCaseClassification,
       deleteCaseClassification,
-      organizationalUnits,
+      organizationalUnitList,
       caseClassificationForUpdate,
     } = this.props || {};
 
@@ -45,7 +45,7 @@ class CaseClassificationTable extends Component {
           updateCaseClassification={updateCaseClassification}
           getCaseClassification={getCaseClassification}
           deleteCaseClassification={deleteCaseClassification}
-          organizationalUnits={organizationalUnits}
+          organizationalUnitList={organizationalUnitList}
           caseClassificationForUpdate={caseClassificationForUpdate}
         />
       )
@@ -102,7 +102,7 @@ class CaseClassificationTable extends Component {
             show={this.state.show}
             closeModal={this.closeModal}
             handleAdd={this.handleAdd}
-            organizationalUnits={organizationalUnits}
+            organizationalUnitList={organizationalUnitList}
           />
         )}
       </Fragment>

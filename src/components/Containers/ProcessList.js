@@ -1,14 +1,18 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import ProcessTable from "../Process/ProcessTable";
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import ProcessTable from '../Process/ProcessTable';
 import {
   createProcess,
   updateProcess,
   getProcess,
   getProcessess,
   deleteProcess,
-} from "../../actions/processActions";
-import { getProcessTypes, getProcessType } from "../../actions/processTypeActions";
+} from '../../actions/processActions';
+import {
+  getProcessTypes,
+  getProcessType,
+} from '../../actions/processTypeActions';
+import {processListTranslation} from '../../translations';
 
 class ProcessList extends Component {
   componentDidMount() {
@@ -17,27 +21,35 @@ class ProcessList extends Component {
   }
 
   render() {
-    const { processess } = this.props.process;
-    const { processTypes } = this.props.processType;
-
+    const {
+      processList,
+      process,
+      processTypeList,
+      createProcess,
+      updateProcess,
+      getProcess,
+      deleteProcess,
+    } = this.props || {};
+    const translation = processListTranslation;
+    const {Header} = translation;
     return (
       <div className="container">
         <div className="row">
           <div className="col-md-12 m-auto">
             <div className="card text-left mb-3">
               <div className="card-header text-black">
-                <h3>Process</h3>
+                <h3>{Header.heading}</h3>
 
                 <ProcessTable
-                  processess={processess}
-                  createProcess={this.props.createProcess}
-                  getProcess={this.props.getProcess}
-                  updateProcess={this.props.updateProcess}
-                  deleteProcess={this.props.deleteProcess}
-                  processForUpdate={process}
-                  processTypes={processTypes}
-                  getProcessTypes={this.props.getProcessTypes}
-                  getProcessType = {this.props.getProcessType}
+                  processList={processList}
+                  process={process}
+                  createProcess={createProcess}
+                  getProcess={getProcess}
+                  updateProcess={updateProcess}
+                  deleteProcess={deleteProcess}
+                  processTypeList={processTypeList}
+                  getProcessTypes={getProcessTypes}
+                  getProcessType={getProcessType}
                 />
               </div>
             </div>
@@ -49,8 +61,9 @@ class ProcessList extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  process: state.process,
-  processType: state.processType,
+  processList: state.process.processList,
+  process: state.process.process,
+  processTypeList: state.processType.processTypeList,
   erorrs: state.erorrs,
 });
 
@@ -61,5 +74,5 @@ export default connect(mapStateToProps, {
   getProcessess,
   deleteProcess,
   getProcessTypes,
-  getProcessType
+  getProcessType,
 })(ProcessList);

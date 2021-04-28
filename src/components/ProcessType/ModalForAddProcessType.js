@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import classnames from "classnames";
 import { Modal, Button } from "react-bootstrap";
-import { Redirect } from "react-router-dom";
-import {processTypeModalForAddAndUpdateTrasaltion} from "../../translations";
+import {processTypeModalForAddAndUpdateTransaltion} from '../../translations';
 
 class ModalForAddProcessType extends Component {
   constructor() {
@@ -40,17 +39,11 @@ class ModalForAddProcessType extends Component {
   render() {
     const {show, closeModal} = this.props || {};
     const {errors} = this.state;
-    const translation = processTypeModalForAddAndUpdateTrasaltion || {};
+    const translation = processTypeModalForAddAndUpdateTransaltion || {};
     const {Header, SelectOptionsAndPlaceholders} = translation;    
     
     return (
-      
-      <Modal
-        show={this.props.show}
-        onHide={this.props.closeModal}
-        onRequest={this.props.closeModal}
-        size="lg"
-      >
+      <Modal show={show} onHide={closeModal} size="lg">
         <Modal.Header closeButton>
           <h5>{Header.headingUpdateModal}</h5>
         </Modal.Header>
@@ -63,8 +56,8 @@ class ModalForAddProcessType extends Component {
                   <div className="form-group">
                     <input
                       type="text"
-                      className={classnames("form-control", {
-                        "is-invalid": errors.type,
+                      className={classnames('form-control', {
+                        'is-invalid': errors.type,
                       })}
                       placeholder={SelectOptionsAndPlaceholders.typePlaceholder}
                       name="type"
@@ -79,10 +72,12 @@ class ModalForAddProcessType extends Component {
                   <div className="form-group">
                     <input
                       type="text"
-                      className={classnames("form-control", {
-                        "is-invalid": errors.description,
+                      className={classnames('form-control', {
+                        'is-invalid': errors.description,
                       })}
-                      placeholder={SelectOptionsAndPlaceholders.descriptionPlaceholder}
+                      placeholder={
+                        SelectOptionsAndPlaceholders.descriptionPlaceholder
+                      }
                       name="description"
                       value={this.state.description}
                       onChange={this.onChange}
@@ -93,14 +88,14 @@ class ModalForAddProcessType extends Component {
                       </div>
                     )}
                   </div>
-                  <div className = "text-center">
-                  <Button
-                    variant="success"
-                    type="submit"
-                    className="col-md-2 m-auto float-right"
-                  >
-                    <i class="fas fa-check fa-2x"></i>
-                  </Button>
+                  <div className="text-center">
+                    <Button
+                      variant="success"
+                      type="submit"
+                      className="col-md-2 m-auto float-right"
+                    >
+                      <i class="fas fa-check fa-2x"></i>
+                    </Button>
                   </div>
                 </form>
               </div>

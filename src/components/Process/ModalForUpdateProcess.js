@@ -1,13 +1,14 @@
-import React, { Component } from "react";
-import { Modal, Button } from "react-bootstrap";
-import classnames from "classnames";
+import React, {Component} from 'react';
+import {Modal, Button} from 'react-bootstrap';
+import classnames from 'classnames';
+import {processModalForAddAndUpdateTransaltion} from '../../translations';
 
 class ModalForAddProcess extends Component {
   constructor() {
     super();
 
     this.state = {
-      nextCaseStatus: "",
+      nextCaseStatus: '',
       processType: {
         id: 0,
       },
@@ -21,9 +22,9 @@ class ModalForAddProcess extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
-      this.setState({ errors: nextProps.errors });
+      this.setState({errors: nextProps.errors});
     }
-    const { id, nextCaseStatus, processType } = nextProps.processForUpdate;
+    const {id, nextCaseStatus, processType} = nextProps.processForUpdate;
 
     this.setState({
       id,
@@ -33,11 +34,11 @@ class ModalForAddProcess extends Component {
   }
 
   onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({[e.target.name]: e.target.value});
   };
 
   onChangeCombo = (e) => {
-    this.setState({ [e.target.name]: { id: e.target.value } });
+    this.setState({[e.target.name]: {id: e.target.value}});
   };
 
   onSubmit = (e) => {
@@ -46,24 +47,21 @@ class ModalForAddProcess extends Component {
     const updatedProcess = {
       id: this.state.id,
       nextCaseStatus: this.state.nextCaseStatus,
-      processType: { id: this.state.processType.id },
+      processType: {id: this.state.processType.id},
     };
     this.props.handleUpdate(updatedProcess);
   };
 
   render() {
-    const { errors } = this.state;
-    const processTypes = this.props.processTypes;
+    const {errors} = this.state;
+    const {processTypeList, show, closeModal} = this.props || {};
+    const translation = processModalForAddAndUpdateTransaltion;
+    const {Header, SelectOptionsAndPlaceholders} = translation;
 
     return (
-      <Modal
-        show={this.props.show}
-        onHide={this.props.closeModal}
-        onRequest={this.props.closeModal}
-        size="lg"
-      >
+      <Modal show={show} onHide={closeModal} size="lg">
         <Modal.Header closeButton>
-          <h5>Update new Process</h5>{" "}
+          <h5>{Header.headingUpdateModal}</h5>{' '}
         </Modal.Header>
         <div className="register">
           <div className="container">
@@ -74,10 +72,12 @@ class ModalForAddProcess extends Component {
                   <div className="form-group">
                     <input
                       type="text"
-                      className={classnames("form-control", {
-                        "is-invalid": errors.nextCaseStatus,
+                      className={classnames('form-control', {
+                        'is-invalid': errors.nextCaseStatus,
                       })}
-                      placeholder="nextCaseStatus"
+                      placeholder={
+                        SelectOptionsAndPlaceholders.statusPlaceholder
+                      }
                       name="nextCaseStatus"
                       value={this.state.nextCaseStatus}
                       onChange={this.onChange}
@@ -92,17 +92,17 @@ class ModalForAddProcess extends Component {
                   <div className="form-group">
                     <select
                       className="form-control form-control-lg"
-                      processTypes={processTypes}
+                      processTypeList={processTypeList}
                       name="processType"
-                      placeholder="Одаберите тип процеса"
+                      placeholder={SelectOptionsAndPlaceholders.typePlaceholder}
                       onChange={this.onChangeCombo}
-                      style={{ fontSize: "1rem" }}
-                      value={this.props.processTypes.id}
+                      style={{fontSize: '1rem'}}
+                      value={this.state.processType.id}
                     >
                       <option value="" selected disabled>
-                        Одаберите тип процеса
+                        {SelectOptionsAndPlaceholders.typeOption}
                       </option>
-                      {processTypes.map((processType) => {
+                      {processTypeList.map((processType) => {
                         return (
                           <option value={processType.id}>
                             {processType.type}
