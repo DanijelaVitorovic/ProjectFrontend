@@ -63,12 +63,12 @@ class LegalEntityRow extends Component {
         <td style={{ color: Statement[statement].color }}>
           {Statement[statement].translation}
         </td>
-        <td className="text-center" className="red">
+        <td className="text-center">
           <UpdateButton showModal={this.showModal} id={document} />
         </td>
         
-        <td className="text-center" className="red">
-          <DeleteButton onDeleteClick={this.onDeleteClick} id={document.id} />
+        <td className="text-center">
+          <DeleteButton onDeleteClick={this.onDeleteClick} id={legalEntity.id} />
         </td>
       </tr>
     );
