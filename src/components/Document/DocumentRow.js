@@ -10,7 +10,7 @@ import UpdateButton from "../Reusable/UpdateButton";
 import DeleteButton from "../Reusable/DeleteButton";
 import ConfirmAlert from "../Reusable/ConfirmAlert";
 import { deleteDocument } from "../../actions/documentActions";
-import UpdateForm from "./UpdateForm";
+import DocumentProcessing from "./DocumentProcessing";
 import { Link } from "react-router-dom";
 import { CenterFocusStrong } from "@material-ui/icons";
 import { blue } from "@material-ui/core/colors";

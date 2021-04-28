@@ -49,11 +49,17 @@ export default class OrganizationalUnitRow extends Component {
         <td>{organizationalUnit.code}</td>
         <td>{organizationalUnit.legalEntity.name}</td>
         <td className="text-center">
-          <UpdateButton showModal={this.showModal} id={document} />
+          <UpdateButton showModal={this.showModal} id={organizationalUnit} />
         </td>
 
         <td className="text-center">
-          <DeleteButton onDeleteClick={this.onDeleteClick} id={document.id} />
+          <DeleteButton
+        
+               onDeleteClick={this.onDeleteClick}
+    
+                   id={organizationalUnit.id}
+         
+          />
         </td>
       </tr>
     );
