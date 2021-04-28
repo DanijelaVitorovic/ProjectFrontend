@@ -1,18 +1,19 @@
-import React, { Component } from "react";
-import { Modal, Button } from "react-bootstrap";
-import classnames from "classnames";
-import { DocumentType, documentStatus } from "../../../src/globals";
-import { getEmployeeName } from "../../globals";
+import React, {Component} from 'react';
+import {Modal, Button} from 'react-bootstrap';
+import classnames from 'classnames';
+import {DocumentType, documentStatus} from '../../../src/globals';
+import {getEmployeeName} from '../../globals';
+import {documentModalForAddAndUpdateTranslation} from '../../translations';
 
 export default class ModalForUpdateDocument extends Component {
   constructor() {
     super();
 
     this.state = {
-      title: "",
-      description: "",
-      documentType: "",
-      documentStatus: "",
+      title: '',
+      description: '',
+      documentType: '',
+      documentStatus: '',
       employeeCreated: {
         id: 0,
       },
@@ -29,7 +30,7 @@ export default class ModalForUpdateDocument extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
-      this.setState({ errors: nextProps.errors });
+      this.setState({errors: nextProps.errors});
     }
 
     const {
@@ -54,11 +55,11 @@ export default class ModalForUpdateDocument extends Component {
   }
 
   onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({[e.target.name]: e.target.value});
   };
 
   onChangeCombo = (e) => {
-    this.setState({ [e.target.name]: { id: e.target.value } });
+    this.setState({[e.target.name]: {id: e.target.value}});
   };
 
   onSubmit = (e) => {
@@ -81,21 +82,15 @@ export default class ModalForUpdateDocument extends Component {
   };
 
   render() {
-    const { errors } = this.state;
-    const employees = this.props.employees;
-    const caseList = this.props.caseList;
-
+    const {errors} = this.state;
+    const {employeeList, caseList, show, closeModal} = this.props || {};
+    const translation = documentModalForAddAndUpdateTranslation;
+    const {Header, SelectOptionsAndPlaceholders} = translation;
     return (
       <div>
-        <Modal
-          show={this.props.show}
-          onHide={this.props.closeModal}
-          onRequest={this.props.closeModal}
-          size="lg"
-          centered
-        >
+        <Modal show={show} onHide={closeModal} size="lg" centered>
           <Modal.Header closeButton>
-            <h4>Унос новог докумнета</h4>
+            <h4>{Header.headingUpdateModal}</h4>
           </Modal.Header>
 
           <div className="register">
@@ -107,10 +102,12 @@ export default class ModalForUpdateDocument extends Component {
                     <div className="form-group">
                       <input
                         type="text"
-                        className={classnames("form-control", {
-                          "is-invalid": errors.title,
+                        className={classnames('form-control', {
+                          'is-invalid': errors.title,
                         })}
-                        placeholder="Наслов"
+                        placeholder={
+                          SelectOptionsAndPlaceholders.titlePlaceholder
+                        }
                         name="title"
                         value={this.state.title}
                         onChange={this.onChange}
@@ -123,10 +120,12 @@ export default class ModalForUpdateDocument extends Component {
                     <div className="form-group">
                       <input
                         type="text"
-                        className={classnames("form-control", {
-                          "is-invalid": errors.description,
+                        className={classnames('form-control', {
+                          'is-invalid': errors.description,
                         })}
-                        placeholder="Опис"
+                        placeholder={
+                          SelectOptionsAndPlaceholders.descriptionPlaceholder
+                        }
                         name="description"
                         value={this.state.description}
                         onChange={this.onChange}
@@ -141,14 +140,16 @@ export default class ModalForUpdateDocument extends Component {
                     <div className="form-group">
                       <select
                         className="form-control form-control-lg"
-                        placeholder="Унесите тип предмета"
+                        placeholder={
+                          SelectOptionsAndPlaceholders.typePlaceholder
+                        }
                         name="documentType"
                         value={this.state.documentType}
                         onChange={this.onChange}
-                        style={{ fontSize: "1rem" }}
+                        style={{fontSize: '1rem'}}
                       >
                         <option value="" selected disabled>
-                          Унесите тип документа
+                          {SelectOptionsAndPlaceholders.typeOption}
                         </option>
                         {Object.keys(DocumentType).map((key) => (
                           <option key={key} value={key}>
@@ -161,14 +162,16 @@ export default class ModalForUpdateDocument extends Component {
                     <div className="form-group">
                       <select
                         className="form-control form-control-lg"
-                        placeholder="Унесите статус предмета"
+                        placeholder={
+                          SelectOptionsAndPlaceholders.statusPlaceholder
+                        }
                         name="documentStatus"
                         value={this.state.documentStatus}
                         onChange={this.onChange}
-                        style={{ fontSize: "1rem" }}
+                        style={{fontSize: '1rem'}}
                       >
                         <option value="" selected disabled>
-                          Унесите статус документа
+                          {SelectOptionsAndPlaceholders.statusOption}
                         </option>
                         {Object.keys(documentStatus).map((key) => (
                           <option key={key} value={key}>
@@ -181,17 +184,19 @@ export default class ModalForUpdateDocument extends Component {
                     <div className="form-group">
                       <select
                         className="form-control form-control-lg"
-                        employees={employees}
+                        employeeList={employeeList}
                         name="employeeCreated"
-                        placeholder="Одаберите запослено лице"
+                        placeholder={
+                          SelectOptionsAndPlaceholders.employeePlaceholder
+                        }
                         onChange={this.onChangeCombo}
-                        value={this.state.employeeCreated.id}
-                        style={{ fontSize: "1rem" }}
+                        value={this.state?.employeeCreated?.id}
+                        style={{fontSize: '1rem'}}
                       >
                         <option value="" selected disabled>
-                          Одаберите запослено лице
+                          {SelectOptionsAndPlaceholders.employeeOption}
                         </option>
-                        {employees.map((employee) => {
+                        {employeeList.map((employee) => {
                           return (
                             <option value={employee.id}>
                               {getEmployeeName(employee)}
@@ -206,13 +211,15 @@ export default class ModalForUpdateDocument extends Component {
                         className="form-control form-control-lg"
                         caseList={caseList}
                         name="_case"
-                        placeholder="Одаберите случај"
+                        placeholder={
+                          SelectOptionsAndPlaceholders._casePlaceholder
+                        }
                         onChange={this.onChangeCombo}
                         value={this.state._case.id}
-                        style={{ fontSize: "1rem" }}
+                        style={{fontSize: '1rem'}}
                       >
                         <option value="" selected disabled>
-                          Одаберите случај
+                          {SelectOptionsAndPlaceholders._caseOption}
                         </option>
                         {caseList.map((_case) => {
                           return (

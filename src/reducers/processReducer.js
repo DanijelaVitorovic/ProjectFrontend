@@ -7,7 +7,7 @@ import {
 } from "../actions/types";
 
 const initialState = {
-  processess: [],
+  processList: [],
   process: {},
 };
 
@@ -21,25 +21,25 @@ export default function (state = initialState, action) {
     case GET_PROCESSES:
       return {
         ...state,
-        processess: action.payload,
+        processList: action.payload,
       };
     case DELETE_PROCESS:
       return {
         ...state,
-        processess: state.processess.filter(
-          (process) => process.id != action.payload
+        processList: state.processList.filter(
+          (process) => process.id !== action.payload
         ),
       };
     case ADD_PROCESS:
       return {
         ...state,
-        processess: state.processess.concat(action.payload),
+        processList: state.processList.concat(action.payload),
       };
     case UPDATE_PROCESS:
       return {
         ...state,
-        processess: state.processess
-          .filter((process) => process.id != action.payload.id)
+        processList: state.processList
+          .filter((process) => process.id !== action.payload.id)
           .concat(action.payload),
       };
     default:

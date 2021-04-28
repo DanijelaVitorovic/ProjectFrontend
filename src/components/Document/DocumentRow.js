@@ -1,19 +1,13 @@
 import React, { Component, Fragment } from "react";
-import { Button, Badge } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import ModalForUpdateDocument from "./ModalForUpdateDocument";
 import {
-  DocumentType,
-  documentStatus,
   getDocumentEmployeeCreated,
 } from "../../../src/globals";
-import UpdateButton from "../Reusable/UpdateButton";
 import DeleteButton from "../Reusable/DeleteButton";
 import ConfirmAlert from "../Reusable/ConfirmAlert";
-import { deleteDocument } from "../../actions/documentActions";
-import DocumentProcessing from "./DocumentProcessing";
 import { Link } from "react-router-dom";
-import { CenterFocusStrong } from "@material-ui/icons";
-import { blue } from "@material-ui/core/colors";
+import { documentRowTranslation } from "../../translations";
 
 export default class DocumentRow extends Component {
   constructor() {
@@ -25,11 +19,11 @@ export default class DocumentRow extends Component {
   }
 
   showModal = () => {
-    this.setState({ show: true });
+    this.setState({show: true});
   };
 
   closeModal = () => {
-    this.setState({ show: false });
+    this.setState({show: false});
   };
 
   handleUpdate = (updatedDocument) => {
@@ -38,18 +32,20 @@ export default class DocumentRow extends Component {
   };
 
   onDeleteClick = (id) => {
-    const string = "Да желите да обришете изабрани документ?";
-    const { deleteDocument } = this.props || {};
-    ConfirmAlert(id, deleteDocument, string);
+    const translation = documentRowTranslation;
+    const {deleteString} = translation;
+    const {deleteDocument} = this.props || {};
+    ConfirmAlert(id, deleteDocument, deleteString);
   };
 
   render() {
     const {
       document,
-      getDocument,
-      employees,
-      caseList,
       caseProcessingViewSignal,
+      getDocument,
+      employeeList,
+      caseList,
+      physicalEntityList,
     } = this.props || {};
 
     const renderRow = (
@@ -62,23 +58,20 @@ export default class DocumentRow extends Component {
         {!caseProcessingViewSignal && (
           <Fragment>
             <td>{document._case.caseName}</td>
+
             <td className="text-center">
-              <Button
-                className="button"
-                variant="link"
-                onClick={() => {
-                  this.showModal();
-                }}
-              >
-                <i className="fas fa-pen-alt fa-2x"></i>
-              </Button>
+              <Link to={`/documentProcessing/${document.id}`}>
+                <Button className="button" variant="link">
+                  <i className="fas fa-pen-alt fa-2x"></i>
+                </Button>
+              </Link>
             </td>
+
             <td className="text-center">
-              <Badge variant="danger">
-                <div onClick={() => this.onDeleteClick(document.id)}>
-                  <i className="fas fa-trash-alt fa-2x" />
-                </div>
-              </Badge>
+              <DeleteButton
+                onDeleteClick={this.onDeleteClick}
+                id={document.id}
+              />
             </td>
           </Fragment>
         )}
@@ -95,8 +88,9 @@ export default class DocumentRow extends Component {
           handleUpdate={this.handleUpdate}
           closeModal={this.closeModal}
           getDocument={getDocument}
-          employees={employees}
+          employeeList={employeeList}
           caseList={caseList}
+          physicalEntityList={physicalEntityList}
         />
       </Fragment>
     );

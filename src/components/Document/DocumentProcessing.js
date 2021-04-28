@@ -82,6 +82,27 @@ class DocumentProcessing extends Component {
     this.setState({[e.target.name]: e.target.value});
   };
 
+  onSubmit = (e) => {
+    e.preventDefault();
+
+    const updatedDocument = {
+      id: this.state.id,
+      title: this.state.title,
+      documentNumber: this.state.documentNumber,
+      externalNumber: this.state.externalNumber,
+      description: this.state.description,
+      documentType: this.state.documentType,
+      documentStatus: this.props.document.documentStatus,
+      employeeCreated: {
+        id: this.state.employeeCreated.id,
+      },
+      _case: {
+        id: this.state._case.id,
+      },
+    };
+    this.props.updateDocument(updatedDocument);
+  }
+  
   onChangeCombo = (e) => {
     this.setState({[e.target.name]: {id: e.target.value}});
   };
@@ -119,7 +140,7 @@ class DocumentProcessing extends Component {
     const {errors} = this.state;
     const translation = documentModalForAddAndUpdateTranslation || {};
     const {SelectOptionsAndPlaceholders} = translation;
-    const {document, employees, caseList} = this.props || {};
+    const {document, employeeList, caseList} = this.props || {};
 
     return (
       <div className="register">
@@ -204,17 +225,17 @@ class DocumentProcessing extends Component {
                 {SelectOptionsAndPlaceholders.employeePlaceholder}
                 <select
                   className="form-control form-control-lg"
-                  employees={employees}
+                  employeeList={employeeList}
                   name="employeeCreated"
                   placeholder={SelectOptionsAndPlaceholders.employeePlaceholder}
-                  value={this.state.employeeCreated.id}
+                  value={this.state?.employeeCreated?.id}
                   style={{fontSize: '1rem'}}
                   disabled
                 >
                   <option value="" selected disabled>
                     {SelectOptionsAndPlaceholders.employeeOption}
                   </option>
-                  {employees.map((employee) => {
+                  {employeeList.map((employee) => {
                     return (
                       <option value={employee.id}>
                         {employee.physicalEntity.firstName}{' '}
@@ -267,7 +288,7 @@ class DocumentProcessing extends Component {
                     handleUpdate={this.handleUpdate}
                     closeModal={this.closeModal}
                     getDocument={this.props.getDocument}
-                    employees={employees}
+                    employeeList={employeeList}
                     caseList={caseList}
                   />
                 )}
@@ -326,8 +347,8 @@ class DocumentProcessing extends Component {
 
 const mapStateToProps = (state) => ({
   document: state.document.document,
-  employees: state.employee.employeeList,
-  physicalEntities: state.physicalEntity.physicalEntityList,
+  employeeList: state.employee.employeeList,
+  physicalEntityList: state.physicalEntity.physicalEntityList,
   caseList: state.case.caseList,
   errors: state.errors,
 });

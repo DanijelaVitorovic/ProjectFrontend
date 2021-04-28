@@ -7,8 +7,7 @@ import {
   createLegalEntity,
   deleteLegalEntity,
   updateLegalEntity,
-} from "../../actions/legalEntityAction";
-import { Button } from "react-bootstrap";
+} from '../../actions/legalEntityAction';
 import { legalEntityListTranslation } from "../../translations";
 
 class LegalEntityList extends Component {
@@ -17,7 +16,8 @@ class LegalEntityList extends Component {
   }
 
   render() {
-    const { legalEntities, legalEntity } = this.props.legalEntity;
+    const {legalEntityList} =  this.props.legalEntity || {};
+    const {createLegalEntity, updateLegalEntity, getLegalEntity, deleteLegalEntity } = this.props || {};
     const translation = legalEntityListTranslation || {};
     const { Header } = translation;
     return (
@@ -28,12 +28,11 @@ class LegalEntityList extends Component {
               <div className="card-body">
                 <h3>{Header.heading}</h3>
                 <LegalEntityTable
-                  legalEntities={legalEntities}
-                  createLegalEntity={this.props.createLegalEntity}
-                  updateLegalEntity={this.props.updateLegalEntity}
-                  getLegalEntity={this.props.getLegalEntity}
-                  legalEntityForUpdate={legalEntity}
-                  deleteLegalEntity={this.props.deleteLegalEntity}
+                  legalEntityList={legalEntityList}
+                  createLegalEntity={createLegalEntity}
+                  updateLegalEntity={updateLegalEntity}
+                  getLegalEntity={getLegalEntity}
+                  deleteLegalEntity={deleteLegalEntity}
                 />
 
                 <div id="msg" />

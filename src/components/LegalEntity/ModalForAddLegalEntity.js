@@ -1,34 +1,30 @@
-import React, { Component } from "react";
-import classnames from "classnames";
-import { Link } from "react-router-dom";
-import { Modal, Button } from "react-bootstrap";
-import { Statement } from "../../../src/globals";
-import {
-  legalEntityModalForAddAndUpdateTranslation,
-  legalEntityModalForAddAndUpdateTranslationea,
-} from "../../translations";
-
-class AddModalLegalEntity extends Component {
+import React, {Component} from 'react';
+import classnames from 'classnames';
+import {Link} from 'react-router-dom';
+import {Modal, Button} from 'react-bootstrap';
+import {Statement} from '../../../src/globals';
+import {legalEntityModalForAddAndUpdateTranslation} from '../../translations';
+class ModalForAddLegalEntity extends Component {
   constructor() {
     super();
 
     this.state = {
-      name: "",
-      pib: "",
-      email: "",
-      statment: "",
+      name: '',
+      pib: '',
+      email: '',
+      statment: '',
       errors: {},
     };
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
-      this.setState({ errors: nextProps.errors });
+      this.setState({errors: nextProps.errors});
     }
   }
 
   onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({[e.target.name]: e.target.value});
   };
 
   onSubmit = (e) => {
@@ -41,22 +37,17 @@ class AddModalLegalEntity extends Component {
       statment: this.state.statment,
       errors: {},
     };
-
     this.props.handleAdd(newLegalEntity);
   };
 
   render() {
-    const { errors } = this.state;
-    const { show, closeModal } = this.props || {};
+    const {errors} = this.state;
+    const {show, closeModal} = this.props || {};
     const translation = legalEntityModalForAddAndUpdateTranslation || {};
-    const { Header, SelectOptionsAndPlaceholders } = translation;
+    const {Header, SelectOptionsAndPlaceholders} = translation;
     return (
       <div>
-        <Modal
-          show={show}
-          onHide={closeModal}
-          onRequest={closeModal}
-        >
+        <Modal show={show} onHide={closeModal} centered>
           <Modal.Header closeButton>
             <h4>{Header.headingAddModal}</h4>
           </Modal.Header>
@@ -70,10 +61,12 @@ class AddModalLegalEntity extends Component {
                     <div className="form-group">
                       <input
                         type="text"
-                        className={classnames("form-control", {
-                          "is-invalid": errors.name,
+                        className={classnames('form-control', {
+                          'is-invalid': errors.name,
                         })}
-                      placeholder={SelectOptionsAndPlaceholders.namePlaceholder}
+                        placeholder={
+                          SelectOptionsAndPlaceholders.namePlaceholder
+                        }
                         name="name"
                         value={this.state.name}
                         onChange={this.onChange}
@@ -85,10 +78,12 @@ class AddModalLegalEntity extends Component {
                     <div className="form-group">
                       <input
                         type="text"
-                        className={classnames("form-control", {
-                          "is-invalid": errors.pib,
+                        className={classnames('form-control', {
+                          'is-invalid': errors.pib,
                         })}
-                        placeholder={SelectOptionsAndPlaceholders.pibPlaceholder}
+                        placeholder={
+                          SelectOptionsAndPlaceholders.pibPlaceholder
+                        }
                         name="pib"
                         value={this.state.pib}
                         onChange={this.onChange}
@@ -100,10 +95,12 @@ class AddModalLegalEntity extends Component {
                     <div className="form-group">
                       <input
                         type="text"
-                        className={classnames("form-control", {
-                          "is-invalid": errors.email,
+                        className={classnames('form-control', {
+                          'is-invalid': errors.email,
                         })}
-                        placeholder={SelectOptionsAndPlaceholders.emailPlaceholder}
+                        placeholder={
+                          SelectOptionsAndPlaceholders.emailPlaceholder
+                        }
                         name="email"
                         value={this.state.email}
                         onChange={this.onChange}
@@ -115,18 +112,22 @@ class AddModalLegalEntity extends Component {
 
                     <div className="form-group">
                       <select
-                      placeholder =  {SelectOptionsAndPlaceholders.statementPlaceholder}
+                        placeholder={
+                          SelectOptionsAndPlaceholders.statementPlaceholder
+                        }
                         className="form-control form-control-lg"
                         name="statment"
                         value={this.state.statment}
                         onChange={this.onChange}
-                        style={{ fontSize: "1rem" }}
+                        style={{fontSize: '1rem'}}
                       >
-                        <option value={Statement.PASSIVE.value}>{SelectOptionsAndPlaceholders.statementPlaceholder}</option>
-                        <option value={Statement.ACTIVE.value}>
+                        <option value="">
+                          {SelectOptionsAndPlaceholders.statementOption}
+                        </option>
+                        <option value={0}>
                           {Statement.ACTIVE.translation}
                         </option>
-                        <option value={Statement.PASSIVE.value}>
+                        <option value={1}>
                           {Statement.PASSIVE.translation}
                         </option>
                       </select>
@@ -138,11 +139,7 @@ class AddModalLegalEntity extends Component {
                       )}
                     </div>
 
-                    <Button
-                      variant="success"
-                      to="/processTypeList"
-                      type="submit"
-                    >
+                    <Button variant="success" type="submit">
                       <i class="fas fa-check fa-2x"></i>
                     </Button>
                   </form>
@@ -157,4 +154,4 @@ class AddModalLegalEntity extends Component {
   }
 }
 
-export default AddModalLegalEntity;
+export default ModalForAddLegalEntity;

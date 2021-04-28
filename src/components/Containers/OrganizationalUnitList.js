@@ -26,8 +26,8 @@ class OraganizationalUnitList extends Component {
 
   render() {
     const {
-      organizationalUnits,
-      legalEntities,
+      organizationalUnitList,
+      legalEntityList,
       createNewOrganizationalUnit,
       updateOrganizationalUnit,
       getOrganizationalUnit,
@@ -49,12 +49,12 @@ class OraganizationalUnitList extends Component {
               </div>
               <div className="card-body">
                 <OrganizationalUnitTable
-                  organizationalUnits={organizationalUnits}
+                  organizationalUnitList={organizationalUnitList}
                   createNewOrganizationalUnit={createNewOrganizationalUnit}
                   updateOrganizationalUnit={updateOrganizationalUnit}
                   getOrganizationalUnit={getOrganizationalUnit}
                   deleteOrganizationalUnit={deleteOrganizationalUnit}
-                  legalEntities={legalEntities}
+                  legalEntityList={legalEntityList}
                   error={error}
                   resetError={resetError}
                 />
@@ -69,9 +69,9 @@ class OraganizationalUnitList extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  organizationalUnits: state.organizationalUnit.organizationalUnits,
-  legalEntities: state.legalEntity.legalEntities,
-  error: state.error,
+  organizationalUnitList: state.organizationalUnit.organizationalUnitList,
+  legalEntityList: state.legalEntity.legalEntityList,
+  errors: state.error,
 });
 
 export default connect(mapStateToProps, {

@@ -2,7 +2,7 @@ import {
   ADD_DOCUMENT,
   UPDATE_DOCUMENT,
   GET_DOCUMENT,
-  GET_DOCUMENTS,
+  GET_DOCUMENT_LIST,
   DELETE_DOCUMENT,
   ADD_CASE_DOCUMENT_DTO,
   VERIFICATION_DOCUMENT,
@@ -10,10 +10,10 @@ import {
   SINGED_DOCUMENT,
   FINAL_DOCUMENT,
   GET_DOCUMENT_LIST_BY_CASE,
-} from "../actions/types";
+} from '../actions/types';
 
 const initialState = {
-  documents: [],
+  documentList: [],
   document: {},
 };
 
@@ -22,7 +22,7 @@ export default function (state = initialState, action) {
     case ADD_DOCUMENT:
       return {
         ...state,
-        documents: state.documents.concat(action.payload),
+        documentList: state.documentList.concat(action.payload),
       };
 
     case UPDATE_DOCUMENT:
@@ -35,7 +35,13 @@ export default function (state = initialState, action) {
         ...state,
         document: action.payload,
       };
-    case GET_DOCUMENTS:
+    case GET_DOCUMENT_LIST:
+      return {
+        ...state,
+        documentList: action.payload,
+      };
+
+    case GET_DOCUMENT_LIST_BY_CASE:
       return {
         ...state,
         documents: action.payload,
@@ -49,7 +55,7 @@ export default function (state = initialState, action) {
     case DELETE_DOCUMENT:
       return {
         ...state,
-        documents: state.documents.filter(
+        documentList: state.documentList.filter(
           (document) => document.id !== action.payload
         ),
       };
@@ -57,7 +63,7 @@ export default function (state = initialState, action) {
     case ADD_CASE_DOCUMENT_DTO:
       return {
         ...state,
-        documents: state.documents.concat(action.payload),
+        documentList: state.documentList.concat(action.payload),
       };
 
     case VERIFICATION_DOCUMENT:

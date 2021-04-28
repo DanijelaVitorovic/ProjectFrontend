@@ -72,11 +72,7 @@ class ModalForUpdateLegalEntity extends Component {
     const {Header, SelectOptionsAndPlaceholders} = translation;
     return (
       <div>
-        <Modal
-          show={show}
-          onHide={closeModal}
-          onRequest={closeModal}
-        >
+        <Modal show={show} onHide={closeModal} centered>
           <Modal.Header closeButton>
             <h4>{Header.headingUpdateModal}</h4>
           </Modal.Header>
@@ -91,10 +87,12 @@ class ModalForUpdateLegalEntity extends Component {
                     <div className="form-group">
                       <input
                         type="text"
-                        className={classnames("form-control", {
-                          "is-invalid": errors.name,
+                        className={classnames('form-control', {
+                          'is-invalid': errors.name,
                         })}
-                        placeholder={SelectOptionsAndPlaceholders.namePlaceholder}
+                        placeholder={
+                          SelectOptionsAndPlaceholders.namePlaceholder
+                        }
                         name="name"
                         value={this.state.name}
                         onChange={this.onChange}
@@ -106,10 +104,12 @@ class ModalForUpdateLegalEntity extends Component {
                     <div className="form-group">
                       <input
                         type="text"
-                        className={classnames("form-control", {
-                          "is-invalid": errors.pib,
+                        className={classnames('form-control', {
+                          'is-invalid': errors.pib,
                         })}
-                        placeholder={SelectOptionsAndPlaceholders.pibPlaceholder}
+                        placeholder={
+                          SelectOptionsAndPlaceholders.pibPlaceholder
+                        }
                         name="pib"
                         value={this.state.pib}
                         onChange={this.onChange}
@@ -121,10 +121,12 @@ class ModalForUpdateLegalEntity extends Component {
                     <div className="form-group">
                       <input
                         type="text"
-                        className={classnames("form-control", {
-                          "is-invalid": errors.email,
+                        className={classnames('form-control', {
+                          'is-invalid': errors.email,
                         })}
-                        placeholder={SelectOptionsAndPlaceholders.emailPlaceholder}
+                        placeholder={
+                          SelectOptionsAndPlaceholders.emailPlaceholder
+                        }
                         name="email"
                         value={this.state.email}
                         onChange={this.onChange}
@@ -136,16 +138,24 @@ class ModalForUpdateLegalEntity extends Component {
 
                     <div className="form-group">
                       <select
-                      placeholder = {SelectOptionsAndPlaceholders.statementPlaceholder}
+                        placeholder={
+                          SelectOptionsAndPlaceholders.statementPlaceholder
+                        }
                         className="form-control form-control-lg"
                         name="statment"
                         value={this.state.statment}
                         onChange={this.onChange}
-                        style={{ fontSize: "1rem" }}
+                        style={{fontSize: '1rem'}}
                       >
-                        <option value={2}>{SelectOptionsAndPlaceholders.statementOption}</option>
-                        <option value={0}>{SelectOptionsAndPlaceholders.statementOptionActive}</option>
-                        <option value={1}>{SelectOptionsAndPlaceholders.statementOptionPassive}</option>
+                        <option value={2}>
+                          {SelectOptionsAndPlaceholders.statementOption}
+                        </option>
+                        <option value={0}>
+                          {SelectOptionsAndPlaceholders.statementOptionActive}
+                        </option>
+                        <option value={1}>
+                          {SelectOptionsAndPlaceholders.statementOptionPassive}
+                        </option>
                       </select>
 
                       {errors.statment && (

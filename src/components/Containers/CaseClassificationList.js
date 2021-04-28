@@ -20,7 +20,7 @@ class CaseClassificationList extends Component {
   render() {
     const { caseClassification, caseClassificationList } =
       this.props.caseClassification || {};
-    const { organizationalUnits } = this.props.organizationalUnit || {};
+    const { organizationalUnitList } = this.props.organizationalUnit || {};
     const {
       getCaseClassification,
       createCaseClassification,
@@ -42,7 +42,7 @@ class CaseClassificationList extends Component {
                 <div className="card-body"></div>
                 <CaseClassificationTable
                   caseClassificationList={caseClassificationList}
-                  organizationalUnits={organizationalUnits}
+                  organizationalUnitList={organizationalUnitList}
                   createCaseClassification={createCaseClassification}
                   updateCaseClassification={updateCaseClassification}
                   getCaseClassification={getCaseClassification}

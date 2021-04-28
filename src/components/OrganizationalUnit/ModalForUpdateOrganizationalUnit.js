@@ -65,16 +65,11 @@ class ModalForUpdateOrganizationalUnit extends Component {
 
   render() {
     const { errors } = this.state;
-    const {legalEntities, show, closeModal} = this.props || {};
+    const {legalEntityList, show, closeModal} = this.props || {};
     const translation = organizationalUnitModalForAddAndUpdateTranslation || {};
     const {Header, SelectOptionsAndPlaceholders} = translation;
     return (
-      <Modal
-        show={show}
-        onHide={closeModal}
-        onRequest={closeModal}
-        size= "lg"
-      >
+      <Modal show={show} onHide={closeModal} size="lg">
         <Modal.Header closeButton>
           <h4>{Header.headingUpdateModal}</h4>
         </Modal.Header>
@@ -88,8 +83,8 @@ class ModalForUpdateOrganizationalUnit extends Component {
                   <div className="form-group">
                     <input
                       type="text"
-                      className={classnames("form-control", {
-                        "is-invalid": errors.name,
+                      className={classnames('form-control', {
+                        'is-invalid': errors.name,
                       })}
                       placeholder={SelectOptionsAndPlaceholders.namePlaceholder}
                       name="name"
@@ -104,8 +99,8 @@ class ModalForUpdateOrganizationalUnit extends Component {
                   <div className="form-group">
                     <input
                       type="text"
-                      className={classnames("form-control", {
-                        "is-invalid": errors.code,
+                      className={classnames('form-control', {
+                        'is-invalid': errors.code,
                       })}
                       placeholder={SelectOptionsAndPlaceholders.codePlaceholder}
                       name="code"
@@ -120,17 +115,19 @@ class ModalForUpdateOrganizationalUnit extends Component {
                   <div className="form-group">
                     <select
                       className="form-control form-control-lg"
-                      legalEntities={legalEntities}
+                      legalEntityList={legalEntityList}
                       name="legalEntity"
-                      placeholder={SelectOptionsAndPlaceholders.legalEntityPlaceholder}
+                      placeholder={
+                        SelectOptionsAndPlaceholders.legalEntityPlaceholder
+                      }
                       onChange={this.onChangeCombo}
-                      style={{ fontSize: "1rem" }}
+                      style={{fontSize: '1rem'}}
                       value={this.state.legalEntity.id}
                     >
                       <option value="" selected disabled>
                         {SelectOptionsAndPlaceholders.legalEntityOption}
                       </option>
-                      {legalEntities.map((legalEntity) => {
+                      {legalEntityList.map((legalEntity) => {
                         return (
                           <option value={legalEntity.id}>
                             {legalEntity.name}

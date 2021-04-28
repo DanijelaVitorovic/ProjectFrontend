@@ -1,11 +1,11 @@
 export const Statement = {
   ACTIVE: {
-    value: "ACTIVE",
+    value: "0",
     translation: "Активан",
     color: "green",
   },
   PASSIVE: {
-    value: "PASSIVE",
+    value: "1",
     translation: "Пасиван",
     color: "red",
   },

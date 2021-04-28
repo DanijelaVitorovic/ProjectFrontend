@@ -1,18 +1,18 @@
-import React, { Component } from "react";
-import { Modal, ModalFooter, Card } from "react-bootstrap";
-import { handleErrorMessage } from "../../globals";
-import classnames from "classnames";
+import React, {Component} from 'react';
+import {Modal, ModalFooter, Card} from 'react-bootstrap';
+import {handleErrorMessage} from '../../globals';
+import classnames from 'classnames';
 import {
   caseClassificationValidationsTranslation,
   caseClassificationTranslation,
-} from "../../translations";
+} from '../../translations';
 
 class ModalForUpdateCaseClassification extends Component {
   constructor() {
     super();
     this.state = {
-      code: "",
-      name: "",
+      code: '',
+      name: '',
       organizationalUnit: {
         id: 0,
       },
@@ -29,6 +29,7 @@ class ModalForUpdateCaseClassification extends Component {
       code,
       name,
       organizationalUnit,
+      organizationalUnitList,
     } = nextProps.caseClassificationForUpdate;
 
     this.setState({
@@ -39,32 +40,54 @@ class ModalForUpdateCaseClassification extends Component {
   }
 
   onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({[e.target.name]: e.target.value});
   };
 
   onChangeCombo = (e) => {
-    this.setState({ [e.target.name]: { id: e.target.value } });
+    this.setState({[e.target.name]: {id: e.target.value}});
   };
 
   handleValidation = () => {
     const translationValidation = caseClassificationValidationsTranslation;
-    const { Modals } = translationValidation;
+    const {Modals} = translationValidation;
 
     let errors = {};
     let hasErrors = false;
-    let { code, name } = this.state;
+    let {code, name} = this.state;
 
     if (code.length < 1) {
-      errors["code"] = Modals.code;
+      errors['code'] = Modals.code;
       hasErrors = true;
     }
 
     if (name.length < 2) {
-      errors["name"] = Modals.name;
+      errors['name'] = Modals.name;
       hasErrors = true;
     }
 
-    this.setState({ errors: errors });
+    this.setState({errors: errors});
+    return hasErrors;
+  };
+
+  handleValidation = () => {
+    const translationValidation = caseClassificationValidationsTranslation;
+    const {Modals} = translationValidation;
+
+    let errors = {};
+    let hasErrors = false;
+    let {code, name} = this.state;
+
+    if (code.length < 1) {
+      errors['code'] = Modals.code;
+      hasErrors = true;
+    }
+
+    if (name.length < 2) {
+      errors['name'] = Modals.name;
+      hasErrors = true;
+    }
+
+    this.setState({errors: errors});
     return hasErrors;
   };
 
@@ -79,14 +102,14 @@ class ModalForUpdateCaseClassification extends Component {
       id: this.props.id,
       code: this.state.code,
       name: this.state.name,
-      organizationalUnit: { id: this.state.organizationalUnit.id },
+      organizationalUnit: {id: this.state.organizationalUnit.id},
     };
     this.props.handleUpdate(updatedCaseClassification);
   };
 
   render() {
-    const { show, closeModal, organizationalUnits } = this.props || {};
-    const { errors } = this.state;
+    const {show, closeModal, organizationalUnitList} = this.props || {};
+    const {errors} = this.state;
 
     return (
       <Modal
@@ -97,7 +120,7 @@ class ModalForUpdateCaseClassification extends Component {
         centered
         animation
       >
-        <Card bg={"white"} text={"black"}>
+        <Card bg={'white'} text={'black'}>
           <Modal.Header closeButton></Modal.Header>
 
           <div className="register">
@@ -112,8 +135,8 @@ class ModalForUpdateCaseClassification extends Component {
                     <div className="form-group">
                       <input
                         type="text"
-                        className={classnames("form-control", {
-                          "is-invalid": errors.code,
+                        className={classnames('form-control', {
+                          'is-invalid': errors.code,
                         })}
                         placeholder={
                           caseClassificationTranslation.codePlaceholder
@@ -125,7 +148,7 @@ class ModalForUpdateCaseClassification extends Component {
                       {handleErrorMessage(errors.code) && (
                         <span
                           className="invalid-feedback"
-                          style={{ fontSize: 16, color: "red" }}
+                          style={{fontSize: 16, color: 'red'}}
                         >
                           {errors.code}
                         </span>
@@ -134,8 +157,8 @@ class ModalForUpdateCaseClassification extends Component {
                     <div className="form-group">
                       <input
                         type="text"
-                        className={classnames("form-control", {
-                          "is-invalid": errors.name,
+                        className={classnames('form-control', {
+                          'is-invalid': errors.name,
                         })}
                         placeholder={
                           caseClassificationTranslation.namePlaceholder
@@ -147,7 +170,7 @@ class ModalForUpdateCaseClassification extends Component {
                       {handleErrorMessage(errors.name) && (
                         <span
                           className="invalid-feedback"
-                          style={{ fontSize: 16, color: "red" }}
+                          style={{fontSize: 16, color: 'red'}}
                         >
                           {errors.name}
                         </span>
@@ -156,7 +179,7 @@ class ModalForUpdateCaseClassification extends Component {
 
                     <div className="form-group">
                       <select
-                        organizationalUnits={organizationalUnits}
+                        organizationalUnitList={organizationalUnitList}
                         onChange={this.onChangeCombo}
                         className="form-control form-control-lg"
                         placeholder="Изаберите на кога се односи"
@@ -168,7 +191,7 @@ class ModalForUpdateCaseClassification extends Component {
                             caseClassificationTranslation.organizationalUnitSelect
                           }
                         </option>
-                        {organizationalUnits.map((organizationalUnit) => {
+                        {organizationalUnitList.map((organizationalUnit) => {
                           return (
                             <option value={organizationalUnit.id}>
                               {organizationalUnit.name}

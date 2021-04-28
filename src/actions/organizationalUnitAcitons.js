@@ -70,20 +70,14 @@ export const getOrganizationalUnits = () => async (dispatch) => {
 };
 
 export const deleteOrganizationalUnit = (id) => async (dispatch) => {
-  if (
-    window.confirm(
-      "Da li si siguran da zelis da obrises organizacionu jedinicu?"
-    )
-  ) {
-    await axios
-      .delete(`/api/organizationalUnit/delete/${id}`)
-      .then((response) => {
-        dispatch({
-          type: DELETE_ORGANIZATIONAL_UNIT,
-          payload: id,
-        });
+  await axios
+    .delete(`/api/organizationalUnit/delete/${id}`)
+    .then((response) => {
+      dispatch({
+        type: DELETE_ORGANIZATIONAL_UNIT,
+        payload: id,
       });
-  }
+    });
 };
 
 export const resetError = () => {

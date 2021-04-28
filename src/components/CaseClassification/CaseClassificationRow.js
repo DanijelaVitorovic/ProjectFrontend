@@ -32,7 +32,7 @@ class CaseClassificationRow extends Component {
     const {
       caseClassification,
       getCaseClassification,
-      organizationalUnits,
+      organizationalUnitList,
       caseClassificationForUpdate,
     } = this.props || {};
 
@@ -69,7 +69,7 @@ class CaseClassificationRow extends Component {
             handleUpdate={this.handleUpdate}
             id={caseClassification.id}
             getCaseClassification={getCaseClassification}
-            organizationalUnits={organizationalUnits}
+            organizationalUnitList={organizationalUnitList}
             caseClassificationForUpdate={caseClassificationForUpdate}
           />
         )}

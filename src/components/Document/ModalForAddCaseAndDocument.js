@@ -117,7 +117,7 @@ class ModalForAddCaseAndDocument extends Component {
   };
 
   getStepContent = (step) => {
-    const { employees, physicalEntities } = this.props || {};
+    const {employeeList, physicalEntityList} = this.props || {};
     const translation = CaseModalForAddAndUpdateTranslation || {};
     const { SelectOptionsAndPlaceholders, Header } = translation;
     const translation1 = documentModalForAddAndUpdateTranslation || {};
@@ -128,12 +128,12 @@ class ModalForAddCaseAndDocument extends Component {
     switch (step) {
       case 0:
         return (
-          <div style={{ height: 300, paddingTop: 40 }}>
+          <div style={{height: 300, paddingTop: 40}}>
             <div className="form-group">
               <input
                 type="text"
-                className={classnames("form-control", {
-                  "is-invalid": errors.caseName,
+                className={classnames('form-control', {
+                  'is-invalid': errors.caseName,
                 })}
                 placeholder={SelectOptionsAndPlaceholders.caseNamePlaceholder}
                 name="caseName"
@@ -143,7 +143,7 @@ class ModalForAddCaseAndDocument extends Component {
               {handleErrorMessage(errors.caseName) && (
                 <span
                   className="invalid-feedback"
-                  style={{ fontSize: 16, color: "red" }}
+                  style={{fontSize: 16, color: 'red'}}
                 >
                   {errors.caseName}
                 </span>
@@ -161,17 +161,17 @@ class ModalForAddCaseAndDocument extends Component {
             </div>
             <div className="form-group">
               <select
-                physicalEntities={physicalEntities}
+                physicalEntityList={physicalEntityList}
                 onChange={this.onChange}
-                className={classnames("form-control", {
-                  "is-invalid": errors.refersTo,
+                className={classnames('form-control', {
+                  'is-invalid': errors.refersTo,
                 })}
                 name="refersTo"
               >
                 <option value="" selected disabled>
                   {SelectOptionsAndPlaceholders.refersToOption}
                 </option>
-                {physicalEntities.map((physicalEntity) => {
+                {physicalEntityList.map((physicalEntity) => {
                   return (
                     <option value={physicalEntity.id}>
                       {getPhysicalEntityName(physicalEntity)}
@@ -182,7 +182,7 @@ class ModalForAddCaseAndDocument extends Component {
               {handleErrorMessage(errors.refersTo) && (
                 <span
                   className="invalid-feedback"
-                  style={{ fontSize: 16, color: "red" }}
+                  style={{fontSize: 16, color: 'red'}}
                 >
                   {errors.refersTo}
                 </span>
@@ -291,7 +291,7 @@ class ModalForAddCaseAndDocument extends Component {
                 className={classnames("form-control", {
                   "is-invalid": errors.employeeCreated,
                 })}
-                employees={employees}
+                employeeList={employeeList}
                 name="employeeCreated"
                 placeholder={SelectOptionsAndPlaceholders1.employeePlaceholder}
                 onChange={this.onChange}
@@ -300,7 +300,7 @@ class ModalForAddCaseAndDocument extends Component {
                 <option value="" selected disabled>
                   {SelectOptionsAndPlaceholders1.employeeOption}
                 </option>
-                {employees.map((employee) => {
+                {employeeList.map((employee) => {
                   return (
                     <option value={employee.id}>
                       {getEmployeeName(employee)}

@@ -1,9 +1,9 @@
-import React, { Component, Fragment } from "react";
-import { Button, Badge } from "react-bootstrap";
-import ModalForUpdateOrganizationalUnit from "./ModalForUpdateOrganizationalUnit";
-import button from "../Reusable/button.css";
-import UpdateButton from "../Reusable/UpdateButton";
-import DeleteButton from "../Reusable/DeleteButton";
+import React, {Component, Fragment} from 'react';
+import ModalForUpdateOrganizationalUnit from './ModalForUpdateOrganizationalUnit';
+import UpdateButton from '../Reusable/UpdateButton';
+import DeleteButton from '../Reusable/DeleteButton';
+import ConfirmAlert from '../Reusable/ConfirmAlert';
+import {organizationalUnitRowTranslation} from '../../translations';
 
 export default class OrganizationalUnitRow extends Component {
   constructor() {
@@ -15,15 +15,15 @@ export default class OrganizationalUnitRow extends Component {
   }
 
   showModal = () => {
-    this.setState({ show: true });
+    this.setState({show: true});
   };
 
   closeModal = () => {
-    this.setState({ show: false });
+    this.setState({show: false});
   };
 
   onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({[e.target.name]: e.target.value});
   };
 
   handleUpdate = (updatedOrganizationalUnit) => {
@@ -32,14 +32,17 @@ export default class OrganizationalUnitRow extends Component {
   };
 
   onDeleteClick = (id) => {
-    this.props.deleteOrganizationalUnit(id);
+    const translation = organizationalUnitRowTranslation;
+    const {deleteString} = translation;
+    const {deleteOrganizationalUnit} = this.props || {};
+    ConfirmAlert(id, deleteOrganizationalUnit, deleteString);
   };
 
   render() {
     const {
       organizationalUnit,
       getOrganizationalUnit,
-      legalEntities,
+      legalEntityList,
       getLegalEntity,
     } = this.props || {};
     const row = (
@@ -73,7 +76,7 @@ export default class OrganizationalUnitRow extends Component {
           closeModal={this.closeModal}
           handleUpdate={this.handleUpdate}
           getOrganizationalUnit={getOrganizationalUnit}
-          legalEntities={legalEntities}
+          legalEntityList={legalEntityList}
           getLegalEntity={getLegalEntity}
         />
       </Fragment>

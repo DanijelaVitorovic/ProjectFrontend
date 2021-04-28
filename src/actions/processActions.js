@@ -45,13 +45,9 @@ export const getProcessess = () => async (dispatch) => {
 };
 
 export const deleteProcess = (id) => async (dispatch) => {
-  if (
-    window.confirm("Da li zaista želite da trajno obrišete odabrani proces?")
-  ) {
-    await axios.delete(`/api/process/delete/${id}`);
-    dispatch({
-      type: DELETE_PROCESS,
-      payload: id,
-    });
-  }
+  await axios.delete(`/api/process/delete/${id}`);
+  dispatch({
+    type: DELETE_PROCESS,
+    payload: id,
+  });
 };

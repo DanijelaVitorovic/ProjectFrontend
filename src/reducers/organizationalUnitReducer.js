@@ -4,10 +4,10 @@ import {
   GET_ORGANIZATIONAL_UNIT,
   GET_ORGANIZATIONAL_UNITS,
   DELETE_ORGANIZATIONAL_UNIT,
-} from "../actions/types";
+} from '../actions/types';
 
 const initialState = {
-  organizationalUnits: [],
+  organizationalUnitList: [],
   organizationalUnit: {},
 };
 
@@ -16,7 +16,9 @@ export default function (state = initialState, action) {
     case ADD_ORGANIZATIONAL_UNIT:
       return {
         ...state,
-        organizationalUnits: state.organizationalUnits.concat(action.payload),
+        organizationalUnitList: state.organizationalUnitList.concat(
+          action.payload
+        ),
       };
     case UPDATE_ORGANIZATIONAL_UNIT:
       return {
@@ -36,12 +38,12 @@ export default function (state = initialState, action) {
     case GET_ORGANIZATIONAL_UNITS:
       return {
         ...state,
-        organizationalUnits: action.payload,
+        organizationalUnitList: action.payload,
       };
     case DELETE_ORGANIZATIONAL_UNIT:
       return {
         ...state,
-        organizationalUnits: state.organizationalUnits.filter(
+        organizationalUnitList: state.organizationalUnitList.filter(
           (organizationalUnit) => organizationalUnit.id != action.payload
         ),
       };

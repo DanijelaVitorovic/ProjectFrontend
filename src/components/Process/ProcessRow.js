@@ -4,6 +4,9 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { Button, Badge } from "react-bootstrap";
 import ModalForUpdateProcess from "./ModalForUpdateProcess";
+import DeleteButton from "../Reusable/DeleteButton";
+import ConfirmAlert from '../Reusable/ConfirmAlert';
+import { processRowTranslation } from "../../translations";
 
 class ProcessRow extends Component {
   constructor() {
@@ -32,16 +35,25 @@ class ProcessRow extends Component {
   };
 
   onDeleteClick = (id) => {
-    this.props.deleteProcess(id);
+      const translation = processRowTranslation;
+      const {deleteString} = translation;
+    const {deleteProcess} = this.props || {};
+    ConfirmAlert(id, deleteProcess, deleteString);
   };
 
   render() {
+    const {
+      process,
+      getProcess,
+      processList,
+      processTypeList,
+    } = this.props || {};
     const row = (
       <tr>
-        <td>{this.props.process.id}</td>
-        <td>{this.props.process.processType.type}</td>
-        <td>{this.props.process.processType.description}</td>
-        <td>{this.props.process.nextCaseStatus}</td>
+        <td>{process?.id}</td>
+        <td>{process?.processType?.type}</td>
+        <td>{process?.processType?.description}</td>
+        <td>{process?.nextCaseStatus}</td>
         <td className="text-center">
           <Button
             variant="link"
@@ -53,11 +65,7 @@ class ProcessRow extends Component {
           </Button>
         </td>
         <td className="text-center">
-          <Badge pill variant="danger">
-            <div onClick={() => this.onDeleteClick(this.props.process.id)}>
-              <i className="fas fa-trash-alt fa-2x" />
-            </div>
-          </Badge>
+          <DeleteButton onDeleteClick={this.onDeleteClick} id={process?.id} />
         </td>
       </tr>
     );
@@ -67,11 +75,14 @@ class ProcessRow extends Component {
         {row}
         {this.state.show && (
           <ModalForUpdateProcess
+          id = {process.id}
           show={this.state.show}
-          processForUpdate={this.props.processForUpdate}
+          processForUpdate={process}
           closeModal={this.closeModal}
           handleUpdate={this.handleUpdate}
-          getProcess={this.props.getProcess}
+          getProcess={getProcess}
+          processList = {processList}
+          processTypeList = {processTypeList}
         />
         )}
       </Fragment>

@@ -1,46 +1,65 @@
-import React, { Component } from "react";
-import { Modal, Button } from "react-bootstrap";
-import classnames from "classnames";
-import { DocumentType, documentStatus } from "../../../src/globals";
-import { documentModalForAddAndUpdateTranslation } from "../../translations";
-import { getEmployeeName } from "../../globals";
-import { handleErrorMessage } from "../../globals";
+import React, {Component} from 'react';
+import {Modal, Button} from 'react-bootstrap';
+import classnames from 'classnames';
+import {DocumentType, documentStatus} from '../../../src/globals';
+import {documentModalForAddAndUpdateTranslation} from '../../translations';
+import {getEmployeeName} from '../../globals';
+import {handleErrorMessage} from '../../globals';
 
 class ModalForAddDocument extends Component {
   constructor() {
     super();
 
     this.state = {
-      title: "",
-      description: "",
-      documentType: "",
-      documentStatus: "PROCEEDING",
-      employeeCreated: "",
-      _case: "",
+      title: '',
+      description: '',
+      documentType: '',
+      documentStatus: 'PROCEEDING',
+      employeeCreated: '',
+      _case: '',
       errors: {},
     };
   }
 
   onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({[e.target.name]: e.target.value});
   };
 
   handleValidation = () => {
     let errors = {};
     let hasErrors = false;
-    let { title, employeeCreated } = this.state;
+    let {title, employeeCreated} = this.state;
 
     if (title.length < 2) {
-      errors["title"] = "Морате унети наслов предмета";
+      errors['title'] = 'Морате унети наслов предмета';
       hasErrors = true;
     }
 
     if (!employeeCreated) {
-      errors["employeeCreated"] = "Морате унети запослено лице";
+      errors['employeeCreated'] = 'Морате унети запослено лице';
       hasErrors = true;
     }
 
-    this.setState({ errors: errors });
+    this.setState({errors: errors});
+    return hasErrors;
+  };
+
+  handleValidation = () => {
+    let errors = {};
+    let hasErrors = false;
+    let {title, employeeCreated} = this.state;
+
+    if (title.length < 2) {
+      errors['title'] = 'Морате унети наслов предмета';
+      hasErrors = true;
+    }
+
+    if (!employeeCreated) {
+      errors['employeeCreated'] = 'Морате унети запослено лице';
+      hasErrors = true;
+    }
+
+    this.setState({errors: errors});
     return hasErrors;
   };
 
@@ -56,27 +75,20 @@ class ModalForAddDocument extends Component {
       description: this.state.description,
       documentType: this.state.documentType,
       documentStatus: this.state.documentStatus,
-      employeeCreated: { id: this.state.employeeCreated },
-      _case: { id: this.state._case },
+      employeeCreated: {id: this.state.employeeCreated},
+      _case: {id: this.state._case},
     };
     this.props.handleAdd(newDocument);
   };
 
   render() {
-    const { errors } = this.state;
-    const { employees, caseList, physicalEntities, show, closeModal } =
-      this.props || {};
+    const {errors} = this.state;
+    const {employeeList, caseList, show, closeModal} = this.props || {};
     const translation = documentModalForAddAndUpdateTranslation || {};
-    const { Header, SelectOptionsAndPlaceholders } = translation;
+    const {Header, SelectOptionsAndPlaceholders} = translation;
     return (
       <div>
-        <Modal
-          show={show}
-          onHide={closeModal}
-          onRequest={closeModal}
-          size="lg"
-          centered
-        >
+        <Modal show={show} onHide={closeModal} size="lg" centered>
           <Modal.Header closeButton>
             <h4>{Header.headingAddModal}</h4>
           </Modal.Header>
@@ -90,8 +102,8 @@ class ModalForAddDocument extends Component {
                     <div className="form-group">
                       <input
                         type="text"
-                        className={classnames("form-control", {
-                          "is-invalid": errors.title,
+                        className={classnames('form-control', {
+                          'is-invalid': errors.title,
                         })}
                         placeholder={
                           SelectOptionsAndPlaceholders.titlePlaceholder
@@ -103,7 +115,7 @@ class ModalForAddDocument extends Component {
                       {handleErrorMessage(errors.title) && (
                         <span
                           className="invalid-feedback"
-                          style={{ fontSize: 16, color: "red" }}
+                          style={{fontSize: 16, color: 'red'}}
                         >
                           {errors.title}
                         </span>
@@ -132,7 +144,7 @@ class ModalForAddDocument extends Component {
                         name="documentType"
                         value={this.state.documentType}
                         onChange={this.onChange}
-                        style={{ fontSize: "1rem" }}
+                        style={{fontSize: '1rem'}}
                       >
                         <option value="" selected disabled>
                           {SelectOptionsAndPlaceholders.typeOption}
@@ -153,7 +165,7 @@ class ModalForAddDocument extends Component {
                         }
                         name="documentStatus"
                         value="PROCEEDING"
-                        style={{ fontSize: "1rem" }}
+                        style={{fontSize: '1rem'}}
                       >
                         <option value="" selected disabled>
                           {SelectOptionsAndPlaceholders.statusOption}
@@ -168,21 +180,22 @@ class ModalForAddDocument extends Component {
 
                     <div className="form-group">
                       <select
-                        className={classnames("form-control", {
-                          "is-invalid": errors.employeeCreated,
+                        className="form-control form-control-lg"
+                        employeeList={employeeList}
+                        className={classnames('form-control', {
+                          'is-invalid': errors.employeeCreated,
                         })}
-                        employees={employees}
                         name="employeeCreated"
                         placeholder={
                           SelectOptionsAndPlaceholders.employeePlaceholder
                         }
                         onChange={this.onChange}
-                        style={{ fontSize: "1rem" }}
+                        style={{fontSize: '1rem'}}
                       >
                         <option value="" selected disabled>
                           {SelectOptionsAndPlaceholders.employeeOption}
                         </option>
-                        {employees.map((employee) => {
+                        {employeeList.map((employee) => {
                           return (
                             <option value={employee.id}>
                               {getEmployeeName(employee)}
@@ -193,7 +206,7 @@ class ModalForAddDocument extends Component {
                       {handleErrorMessage(errors.employeeCreated) && (
                         <span
                           className="invalid-feedback"
-                          style={{ fontSize: 16, color: "red" }}
+                          style={{fontSize: 16, color: 'red'}}
                         >
                           {errors.employeeCreated}
                         </span>
@@ -209,7 +222,7 @@ class ModalForAddDocument extends Component {
                           SelectOptionsAndPlaceholders._casePlaceholder
                         }
                         onChange={this.onChange}
-                        style={{ fontSize: "1rem" }}
+                        style={{fontSize: '1rem'}}
                       >
                         <option value="" selected disabled>
                           {SelectOptionsAndPlaceholders._caseOption}

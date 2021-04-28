@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import classnames from "classnames";
 import { Link } from "react-router-dom";
 import { Modal, Button } from "react-bootstrap";
-import { processTypeModalForAddAndUpdateTrasaltion } from "../../translations";
+import {processTypeModalForAddAndUpdateTransaltion} from '../../translations';
 
 class ModalForUpdateProcessType extends Component {
   constructor() {
@@ -20,11 +20,9 @@ class ModalForUpdateProcessType extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps.processTypeForUpdate + "------")
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
     }
-    console.log(nextProps.processTypeForUpdate + "------")
     const { id, type, description } = nextProps.processTypeForUpdate;
 
     this.setState({
@@ -54,16 +52,11 @@ class ModalForUpdateProcessType extends Component {
   render() {
     const { errors } = this.state;
     const {show, closeModal} = this.props || {};
-    const translation = processTypeModalForAddAndUpdateTrasaltion || {};
+    const translation = processTypeModalForAddAndUpdateTransaltion || {};
     const {Header, SelectOptionsAndPlaceholders} = translation;
 
     return (
-      <Modal
-        show={show}
-        onHide={closeModal}
-        onRequest={closeModal}
-        size="lg"
-      >
+      <Modal show={show} onHide={closeModal} size="lg">
         <Modal.Header closeButton>
           <h5>{Header.headingUpdateModal}</h5>
         </Modal.Header>
@@ -77,8 +70,8 @@ class ModalForUpdateProcessType extends Component {
                   <div className="form-group">
                     <input
                       type="text"
-                      className={classnames("form-control", {
-                        "is-invalid": errors.type,
+                      className={classnames('form-control', {
+                        'is-invalid': errors.type,
                       })}
                       placeholder={SelectOptionsAndPlaceholders.typePlaceholder}
                       name="type"
@@ -93,8 +86,8 @@ class ModalForUpdateProcessType extends Component {
                   <div className="form-group">
                     <input
                       type="text"
-                      className={classnames("form-control", {
-                        "is-invalid": errors.description,
+                      className={classnames('form-control', {
+                        'is-invalid': errors.description,
                       })}
                       placeholder={Header.descriptionPlaceholder}
                       name="description"

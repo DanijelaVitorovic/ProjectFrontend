@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 import {
   GET_ERRORS,
   GET_LEGAL_ENTITY,
@@ -6,12 +6,12 @@ import {
   DELETE_LEGAL_ENTITY,
   ADD_LEGAL_ENTITY,
   UPDATE_LEGAL_ENTITY,
-} from "./types";
+} from './types';
 
 export const createLegalEntity = (legalEntity) => async (dispatch) => {
   try {
     await axios
-      .post("/api/legalEntity/create", legalEntity)
+      .post('/api/legalEntity/create', legalEntity)
       .then((response) => {
         dispatch({
           type: ADD_LEGAL_ENTITY,
@@ -29,7 +29,7 @@ export const createLegalEntity = (legalEntity) => async (dispatch) => {
 export const updateLegalEntity = (legalEntity) => async (dispatch) => {
   try {
     await axios
-      .post("/api/legalEntity/update", legalEntity)
+      .post('/api/legalEntity/update', legalEntity)
       .then((response) => {
         dispatch({
           type: UPDATE_LEGAL_ENTITY,
@@ -45,7 +45,7 @@ export const updateLegalEntity = (legalEntity) => async (dispatch) => {
 };
 
 export const getLegalEntites = () => async (dispatch) => {
-  const res = await axios.get("/api/legalEntity/findAll");
+  const res = await axios.get('/api/legalEntity/findAll');
   dispatch({
     type: GET_LEGAL_ENTITIES,
     payload: res.data,
@@ -63,17 +63,9 @@ export const getLegalEntity = (id) => async (dispatch) => {
 };
 
 export const deleteLegalEntity = (id) => async (dispatch) => {
-  if (
-    window.confirm(
-      "Are you sure? This will delete the project and all the data related to it"
-    )
-  ) {
-    try {
-      await axios.delete(`/api/legalEntity/delete/${id}`, id);
-      dispatch({
-        type: DELETE_LEGAL_ENTITY,
-        payload: id,
-      });
-    } catch (e) {}
-  }
+  await axios.delete(`/api/legalEntity/delete/${id}`, id);
+  dispatch({
+    type: DELETE_LEGAL_ENTITY,
+    payload: id,
+  });
 };
