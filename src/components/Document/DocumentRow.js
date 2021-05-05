@@ -1,9 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { Button } from "react-bootstrap";
 import ModalForUpdateDocument from "./ModalForUpdateDocument";
-import {
-  getDocumentEmployeeCreated,
-} from "../../../src/globals";
+import { getDocumentEmployeeCreated } from "../../../src/globals";
 import DeleteButton from "../Reusable/DeleteButton";
 import ConfirmAlert from "../Reusable/ConfirmAlert";
 import { Link } from "react-router-dom";
@@ -19,11 +17,11 @@ export default class DocumentRow extends Component {
   }
 
   showModal = () => {
-    this.setState({show: true});
+    this.setState({ show: true });
   };
 
   closeModal = () => {
-    this.setState({show: false});
+    this.setState({ show: false });
   };
 
   handleUpdate = (updatedDocument) => {
@@ -33,8 +31,8 @@ export default class DocumentRow extends Component {
 
   onDeleteClick = (id) => {
     const translation = documentRowTranslation;
-    const {deleteString} = translation;
-    const {deleteDocument} = this.props || {};
+    const { deleteString } = translation;
+    const { deleteDocument } = this.props || {};
     ConfirmAlert(id, deleteDocument, deleteString);
   };
 

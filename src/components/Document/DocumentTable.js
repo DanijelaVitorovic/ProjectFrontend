@@ -1,16 +1,16 @@
-import React, {Component, Fragment} from 'react';
-import {Button, Col, Row} from 'react-bootstrap';
-import DocumentRow from './DocumentRow';
-import ModalForAddDocument from './ModalForAddDocument';
-import table from './table.css';
-import {documentTableTranslation} from '../../translations';
-import ModalForAddCaseAndDocument from './ModalForAddCaseAndDocument';
-import AddTwoToneIcon from '@material-ui/icons/AddTwoTone';
-import Tooltip from '@material-ui/core/Tooltip';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import {Link} from 'react-router-dom';
-import AddIcon from '@material-ui/icons/Add';
-import IconButton from '@material-ui/core/IconButton';
+import React, { Component, Fragment } from "react";
+import { Button, Col, Row } from "react-bootstrap";
+import DocumentRow from "./DocumentRow";
+import ModalForAddDocument from "./ModalForAddDocument";
+import table from "./table.css";
+import { documentTableTranslation } from "../../translations";
+import ModalForAddCaseAndDocument from "./ModalForAddCaseAndDocument";
+import AddTwoToneIcon from "@material-ui/icons/AddTwoTone";
+import Tooltip from "@material-ui/core/Tooltip";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import { Link } from "react-router-dom";
+import AddIcon from "@material-ui/icons/Add";
+import IconButton from "@material-ui/core/IconButton";
 
 export default class DocumentTable extends Component {
   constructor() {
@@ -22,11 +22,11 @@ export default class DocumentTable extends Component {
   }
 
   showModal = () => {
-    this.setState({show: true});
+    this.setState({ show: true });
   };
 
   closeModal = () => {
-    this.setState({show: false});
+    this.setState({ show: false });
   };
 
   handleAdd = (newDocument) => {
@@ -35,11 +35,11 @@ export default class DocumentTable extends Component {
   };
 
   showModalForAddCaseAndDocument = () => {
-    this.setState({showModalForAddingCaseAndDocument: true});
+    this.setState({ showModalForAddingCaseAndDocument: true });
   };
 
   closeModalForAddCaseAndDocument = () => {
-    this.setState({showModalForAddingCaseAndDocument: false});
+    this.setState({ showModalForAddingCaseAndDocument: false });
   };
 
   handleAddCaseAndDocument = (newCaseDocumentDTO) => {
@@ -61,7 +61,7 @@ export default class DocumentTable extends Component {
     } = this.props || {};
 
     const translation = documentTableTranslation || {};
-    const {HeaderColumns, Buttons} = translation;
+    const { HeaderColumns, Buttons } = translation;
     const documents = documentList.map((document) => (
       <DocumentRow
         key={document.id}
@@ -81,10 +81,10 @@ export default class DocumentTable extends Component {
       <div className="table-responsive tableHeight">
         {!caseProcessingViewSignal && (
           <Fragment>
-            <div align="left" style={{paddingBottom: 20}}>
+            <div align="left" style={{ paddingBottom: 20 }}>
               <Link to={`/dashboard`}>
                 <Tooltip title={Buttons.back} arrow>
-                  <ArrowBackIcon style={{fontSize: 40}} />
+                  <ArrowBackIcon style={{ fontSize: 40 }} />
                 </Tooltip>
               </Link>
 

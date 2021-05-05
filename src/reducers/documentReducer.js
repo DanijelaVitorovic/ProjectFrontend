@@ -10,7 +10,7 @@ import {
   SINGED_DOCUMENT,
   FINAL_DOCUMENT,
   GET_DOCUMENT_LIST_BY_CASE,
-} from '../actions/types';
+} from "../actions/types";
 
 const initialState = {
   documentList: [],
@@ -44,14 +44,9 @@ export default function (state = initialState, action) {
     case GET_DOCUMENT_LIST_BY_CASE:
       return {
         ...state,
-        documents: action.payload,
+        documentList: action.payload,
       };
 
-    case GET_DOCUMENT_LIST_BY_CASE:
-      return {
-        ...state,
-        documents: action.payload,
-      };
     case DELETE_DOCUMENT:
       return {
         ...state,

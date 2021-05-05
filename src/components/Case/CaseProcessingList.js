@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from "react";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import { getCase, getCases } from "../../actions/caseActions";
+import { getCase, getCases, updateCase } from "../../actions/caseActions";
+import { addOwnerToCase } from "../../actions/caseMovementActions";
 import { connect } from "react-redux";
 import {
   CaseModalForAddAndUpdateTranslation,
@@ -32,13 +33,29 @@ import {
   getCaseOwner,
   getCaseRefersTo,
 } from "../../globals";
+import BottomNavigation from "@material-ui/core/BottomNavigation";
+import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
+import RestoreIcon from "@material-ui/icons/Restore";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import LocationOnIcon from "@material-ui/icons/LocationOn";
+import PersonPinIcon from "@material-ui/icons/PersonPin";
+import ModalForAddOwnerToCase from "./ModalForAddOwnerToCase";
+import { resetError } from "../../actions/organizationalUnitAcitons";
+import Alert from "@material-ui/lab/Alert";
 
 class CaseProcessingList extends Component {
   constructor() {
     super();
     this.state = {
       show: false,
+      showModalForAddOwner: false,
     };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.error) {
+      this.setState({ error: nextProps.error });
+    }
   }
 
   showModal = () => {
@@ -52,6 +69,22 @@ class CaseProcessingList extends Component {
   handleAdd = (newDocument) => {
     this.props.createDocument(newDocument);
     this.closeModal();
+  };
+
+  showModalForAddOwnerToCase = () => {
+    this.setState({ showModalForAddOwner: true });
+  };
+
+  closeModalForAddOwnerToCase = () => {
+    this.props.resetError();
+    this.setState({ showModalForAddOwner: false });
+  };
+
+  handleAddOwner = (newCaseMovement) => {
+    this.props.addOwnerToCase(
+      newCaseMovement,
+      this.closeModalForAddOwnerToCase
+    );
   };
 
   componentDidMount() {
@@ -68,21 +101,16 @@ class CaseProcessingList extends Component {
     const { Header } = translationDocumentList;
     const translationCaseProcessing = CaseProcessingListTranslation || {};
     const _case = this.props.case.case || {};
-    const { documents } = this.props.document || {};
+    const documents = this.props.document.documentList || {};
     const { createDocument, physicalEntityList } = this.props || {};
     const employees = this.props.employee.employeeList || {};
     const startDate = _case?.startDate;
-    const { caseList, getDocument } = this.props || {};
+    const { caseList, getDocument, error } = this.props || {};
 
     const paperCaseView = (
       <Paper style={{ marginLeft: 100 }}>
         <div className="register">
           <div className="container">
-            <Link to={`/caseList`}>
-              <Tooltip title={translationCaseProcessing.back} arrow>
-                <ArrowBackIcon style={{ fontSize: 40 }} />
-              </Tooltip>
-            </Link>
             <div className="row">
               <div className="col-md-12 m-auto">
                 <h3
@@ -230,7 +258,7 @@ class CaseProcessingList extends Component {
                         <input
                           className="form-control"
                           name="startDate"
-                          value={formatDateFromBackend(startDate)}
+                          value={formatDateFromBackend(_case.startDate)}
                           disabled
                         />
                       </label>
@@ -251,21 +279,6 @@ class CaseProcessingList extends Component {
           <div className="container">
             <div className="row">
               <div className="col-md-12 m-auto">
-                <div align="right">
-                  <Tooltip title={Header.title} arrow>
-                    <IconButton
-                      title={Header.title}
-                      className="btn btn-info"
-                      type="submit"
-                      size="lm"
-                      onClick={() => {
-                        this.showModal();
-                      }}
-                    >
-                      <AddIcon />
-                    </IconButton>
-                  </Tooltip>
-                </div>
                 <h3
                   className="display-5 text-center"
                   style={{ paddingBottom: 25 }}
@@ -273,10 +286,10 @@ class CaseProcessingList extends Component {
                   {Header.heading}
                 </h3>
                 <DocumentTable
-                  documents={documents}
+                  documentList={documents}
                   createDocument={createDocument}
                   getDocument={getDocument}
-                  employees={employees}
+                  employeeList={employees}
                   caseList={caseList}
                   caseProcessingViewSignal={true}
                 />
@@ -299,6 +312,41 @@ class CaseProcessingList extends Component {
                 {paperDocuments}
               </Grid>
             </Grid>
+            <div style={{ paddingTop: 50 }}>
+              <BottomNavigation showLabels>
+                <div style={{ paddingRight: 60 }}>
+                  <Link to={`/caseList`}>
+                    <Tooltip
+                      title={translationCaseProcessing.back}
+                      arrow
+                      placement="top-end"
+                    >
+                      <ArrowBackIcon style={{ fontSize: 40 }} />
+                    </Tooltip>
+                  </Link>
+                </div>
+                <Tooltip title="Додај" arrow placement="top-end">
+                  <PersonPinIcon
+                    type="submit"
+                    onClick={() => {
+                      this.showModalForAddOwnerToCase();
+                    }}
+                    style={{ fontSize: 40, color: "007BFF" }}
+                  />
+                </Tooltip>
+                <div style={{ paddingLeft: 60 }}>
+                  <Tooltip title={Header.title} arrow placement="top-end">
+                    <AddIcon
+                      type="submit"
+                      onClick={() => {
+                        this.showModal();
+                      }}
+                      style={{ fontSize: 40, color: "007BFF" }}
+                    />
+                  </Tooltip>
+                </div>
+              </BottomNavigation>
+            </div>
           </div>
         }
         {
@@ -312,6 +360,21 @@ class CaseProcessingList extends Component {
             id={this.props.match.params.id}
           />
         }
+        {
+          <ModalForAddOwnerToCase
+            showModalForAddOwner={this.state.showModalForAddOwner}
+            handleAddOwner={this.handleAddOwner}
+            closeModalForAddOwnerToCase={this.closeModalForAddOwnerToCase}
+            createDocument={createDocument}
+            employeeList={employees}
+            physicalEntityList={physicalEntityList}
+            id={this.props.match.params.id}
+            caseForUpdate={_case}
+            updateCase={this.props.updateCase}
+            error={error}
+            resetError={this.props.resetError}
+          />
+        }
       </Fragment>
     );
   }
@@ -322,6 +385,7 @@ const mapStateToProps = (state) => ({
   employee: state.employee,
   physicalEntity: state.physicalEntity,
   caseList: state.case.caseList,
+  error: state.error,
 });
 
 export default connect(mapStateToProps, {
@@ -332,4 +396,7 @@ export default connect(mapStateToProps, {
   getDocument,
   getDocuments,
   getCases,
+  addOwnerToCase,
+  updateCase,
+  resetError,
 })(CaseProcessingList);

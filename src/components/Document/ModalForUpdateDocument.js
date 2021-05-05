@@ -1,19 +1,19 @@
-import React, {Component} from 'react';
-import {Modal, Button} from 'react-bootstrap';
-import classnames from 'classnames';
-import {DocumentType, documentStatus} from '../../../src/globals';
-import {getEmployeeName} from '../../globals';
-import {documentModalForAddAndUpdateTranslation} from '../../translations';
+import React, { Component } from "react";
+import { Modal, Button } from "react-bootstrap";
+import classnames from "classnames";
+import { DocumentType, documentStatus } from "../../../src/globals";
+import { getEmployeeName } from "../../globals";
+import { documentModalForAddAndUpdateTranslation } from "../../translations";
 
 export default class ModalForUpdateDocument extends Component {
   constructor() {
     super();
 
     this.state = {
-      title: '',
-      description: '',
-      documentType: '',
-      documentStatus: '',
+      title: "",
+      description: "",
+      documentType: "",
+      documentStatus: "",
       employeeCreated: {
         id: 0,
       },
@@ -30,7 +30,7 @@ export default class ModalForUpdateDocument extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
-      this.setState({errors: nextProps.errors});
+      this.setState({ errors: nextProps.errors });
     }
 
     const {
@@ -55,11 +55,11 @@ export default class ModalForUpdateDocument extends Component {
   }
 
   onChange = (e) => {
-    this.setState({[e.target.name]: e.target.value});
+    this.setState({ [e.target.name]: e.target.value });
   };
 
   onChangeCombo = (e) => {
-    this.setState({[e.target.name]: {id: e.target.value}});
+    this.setState({ [e.target.name]: { id: e.target.value } });
   };
 
   onSubmit = (e) => {
@@ -82,10 +82,10 @@ export default class ModalForUpdateDocument extends Component {
   };
 
   render() {
-    const {errors} = this.state;
-    const {employeeList, caseList, show, closeModal} = this.props || {};
+    const { errors } = this.state;
+    const { employeeList, caseList, show, closeModal } = this.props || {};
     const translation = documentModalForAddAndUpdateTranslation;
-    const {Header, SelectOptionsAndPlaceholders} = translation;
+    const { Header, SelectOptionsAndPlaceholders } = translation;
     return (
       <div>
         <Modal show={show} onHide={closeModal} size="lg" centered>
@@ -102,8 +102,8 @@ export default class ModalForUpdateDocument extends Component {
                     <div className="form-group">
                       <input
                         type="text"
-                        className={classnames('form-control', {
-                          'is-invalid': errors.title,
+                        className={classnames("form-control", {
+                          "is-invalid": errors.title,
                         })}
                         placeholder={
                           SelectOptionsAndPlaceholders.titlePlaceholder
@@ -120,8 +120,8 @@ export default class ModalForUpdateDocument extends Component {
                     <div className="form-group">
                       <input
                         type="text"
-                        className={classnames('form-control', {
-                          'is-invalid': errors.description,
+                        className={classnames("form-control", {
+                          "is-invalid": errors.description,
                         })}
                         placeholder={
                           SelectOptionsAndPlaceholders.descriptionPlaceholder
@@ -146,7 +146,7 @@ export default class ModalForUpdateDocument extends Component {
                         name="documentType"
                         value={this.state.documentType}
                         onChange={this.onChange}
-                        style={{fontSize: '1rem'}}
+                        style={{ fontSize: "1rem" }}
                       >
                         <option value="" selected disabled>
                           {SelectOptionsAndPlaceholders.typeOption}
@@ -168,7 +168,7 @@ export default class ModalForUpdateDocument extends Component {
                         name="documentStatus"
                         value={this.state.documentStatus}
                         onChange={this.onChange}
-                        style={{fontSize: '1rem'}}
+                        style={{ fontSize: "1rem" }}
                       >
                         <option value="" selected disabled>
                           {SelectOptionsAndPlaceholders.statusOption}
@@ -191,7 +191,7 @@ export default class ModalForUpdateDocument extends Component {
                         }
                         onChange={this.onChangeCombo}
                         value={this.state?.employeeCreated?.id}
-                        style={{fontSize: '1rem'}}
+                        style={{ fontSize: "1rem" }}
                       >
                         <option value="" selected disabled>
                           {SelectOptionsAndPlaceholders.employeeOption}
@@ -216,7 +216,7 @@ export default class ModalForUpdateDocument extends Component {
                         }
                         onChange={this.onChangeCombo}
                         value={this.state._case.id}
-                        style={{fontSize: '1rem'}}
+                        style={{ fontSize: "1rem" }}
                       >
                         <option value="" selected disabled>
                           {SelectOptionsAndPlaceholders._caseOption}

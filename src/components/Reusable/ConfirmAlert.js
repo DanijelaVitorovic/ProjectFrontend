@@ -9,14 +9,16 @@ function ConfirmAlert(id, onDelete, string) {
         <div className="custom-ui">
           <h1>Да ли сте сигурни</h1>
           <p>{string}</p>
-          <button onClick={onClose}>No</button>
+          <button onClick={onClose}>Не</button>
           <button
             onClick={() => {
-            {onDelete(id)}
+              {
+                onDelete(id);
+              }
               onClose();
             }}
           >
-            Yes, Delete it!
+            Да!
           </button>
         </div>
       );

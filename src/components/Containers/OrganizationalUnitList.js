@@ -71,7 +71,7 @@ class OraganizationalUnitList extends Component {
 const mapStateToProps = (state) => ({
   organizationalUnitList: state.organizationalUnit.organizationalUnitList,
   legalEntityList: state.legalEntity.legalEntityList,
-  errors: state.error,
+  error: state.error,
 });
 
 export default connect(mapStateToProps, {
