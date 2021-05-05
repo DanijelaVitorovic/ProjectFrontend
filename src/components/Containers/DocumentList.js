@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from "react";
 import {
   createDocument,
   updateDocument,
@@ -6,16 +6,16 @@ import {
   getDocuments,
   deleteDocument,
   createDocumentWithCase,
-} from '../../actions/documentActions';
-import {getCases} from '../../actions/caseActions';
-import {getEmployees} from '../../actions/employeeActions';
-import {connect} from 'react-redux';
-import DocumentTable from '../Document/DocumentTable';
+} from "../../actions/documentActions";
+import { getCases } from "../../actions/caseActions";
+import { getEmployees } from "../../actions/employeeActions";
+import { connect } from "react-redux";
+import DocumentTable from "../Document/DocumentTable";
 import {
   getPhysicalEntities,
   getPhysicalEntity,
-} from '../../actions/physicalEntityActions';
-import {documentListTranslation} from '../../translations';
+} from "../../actions/physicalEntityActions";
+import { documentListTranslation } from "../../translations";
 
 class DocumentList extends Component {
   componentDidMount() {
@@ -26,10 +26,6 @@ class DocumentList extends Component {
   }
   render() {
     const {
-      documentList,
-      employeeList,
-      physicalEntityList,
-      caseList,
       createDocument,
       updateDocument,
       getDocument,
@@ -37,8 +33,13 @@ class DocumentList extends Component {
       createDocumentWithCase,
     } = this.props || {};
 
+    const { documentList, document } = this.props.document || {};
+    const { caseList } = this.props.case || {};
+    const { physicalEntityList } = this.props.physicalEntity || {};
+    const { employeeList } = this.props.employee || {};
+
     const translation = documentListTranslation || {};
-    const {Header} = translation;
+    const { Header } = translation;
     return (
       <div className="container ">
         <div className="row">
@@ -50,7 +51,6 @@ class DocumentList extends Component {
               <div className="card-body">
                 <DocumentTable
                   documentList={documentList}
-                  document={document}
                   createDocument={createDocument}
                   updateDocument={updateDocument}
                   getDocument={getDocument}
@@ -71,11 +71,10 @@ class DocumentList extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  documentList: state.document.documentList,
-  document: state.document.document,
-  employeeList: state.employee.employeeList,
-  physicalEntityList: state.physicalEntity.physicalEntityList,
-  caseList: state.case.caseList,
+  document: state.document,
+  employee: state.employee,
+  physicalEntity: state.physicalEntity,
+  case: state.case,
   errors: state.errors,
 });
 

@@ -78,7 +78,7 @@ class CaseTable extends Component {
               <th>{HeaderColumns.refersTo}</th>
               <th>{HeaderColumns.startDate}</th>
               <th>{HeaderColumns.status}</th>
-              <th className="text-center">{HeaderColumns.update}</th>
+              <th>{HeaderColumns.update}</th>
               <th>{HeaderColumns.documents}</th>
             </tr>
           </thead>

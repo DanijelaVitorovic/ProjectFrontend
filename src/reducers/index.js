@@ -11,6 +11,7 @@ import organizationalUnitReducer from "./organizationalUnitReducer";
 import caseReducer from "./caseReducer";
 import documentReducer from "./documentReducer";
 import caseClassificationReducer from "./caseClassificationReducer";
+import caseMovementReducer from "./caseMovementReducer";
 import documentAttachmentReducer from "./documentAttachmentReducer";
 
 export default combineReducers({
@@ -26,5 +27,6 @@ export default combineReducers({
   case: caseReducer,
   document: documentReducer,
   caseClassification: caseClassificationReducer,
+  caseMovement: caseMovementReducer,
   documentAttachment: documentAttachmentReducer,
 });

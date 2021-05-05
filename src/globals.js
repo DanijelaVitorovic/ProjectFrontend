@@ -124,3 +124,8 @@ export const getDocumentEmployeeCreated = (document) => {
 export const handleErrorMessage = (clientValidationMessage) => {
   return clientValidationMessage;
 };
+
+export const caseRole = {
+  OWNER: "Власник",
+  PROCESSOR: "Обрађивач",
+};
