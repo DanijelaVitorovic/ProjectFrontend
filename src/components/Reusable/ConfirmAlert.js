@@ -1,6 +1,9 @@
 import React from "react";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
+import Button from "@material-ui/core/Button";
+import DeleteIcon from "@material-ui/icons/Delete";
+import YoutubeSearchedForIcon from "@material-ui/icons/YoutubeSearchedFor";
 
 function ConfirmAlert(id, onDelete, string) {
   confirmAlert({
@@ -9,8 +12,18 @@ function ConfirmAlert(id, onDelete, string) {
         <div className="custom-ui">
           <h1>Да ли сте сигурни</h1>
           <p>{string}</p>
-          <button onClick={onClose}>Не</button>
-          <button
+          <Button
+            variant="contained"
+            color="default"
+            startIcon={<YoutubeSearchedForIcon />}
+            onClick={onClose}
+          >
+            Не
+          </Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            startIcon={<DeleteIcon />}
             onClick={() => {
               {
                 onDelete(id);
@@ -19,7 +32,7 @@ function ConfirmAlert(id, onDelete, string) {
             }}
           >
             Да!
-          </button>
+          </Button>
         </div>
       );
     },

@@ -559,6 +559,43 @@ export const caseMovementTableTranslation = {
   confirm: "Прихвати",
 };
 
+export const documentTypeListTranslation = {
+  Header: { heading: "Типови докумената" },
+};
+
+export const documentTypeTableTranslation = {
+  HeaderColumns: {
+    id: "Шифра",
+    name: "Име",
+    description: "Опис",
+    update: "Измена",
+    delete: "Брисање",
+  },
+  Buttons: {
+    addNew: "Додај нови тип предмета",
+    back: "Врати се на почетну страну",
+  },
+};
+
+export const documentTypeModalForAddAndUpdateTranslation = {
+  Header: {
+    heading: "Додајте нови тип документа",
+    headingAddModal: "Унос новог предмета",
+    headingUpdateModal: "Измени тип документа",
+  },
+  SelectOptionsAndPlaceholders: {
+    namePlaceholder: "Унесите име тип документа",
+    descriptionPlaceholder: "Унесите опис тип документа",
+    nameError: "Морате унети име",
+    descriptionError:
+      "Морате унети опис и он мора имате мање од 2000 карактера",
+  },
+};
+
+export const documentTypeRowTranslation = {
+  confirmString: "да желите да обришете?",
+};
+
 export const modalForAddProcessorTranslation = {
   addProcessor: "Додели обрађивача",
   selectEmployee: "Изаберите обрађивача",

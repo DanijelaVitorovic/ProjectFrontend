@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Menus } from "../../translations";
+import { documentTypeListTranslation } from "../../translations";
 
 class MenuBarUsers extends Component {
   render() {
@@ -121,6 +122,9 @@ class MenuBarUsers extends Component {
             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
               <Link className="dropdown-item" to="/documentList">
                 {UsersMenuBar.Document.showDocumentList}
+              </Link>
+              <Link className="dropdown-item" to="/documentTypeList">
+                {documentTypeListTranslation.Header.heading}
               </Link>
             </div>
           </li>
