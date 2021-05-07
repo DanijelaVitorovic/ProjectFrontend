@@ -558,3 +558,8 @@ export const caseMovementTableTranslation = {
   role: "Улога",
   confirm: "Прихвати",
 };
+
+export const modalForAddProcessorTranslation = {
+  addProcessor: "Додели обрађивача",
+  selectEmployee: "Изаберите обрађивача",
+};
