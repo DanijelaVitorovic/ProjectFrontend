@@ -2,7 +2,11 @@ import React, { Component, Fragment } from "react";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { getCase, getCases, updateCase } from "../../actions/caseActions";
-import { addOwnerToCase } from "../../actions/caseMovementActions";
+import {
+  addOwnerToCase,
+  addProcessorToCase,
+  getCaseMovementByCaseId,
+} from "../../actions/caseMovementActions";
 import { connect } from "react-redux";
 import {
   CaseModalForAddAndUpdateTranslation,
@@ -41,7 +45,8 @@ import LocationOnIcon from "@material-ui/icons/LocationOn";
 import PersonPinIcon from "@material-ui/icons/PersonPin";
 import ModalForAddOwnerToCase from "./ModalForAddOwnerToCase";
 import { resetError } from "../../actions/organizationalUnitAcitons";
-import Alert from "@material-ui/lab/Alert";
+import PersonAddIcon from "@material-ui/icons/PersonAdd";
+import ModalForAddProcessorToCase from "./ModalForAddProcessorToCase";
 
 class CaseProcessingList extends Component {
   constructor() {
@@ -49,6 +54,7 @@ class CaseProcessingList extends Component {
     this.state = {
       show: false,
       showModalForAddOwner: false,
+      showModalForAddProcessor: false,
     };
   }
 
@@ -87,6 +93,23 @@ class CaseProcessingList extends Component {
     );
   };
 
+  showModalForAddProcessorToCase = () => {
+    this.setState({ showModalForAddProcessor: true });
+  };
+
+  closeModalForAddProcessorToCase = () => {
+    this.props.resetError();
+    this.setState({ showModalForAddProcessor: false });
+  };
+
+  handleAddProcessor = (updatedCaseMovement, id) => {
+    this.props.addProcessorToCase(
+      updatedCaseMovement,
+      id,
+      this.closeModalForAddProcessorToCase
+    );
+  };
+
   componentDidMount() {
     const { id } = this.props.match.params;
     this.props.getCase(id);
@@ -106,6 +129,7 @@ class CaseProcessingList extends Component {
     const employees = this.props.employee.employeeList || {};
     const startDate = _case?.startDate;
     const { caseList, getDocument, error } = this.props || {};
+    const { caseMovement } = this.props.caseMovement || {};
 
     const paperCaseView = (
       <Paper style={{ marginLeft: 100 }}>
@@ -325,7 +349,7 @@ class CaseProcessingList extends Component {
                     </Tooltip>
                   </Link>
                 </div>
-                <Tooltip title="Додај" arrow placement="top-end">
+                <Tooltip title="Додај власника" arrow placement="top-end">
                   <PersonPinIcon
                     type="submit"
                     onClick={() => {
@@ -334,6 +358,17 @@ class CaseProcessingList extends Component {
                     style={{ fontSize: 40, color: "007BFF" }}
                   />
                 </Tooltip>
+                <div style={{ paddingLeft: 60 }}>
+                  <Tooltip title="Додај обрађивача" arrow placement="top-end">
+                    <PersonAddIcon
+                      type="submit"
+                      onClick={() => {
+                        this.showModalForAddProcessorToCase();
+                      }}
+                      style={{ fontSize: 40, color: "007BFF" }}
+                    />
+                  </Tooltip>
+                </div>
                 <div style={{ paddingLeft: 60 }}>
                   <Tooltip title={Header.title} arrow placement="top-end">
                     <AddIcon
@@ -375,6 +410,22 @@ class CaseProcessingList extends Component {
             resetError={this.props.resetError}
           />
         }
+        {
+          <ModalForAddProcessorToCase
+            showModalForAddProcessor={this.state.showModalForAddProcessor}
+            handleAddProcessor={this.handleAddProcessor}
+            closeModalForAddProcessorToCase={
+              this.closeModalForAddProcessorToCase
+            }
+            employeeList={employees}
+            physicalEntityList={physicalEntityList}
+            id={this.props.match.params.id}
+            error={error}
+            resetError={this.props.resetError}
+            getCaseMovementByCaseId={this.props.getCaseMovementByCaseId}
+            caseMovementForUpdate={caseMovement}
+          />
+        }
       </Fragment>
     );
   }
@@ -386,6 +437,7 @@ const mapStateToProps = (state) => ({
   physicalEntity: state.physicalEntity,
   caseList: state.case.caseList,
   error: state.error,
+  caseMovement: state.caseMovement,
 });
 
 export default connect(mapStateToProps, {
@@ -399,4 +451,6 @@ export default connect(mapStateToProps, {
   addOwnerToCase,
   updateCase,
   resetError,
+  addProcessorToCase,
+  getCaseMovementByCaseId,
 })(CaseProcessingList);

@@ -23,10 +23,10 @@ class CaseMovementRow extends Component {
     const { caseMovement } = this.props || {};
     const translation = caseMovementRowTranslation || {};
     const { acceptTooltip } = translation;
-    const caseRoleConst = caseMovement.employeeOwner
-      ? caseRole.OWNER
-      : caseMovement.employeeProcessor
+    const caseRoleConst = caseMovement.employeeProcessor
       ? caseRole.PROCESSOR
+      : caseMovement.employeeOwner
+      ? caseRole.OWNER
       : "";
 
     return (
