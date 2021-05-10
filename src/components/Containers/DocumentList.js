@@ -6,16 +6,14 @@ import {
   getDocuments,
   deleteDocument,
   createDocumentWithCase,
-} from "../../actions/documentActions";
-import { getCases } from "../../actions/caseActions";
-import { getEmployees } from "../../actions/employeeActions";
-import { connect } from "react-redux";
-import DocumentTable from "../Document/DocumentTable";
-import {
-  getPhysicalEntities,
-  getPhysicalEntity,
-} from "../../actions/physicalEntityActions";
-import { documentListTranslation } from "../../translations";
+  createDocumentWithCaseAndAttachment,
+} from '../../actions/documentActions';
+import {getCases} from '../../actions/caseActions';
+import {getEmployees} from '../../actions/employeeActions';
+import {connect} from 'react-redux';
+import DocumentTable from '../Document/DocumentTable';
+import {getPhysicalEntities} from '../../actions/physicalEntityActions';
+import {documentListTranslation} from '../../translations';
 
 class DocumentList extends Component {
   componentDidMount() {
@@ -31,15 +29,15 @@ class DocumentList extends Component {
       getDocument,
       deleteDocument,
       createDocumentWithCase,
+      createDocumentWithCaseAndAttachment,
+      employeeList,
+      physicalEntityList,
+      caseList,
+      documentList,
     } = this.props || {};
 
-    const { documentList, document } = this.props.document || {};
-    const { caseList } = this.props.case || {};
-    const { physicalEntityList } = this.props.physicalEntity || {};
-    const { employeeList } = this.props.employee || {};
-
     const translation = documentListTranslation || {};
-    const { Header } = translation;
+    const {Header} = translation;
     return (
       <div className="container ">
         <div className="row">
@@ -59,6 +57,9 @@ class DocumentList extends Component {
                   caseList={caseList}
                   physicalEntityList={physicalEntityList}
                   createDocumentWithCase={createDocumentWithCase}
+                  createDocumentWithCaseAndAttachment={
+                    createDocumentWithCaseAndAttachment
+                  }
                 />
                 <div id="msg" />
               </div>
@@ -71,10 +72,12 @@ class DocumentList extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  document: state.document,
-  employee: state.employee,
-  physicalEntity: state.physicalEntity,
-  case: state.case,
+  documentList: state.document.documentList,
+  document: state.document.document,
+  documentAttachmentList: state.documentAttachment.documentAttachmentList,
+  employeeList: state.employee.employeeList,
+  physicalEntityList: state.physicalEntity.physicalEntityList,
+  caseList: state.case.caseList,
   errors: state.errors,
 });
 
@@ -88,4 +91,5 @@ export default connect(mapStateToProps, {
   getEmployees,
   getPhysicalEntities,
   createDocumentWithCase,
+  createDocumentWithCaseAndAttachment,
 })(DocumentList);

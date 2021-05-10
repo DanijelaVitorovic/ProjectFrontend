@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import classnames from "classnames";
-import { Link } from "react-router-dom";
-import { Modal, Button } from "react-bootstrap";
-import { DocumentType, documentStatus } from "../../globals";
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import classnames from 'classnames';
+import {Link} from 'react-router-dom';
+import {Modal, Button} from 'react-bootstrap';
+import {DocumentType, documentStatus} from '../../globals';
 import {
   createDocument,
   updateDocument,
@@ -14,12 +14,24 @@ import {
   signingDocument,
   signedDocument,
   finalDocument,
-} from "../../actions/documentActions";
-import { getCases } from "../../actions/caseActions";
-import { getEmployees } from "../../actions/employeeActions";
-import { getPhysicalEntities } from "../../actions/physicalEntityActions";
-import ModalForUpdateDocument from "./ModalForUpdateDocument";
-import { documentModalForAddAndUpdateTranslation } from "../../translations";
+} from '../../actions/documentActions';
+import {
+  uploadDocumentAttachment,
+  getDocumentAttachmentByDocumentName,
+  getDocumentAttachmentsByDocument,
+  clearDocumentAttachmets,
+  deleteDocumentAttachment,
+} from '../../actions/documentAttachmentActions';
+import {getCases} from '../../actions/caseActions';
+import {getEmployees} from '../../actions/employeeActions';
+import {getPhysicalEntities} from '../../actions/physicalEntityActions';
+import ModalForUpdateDocument from './ModalForUpdateDocument';
+import {
+  documentAttachmentListTranslation,
+  documentModalForAddAndUpdateTranslation,
+} from '../../translations';
+import DocumentAttachemntList from '../Containers/DocumentAttachmentList';
+import {input} from '../DocumentAttachment/input.css';
 
 class DocumentProcessing extends Component {
   constructor() {
@@ -46,6 +58,7 @@ class DocumentProcessing extends Component {
   componentDidMount() {
     const {id} = this.props.match.params;
     this.props.getDocument(id);
+    this.props.getDocumentAttachmentsByDocument(id);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -100,13 +113,13 @@ class DocumentProcessing extends Component {
         id: this.state._case.id,
       },
     };
+
     this.props.updateDocument(updatedDocument);
-  }
-  
+  };
+
   onChangeCombo = (e) => {
     this.setState({[e.target.name]: {id: e.target.value}});
   };
-
   onVerificated = (document) => {
     this.props.verificationDocument(document);
   };
@@ -138,16 +151,27 @@ class DocumentProcessing extends Component {
 
   render() {
     const {errors} = this.state;
-    const translation = documentModalForAddAndUpdateTranslation || {};
-    const {SelectOptionsAndPlaceholders} = translation;
-    const {document, employeeList, caseList} = this.props || {};
+    const translation1 = documentModalForAddAndUpdateTranslation || {};
+    const {SelectOptionsAndPlaceholders} = translation1;
+
+    const {
+      document,
+      employeeList,
+      caseList,
+      documentAttachmentList,
+      attachmentContent,
+      uploadDocumentAttachment,
+      clearDocumentAttachmets,
+      deleteDocumentAttachment,
+      getDocumentAttachmentsByDocument,
+      getDocumentAttachmentByDocumentName,
+    } = this.props || {};
 
     return (
       <div className="register">
         <div className="container">
           <div className="row">
-            <div className="col-md-6 m-auto">
-              <hr />
+            <div className="documentProcessing">
               {SelectOptionsAndPlaceholders.titlePlaceholder}
               <div className="form-group">
                 <input
@@ -253,7 +277,7 @@ class DocumentProcessing extends Component {
                   caseList={caseList}
                   name="_case"
                   placeholder={SelectOptionsAndPlaceholders._casePlaceholder}
-                  value={this.state._case.id}
+                  value={this.state?._case?.id}
                   style={{fontSize: '1rem'}}
                   disabled
                 >
@@ -266,7 +290,7 @@ class DocumentProcessing extends Component {
                 </select>
               </div>
 
-              <div className="row">
+              <div>
                 <Link to={`/documentList`}>
                   <i className="fas fa-arrow-circle-left fa-3x fa-pull-left" />
                 </Link>
@@ -295,7 +319,7 @@ class DocumentProcessing extends Component {
 
                 {this.state.documentStatus === 'PROCEEDING' && (
                   <Button
-                    className="dugme"
+                    className="button"
                     variant="link"
                     onClick={() => this.onVerificated(document)}
                   >
@@ -305,7 +329,7 @@ class DocumentProcessing extends Component {
 
                 {this.state.documentStatus === 'VERIFICATION' && (
                   <Button
-                    className="dugme"
+                    className="button"
                     variant="link"
                     type="submit"
                     onClick={() => this.onSinging(document)}
@@ -316,7 +340,7 @@ class DocumentProcessing extends Component {
 
                 {this.state.documentStatus === 'SIGNING' && (
                   <Button
-                    className="dugme"
+                    className="button"
                     variant="link"
                     type="submit"
                     onClick={() => this.onSinged(document)}
@@ -327,7 +351,7 @@ class DocumentProcessing extends Component {
 
                 {this.state.documentStatus === 'SIGNED' && (
                   <Button
-                    className="dugme"
+                    className="button"
                     variant="link"
                     type="submit"
                     onClick={() => this.onFinal(document)}
@@ -336,6 +360,22 @@ class DocumentProcessing extends Component {
                   </Button>
                 )}
               </div>
+            </div>
+            <div className="documentAttachemntTable">
+              <DocumentAttachemntList
+                id={document.id}
+                documentAttachmentList={documentAttachmentList}
+                attachmentContent={attachmentContent}
+                uploadDocumentAttachment={uploadDocumentAttachment}
+                getDocumentAttachmentsByDocument={
+                  getDocumentAttachmentsByDocument
+                }
+                clearDocumentAttachmets={clearDocumentAttachmets}
+                deleteDocumentAttachment={deleteDocumentAttachment}
+                getDocumentAttachmentByDocumentName={
+                  getDocumentAttachmentByDocumentName
+                }
+              />
             </div>
           </div>
         </div>
@@ -347,9 +387,14 @@ class DocumentProcessing extends Component {
 
 const mapStateToProps = (state) => ({
   document: state.document.document,
+  documentAttachmentList: state.documentAttachment.documentAttachmentList,
+  documentAttachment: state.documentAttachment.documentAttachment,
+  attachmentContent: state.documentAttachment.attachmentContent,
   employeeList: state.employee.employeeList,
   physicalEntityList: state.physicalEntity.physicalEntityList,
   caseList: state.case.caseList,
+  documentAttachmentList: state.documentAttachment.documentAttachmentList,
+  attachmentContent: state.documentAttachment.attachmentContent,
   errors: state.errors,
 });
 
@@ -366,4 +411,9 @@ export default connect(mapStateToProps, {
   signingDocument,
   signedDocument,
   finalDocument,
+  uploadDocumentAttachment,
+  getDocumentAttachmentsByDocument,
+  getDocumentAttachmentByDocumentName,
+  clearDocumentAttachmets,
+  deleteDocumentAttachment,
 })(DocumentProcessing);

@@ -3,6 +3,11 @@ import React, {Component, Fragment} from 'react';
 import LegalEntityRow from './LegalEntityRow';
 import ModalForAddLegalEntity from './ModalForAddLegalEntity';
 import {legalEntityTableTranslation} from '../../translations';
+import Tooltip from '@material-ui/core/Tooltip';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import {Link} from 'react-router-dom';
+import AddIcon from '@material-ui/icons/Add';
+import IconButton from '@material-ui/core/IconButton';
 
 class LegalEntityTable extends Component {
   constructor() {
@@ -34,7 +39,7 @@ class LegalEntityTable extends Component {
     this.props.createLegalEntity(newLegalEntity);
     this.closeModal();
   };
-  
+
   render() {
     const translation = legalEntityTableTranslation || {};
     const {HeaderColumns, Buttons} = translation;
@@ -56,33 +61,50 @@ class LegalEntityTable extends Component {
     ));
 
     const table = (
-      <table className="table table-hover ">
-        <thead class="thead-light">
-          <Button
-            className="btn btn-default"
-            variant="info"
-            type="submit"
-            onClick={() => {
-              this.showModal();
-            }}
-          >
-            {Buttons.addNewLegalEntity}
-          </Button>
-          <p></p>
-          <tr>
-            <th scope="col">{HeaderColumns.id}</th>
-            <th scope="col">{HeaderColumns.name}</th>
-            <th scope="col">{HeaderColumns.pib}</th>
-            <th scope="col">{HeaderColumns.registrationNumber}</th>
-            <th scope="col">{HeaderColumns.email}</th>
-            <th scope="col">{HeaderColumns.email}</th>
-            <th scope="col">{HeaderColumns.update}</th>
-            <th scope="col">{HeaderColumns.delete}</th>
-          </tr>
-        </thead>
+      <div>
+        <Fragment>
+          <div align="left" style={{paddingBottom: 20}}>
+            <Link to={`/dashboard`}>
+              <Tooltip title={Buttons.back} arrow>
+                <ArrowBackIcon style={{fontSize: 40}} />
+              </Tooltip>
+            </Link>
 
-        <tbody>{legalEntities}</tbody>
-      </table>
+            <Tooltip title={Buttons.addNewLegalEntity} arrow>
+              <IconButton
+                className="btn btn-info"
+                type="submit"
+                size="lm"
+                onClick={() => {
+                  this.showModal();
+                }}
+              >
+                <AddIcon />
+              </IconButton>
+            </Tooltip>
+          </div>
+        </Fragment>
+                <table className="table table-hover ">
+                  <thead class="thead-light">
+                    <tr>
+                      <th scope="col">{HeaderColumns.id}</th>
+                      <th scope="col">{HeaderColumns.name}</th>
+                      <th scope="col">{HeaderColumns.pib}</th>
+                      <th scope="col">{HeaderColumns.registrationNumber}</th>
+                      <th scope="col">{HeaderColumns.email}</th>
+                      <th scope="col">{HeaderColumns.email}</th>
+                      <th scope="col" className="text-center">
+                        {HeaderColumns.update}
+                      </th>
+                      <th scope="col" className="text-center">
+                        {HeaderColumns.delete}
+                      </th>
+                    </tr>
+                  </thead>
+
+                  <tbody>{legalEntities}</tbody>
+                </table>
+      </div>
     );
 
     return (

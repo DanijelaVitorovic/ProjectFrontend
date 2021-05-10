@@ -10,11 +10,14 @@ import {
   SINGED_DOCUMENT,
   FINAL_DOCUMENT,
   GET_DOCUMENT_LIST_BY_CASE,
-} from "../actions/types";
+  CREATE_DOCUMENT_WITH_CASE_AND_ATTACHMENT,
+  UPLOAD_DOCUMENT_ATTACHMENT,
+} from '../actions/types';
 
 const initialState = {
   documentList: [],
   document: {},
+  documentAttachmentList: [],
 };
 
 export default function (state = initialState, action) {
@@ -59,6 +62,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         documentList: state.documentList.concat(action.payload),
+        document: action.payload,
       };
 
     case VERIFICATION_DOCUMENT:
@@ -83,6 +87,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         document: action.payload,
+      };
+
+    case CREATE_DOCUMENT_WITH_CASE_AND_ATTACHMENT:
+      return {
+        ...state,
+        documentList: state.documentList.concat(action.payload),
       };
     default:
       return state;

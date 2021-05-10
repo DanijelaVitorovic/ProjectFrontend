@@ -1,12 +1,13 @@
-import React, { Component, Fragment } from "react";
-import { deleteProcess } from "../../actions/processActions";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { Button, Badge } from "react-bootstrap";
-import ModalForUpdateProcess from "./ModalForUpdateProcess";
-import DeleteButton from "../Reusable/DeleteButton";
+import React, {Component, Fragment} from 'react';
+import {deleteProcess} from '../../actions/processActions';
+import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
+import {Button, Badge} from 'react-bootstrap';
+import ModalForUpdateProcess from './ModalForUpdateProcess';
+import DeleteButton from '../Reusable/DeleteButton';
 import ConfirmAlert from '../Reusable/ConfirmAlert';
-import { processRowTranslation } from "../../translations";
+import {processRowTranslation} from '../../translations';
+import UpdateButton from '../Reusable/UpdateButton';
 
 class ProcessRow extends Component {
   constructor() {
@@ -18,15 +19,15 @@ class ProcessRow extends Component {
   }
 
   showModal = () => {
-    this.setState({ show: true });
+    this.setState({show: true});
   };
 
   closeModal = () => {
-    this.setState({ show: false });
+    this.setState({show: false});
   };
 
   onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({[e.target.name]: e.target.value});
   };
 
   handleUpdate = (updatedProcess) => {
@@ -35,19 +36,15 @@ class ProcessRow extends Component {
   };
 
   onDeleteClick = (id) => {
-      const translation = processRowTranslation;
-      const {deleteString} = translation;
+    const translation = processRowTranslation;
+    const {deleteString} = translation;
     const {deleteProcess} = this.props || {};
     ConfirmAlert(id, deleteProcess, deleteString);
   };
 
   render() {
-    const {
-      process,
-      getProcess,
-      processList,
-      processTypeList,
-    } = this.props || {};
+    const {process, getProcess, processList, processTypeList} =
+      this.props || {};
     const row = (
       <tr>
         <td>{process?.id}</td>
@@ -55,14 +52,11 @@ class ProcessRow extends Component {
         <td>{process?.processType?.description}</td>
         <td>{process?.nextCaseStatus}</td>
         <td className="text-center">
-          <Button
-            variant="link"
-            onClick={() => {
-              this.showModal();
-            }}
-          >
-            <i className="fas fa-pen-alt fa-2x"></i>
-          </Button>
+          <UpdateButton
+            className="button"
+            showModal={this.showModal}
+            id={process}
+          />
         </td>
         <td className="text-center">
           <DeleteButton onDeleteClick={this.onDeleteClick} id={process?.id} />
@@ -75,15 +69,15 @@ class ProcessRow extends Component {
         {row}
         {this.state.show && (
           <ModalForUpdateProcess
-          id = {process.id}
-          show={this.state.show}
-          processForUpdate={process}
-          closeModal={this.closeModal}
-          handleUpdate={this.handleUpdate}
-          getProcess={getProcess}
-          processList = {processList}
-          processTypeList = {processTypeList}
-        />
+            id={process.id}
+            show={this.state.show}
+            processForUpdate={process}
+            closeModal={this.closeModal}
+            handleUpdate={this.handleUpdate}
+            getProcess={getProcess}
+            processList={processList}
+            processTypeList={processTypeList}
+          />
         )}
       </Fragment>
     );

@@ -1,13 +1,13 @@
-import React, { Component, Fragment } from "react";
-import { Button } from "react-bootstrap";
-import ModalForUpdateDocument from "./ModalForUpdateDocument";
-import { getDocumentEmployeeCreated } from "../../../src/globals";
-import DeleteButton from "../Reusable/DeleteButton";
-import ConfirmAlert from "../Reusable/ConfirmAlert";
-import { Link } from "react-router-dom";
-import { documentRowTranslation } from "../../translations";
+import React, {Component, Fragment} from 'react';
+import {Button} from 'react-bootstrap';
+import ModalForUpdateDocument from './ModalForUpdateDocument';
+import {getDocumentEmployeeCreated} from '../../../src/globals';
+import DeleteButton from '../Reusable/DeleteButton';
+import ConfirmAlert from '../Reusable/ConfirmAlert';
+import {Link} from 'react-router-dom';
+import {documentRowTranslation} from '../../translations';
 
-export default class DocumentRow extends Component {
+class DocumentRow extends Component {
   constructor() {
     super();
 
@@ -58,10 +58,10 @@ export default class DocumentRow extends Component {
             <td>{document._case.caseName}</td>
 
             <td className="text-center">
-              <Link to={`/documentProcessing/${document.id}`}>
-                <Button className="button" variant="link">
+              <Link to={`/documentProcessing/${document.id}`} >
+                <button className="button">
                   <i className="fas fa-pen-alt fa-2x"></i>
-                </Button>
+                </button>
               </Link>
             </td>
 
@@ -94,3 +94,5 @@ export default class DocumentRow extends Component {
     );
   }
 }
+
+export default DocumentRow;

@@ -195,7 +195,7 @@ class ModalForAddDocument extends Component {
                         <option value="" selected disabled>
                           {SelectOptionsAndPlaceholders.employeeOption}
                         </option>
-                        {employeeList.map((employee) => {
+                        {employeeList?.map((employee) => {
                           return (
                             <option value={employee.id}>
                               {getEmployeeName(employee)}
@@ -227,7 +227,7 @@ class ModalForAddDocument extends Component {
                         <option value="" selected disabled>
                           {SelectOptionsAndPlaceholders._caseOption}
                         </option>
-                        {caseList.map((_case) => {
+                        {caseList?.map((_case) => {
                           return (
                             <option value={_case.id}>{_case.caseName}</option>
                           );

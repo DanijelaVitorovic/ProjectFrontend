@@ -4,6 +4,10 @@ import OrganizationalUnitRow from "./OrganizationalUnitRow";
 import { Link } from "react-router-dom";
 import ModalForAddOrganizationalUnit from "./ModalForAddOrganizationalUnit";
 import { organizationalUnitTableTranslation } from "../../translations";
+import Tooltip from '@material-ui/core/Tooltip';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import AddIcon from '@material-ui/icons/Add';
+import IconButton from '@material-ui/core/IconButton';
 
 class OrganizationalUnitTable extends Component {
   constructor() {
@@ -60,19 +64,31 @@ class OrganizationalUnitTable extends Component {
 
     const table = (
       <div className="table-responsive tableHeight">
-        <table id="example" className="table table-hover">
+        <Fragment>
+          <div align="left" style={{paddingBottom: 20}}>
+            <Link to={`/dashboard`}>
+              <Tooltip title={Buttons.back} arrow>
+                <ArrowBackIcon style={{fontSize: 40}} />
+              </Tooltip>
+            </Link>
+
+            <Tooltip title={Buttons.addNewOrganizationalUnit} arrow>
+              <IconButton
+                className="btn btn-info"
+                type="submit"
+                size="lm"
+                onClick={() => {
+                  this.showModal();
+                }}
+              >
+                <AddIcon />
+              </IconButton>
+            </Tooltip>
+          </div>
+        </Fragment>
+        <p></p>
+        <table id="example" className="table table-sm table-bordered ">
           <thead className="thead-light">
-            <Button
-              className="btn btn-default"
-              type="submit"
-              variant="info"
-              onClick={() => {
-                this.showModal();
-              }}
-            >
-              {Buttons.addNewOrganizationalUnit}
-            </Button>
-            <p></p>
             <tr className=" card-body">
               <th scope="col">{HeaderColumns.id}</th>
               <th scope="col">{HeaderColumns.name}</th>

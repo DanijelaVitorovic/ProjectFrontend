@@ -1,86 +1,107 @@
-import React, { Component } from "react";
-import { Modal, ModalFooter, Card } from "react-bootstrap";
+import React, {Component} from 'react';
+import {Modal, ModalFooter, Card} from 'react-bootstrap';
 import {
   CaseModalForAddAndUpdateTranslation,
   caseValidationsTranslation,
   documentModalForAddAndUpdateTranslation,
-} from "../../translations";
-import Stepper from "@material-ui/core/Stepper";
-import Step from "@material-ui/core/Step";
-import StepButton from "@material-ui/core/StepButton";
-import Typography from "@material-ui/core/Typography";
+} from '../../translations';
+import Stepper from '@material-ui/core/Stepper';
+import Step from '@material-ui/core/Step';
+import StepButton from '@material-ui/core/StepButton';
+import Typography from '@material-ui/core/Typography';
 import {
   CaseType,
   getEmployeeName,
   getPhysicalEntityName,
   handleErrorMessage,
-} from "../../../src/globals";
-import { DocumentType, documentStatus } from "../../../src/globals";
-import classnames from "classnames";
+} from '../../../src/globals';
+import {DocumentType, documentStatus} from '../../../src/globals';
+import classnames from 'classnames';
+import axios from 'axios';
+import {documentAttachmentForAddAndUpdateTranslation} from '../../translations';
 
 class ModalForAddCaseAndDocument extends Component {
   constructor() {
     super();
     this.state = {
-      title: "",
-      description: "",
-      documentType: "",
-      documentStatus: "",
-      employeeCreated: "",
-      caseName: "",
-      caseNumber: "",
-      caseType: "",
-      refersTo: "",
+      title: '',
+      description: '',
+      documentType: '',
+      documentStatus: '',
+      employeeCreated: '',
+      caseName: '',
+      caseNumber: '',
+      caseType: '',
+      refersTo: '',
       activeStep: 0,
       errors: {},
     };
   }
 
+  state = {
+    uploadedFile: null,
+  };
+
   onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({[e.target.name]: e.target.value});
+  };
+
+  onFileChange = (event) => {
+    this.setState({uploadedFile: event.target.files[0]});
+  };
+
+  onFileUpload = () => {
+    const formData = new FormData();
+
+    formData.append('file', this.state.uploadedFile);
+
+    const {id} = this.props;
+
+    this.props.uploadDocumentAttachment(formData, id);
+    this.props.closeModal();
   };
 
   handleValidationCase = () => {
     const translationValidation = caseValidationsTranslation;
-    const { Modals } = translationValidation;
+    const {Modals} = translationValidation;
 
     let errors = {};
     let hasErrors = false;
-    let { caseName, refersTo } = this.state;
+    let {caseName, refersTo} = this.state;
 
     if (caseName.length < 2) {
-      errors["caseName"] = Modals.caseName;
+      errors['caseName'] = Modals.caseName;
       hasErrors = true;
     }
 
     if (!refersTo) {
-      errors["refersTo"] = Modals.refersTo;
+      errors['refersTo'] = Modals.refersTo;
       hasErrors = true;
     }
 
-    this.setState({ errors: errors });
+    this.setState({errors: errors});
     return hasErrors;
   };
 
   handleValidationDocument = () => {
     const translationValidation = caseValidationsTranslation;
-    const { Modals } = translationValidation;
+    const {Modals} = translationValidation;
 
     let errors = {};
     let hasErrors = false;
-    let { title, employeeCreated } = this.state;
+    let {title, employeeCreated} = this.state;
 
     if (title.length < 2) {
-      errors["title"] = Modals.title;
+      errors['title'] = Modals.title;
       hasErrors = true;
     }
 
     if (!employeeCreated) {
-      errors["employeeCreated"] = Modals.employeeCreated;
+      errors['employeeCreated'] = Modals.employeeCreated;
       hasErrors = true;
     }
 
-    this.setState({ errors: errors });
+    this.setState({errors: errors});
     return hasErrors;
   };
 
@@ -88,7 +109,7 @@ class ModalForAddCaseAndDocument extends Component {
     e.preventDefault();
 
     const translationValidation = caseValidationsTranslation;
-    const { Modals } = translationValidation;
+    const {Modals} = translationValidation;
 
     if (this.handleValidationCase()) {
       window.alert(Modals.alertCase);
@@ -105,25 +126,28 @@ class ModalForAddCaseAndDocument extends Component {
       description: this.state.description,
       documentType: this.state.documentType,
       documentStatus: this.state.documentStatus,
-      employeeCreated: { id: this.state.employeeCreated },
+      employeeCreated: {id: this.state.employeeCreated},
       _case: {
         caseName: this.state.caseName,
         caseNumber: this.state.caseNumber,
-        refersTo: { id: this.state.refersTo },
+        refersTo: {id: this.state.refersTo},
         caseType: this.state.caseType,
       },
     };
-    this.props.handleAddCaseAndDocument(newCaseDocumentDTO);
+    const formData = new FormData();
+    formData.append('file', this.state.uploadedFile);
+
+    this.props.handleAddCaseAndDocument(newCaseDocumentDTO, formData);
   };
 
   getStepContent = (step) => {
     const {employeeList, physicalEntityList} = this.props || {};
     const translation = CaseModalForAddAndUpdateTranslation || {};
-    const { SelectOptionsAndPlaceholders, Header } = translation;
+    const {SelectOptionsAndPlaceholders, Header} = translation;
     const translation1 = documentModalForAddAndUpdateTranslation || {};
     const SelectOptionsAndPlaceholders1 =
       translation1.SelectOptionsAndPlaceholders;
-    const { errors } = this.state;
+    const {errors} = this.state;
 
     switch (step) {
       case 0:
@@ -171,7 +195,7 @@ class ModalForAddCaseAndDocument extends Component {
                 <option value="" selected disabled>
                   {SelectOptionsAndPlaceholders.refersToOption}
                 </option>
-                {physicalEntityList.map((physicalEntity) => {
+                {physicalEntityList?.map((physicalEntity) => {
                   return (
                     <option value={physicalEntity.id}>
                       {getPhysicalEntityName(physicalEntity)}
@@ -211,12 +235,12 @@ class ModalForAddCaseAndDocument extends Component {
 
       case 1:
         return (
-          <div style={{ height: 300 }}>
+          <div style={{height: 300}}>
             <div className="form-group">
               <input
                 type="text"
-                className={classnames("form-control", {
-                  "is-invalid": errors.title,
+                className={classnames('form-control', {
+                  'is-invalid': errors.title,
                 })}
                 placeholder={SelectOptionsAndPlaceholders1.titlePlaceholder}
                 name="title"
@@ -226,7 +250,7 @@ class ModalForAddCaseAndDocument extends Component {
               {handleErrorMessage(errors.title) && (
                 <span
                   className="invalid-feedback"
-                  style={{ fontSize: 16, color: "red" }}
+                  style={{fontSize: 16, color: 'red'}}
                 >
                   {errors.title}
                 </span>
@@ -253,7 +277,7 @@ class ModalForAddCaseAndDocument extends Component {
                 name="documentType"
                 value={this.state.documentType}
                 onChange={this.onChange}
-                style={{ fontSize: "1rem" }}
+                style={{fontSize: '1rem'}}
               >
                 <option value="" selected disabled>
                   {SelectOptionsAndPlaceholders1.typeOption}
@@ -273,7 +297,7 @@ class ModalForAddCaseAndDocument extends Component {
                 name="documentStatus"
                 value={this.state.documentStatus}
                 onChange={this.onChange}
-                style={{ fontSize: "1rem" }}
+                style={{fontSize: '1rem'}}
               >
                 <option value="" selected disabled>
                   {SelectOptionsAndPlaceholders1.statusOption}
@@ -288,14 +312,14 @@ class ModalForAddCaseAndDocument extends Component {
 
             <div className="form-group">
               <select
-                className={classnames("form-control", {
-                  "is-invalid": errors.employeeCreated,
+                className={classnames('form-control', {
+                  'is-invalid': errors.employeeCreated,
                 })}
                 employeeList={employeeList}
                 name="employeeCreated"
                 placeholder={SelectOptionsAndPlaceholders1.employeePlaceholder}
                 onChange={this.onChange}
-                style={{ fontSize: "1rem" }}
+                style={{fontSize: '1rem'}}
               >
                 <option value="" selected disabled>
                   {SelectOptionsAndPlaceholders1.employeeOption}
@@ -311,7 +335,7 @@ class ModalForAddCaseAndDocument extends Component {
               {handleErrorMessage(errors.employeeCreated) && (
                 <span
                   className="invalid-feedback"
-                  style={{ fontSize: 16, color: "red" }}
+                  style={{fontSize: 16, color: 'red'}}
                 >
                   {errors.employeeCreated}
                 </span>
@@ -320,31 +344,76 @@ class ModalForAddCaseAndDocument extends Component {
           </div>
         );
       default:
-        return "Unknown step";
+        return 'Unknown step';
     }
   };
 
   getSteps = () => {
-    return ["Unos Predmeta", "Unos Dokumenta"];
+    return ['Unos Predmeta', 'Unos Dokumenta'];
   };
 
   handleStep = (step) => () => {
-    this.setState({ activeStep: step });
+    this.setState({activeStep: step});
+  };
+
+  fileData = () => {
+    if (this.state.uploadedFile) {
+      const translation = documentAttachmentForAddAndUpdateTranslation || {};
+      const {SelectOptionsAndPlaceholders} = translation;
+      const firstIndex = this.state.uploadedFile?.type.lastIndexOf('.') + 1;
+      const lastIndex = this.state.uploadedFile?.type.length;
+      const fileName = this.state.uploadedFile?.name;
+      const fileType = this.state.uploadedFile?.type.substring(
+        firstIndex,
+        lastIndex
+      );
+      return (
+        <div>
+          <br></br>
+          <h2>{SelectOptionsAndPlaceholders.details}</h2>
+          <p>
+            {SelectOptionsAndPlaceholders.name}
+            {fileName}
+          </p>
+          <p>
+            {SelectOptionsAndPlaceholders.type}
+            {fileType}
+          </p>
+          <p>
+            {SelectOptionsAndPlaceholders.lastChange}
+            {this.state.uploadedFile?.lastModifiedDate.toLocaleDateString()}
+          </p>
+        </div>
+      );
+    } else {
+      const translation = documentAttachmentForAddAndUpdateTranslation || {};
+      const {SelectOptionsAndPlaceholders} = translation;
+      return (
+        <div>
+          <h6 className="col-md-9 m-auto">
+            <b>{SelectOptionsAndPlaceholders.info} </b>
+          </h6>
+        </div>
+      );
+    }
   };
 
   render() {
-    const { activeStep } = this.state;
+    const {activeStep} = this.state;
     const steps = this.getSteps();
 
     const {
+      show,
       showModalForAddingCaseAndDocument,
       closeModalForAddCaseAndDocument,
     } = this.props || {};
 
     const translation = CaseModalForAddAndUpdateTranslation || {};
-    const { Header } = translation;
-    const { errors } = this.state;
+    const {Header} = translation;
+    const {errors} = this.state;
 
+    const translation2 = documentAttachmentForAddAndUpdateTranslation || {};
+    const {Buttons} = translation2;
     return (
       <Modal
         show={showModalForAddingCaseAndDocument}
@@ -354,7 +423,7 @@ class ModalForAddCaseAndDocument extends Component {
         centered
         animation
       >
-        <Card bg={"white"} text={"black"} style={{ paddingBottom: 20 }}>
+        <Card bg={'white'} text={'black'} style={{paddingBottom: 20}}>
           <Modal.Header closeButton> {Header.heading}</Modal.Header>
           <div className="register">
             <div className="container">
@@ -372,6 +441,21 @@ class ModalForAddCaseAndDocument extends Component {
                         ))}
                       </Stepper>
                       <Typography>{this.getStepContent(activeStep)}</Typography>
+                    </div>
+
+                    <div className="container">
+                      <div variant="success" className="col-md-4 m-auto">
+                        <input
+                          type="file"
+                          name="file"
+                          id="file"
+                          class="inputfile"
+                          onChange={this.onFileChange}
+                        />
+                        <label for="file">{Buttons.upload}</label>
+                      </div>
+                      <br></br>
+                      {this.fileData()}
                     </div>
 
                     <button

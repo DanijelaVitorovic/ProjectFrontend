@@ -1,6 +1,5 @@
 import {
   GET_DOCUMENT,
-  GET_DOCUMENTS,
   DELETE_DOCUMENT,
   ADD_DOCUMENT,
   UPDATE_DOCUMENT,
@@ -12,9 +11,13 @@ import {
   FINAL_DOCUMENT,
   GET_DOCUMENT_LIST_BY_CASE,
   GET_DOCUMENT_LIST,
+  CREATE_DOCUMENT_WITH_CASE_AND_ATTACHMENT,
+  UPLOAD_DOCUMENT_ATTACHMENT,
 } from './types';
 import axios from 'axios';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import {ContactsOutlined} from '@material-ui/icons';
+import {uploadDocumentAttachment} from './documentAttachmentActions';
 
 export const createDocument = (document) => async (dispatch) => {
   try {
@@ -173,4 +176,15 @@ export const getDocumentsByCase = (id) => async (dispatch) => {
     type: GET_DOCUMENT_LIST_BY_CASE,
     payload: res.data,
   });
+};
+
+export const createDocumentWithCaseAndAttachment = (
+  document,
+  uploadFile
+) => async (dispatch) => {
+  const response = createDocumentWithCase(document);
+
+  const id = response.data.id;
+
+  uploadDocumentAttachment(uploadFile, id);
 };

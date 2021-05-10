@@ -1,33 +1,22 @@
-import React, { Component } from "react";
-import {
-  uploadDocumentAttachment,
-  getDocumentAttachmentByDocumentName,
-  getDocumentAttachmentsByDocument,
-  clearDocumentAttachmets,
-  deleteDocumentAttachment,
-} from '../../actions/documentAttachmentActions';
-import { connect } from "react-redux";
-import { documentAttachmentListTranslation } from "../../translations";
-import DocumentAttachemntTable from "../DocumentAttachment/DocumentAttachemntTable";
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {documentAttachmentListTranslation} from '../../translations';
+import DocumentAttachemntTable from '../DocumentAttachment/DocumentAttachemntTable';
 
 class DocumentAttachmentList extends Component {
-  componentDidMount() {
-    const {id} = this.props.match.params;
-    this.props.getDocumentAttachmentsByDocument(id);
-  }
   render() {
     const {
       documentAttachmentList,
       attachmentContent,
-      uploadDocumentAttachment,
       getDocumentAttachmentByDocumentName,
+      uploadDocumentAttachment,
       clearDocumentAttachmets,
       deleteDocumentAttachment,
+      id,
     } = this.props || {};
-
     const translation = documentAttachmentListTranslation || {};
-    const { Header } = translation;
-    
+    const {Header} = translation;
+
     return (
       <div className="container ">
         <div className="row">
@@ -38,14 +27,15 @@ class DocumentAttachmentList extends Component {
               </div>
               <div className="card-body">
                 <DocumentAttachemntTable
+                  id={id}
                   documentAttachmentList={documentAttachmentList}
                   attachmentContent={attachmentContent}
                   uploadDocumentAttachment={uploadDocumentAttachment}
+                  clearDocumentAttachmets={clearDocumentAttachmets}
+                  deleteDocumentAttachment={deleteDocumentAttachment}
                   getDocumentAttachmentByDocumentName={
                     getDocumentAttachmentByDocumentName
                   }
-                  clearDocumentAttachmets={clearDocumentAttachmets}
-                  deleteDocumentAttachment={deleteDocumentAttachment}
                 />
               </div>
             </div>
@@ -56,17 +46,4 @@ class DocumentAttachmentList extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  documentAttachmentList: state.documentAttachment.documentAttachmentList,
-  documentAttachmentModal: state.documentAttachment.documentAttachment,
-  attachmentContent: state.documentAttachment.attachmentContent,
-  errors: state.errors,
-});
-
-export default connect(mapStateToProps, {
-  uploadDocumentAttachment,
-  getDocumentAttachmentsByDocument,
-  getDocumentAttachmentByDocumentName,
-  clearDocumentAttachmets,
-  deleteDocumentAttachment,
-})(DocumentAttachmentList);
+export default DocumentAttachmentList;
