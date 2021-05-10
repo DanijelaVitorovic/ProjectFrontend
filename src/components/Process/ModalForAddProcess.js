@@ -46,7 +46,7 @@ class ModalForAddProcess extends Component {
     const translation = processModalForAddAndUpdateTransaltion;
     const {Header, SelectOptionsAndPlaceholders} = translation;
     return (
-      <Modal show={show} onHide={closeModal} size="lg">
+      <Modal show={show} centered onHide={closeModal} size="lg">
         <Modal.Header closeButton>
           <h5>{Header.headingAddModal}</h5>{' '}
         </Modal.Header>

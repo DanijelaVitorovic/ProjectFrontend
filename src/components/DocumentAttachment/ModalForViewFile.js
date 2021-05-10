@@ -36,7 +36,7 @@ class ModalForViewFile extends Component {
   render() {
     const {errors} = this.state;
     const translation = documentAttachmentForAddAndUpdateTranslation || {};
-    const {Header, SelectOptionsAndPlaceholders} = translation;
+    const {SelectOptionsAndPlaceholders} = translation;
     const {attachmentContent, show, closeModal} = this.props || {};
 
     let url;

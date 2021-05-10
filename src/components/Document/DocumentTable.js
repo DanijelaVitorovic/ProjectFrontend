@@ -5,14 +5,13 @@ import ModalForAddDocument from "./ModalForAddDocument";
 import table from "./table.css";
 import { documentTableTranslation } from "../../translations";
 import ModalForAddCaseAndDocument from "./ModalForAddCaseAndDocument";
-import AddTwoToneIcon from "@material-ui/icons/AddTwoTone";
 import Tooltip from "@material-ui/core/Tooltip";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { Link } from "react-router-dom";
 import AddIcon from "@material-ui/icons/Add";
 import IconButton from "@material-ui/core/IconButton";
 
-export default class DocumentTable extends Component {
+class DocumentTable extends Component {
   constructor() {
     super();
 
@@ -42,8 +41,23 @@ export default class DocumentTable extends Component {
     this.setState({ showModalForAddingCaseAndDocument: false });
   };
 
-  handleAddCaseAndDocument = (newCaseDocumentDTO) => {
-    this.props.createDocumentWithCase(newCaseDocumentDTO);
+  onFileUpload = () => {
+    const formData = new FormData();
+
+    formData.append('file', this.state.uploadedFile);
+
+    const {id} = this.props;
+
+    this.props.uploadDocumentAttachment(formData, id);
+    this.props.closeModal();
+  };
+
+  handleAddCaseAndDocument = (newCaseDocumentDTO, formData) => {
+    this.props.createDocumentWithCaseAndAttachment(
+      newCaseDocumentDTO,
+      formData
+    );
+
     this.closeModalForAddCaseAndDocument();
   };
 
@@ -58,11 +72,12 @@ export default class DocumentTable extends Component {
       employeeList,
       physicalEntityList,
       caseProcessingViewSignal,
+      createDocumentWithCaseAndAttachment,
     } = this.props || {};
 
     const translation = documentTableTranslation || {};
     const { HeaderColumns, Buttons } = translation;
-    const documents = documentList.map((document) => (
+    const documents = documentList?.map((document) => (
       <DocumentRow
         key={document.id}
         document={document}
@@ -157,9 +172,14 @@ export default class DocumentTable extends Component {
             employeeList={employeeList}
             physicalEntityList={physicalEntityList}
             caseList={caseList}
+            createDocumentWithCaseAndAttachment={
+              createDocumentWithCaseAndAttachment
+            }
           />
         )}
       </Fragment>
     );
   }
 }
+
+export default DocumentTable;

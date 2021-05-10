@@ -263,7 +263,8 @@ export const legalEntityTableTranslation = {
     delete: "Обриши",
   },
   Buttons: {
-    addNewLegalEntity: "Додај правно лице",
+    back: 'Назад',
+    addNewLegalEntity: 'Додај правно лице',
   },
 };
 
@@ -301,7 +302,8 @@ export const organizationalUnitTableTranslation = {
     delete: "Обриши",
   },
   Buttons: {
-    addNewOrganizationalUnit: "Направи нову организациону јединицу",
+    back: 'Назад',
+    addNewOrganizationalUnit: 'Направи нову организациону јединицу',
   },
 };
 
@@ -335,7 +337,8 @@ export const processTypeTableTranslation = {
     delete: "Обриши",
   },
   Buttons: {
-    addNewProcessType: "Додај нови тип",
+    back: 'Назад',
+    addNewProcessType: 'Додај нови тип',
   },
 };
 
@@ -368,7 +371,8 @@ export const processTableTranslation = {
     delete: "Обриши",
   },
   Buttons: {
-    addNewProcess: "Додај нови процес",
+    back: 'Назад',
+    addNewProcess: 'Додај нови процес',
   },
 };
 

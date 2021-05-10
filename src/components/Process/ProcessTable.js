@@ -1,8 +1,13 @@
-import React, { Component, Fragment } from "react";
-import ProcessRow from "./ProcessRow";
-import { Button } from "react-bootstrap";
-import ModalForAddProcess from "./ModalForAddProcess";
+import React, {Component, Fragment} from 'react';
+import ProcessRow from './ProcessRow';
+import {Button} from 'react-bootstrap';
+import ModalForAddProcess from './ModalForAddProcess';
 import {processTableTranslation} from '../../translations';
+import Tooltip from '@material-ui/core/Tooltip';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import {Link} from 'react-router-dom';
+import AddIcon from '@material-ui/icons/Add';
+import IconButton from '@material-ui/core/IconButton';
 
 class ProcessTable extends Component {
   constructor() {
@@ -14,15 +19,15 @@ class ProcessTable extends Component {
   }
 
   showModal = () => {
-    this.setState({ show: true });
+    this.setState({show: true});
   };
 
   closeModal = () => {
-    this.setState({ show: false });
+    this.setState({show: false});
   };
 
   onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({[e.target.name]: e.target.value});
   };
 
   handleAdd = (newProcess) => {
@@ -55,29 +60,42 @@ class ProcessTable extends Component {
     ));
     const table = (
       <div className="table-responsive tableHeight">
-        <table
-          id="example"
-          className="table table-sm table-striped table-bordered "
-        >
-          <thead>
-            <Button
-              class="btn btn-default"
-              variant="success"
-              type="submit"
-              onClick={() => {
-                this.showModal();
-              }}
-            >
-              {Buttons.addNewProcess}
-            </Button>
-            <br></br>
-            <tr>
-              <th>{HeaderColumns.id}</th>
-              <th>{HeaderColumns.processType}</th>
-              <th>{HeaderColumns.descriptionType}</th>
-              <th>{HeaderColumns.status}</th>
-              <th className="text-center">{HeaderColumns.update}</th>
-              <th className="text-center">{HeaderColumns.delete}</th>
+              <br></br>
+        <Fragment>
+          <div align="left" style={{paddingBottom: 20}}>
+            <Link to={`/dashboard`}>
+              <Tooltip title={Buttons.back} arrow>
+                <ArrowBackIcon style={{fontSize: 40}} />
+              </Tooltip>
+            </Link>
+
+            <Tooltip title={Buttons.addNewProcess} arrow>
+              <IconButton
+                className="btn btn-info"
+                type="submit"
+                size="lm"
+                onClick={() => {
+                  this.showModalForAddCaseAndDocument();
+                }}
+              >
+                <AddIcon />
+              </IconButton>
+            </Tooltip>
+          </div>
+        </Fragment>
+        <table id="example" className="table table-hover">
+          <thead className="thead-light">
+            <tr className="card-body table-success">
+              <th scope="col">{HeaderColumns.id}</th>
+              <th scope="col">{HeaderColumns.processType}</th>
+              <th scope="col">{HeaderColumns.descriptionType}</th>
+              <th scope="col">{HeaderColumns.status}</th>
+              <th scope="col" className="text-center">
+                {HeaderColumns.update}
+              </th>
+              <th scope="col" className="text-center">
+                {HeaderColumns.delete}
+              </th>
             </tr>
           </thead>
           <tbody>{processes}</tbody>

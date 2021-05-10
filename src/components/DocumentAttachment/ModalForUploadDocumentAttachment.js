@@ -1,18 +1,19 @@
-import React, { Component } from "react";
-import { Modal, Button } from "react-bootstrap";
-import classnames from "classnames";
-import { documentAttachmentForAddAndUpdateTranslation } from "../../translations";
-import axios from "axios";
-import input from "./input.css";
+import React, {Component} from 'react';
+import {Modal} from 'react-bootstrap';
+import {documentAttachmentForAddAndUpdateTranslation} from '../../translations';
 
 class ModalForUploadDocumentAttachment extends Component {
   constructor() {
     super();
 
     this.state = {
-      uploadedFile: null,
+      show: false,
     };
   }
+
+  state = {
+    uploadedFile: null,
+  };
 
   onFileChange = (event) => {
     this.setState({uploadedFile: event.target.files[0]});
@@ -22,11 +23,12 @@ class ModalForUploadDocumentAttachment extends Component {
     const formData = new FormData();
 
     formData.append('file', this.state.uploadedFile);
-    
-    const id = 3;
+
+    const {id} = this.props;
+
     this.props.uploadDocumentAttachment(formData, id);
     this.props.closeModal();
-  };;
+  };
 
   fileData = () => {
     if (this.state.uploadedFile) {
@@ -77,17 +79,10 @@ class ModalForUploadDocumentAttachment extends Component {
     const {show, closeModal} = this.props || {};
 
     return (
-      <Modal
-        show={show}
-        onHide={closeModal}
-        size="lg"
-        centered
-        dialogClassName="modal-90w"
-        aria-labelledby="contained-modal-title-vcenter"
-      >
+      <Modal show={show} onHide={closeModal} size="lg" centered>
         <Modal.Header closeButton id="contained-modal-title-vcenter">
           <h4 className="title">
-            <b>{Header.headingAddModal} </b>
+            <b>{Header.headingAddModal}</b>
           </h4>
         </Modal.Header>
         <br></br>

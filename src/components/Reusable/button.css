@@ -1,22 +1,33 @@
 .button {
-  position: center;
   cursor: pointer;
   border-width: initial;
-  color: #f7e92c;
+  color: #16719b;
   border-style: none;
   border-color: initial;
   border-image: initial;
-  padding-bottom: 0px;
-  padding-top: 0px;
+  cursor: pointer;
+  border-width: initial;
   background-color: rgb(255, 255, 255);
 }
 
 .button:hover {
-  color: rgb(58, 100, 58);
+  color: #10465f;
   background-color: rgb(230, 228, 228);
 }
 
-.badge:hover {
-  background-color: rgb(138, 12, 12);
-  color: silver;
+.delete {
+  cursor: pointer;
+  border-width: initial;
+  border-style: none;
+  border-color: initial;
+  border-image: initial;
+  cursor: pointer;
+  border-width: initial;
+  color: rgb(226, 28, 28);
+  background-color: white;
+}
+
+.delete:hover {
+  color: rgb(138, 12, 12);
+  background-color: rgb(230, 228, 228);
 }

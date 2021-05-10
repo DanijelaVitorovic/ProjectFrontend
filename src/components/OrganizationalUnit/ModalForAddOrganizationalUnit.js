@@ -70,7 +70,7 @@ class ModalForAddOrganizationalUnit extends Component {
 
     return (
       <div>
-        <Modal show={show} onHide={closeModal} size="lg">
+        <Modal show={show} centered onHide={closeModal} size="lg">
           <Modal.Header closeButton>
             <h4>{Header.headingAddModal}</h4>
           </Modal.Header>
@@ -78,16 +78,16 @@ class ModalForAddOrganizationalUnit extends Component {
           {error && (
             <Container
               className="col-md-12 text-center "
-              style={{ paddingTop: 20 }}
+              style={{paddingTop: 20}}
             >
               <div className="row">
                 <div
                   className="col-md-8 m-auto"
                   style={{
-                    color: "white",
+                    color: 'white',
                     paddingLeft: 60,
                     paddingRight: 60,
-                    background: "#EA5252",
+                    background: '#EA5252',
                   }}
                 >
                   {error.message}
@@ -131,7 +131,7 @@ class ModalForAddOrganizationalUnit extends Component {
                       {handleErrorMessage(errors.code) && (
                         <span
                           className="invalid-feedback"
-                          style={{ fontSize: 16, color: "red" }}
+                          style={{fontSize: 16, color: 'red'}}
                         >
                           {errors.code}
                         </span>

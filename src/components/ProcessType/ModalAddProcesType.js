@@ -32,6 +32,7 @@ class ModalAddProcessType extends Component {
             <div className="col-md-12 m-auto">
               <Modal
                 show={this.props.show}
+                centered
                 onHide={() => {
                   this.handleModal();
                 }}

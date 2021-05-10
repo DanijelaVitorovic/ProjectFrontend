@@ -56,7 +56,7 @@ class ModalForUpdateProcessType extends Component {
     const {Header, SelectOptionsAndPlaceholders} = translation;
 
     return (
-      <Modal show={show} onHide={closeModal} size="lg">
+      <Modal show={show} centered onHide={closeModal} size="lg">
         <Modal.Header closeButton>
           <h5>{Header.headingUpdateModal}</h5>
         </Modal.Header>

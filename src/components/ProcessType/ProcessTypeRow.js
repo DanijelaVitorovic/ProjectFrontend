@@ -52,11 +52,16 @@ class ProcessTypeRow extends Component {
         <td>{processType.type}</td>
         <td>{processType.description}</td>
         <td className="text-center">
-          <UpdateButton showModal={this.showModal} id={processType} />
+          <UpdateButton
+            className="button"
+            showModal={this.showModal}
+            id={processType}
+          />
         </td>
 
         <td className="text-center">
           <DeleteButton
+            className="badge"
             onDeleteClick={this.onDeleteClick}
             id={processType.id}
           />

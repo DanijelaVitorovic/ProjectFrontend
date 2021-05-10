@@ -6,6 +6,7 @@ import UpdateButton from '../Reusable/UpdateButton';
 import DeleteButton from '../Reusable/DeleteButton';
 import ConfirmAlert from '../Reusable/ConfirmAlert';
 import {legalEntityRowTranslation} from '../../translations';
+import button from '../Reusable/button.css';
 
 class LegalEntityRow extends Component {
   constructor(props) {
@@ -62,11 +63,19 @@ class LegalEntityRow extends Component {
           {Statement[statement].translation}
         </td>
         <td className="text-center">
-          <UpdateButton showModal={this.showModal} id={document} />
+          <UpdateButton
+            className="button"
+            showModal={this.showModal}
+            id={document}
+          />
         </td>
-        
+
         <td className="text-center">
-          <DeleteButton onDeleteClick={this.onDeleteClick} id={legalEntity.id} />
+          <DeleteButton
+            className="delete"
+            onDeleteClick={this.onDeleteClick}
+            id={legalEntity.id}
+          />
         </td>
       </tr>
     );

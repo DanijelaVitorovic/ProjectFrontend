@@ -69,7 +69,7 @@ class ModalForUpdateOrganizationalUnit extends Component {
     const translation = organizationalUnitModalForAddAndUpdateTranslation || {};
     const {Header, SelectOptionsAndPlaceholders} = translation;
     return (
-      <Modal show={show} onHide={closeModal} size="lg">
+      <Modal show={show} centered onHide={closeModal} size="lg">
         <Modal.Header closeButton>
           <h4>{Header.headingUpdateModal}</h4>
         </Modal.Header>
