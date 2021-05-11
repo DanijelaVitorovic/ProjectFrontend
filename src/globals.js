@@ -94,23 +94,25 @@ export const getPhysicalEntityName = (physicalEntity) => {
 };
 
 export const getCaseOwner = (_case) => {
-  return (
-    _case?.owner?.physicalEntity?.firstName +
-    " " +
-    _case?.owner?.physicalEntity?.lastName
-  );
+  return _case?.owner
+    ? _case?.owner?.physicalEntity?.firstName +
+        " " +
+        _case?.owner?.physicalEntity?.lastName
+    : "";
 };
 
 export const getCaseProcessor = (_case) => {
-  return (
-    _case?.processor?.physicalEntity?.firstName +
-    " " +
-    _case?.processor?.physicalEntity?.lastName
-  );
+  return _case.processor
+    ? _case?.processor?.physicalEntity?.firstName +
+        " " +
+        _case?.processor?.physicalEntity?.lastName
+    : "";
 };
 
 export const getCaseRefersTo = (_case) => {
-  return _case.refersTo?.firstName + " " + _case.refersTo?.lastName;
+  return _case?.refersTo
+    ? _case?.refersTo?.firstName + " " + _case?.refersTo?.lastName
+    : "";
 };
 
 export const getDocumentEmployeeCreated = (document) => {
@@ -128,4 +130,40 @@ export const handleErrorMessage = (clientValidationMessage) => {
 export const caseRole = {
   OWNER: "Власник",
   PROCESSOR: "Обрађивач",
+};
+
+export const CaseState = {
+  ASSIGN: {
+    value: "0",
+    translation: "На додели",
+    color: "green",
+  },
+  REJECT: {
+    value: "1",
+    translation: "Одбијен",
+    color: "red",
+  },
+  REVOKE: {
+    value: "2",
+    translation: "Обозван",
+    color: "red",
+  },
+  TAKEOVER: {
+    value: "3",
+    translation: "Преузет",
+    color: "green",
+  },
+};
+
+export const CaseTypes = {
+  ADMINISTRATIVE_PROCEDURE: {
+    value: "0",
+    translation: "Административне процедуре",
+    color: "green",
+  },
+  OTHER: {
+    value: "1",
+    translation: "Друго",
+    color: "red",
+  },
 };

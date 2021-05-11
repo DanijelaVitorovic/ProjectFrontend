@@ -44,19 +44,16 @@ class DocumentTable extends Component {
   onFileUpload = () => {
     const formData = new FormData();
 
-    formData.append('file', this.state.uploadedFile);
+    formData.append("file", this.state.uploadedFile);
 
-    const {id} = this.props;
+    const { id } = this.props;
 
     this.props.uploadDocumentAttachment(formData, id);
     this.props.closeModal();
   };
 
-  handleAddCaseAndDocument = (newCaseDocumentDTO, formData) => {
-    this.props.createDocumentWithCaseAndAttachment(
-      newCaseDocumentDTO,
-      formData
-    );
+  handleAddCaseAndDocument = (newCaseDocumentDTO) => {
+    this.props.createDocumentWithCase(newCaseDocumentDTO);
 
     this.closeModalForAddCaseAndDocument();
   };

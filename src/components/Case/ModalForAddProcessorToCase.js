@@ -7,22 +7,47 @@ class ModalForAddProcessorToCase extends Component {
   constructor() {
     super();
     this.state = {
+      id: "",
+      caseName: "",
+      caseNumber: "",
+      caseType: "",
+      caseState: "",
+      refersTo: {
+        id: 0,
+      },
+      owner: {
+        id: 0,
+      },
+      processor: {
+        id: 0,
+      },
       employeeProcessor: {},
       errors: {},
     };
   }
 
   componentDidMount() {
-    this.props.getCaseMovementByCaseId(this.props.id);
-  }
-
-  componentWillReceiveProps(nextProps) {
     const {
       id,
-      employeeProcessor,
-      _case,
-      employeeOwner,
-    } = nextProps.caseMovementForUpdate;
+      caseName,
+      caseNumber,
+      caseState,
+      caseType,
+      owner,
+      processor,
+      refersTo,
+    } = this.props.caseForUpdate;
+
+    this.setState({
+      id,
+      caseName,
+      caseNumber,
+      caseState,
+      caseType,
+      owner,
+      processor,
+      refersTo,
+    });
   }
 
   onChange = (e) => {
@@ -37,12 +62,21 @@ class ModalForAddProcessorToCase extends Component {
     e.preventDefault();
 
     const newCaseMovement = {
-      ...this.props.caseMovementForUpdate,
+      _case: {
+        id: this.props.id,
+        caseName: this.state.caseName,
+        caseNumber: this.state.caseNumber,
+        refersTo: this.state.refersTo,
+        caseType: this.state.caseType,
+        caseState: this.state.caseState,
+        owner: null,
+        processor: null,
+      },
       employeeProcessor: this.state.employeeProcessor,
     };
 
     this.props.resetError();
-    this.props.handleAddProcessor(newCaseMovement, this.props.id);
+    this.props.handleAddProcessor(newCaseMovement);
   };
 
   render() {

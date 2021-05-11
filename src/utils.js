@@ -4,5 +4,13 @@ import {
   FRONTEND_MOMENT_DATE_FORMAT,
 } from "./constants";
 
-export const formatDateFromBackend = (date) =>
-  moment(date, BACKEND_MOMENT_DATE_FORMAT).format(FRONTEND_MOMENT_DATE_FORMAT);
+export const formatDateFromBackend = (date) => {
+  if (date) {
+    moment(date, BACKEND_MOMENT_DATE_FORMAT).format(
+      FRONTEND_MOMENT_DATE_FORMAT
+    );
+  } else {
+    {
+    }
+  }
+};

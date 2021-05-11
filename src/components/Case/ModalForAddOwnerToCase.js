@@ -26,15 +26,8 @@ class ModalForAddOwnerToCase extends Component {
   }
 
   componentDidMount() {
-    const {
-      id,
-      caseName,
-      caseNumber,
-      caseType,
-      owner,
-      processor,
-      refersTo,
-    } = this.props.caseForUpdate;
+    const { id, caseName, caseNumber, caseType, owner, processor, refersTo } =
+      this.props.caseForUpdate;
 
     this.setState({
       id,
