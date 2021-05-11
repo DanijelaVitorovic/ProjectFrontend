@@ -41,6 +41,7 @@ import CaseProcessingList from "./components/Case/CaseProcessingList";
 import MenuBarUsers from "./components/MenuBar/MenuBarUserNotAuthenticated";
 import DocumentAttachmentList from "./components/Containers/DocumentAttachmentList";
 import DocumentTypeList from "./components/Containers/DocumentTypeList";
+import DocumentTypeAttachmentList from "./components/Containers/DocumentTypeAttachmentList";
 
 var jwtDecode = require("jwt-decode");
 
@@ -173,6 +174,12 @@ class App extends Component {
                 exact
                 path="/documentTypeList"
                 component={DocumentTypeList}
+              />
+
+              <Route
+                exact
+                path="/documentTypeAttachmentList/:id"
+                component={DocumentTypeAttachmentList}
               />
             </Switch>
           </div>

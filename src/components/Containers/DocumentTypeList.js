@@ -10,6 +10,7 @@ import {
 import DocumentTypeTable from "../DocumentType/DocumentTypeTable";
 import { documentTypeListTranslation } from "../../translations";
 import { resetError } from "../../actions/organizationalUnitAcitons";
+import { uploadDocumentTypeAttachment } from "../../actions/documentTypeAttachmentActions";
 
 class DocumentTypeList extends Component {
   componentDidMount() {
@@ -24,9 +25,11 @@ class DocumentTypeList extends Component {
       getDocumentType,
       deleteDocumentType,
       resetError,
+      uploadDocumentTypeAttachment,
     } = this.props || {};
     const translations = documentTypeListTranslation;
     const { Header } = translations || {};
+    const { documentTypeAttachment } = this.props.documentTypeAttachment || {};
 
     return (
       <div className="container">
@@ -46,6 +49,7 @@ class DocumentTypeList extends Component {
                   deleteDocumentType={deleteDocumentType}
                   documentTypeForUpdate={documentType}
                   resetError={resetError}
+                  uploadDocumentTypeAttachment={uploadDocumentTypeAttachment}
                 />
                 <div id="msg" />
               </div>
@@ -59,6 +63,7 @@ class DocumentTypeList extends Component {
 
 const mapStateToProps = (state) => ({
   documentType: state.documentType,
+  documentTypeAttachment: state.documentAttachment,
   error: state.error,
 });
 
@@ -69,4 +74,5 @@ export default connect(mapStateToProps, {
   getDocumentType,
   deleteDocumentType,
   resetError,
+  uploadDocumentTypeAttachment,
 })(DocumentTypeList);

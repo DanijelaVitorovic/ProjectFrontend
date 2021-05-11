@@ -34,6 +34,7 @@ export default class DocumentTypeTable extends Component {
       updateDocumentType,
       deleteDocumentType,
       documentTypeForUpdate,
+      uploadDocumentTypeAttachment,
     } = this.props || {};
     const translations = documentTypeTableTranslation;
     const { HeaderColumns, Buttons } = translations || {};
@@ -47,6 +48,7 @@ export default class DocumentTypeTable extends Component {
           getDocumentType={getDocumentType}
           deleteDocumentType={deleteDocumentType}
           documentTypeForUpdate={documentTypeForUpdate}
+          uploadDocumentTypeAttachment={uploadDocumentTypeAttachment}
         />
       )
     );
@@ -84,6 +86,7 @@ export default class DocumentTypeTable extends Component {
               <th>{HeaderColumns.description}</th>
               <th className="text-center">{HeaderColumns.update}</th>
               <th className="text-center">{HeaderColumns.delete}</th>
+              <th className="text-center">{HeaderColumns.attachemntList}</th>
             </tr>
           </thead>
           <tbody>{documentTypeList}</tbody>
