@@ -13,7 +13,6 @@ import {
   documentListTranslation,
   CaseProcessingListTranslation,
 } from "../../translations";
-import { documentTableTranslation } from "../../translations";
 import { Row, Col } from "react-bootstrap";
 import { formatDateFromBackend } from "../../utils";
 import {
@@ -25,23 +24,12 @@ import {
 import AddIcon from "@material-ui/icons/Add";
 import { getEmployees } from "../../actions/employeeActions";
 import ModalForAddDocumentByCase from "./ModalForAddDocumentByCase";
-import IconButton from "@material-ui/core/IconButton";
 import DocumentTable from "../Document/DocumentTable";
 import Tooltip from "@material-ui/core/Tooltip";
 import { Link } from "react-router-dom";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import {
-  getEmployeeName,
-  getPhysicalEntityName,
-  getCaseProcessor,
-  getCaseOwner,
-  getCaseRefersTo,
-} from "../../globals";
+import { getCaseProcessor, getCaseOwner, getCaseRefersTo } from "../../globals";
 import BottomNavigation from "@material-ui/core/BottomNavigation";
-import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
-import RestoreIcon from "@material-ui/icons/Restore";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import LocationOnIcon from "@material-ui/icons/LocationOn";
 import PersonPinIcon from "@material-ui/icons/PersonPin";
 import ModalForAddOwnerToCase from "./ModalForAddOwnerToCase";
 import { resetError } from "../../actions/organizationalUnitAcitons";
@@ -56,7 +44,7 @@ class CaseProcessingList extends Component {
       show: false,
       showModalForAddOwner: false,
       showModalForAddProcessor: false,
-      signal: false,
+      signalForChangingCaseState: false,
     };
   }
 
@@ -93,7 +81,7 @@ class CaseProcessingList extends Component {
       newCaseMovement,
       this.closeModalForAddOwnerToCase
     );
-    this.setState({ signal: true });
+    this.setState({ signalForChangingCaseState: true });
   };
 
   showModalForAddProcessorToCase = () => {
@@ -110,7 +98,7 @@ class CaseProcessingList extends Component {
       updatedCaseMovement,
       this.closeModalForAddProcessorToCase
     );
-    this.setState({ signal: true });
+    this.setState({ signalForChangingCaseState: true });
   };
 
   componentDidMount() {
@@ -118,7 +106,7 @@ class CaseProcessingList extends Component {
     this.props.getCase(id);
     this.props.getDocumentsByCase(id);
     this.props.getEmployees();
-    this.setState({ signal: false });
+    this.setState({ signalForChangingCaseState: false });
   }
 
   render() {
@@ -137,6 +125,7 @@ class CaseProcessingList extends Component {
       this.props.caseMovement || {};
     const caseState = _case?.caseState;
     const caseType = _case?.caseType;
+    const caseStateOfCaseFromCaseMovement = _caseFromCaseMovement?.caseState;
 
     const paperCaseView = (
       <Paper style={{ marginLeft: 100 }}>
@@ -214,7 +203,7 @@ class CaseProcessingList extends Component {
                   </Col>
                   <Col xs={6} md={4}>
                     <div className="form-group">
-                      {!this.state.signal && (
+                      {!this.state.signalForChangingCaseState && (
                         <Fragment>
                           <label>
                             {translationCaseProcessing.caseState}
@@ -228,7 +217,7 @@ class CaseProcessingList extends Component {
                           </label>
                         </Fragment>
                       )}
-                      {this.state.signal && (
+                      {this.state.signalForChangingCaseState && (
                         <Fragment>
                           <label>
                             {translationCaseProcessing.caseState}
@@ -236,7 +225,10 @@ class CaseProcessingList extends Component {
                               type="text"
                               className="form-control"
                               name="caseState"
-                              value={CaseState[caseState]?.translation}
+                              value={
+                                CaseState[caseStateOfCaseFromCaseMovement]
+                                  ?.translation
+                              }
                               disabled
                             />
                           </label>
@@ -435,7 +427,6 @@ class CaseProcessingList extends Component {
             error={error}
             resetError={this.props.resetError}
             _caseFromCaseMovement={_caseFromCaseMovement}
-            signal={this.state.signal}
           />
         }
         {
