@@ -44,12 +44,12 @@ class DocumentTable extends Component {
   onFileUpload = () => {
     const formData = new FormData();
 
-    formData.append('file', this.state.uploadedFile);
+    formData.append("file", this.state.uploadedFile);
 
-    const {id} = this.props;
+    const { id } = this.props;
 
     this.props.uploadDocumentAttachment(formData, id);
-    this.props.closeModal();
+    this.closeModal();
   };
 
   handleAddCaseAndDocument = (newCaseDocumentDTO, formData) => {
@@ -57,7 +57,6 @@ class DocumentTable extends Component {
       newCaseDocumentDTO,
       formData
     );
-
     this.closeModalForAddCaseAndDocument();
   };
 

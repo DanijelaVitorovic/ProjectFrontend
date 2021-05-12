@@ -13,7 +13,6 @@ import {
   documentListTranslation,
   CaseProcessingListTranslation,
 } from "../../translations";
-import { documentTableTranslation } from "../../translations";
 import { Row, Col } from "react-bootstrap";
 import { formatDateFromBackend } from "../../utils";
 import {
@@ -25,28 +24,18 @@ import {
 import AddIcon from "@material-ui/icons/Add";
 import { getEmployees } from "../../actions/employeeActions";
 import ModalForAddDocumentByCase from "./ModalForAddDocumentByCase";
-import IconButton from "@material-ui/core/IconButton";
 import DocumentTable from "../Document/DocumentTable";
 import Tooltip from "@material-ui/core/Tooltip";
 import { Link } from "react-router-dom";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import {
-  getEmployeeName,
-  getPhysicalEntityName,
-  getCaseProcessor,
-  getCaseOwner,
-  getCaseRefersTo,
-} from "../../globals";
+import { getCaseProcessor, getCaseOwner, getCaseRefersTo } from "../../globals";
 import BottomNavigation from "@material-ui/core/BottomNavigation";
-import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
-import RestoreIcon from "@material-ui/icons/Restore";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import LocationOnIcon from "@material-ui/icons/LocationOn";
 import PersonPinIcon from "@material-ui/icons/PersonPin";
 import ModalForAddOwnerToCase from "./ModalForAddOwnerToCase";
 import { resetError } from "../../actions/organizationalUnitAcitons";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import ModalForAddProcessorToCase from "./ModalForAddProcessorToCase";
+import { CaseState, CaseTypes } from "../../../src/globals";
 
 class CaseProcessingList extends Component {
   constructor() {
@@ -55,6 +44,7 @@ class CaseProcessingList extends Component {
       show: false,
       showModalForAddOwner: false,
       showModalForAddProcessor: false,
+      signalForChangingCaseState: false,
     };
   }
 
@@ -91,6 +81,7 @@ class CaseProcessingList extends Component {
       newCaseMovement,
       this.closeModalForAddOwnerToCase
     );
+    this.setState({ signalForChangingCaseState: true });
   };
 
   showModalForAddProcessorToCase = () => {
@@ -102,12 +93,12 @@ class CaseProcessingList extends Component {
     this.setState({ showModalForAddProcessor: false });
   };
 
-  handleAddProcessor = (updatedCaseMovement, id) => {
+  handleAddProcessor = (updatedCaseMovement) => {
     this.props.addProcessorToCase(
       updatedCaseMovement,
-      id,
       this.closeModalForAddProcessorToCase
     );
+    this.setState({ signalForChangingCaseState: true });
   };
 
   componentDidMount() {
@@ -115,6 +106,7 @@ class CaseProcessingList extends Component {
     this.props.getCase(id);
     this.props.getDocumentsByCase(id);
     this.props.getEmployees();
+    this.setState({ signalForChangingCaseState: false });
   }
 
   render() {
@@ -129,10 +121,14 @@ class CaseProcessingList extends Component {
     const employees = this.props.employee.employeeList || {};
     const startDate = _case?.startDate;
     const { caseList, getDocument, error } = this.props || {};
-    const { caseMovement } = this.props.caseMovement || {};
+    const { caseMovement, _caseFromCaseMovement } =
+      this.props.caseMovement || {};
+    const caseState = _case?.caseState;
+    const caseType = _case?.caseType;
+    const caseStateOfCaseFromCaseMovement = _caseFromCaseMovement?.caseState;
 
     const paperCaseView = (
-      <Paper style={{ marginLeft: 100 }}>
+      <Paper style={{ marginLeft: 100, height: "60vh" }}>
         <div className="register">
           <div className="container">
             <div className="row">
@@ -183,7 +179,7 @@ class CaseProcessingList extends Component {
                         <input
                           className="form-control"
                           name="caseType"
-                          value={_case.caseType}
+                          value={CaseTypes[caseType]?.translation}
                           disabled
                         />
                       </label>
@@ -207,16 +203,37 @@ class CaseProcessingList extends Component {
                   </Col>
                   <Col xs={6} md={4}>
                     <div className="form-group">
-                      <label>
-                        {translationCaseProcessing.caseState}
-                        <input
-                          type="text"
-                          className="form-control"
-                          name="caseState"
-                          value={_case.caseState}
-                          disabled
-                        />
-                      </label>
+                      {!this.state.signalForChangingCaseState && (
+                        <Fragment>
+                          <label>
+                            {translationCaseProcessing.caseState}
+                            <input
+                              type="text"
+                              className="form-control"
+                              name="caseState"
+                              value={CaseState[caseState]?.translation}
+                              disabled
+                            />
+                          </label>
+                        </Fragment>
+                      )}
+                      {this.state.signalForChangingCaseState && (
+                        <Fragment>
+                          <label>
+                            {translationCaseProcessing.caseState}
+                            <input
+                              type="text"
+                              className="form-control"
+                              name="caseState"
+                              value={
+                                CaseState[caseStateOfCaseFromCaseMovement]
+                                  ?.translation
+                              }
+                              disabled
+                            />
+                          </label>
+                        </Fragment>
+                      )}
                     </div>
                   </Col>
                   <Col xs={6} md={4}>
@@ -298,7 +315,7 @@ class CaseProcessingList extends Component {
     );
 
     const paperDocuments = (
-      <Paper style={{ marginRight: 100 }}>
+      <Paper style={{ marginRight: 100, height: "60vh" }}>
         <div className="register">
           <div className="container">
             <div className="row">
@@ -391,6 +408,7 @@ class CaseProcessingList extends Component {
             closeModal={this.closeModal}
             createDocument={createDocument}
             employeeList={employees}
+            caseForUpdate={_case}
             physicalEntityList={physicalEntityList}
             id={this.props.match.params.id}
           />
@@ -408,6 +426,7 @@ class CaseProcessingList extends Component {
             updateCase={this.props.updateCase}
             error={error}
             resetError={this.props.resetError}
+            _caseFromCaseMovement={_caseFromCaseMovement}
           />
         }
         {
@@ -421,8 +440,8 @@ class CaseProcessingList extends Component {
             physicalEntityList={physicalEntityList}
             id={this.props.match.params.id}
             error={error}
+            caseForUpdate={_case}
             resetError={this.props.resetError}
-            getCaseMovementByCaseId={this.props.getCaseMovementByCaseId}
             caseMovementForUpdate={caseMovement}
           />
         }

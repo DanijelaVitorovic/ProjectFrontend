@@ -9,6 +9,7 @@ import {
 const initialState = {
   caseMovementList: [],
   caseMovement: {},
+  _caseFromCaseMovement: {},
 };
 
 export default function (state = initialState, action) {
@@ -34,12 +35,12 @@ export default function (state = initialState, action) {
     case ADD_PROCESSOR_TO_CASE:
       return {
         ...state,
-        caseMovement: action.payload,
+        _caseFromCaseMovement: action.payload._case,
       };
     case GET_CASE_MOVEMENT_BY_CASE_ID:
       return {
         ...state,
-        caseMovement: action.payload,
+        caseMovementList: action.payload,
       };
     default:
       return state;

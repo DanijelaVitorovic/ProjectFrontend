@@ -50,12 +50,11 @@ class PhysicalEntityRow extends Component {
         <td>
           <UpdateButton showModal={this.showModal} id={physicalEntity} />
         </td>
-        <td>
-          <Badge variant="danger">
-            <div onClick={() => this.onDeleteClick(physicalEntity.id)}>
-              <DeleteForeverIcon />
-            </div>
-          </Badge>{" "}
+        <td className="text-center">
+          <DeleteButton
+            onDeleteClick={this.onDeleteClick}
+            id={physicalEntity.id}
+          />
         </td>
       </tr>
     );

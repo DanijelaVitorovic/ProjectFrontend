@@ -15,6 +15,7 @@ export const CaseTableTranslation = {
     status: "Статус",
     update: "Измена",
     documents: "Документа предмета",
+    delete: "Избриши",
   },
   Buttons: {
     addNewCase: "Додај нови предмет",
@@ -264,8 +265,8 @@ export const legalEntityTableTranslation = {
     delete: "Обриши",
   },
   Buttons: {
-    back: 'Назад',
-    addNewLegalEntity: 'Додај правно лице',
+    back: "Назад",
+    addNewLegalEntity: "Додај правно лице",
   },
 };
 
@@ -303,8 +304,8 @@ export const organizationalUnitTableTranslation = {
     delete: "Обриши",
   },
   Buttons: {
-    back: 'Назад',
-    addNewOrganizationalUnit: 'Направи нову организациону јединицу',
+    back: "Назад",
+    addNewOrganizationalUnit: "Направи нову организациону јединицу",
   },
 };
 
@@ -338,8 +339,8 @@ export const processTypeTableTranslation = {
     delete: "Обриши",
   },
   Buttons: {
-    back: 'Назад',
-    addNewProcessType: 'Додај нови тип',
+    back: "Назад",
+    addNewProcessType: "Додај нови тип",
   },
 };
 
@@ -372,8 +373,8 @@ export const processTableTranslation = {
     delete: "Обриши",
   },
   Buttons: {
-    back: 'Назад',
-    addNewProcess: 'Додај нови процес',
+    back: "Назад",
+    addNewProcess: "Додај нови процес",
   },
 };
 
@@ -538,7 +539,7 @@ export const caseClassificationValidationsTranslation = {
 };
 
 export const caseClassificationTranslation = {
-  heading: "Шифра је обавезна и треба имати минимум 2 цифре",
+  heading: "Додајте класификацију предмета",
   headingUpdate: "Измени класификације предмета",
   codePlaceholder: "Унесите шифру класификације",
   namePlaceholder: "Организациона јединица је обавезна",

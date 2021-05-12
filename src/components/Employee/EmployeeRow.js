@@ -47,11 +47,7 @@ class EmployeeRow extends Component {
         </td>
 
         <td className="text-center">
-          <Badge variant="danger">
-            <div onClick={() => this.onDeleteClick(employee.id)}>
-              <DeleteForeverIcon />
-            </div>
-          </Badge>{" "}
+          <DeleteButton onDeleteClick={this.onDeleteClick} id={employee.id} />
         </td>
       </tr>
     );

@@ -53,13 +53,8 @@ class Dashboard extends Component {
           <h1 class="text-center">{DashboardItems.welcomeTitle}</h1>
           <p class="text-center">{DashboardItems.welcomeParagraph}</p>
         </div>
-        <Grid item xs={8}>
-          <Paper
-            style={{
-              backgroundColor: "#ffffff",
-              height: "60vh",
-            }}
-          >
+        <Grid>
+          <Paper>
             <CaseMovementList />
           </Paper>
         </Grid>
