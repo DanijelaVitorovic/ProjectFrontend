@@ -128,7 +128,7 @@ class CaseProcessingList extends Component {
     const caseStateOfCaseFromCaseMovement = _caseFromCaseMovement?.caseState;
 
     const paperCaseView = (
-      <Paper style={{ marginLeft: 100 }}>
+      <Paper style={{ marginLeft: 100, height: "60vh" }}>
         <div className="register">
           <div className="container">
             <div className="row">
@@ -315,7 +315,7 @@ class CaseProcessingList extends Component {
     );
 
     const paperDocuments = (
-      <Paper style={{ marginRight: 100 }}>
+      <Paper style={{ marginRight: 100, height: "60vh" }}>
         <div className="register">
           <div className="container">
             <div className="row">
