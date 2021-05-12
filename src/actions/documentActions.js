@@ -13,15 +13,15 @@ import {
   GET_DOCUMENT_LIST,
   CREATE_DOCUMENT_WITH_CASE_AND_ATTACHMENT,
   UPLOAD_DOCUMENT_ATTACHMENT,
-} from './types';
-import axios from 'axios';
-import 'react-confirm-alert/src/react-confirm-alert.css';
-import {ContactsOutlined} from '@material-ui/icons';
-import {uploadDocumentAttachment} from './documentAttachmentActions';
+} from "./types";
+import axios from "axios";
+import "react-confirm-alert/src/react-confirm-alert.css";
+import { ContactsOutlined } from "@material-ui/icons";
+import { uploadDocumentAttachment } from "./documentAttachmentActions";
 
 export const createDocument = (document) => async (dispatch) => {
   try {
-    await axios.post('/api/document/create', document).then((response) => {
+    await axios.post("/api/document/create", document).then((response) => {
       dispatch({
         type: ADD_DOCUMENT,
         payload: response.data,
@@ -37,7 +37,7 @@ export const createDocument = (document) => async (dispatch) => {
 
 export const updateDocument = (document) => async (dispatch) => {
   try {
-    await axios.post('/api/document/update', document).then((response) => {
+    await axios.post("/api/document/update", document).then((response) => {
       dispatch({
         type: UPDATE_DOCUMENT,
         payload: response.data,
@@ -68,7 +68,7 @@ export const getDocument = (id) => async (dispatch) => {
 };
 
 export const getDocuments = () => async (dispatch) => {
-  const res = await axios.get('/api/document/findAll').then((response) => {
+  const res = await axios.get("/api/document/findAll").then((response) => {
     dispatch({
       type: GET_DOCUMENT_LIST,
       payload: response.data,
@@ -87,7 +87,7 @@ export const deleteDocument = (id) => async (dispatch) => {
 export const createDocumentWithCase = (newDocument) => async (dispatch) => {
   try {
     await axios
-      .post('/api/document/createDocumentWithCase', newDocument)
+      .post("/api/document/createDocumentWithCase", newDocument)
       .then((response) => {
         dispatch({
           type: ADD_CASE_DOCUMENT_DTO,
@@ -106,7 +106,7 @@ export const verificationDocument = (document) => async (dispatch) => {
   try {
     await axios
 
-      .post('/api/document/verification', document)
+      .post("/api/document/verification", document)
 
       .then((response) => {
         dispatch({
@@ -124,7 +124,7 @@ export const verificationDocument = (document) => async (dispatch) => {
 
 export const signingDocument = (document) => async (dispatch) => {
   try {
-    await axios.post('/api/document/singing', document).then((response) => {
+    await axios.post("/api/document/singing", document).then((response) => {
       dispatch({
         type: SIGNING_DOCUMENT,
         payload: response.data,
@@ -140,7 +140,7 @@ export const signingDocument = (document) => async (dispatch) => {
 
 export const signedDocument = (document) => async (dispatch) => {
   try {
-    await axios.post('/api/document/singed', document).then((response) => {
+    await axios.post("/api/document/singed", document).then((response) => {
       dispatch({
         type: SINGED_DOCUMENT,
         payload: response.data,
@@ -156,7 +156,7 @@ export const signedDocument = (document) => async (dispatch) => {
 
 export const finalDocument = (document) => async (dispatch) => {
   try {
-    await axios.post('/api/document/final', document).then((response) => {
+    await axios.post("/api/document/final", document).then((response) => {
       dispatch({
         type: FINAL_DOCUMENT,
         payload: response.data,
@@ -178,13 +178,23 @@ export const getDocumentsByCase = (id) => async (dispatch) => {
   });
 };
 
-export const createDocumentWithCaseAndAttachment = (
-  document,
-  uploadFile
-) => async (dispatch) => {
-  const response = createDocumentWithCase(document);
-
-  const id = response.data.id;
-
-  uploadDocumentAttachment(uploadFile, id);
-};
+export const createDocumentWithCaseAndAttachment =
+  (document, uploadFile) => async (dispatch) => {
+    const response = await axios.post(
+      "/api/document/createDocumentWithCase",
+      document
+    );
+    dispatch({
+      type: ADD_CASE_DOCUMENT_DTO,
+      payload: response.data,
+    });
+    const id = response.data.id;
+    await axios
+      .post(`/api/documentAttachment/upload/${id}`, uploadFile)
+      .then((response) => {
+        dispatch({
+          type: UPLOAD_DOCUMENT_ATTACHMENT,
+          payload: response.data,
+        });
+      });
+  };

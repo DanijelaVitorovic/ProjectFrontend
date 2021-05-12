@@ -46,6 +46,21 @@ class ModalForAddCaseAndDocument extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  onFileChange = (event) => {
+    this.setState({ uploadedFile: event.target.files[0] });
+  };
+
+  onFileUpload = () => {
+    const formData = new FormData();
+
+    formData.append("file", this.state.uploadedFile);
+
+    const { id } = this.props;
+
+    this.props.uploadDocumentAttachment(formData, id);
+    this.props.closeModal();
+  };
+
   handleValidationCase = () => {
     const translationValidation = caseValidationsTranslation;
     const { Modals } = translationValidation;
@@ -341,6 +356,48 @@ class ModalForAddCaseAndDocument extends Component {
     this.setState({ activeStep: step });
   };
 
+  fileData = () => {
+    if (this.state.uploadedFile) {
+      const translation = documentAttachmentForAddAndUpdateTranslation || {};
+      const { SelectOptionsAndPlaceholders } = translation;
+      const firstIndex = this.state.uploadedFile?.type.lastIndexOf(".") + 1;
+      const lastIndex = this.state.uploadedFile?.type.length;
+      const fileName = this.state.uploadedFile?.name;
+      const fileType = this.state.uploadedFile?.type.substring(
+        firstIndex,
+        lastIndex
+      );
+      return (
+        <div>
+          <br></br>
+          <h2>{SelectOptionsAndPlaceholders.details}</h2>
+          <p>
+            {SelectOptionsAndPlaceholders.name}
+            {fileName}
+          </p>
+          <p>
+            {SelectOptionsAndPlaceholders.type}
+            {fileType}
+          </p>
+          <p>
+            {SelectOptionsAndPlaceholders.lastChange}
+            {this.state.uploadedFile?.lastModifiedDate.toLocaleDateString()}
+          </p>
+        </div>
+      );
+    } else {
+      const translation = documentAttachmentForAddAndUpdateTranslation || {};
+      const { SelectOptionsAndPlaceholders } = translation;
+      return (
+        <div>
+          <h6 className="col-md-9 m-auto">
+            <b>{SelectOptionsAndPlaceholders.info} </b>
+          </h6>
+        </div>
+      );
+    }
+  };
+
   render() {
     const { activeStep } = this.state;
     const steps = this.getSteps();
@@ -384,6 +441,20 @@ class ModalForAddCaseAndDocument extends Component {
                         ))}
                       </Stepper>
                       <Typography>{this.getStepContent(activeStep)}</Typography>
+                    </div>
+                    <div className="container">
+                      <div variant="success" className="col-md-4 m-auto">
+                        <input
+                          type="file"
+                          name="file"
+                          id="file"
+                          class="inputfile"
+                          onChange={this.onFileChange}
+                        />
+                        <label for="file">{Buttons.upload}</label>
+                      </div>
+                      <br></br>
+                      {this.fileData()}
                     </div>
 
                     <button
