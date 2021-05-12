@@ -49,12 +49,11 @@ class CaseClassificationRow extends Component {
           <UpdateButton showModal={this.showModal} id={document} />
         </td>
 
-        <td className="text-center" style={{ paddingTop: 25 }}>
-          <Badge variant="danger">
-            <div onClick={() => this.onDeleteClick(caseClassification.id)}>
-              <DeleteForeverIcon />
-            </div>
-          </Badge>{" "}
+        <td className="text-center">
+          <DeleteButton
+            onDeleteClick={this.onDeleteClick}
+            id={caseClassification.id}
+          />
         </td>
       </tr>
     );

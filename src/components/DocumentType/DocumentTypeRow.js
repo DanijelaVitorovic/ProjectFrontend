@@ -5,6 +5,7 @@ import UpdateButton from "../Reusable/UpdateButton";
 import { Badge } from "react-bootstrap";
 import ConfirmAlert from "../Reusable/ConfirmAlert";
 import { documentTypeRowTranslation } from "../../translations";
+import DeleteButton from "../Reusable/DeleteButton";
 
 export default class DocumentTypeRow extends Component {
   constructor() {
@@ -46,12 +47,11 @@ export default class DocumentTypeRow extends Component {
           <UpdateButton showModal={this.showModal} id={documentType.id} />
         </td>
 
-        <td className="text-center" style={{ paddingTop: 25 }}>
-          <Badge variant="danger">
-            <div onClick={() => this.onDeleteClick(documentType.id)}>
-              <DeleteForeverIcon />
-            </div>
-          </Badge>{" "}
+        <td className="text-center">
+          <DeleteButton
+            onDeleteClick={this.onDeleteClick}
+            id={documentType.id}
+          />
         </td>
       </tr>
     );
