@@ -35,7 +35,6 @@ class CaseRow extends Component {
   render() {
     const { getCase, caseForUpdate, physicalEntityList, employeeList } =
       this.props || {};
-
     const translation = CaseRowTranslation;
 
     const row = (

@@ -36,6 +36,7 @@ export const CaseTableTranslation = {
 export const CaseRowTranslation = {
   updateButton: "Измени",
   listOfDocuments: "Dokumenta predmeta",
+  attachemntList: "Прилози типа документа",
 };
 
 export const CaseModalForAddAndUpdateTranslation = {
@@ -467,15 +468,16 @@ export const documentAttachmentForAddAndUpdateTranslation = {
     title: "Фајл",
   },
   SelectOptionsAndPlaceholders: {
-    details: "Детаљи:",
-    name: "Назив фајла:",
-    type: "Тип фајла:",
-    lastChange: "Последњи пут измењен:",
-    info: "Одаберите фајл пре него што притиснете другме 'Сачувај'! ",
+    details: "Детаљи: ",
+    name: "Назив фајла: ",
+    type: "Тип фајла: ",
+    lastChange: "Последњи пут измењен: ",
+    info: "Одаберите фајл пре него што притиснете другме 'Сачувај'",
+    size: "Величина: ",
   },
   Buttons: {
-    upload: "Учитај!",
-    save: "  Сачувај!",
+    upload: "Учитај",
+    save: "  Сачувај",
   },
 };
 
@@ -575,6 +577,7 @@ export const documentTypeTableTranslation = {
     description: "Опис",
     update: "Измена",
     delete: "Брисање",
+    attachemntList: "Прилози",
   },
   Buttons: {
     addNew: "Додај нови тип предмета",
