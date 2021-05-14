@@ -4,6 +4,7 @@ import {
   GET_EMPLOYEE,
   ADD_EMPLOYEE,
   UPDATE_EMPLOYEE,
+  FIND_USER_BY_USERNAME,
 } from "../actions/types";
 
 const initialState = {
@@ -41,6 +42,11 @@ export default function (state = initialState, action) {
         employeeList: state.employeeList
           .filter((employee) => employee.id != action.payload.id)
           .concat(action.payload),
+      };
+    case FIND_USER_BY_USERNAME:
+      return {
+        ...state,
+        employee: action.payload,
       };
 
     default:

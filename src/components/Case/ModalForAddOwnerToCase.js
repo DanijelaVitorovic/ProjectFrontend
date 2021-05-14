@@ -58,8 +58,8 @@ class ModalForAddOwnerToCase extends Component {
         caseNumber: this.state.caseNumber,
         refersTo: this.state.refersTo,
         caseType: this.state.caseType,
-        owner: null,
-        processor: null,
+        owner: this.state?.owner,
+        processor: this.state?.processor,
       },
       employeeOwner: this.state.employeeOwner,
     };

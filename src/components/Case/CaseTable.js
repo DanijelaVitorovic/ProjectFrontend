@@ -60,7 +60,7 @@ class CaseTable extends Component {
         <div align="left">
           <Link to={`/dashboard`}>
             <Tooltip title={Buttons.back} arrow>
-              <ArrowBackIcon style={{ fontSize: 40 }} />
+              <ArrowBackIcon style={{ fontSize: 40 }} color="primary" />
             </Tooltip>
           </Link>
         </div>

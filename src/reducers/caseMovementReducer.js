@@ -4,6 +4,7 @@ import {
   ADD_OWNER_TO_CASE,
   ADD_PROCESSOR_TO_CASE,
   GET_CASE_MOVEMENT_BY_CASE_ID,
+  REVOKE_CASE_MOVEMENT,
 } from "../actions/types";
 
 const initialState = {
@@ -17,7 +18,8 @@ export default function (state = initialState, action) {
     case ADD_OWNER_TO_CASE:
       return {
         ...state,
-        caseMovement: action.payload,
+        _caseFromCaseMovement: action.payload._case,
+        caseMovementList: state.caseMovementList.concat(action.payload),
       };
 
     case GET_CASE_MOVEMENT_LIST:
@@ -36,6 +38,15 @@ export default function (state = initialState, action) {
       return {
         ...state,
         _caseFromCaseMovement: action.payload._case,
+        caseMovementList: state.caseMovementList.concat(action.payload),
+      };
+    case REVOKE_CASE_MOVEMENT:
+      return {
+        ...state,
+        _caseFromCaseMovement: action.payload._case,
+        caseMovementList: state.caseMovementList
+          .filter((caseMovement) => caseMovement.id != action.payload.id)
+          .concat(action.payload),
       };
     case GET_CASE_MOVEMENT_BY_CASE_ID:
       return {

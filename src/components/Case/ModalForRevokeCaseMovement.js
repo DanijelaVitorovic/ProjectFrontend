@@ -2,8 +2,12 @@ import React, { Component } from "react";
 import { Modal, ModalFooter, Card, Container } from "react-bootstrap";
 import { getEmployeeName } from "../../globals";
 import { modalForAddProcessorTranslation } from "../../translations.js";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import DeleteIcon from "@material-ui/icons/Delete";
+import YoutubeSearchedForIcon from "@material-ui/icons/YoutubeSearchedFor";
 
-class ModalForAddProcessorToCase extends Component {
+class ModalForRevokeCaseMovement extends Component {
   constructor() {
     super();
     this.state = {
@@ -21,7 +25,7 @@ class ModalForAddProcessorToCase extends Component {
       processor: {
         id: 0,
       },
-      employeeProcessor: {},
+
       errors: {},
     };
   }
@@ -61,45 +65,28 @@ class ModalForAddProcessorToCase extends Component {
   onSubmit = (e) => {
     e.preventDefault();
 
-    const newCaseMovement = {
-      _case: {
-        id: this.props.id,
-        caseName: this.state.caseName,
-        caseNumber: this.state.caseNumber,
-        refersTo: this.state.refersTo,
-        caseType: this.state.caseType,
-        caseState: this.state.caseState,
-        owner: this.state.owner,
-        processor: this.state.processor,
-      },
-      employeeProcessor: this.state.employeeProcessor,
-    };
-
     this.props.resetError();
-    this.props.handleAddProcessor(newCaseMovement);
+    this.props.handleRevokingCaseMovement(this.props.caseForUpdate);
   };
 
   render() {
     const {
-      showModalForAddProcessor,
+      showModalForRevokeCaseMovement,
       error,
       employeeList,
-      closeModalForAddProcessorToCase,
+      closeModalForRevokingCaseMovement,
     } = this.props || {};
 
     return (
       <Modal
-        show={showModalForAddProcessor}
-        onHide={closeModalForAddProcessorToCase}
-        onRequestClose={closeModalForAddProcessorToCase}
-        size="lg"
+        show={showModalForRevokeCaseMovement}
+        onHide={closeModalForRevokingCaseMovement}
+        onRequestClose={closeModalForRevokingCaseMovement}
+        size="sm"
         centered
         animation
       >
         <Card bg={"white"} text={"black"} style={{ paddingBottom: 20 }}>
-          <Modal.Header closeButton>
-            {modalForAddProcessorTranslation.addProcessor}
-          </Modal.Header>
           {error && (
             <Container
               className="col-md-12 text-center "
@@ -126,32 +113,24 @@ class ModalForAddProcessorToCase extends Component {
                 <div className="col-md-8 m-auto">
                   <br />
                   <form onSubmit={this.onSubmit}>
-                    <div className="form-group">
-                      <select
-                        employeeList={employeeList}
-                        onChange={this.onChangeCombo}
-                        className="form-control form-control-lg"
-                        name="employeeProcessor"
-                      >
-                        <option value="" selected disabled>
-                          {modalForAddProcessorTranslation.selectEmployee}
-                        </option>
-                        {employeeList.map((employee) => {
-                          return (
-                            <option value={employee.id}>
-                              {getEmployeeName(employee)}
-                            </option>
-                          );
-                        })}
-                      </select>
-                    </div>
-
-                    <button
-                      type="submit"
-                      className="btn btn-primary float-right btn-success"
+                    <p className="text-center">Да ли сте сигурни?</p>
+                    <Button
+                      variant="contained"
+                      color="default"
+                      startIcon={<YoutubeSearchedForIcon />}
+                      onClick={closeModalForRevokingCaseMovement}
                     >
-                      <i className="fas fa-check fa-2x" />
-                    </button>
+                      Не
+                    </Button>
+                    &nbsp;&nbsp;&nbsp;
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      startIcon={<DeleteIcon />}
+                      type="submit"
+                    >
+                      Да!
+                    </Button>
                   </form>
                 </div>
               </div>
@@ -163,4 +142,4 @@ class ModalForAddProcessorToCase extends Component {
   }
 }
 
-export default ModalForAddProcessorToCase;
+export default ModalForRevokeCaseMovement;

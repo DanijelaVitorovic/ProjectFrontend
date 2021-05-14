@@ -10,6 +10,7 @@ import { Navbar } from "react-bootstrap";
 import { HeaderTranslation } from "../../translations";
 import companyLogo from "../../dex-logo.png";
 import Tooltip from "@material-ui/core/Tooltip";
+import Switch from "@material-ui/core/Switch";
 
 class Header extends Component {
   logout() {
@@ -28,6 +29,10 @@ class Header extends Component {
           <MenuBarUsers />
         ) : null}
         <ul className="navbar-nav ml-auto">
+          <Switch
+            checked={this.props.darkMode}
+            onChange={this.props.handleDarkMode}
+          />
           <li
             className="nav-item"
             style={{

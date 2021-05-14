@@ -7,6 +7,7 @@ import {
   DEACTIVATE_USER,
   ACTIVATE_USER,
   DELETE_USER,
+  FIND_USER_BY_USERNAME,
   FIND_ALL_USERS_NOT_USED_IN_TABLE_EMPLOYEE_AS_FOREIGN_KEY,
 } from "./types";
 
@@ -82,14 +83,23 @@ export const deleteUser = (id) => async (dispatch) => {
   }
 };
 
-export const findAllUsersNotUsedAsForeignKeyInTableEmployee = () => async (
-  dispatch
-) => {
-  const res = await axios.get(
-    "/api/employee/findAllUsersNotUsedAsForeignKeyInTableEmployee"
-  );
-  dispatch({
-    type: FIND_ALL_USERS_NOT_USED_IN_TABLE_EMPLOYEE_AS_FOREIGN_KEY,
-    payload: res.data,
-  });
+export const findAllUsersNotUsedAsForeignKeyInTableEmployee =
+  () => async (dispatch) => {
+    const res = await axios.get(
+      "/api/employee/findAllUsersNotUsedAsForeignKeyInTableEmployee"
+    );
+    dispatch({
+      type: FIND_ALL_USERS_NOT_USED_IN_TABLE_EMPLOYEE_AS_FOREIGN_KEY,
+      payload: res.data,
+    });
+  };
+
+export const findUserByUsername = () => async (dispatch) => {
+  try {
+    const res = await axios.get("/api/user/findUserByUsername");
+    dispatch({
+      type: FIND_USER_BY_USERNAME,
+      payload: res.data,
+    });
+  } catch (e) {}
 };

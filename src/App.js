@@ -42,6 +42,9 @@ import MenuBarUsers from "./components/MenuBar/MenuBarUserNotAuthenticated";
 import DocumentAttachmentList from "./components/Containers/DocumentAttachmentList";
 import DocumentTypeList from "./components/Containers/DocumentTypeList";
 import DocumentTypeAttachmentList from "./components/Containers/DocumentTypeAttachmentList";
+import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
+import Grid from "@material-ui/core/Grid";
 
 var jwtDecode = require("jwt-decode");
 
@@ -63,128 +66,172 @@ if (jwtToken) {
 }
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      darkMode: false,
+    };
+  }
+
+  handleDarkMode = () => {
+    this.setState({ darkMode: !this.state.darkMode });
+  };
+
   render() {
+    const darkTheme = createMuiTheme({
+      palette: {
+        type: "dark",
+        primary: {
+          main: "#F783AC",
+        },
+        secondary: {
+          main: "#FF4081",
+        },
+      },
+    });
+
+    const lightTheme = createMuiTheme({
+      palette: {
+        type: "light",
+      },
+    });
+
     return (
-      <Provider store={store}>
-        <Router>
-          <div className="App">
-            <Header />
-            <Route exact path="/" component={LandingPage} />
-            <Route exact path="/login" component={Login} />
+      <ThemeProvider theme={this.state.darkMode ? darkTheme : lightTheme}>
+        <Paper style={{ height: "100vh" }}>
+          <Provider store={store}>
+            <Router>
+              <div className="App">
+                <Header
+                  darkMode={this.state.darkMode}
+                  handleDarkMode={this.handleDarkMode}
+                />
+                <Route exact path="/" component={LandingPage} />
+                <Route exact path="/login" component={Login} />
 
-            <Switch>
-              <SecuredRoute exact path="/dashboard" component={Dashboard} />
-              <Route exact path="/addUser" component={AddUser} />
-              <Route exact path="/userList" component={UserList} />
-              <Route exact path="/processList" component={ProcessList} />
-              <Route exact path="/addProcess" component={AddProcess} />
-              <Route exact path="/updateUser/:id" component={UpdateUser} />
-              <Route
-                exact
-                path="/updateProcess/:id"
-                component={UpdateProcess}
-              />
-              <Route
-                exact
-                path="/organizationalUnitList"
-                component={OrganizationalUnitList}
-              />
+                <Switch>
+                  <SecuredRoute exact path="/dashboard" component={Dashboard} />
+                  <Route exact path="/addUser" component={AddUser} />
+                  <Route exact path="/userList" component={UserList} />
+                  <Route exact path="/processList" component={ProcessList} />
+                  <Route exact path="/addProcess" component={AddProcess} />
+                  <Route exact path="/updateUser/:id" component={UpdateUser} />
+                  <Route
+                    exact
+                    path="/updateProcess/:id"
+                    component={UpdateProcess}
+                  />
+                  <Route
+                    exact
+                    path="/organizationalUnitList"
+                    component={OrganizationalUnitList}
+                  />
 
-              <Route
-                exact
-                path="/organizationalUnitList"
-                component={OrganizationalUnitList}
-              />
+                  <Route
+                    exact
+                    path="/organizationalUnitList"
+                    component={OrganizationalUnitList}
+                  />
 
-              <Route exact path="/documentList" component={DocumentList} />
-              <Route
-                exact
-                path="/organizationalUnitList"
-                component={OrganizationalUnitList}
-              />
-              <Route
-                exact
-                path="/documentProcessing/:id"
-                component={DocumentProcessing}
-              />
-              <Route exact path="/addLegalEntity" component={AddLegalEntity} />
-              <Route
-                exact
-                path="/legalEntityList"
-                component={LegalEntityList}
-              />
-              <Route
-                exact
-                path="/processTypeList"
-                component={ProcessTypeList}
-              />
-              <Route exact path="/addProcessType" component={AddProcessType} />
-              <Route exact path="/updateUser/:id" component={UpdateUser} />
-              <Route
-                exact
-                path="/updateLegalEntity/:id"
-                component={UpdateLegalEntity}
-              />
-              <Route
-                exact
-                path="/updateProcessType/:id"
-                component={UpdateProcessType}
-              />
-              <Route exact path="/employeeList" component={EmployeeList} />
-              <Route
-                exact
-                path="/updateEmployee/:id"
-                component={UpdateEmployee}
-              />
-              <Route exact path="/addEmployee" component={AddEmployee} />
-              <Route
-                exact
-                path="/physicalEntityList"
-                component={PhysicalEntityList}
-              />
-              <Route
-                exact
-                path="/addPhysicalEntity"
-                component={AddPhysicalEntity}
-              />
-              <Route
-                exact
-                path="/updatePhysicalEntity/:id"
-                component={UpdatePhysicalEntity}
-              />
-              <Route exact path="/caseList" component={CaseList} />
-              <Route
-                exact
-                path="/caseClassificationList"
-                component={CaseClassificationList}
-              />
-              <Route
-                exact
-                path="/documentAttachmentList"
-                component={DocumentAttachmentList}
-              />
+                  <Route exact path="/documentList" component={DocumentList} />
+                  <Route
+                    exact
+                    path="/organizationalUnitList"
+                    component={OrganizationalUnitList}
+                  />
+                  <Route
+                    exact
+                    path="/documentProcessing/:id"
+                    component={DocumentProcessing}
+                  />
+                  <Route
+                    exact
+                    path="/addLegalEntity"
+                    component={AddLegalEntity}
+                  />
+                  <Route
+                    exact
+                    path="/legalEntityList"
+                    component={LegalEntityList}
+                  />
+                  <Route
+                    exact
+                    path="/processTypeList"
+                    component={ProcessTypeList}
+                  />
+                  <Route
+                    exact
+                    path="/addProcessType"
+                    component={AddProcessType}
+                  />
+                  <Route exact path="/updateUser/:id" component={UpdateUser} />
+                  <Route
+                    exact
+                    path="/updateLegalEntity/:id"
+                    component={UpdateLegalEntity}
+                  />
+                  <Route
+                    exact
+                    path="/updateProcessType/:id"
+                    component={UpdateProcessType}
+                  />
+                  <Route exact path="/employeeList" component={EmployeeList} />
+                  <Route
+                    exact
+                    path="/updateEmployee/:id"
+                    component={UpdateEmployee}
+                  />
+                  <Route exact path="/addEmployee" component={AddEmployee} />
+                  <Route
+                    exact
+                    path="/physicalEntityList"
+                    component={PhysicalEntityList}
+                  />
+                  <Route
+                    exact
+                    path="/addPhysicalEntity"
+                    component={AddPhysicalEntity}
+                  />
+                  <Route
+                    exact
+                    path="/updatePhysicalEntity/:id"
+                    component={UpdatePhysicalEntity}
+                  />
+                  <Route exact path="/caseList" component={CaseList} />
+                  <Route
+                    exact
+                    path="/caseClassificationList"
+                    component={CaseClassificationList}
+                  />
+                  <Route
+                    exact
+                    path="/documentAttachmentList"
+                    component={DocumentAttachmentList}
+                  />
 
-              <Route
-                exact
-                path="/caseProcessingList/:id"
-                component={CaseProcessingList}
-              />
+                  <Route
+                    exact
+                    path="/caseProcessingList/:id"
+                    component={CaseProcessingList}
+                  />
 
-              <Route
-                exact
-                path="/documentTypeList"
-                component={DocumentTypeList}
-              />
+                  <Route
+                    exact
+                    path="/documentTypeList"
+                    component={DocumentTypeList}
+                  />
 
-              <Route
-                exact
-                path="/documentTypeAttachmentList/:id"
-                component={DocumentTypeAttachmentList}
-              />
-            </Switch>
-          </div>
-        </Router>
-      </Provider>
+                  <Route
+                    exact
+                    path="/documentTypeAttachmentList/:id"
+                    component={DocumentTypeAttachmentList}
+                  />
+                </Switch>
+              </div>
+            </Router>
+          </Provider>
+        </Paper>
+      </ThemeProvider>
     );
   }
 }

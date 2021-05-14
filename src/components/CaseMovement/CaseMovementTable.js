@@ -18,7 +18,7 @@ class CaseMovementTable extends Component {
     );
 
     return (
-      <div className="table-responsive tableHeight">
+      <div>
         <table
           id="example"
           className="table table-sm table-striped table-bordered "
