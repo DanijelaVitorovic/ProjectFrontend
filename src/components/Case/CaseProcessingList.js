@@ -14,7 +14,7 @@ import {
   documentListTranslation,
   CaseProcessingListTranslation,
 } from "../../translations";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Card } from "react-bootstrap";
 import { formatDateFromBackend } from "../../utils";
 import {
   createDocument,
@@ -162,7 +162,7 @@ class CaseProcessingList extends Component {
     const caseStateOfCaseFromCaseMovement = _caseFromCaseMovement?.caseState;
 
     const paperCaseView = (
-      <Paper style={{ marginLeft: 100, height: "60vh" }}>
+      <Card style={{ marginLeft: 100, height: "60vh" }}>
         <div className="register">
           <div className="container">
             <div className="row">
@@ -345,11 +345,11 @@ class CaseProcessingList extends Component {
           </div>
         </div>
         <br />
-      </Paper>
+      </Card>
     );
 
     const paperDocuments = (
-      <Paper style={{ marginRight: 100, height: "60vh" }}>
+      <Card style={{ marginRight: 100, paddingTop: 15, height: "60vh" }}>
         <div className="register">
           <div className="container">
             <div className="row">
@@ -372,7 +372,7 @@ class CaseProcessingList extends Component {
             </div>
           </div>
         </div>
-      </Paper>
+      </Card>
     );
 
     return (
@@ -396,7 +396,7 @@ class CaseProcessingList extends Component {
                       arrow
                       placement="top-end"
                     >
-                      <ArrowBackIcon style={{ fontSize: 40 }} />
+                      <ArrowBackIcon style={{ fontSize: 40 }} color="primary" />
                     </Tooltip>
                   </Link>
                 </div>
@@ -406,39 +406,43 @@ class CaseProcessingList extends Component {
                     onClick={() => {
                       this.showModalForAddOwnerToCase();
                     }}
-                    style={{ fontSize: 40, color: "007BFF" }}
+                    style={{ fontSize: 40 }}
+                    color="primary"
                   />
                 </Tooltip>
                 <div style={{ paddingLeft: 60 }}>
                   <Tooltip title="Додај обрађивача" arrow placement="top-end">
                     <PersonAddIcon
                       type="submit"
+                      color="primary"
                       onClick={() => {
                         this.showModalForAddProcessorToCase();
                       }}
-                      style={{ fontSize: 40, color: "007BFF" }}
+                      style={{ fontSize: 40 }}
                     />
                   </Tooltip>
                 </div>
                 <div style={{ paddingLeft: 60 }}>
                   <Tooltip title="Опозови доделу" arrow placement="top-end">
                     <CloseIcon
+                      color="primary"
                       type="submit"
                       onClick={() => {
                         this.showModalForRevokingCaseMovement();
                       }}
-                      style={{ fontSize: 40, color: "007BFF" }}
+                      style={{ fontSize: 40 }}
                     />
                   </Tooltip>
                 </div>
                 <div style={{ paddingLeft: 60 }}>
                   <Tooltip title="Прикажи кретање" arrow placement="top-end">
                     <FindInPageIcon
+                      color="primary"
                       type="submit"
                       onClick={() => {
                         this.showModalWithCaseMovementListOfCase();
                       }}
-                      style={{ fontSize: 40, color: "007BFF" }}
+                      style={{ fontSize: 40 }}
                     />
                   </Tooltip>
                 </div>
@@ -449,7 +453,8 @@ class CaseProcessingList extends Component {
                       onClick={() => {
                         this.showModal();
                       }}
-                      style={{ fontSize: 40, color: "007BFF" }}
+                      style={{ fontSize: 40 }}
+                      color="primary"
                     />
                   </Tooltip>
                 </div>
