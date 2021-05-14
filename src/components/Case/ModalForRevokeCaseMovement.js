@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Modal, ModalFooter, Card, Container } from "react-bootstrap";
 import { getEmployeeName } from "../../globals";
-import { modalForAddProcessorTranslation } from "../../translations.js";
+import { modalForRevokeCaseMovementTranslation } from "../../translations.js";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -77,6 +77,8 @@ class ModalForRevokeCaseMovement extends Component {
       closeModalForRevokingCaseMovement,
     } = this.props || {};
 
+    const translation = modalForRevokeCaseMovementTranslation || {};
+
     return (
       <Modal
         show={showModalForRevokeCaseMovement}
@@ -113,14 +115,14 @@ class ModalForRevokeCaseMovement extends Component {
                 <div className="col-md-8 m-auto">
                   <br />
                   <form onSubmit={this.onSubmit}>
-                    <p className="text-center">Да ли сте сигурни?</p>
+                    <p className="text-center">{translation.heading}</p>
                     <Button
                       variant="contained"
                       color="default"
                       startIcon={<YoutubeSearchedForIcon />}
                       onClick={closeModalForRevokingCaseMovement}
                     >
-                      Не
+                      {translation.reject}
                     </Button>
                     &nbsp;&nbsp;&nbsp;
                     <Button
@@ -129,7 +131,7 @@ class ModalForRevokeCaseMovement extends Component {
                       startIcon={<DeleteIcon />}
                       type="submit"
                     >
-                      Да!
+                      {translation.confirm}
                     </Button>
                   </form>
                 </div>

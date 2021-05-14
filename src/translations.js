@@ -206,6 +206,9 @@ export const DashboardTranslation = {
     caseList: "Приказ предмета",
     caseClassification: "Класификације предмета",
     caseClassificationList: "Приказ класификација предмета",
+    name: "Име: ",
+    surname: "Презиме: ",
+    username: "Кориснички налог: ",
   },
 };
 
@@ -607,4 +610,21 @@ export const documentTypeRowTranslation = {
 export const modalForAddProcessorTranslation = {
   addProcessor: "Додели обрађивача",
   selectEmployee: "Изаберите обрађивача",
+};
+
+export const modalWithCaseMovementListTranslation = {
+  heading: "Приказ кретања предмета",
+  index: "Редни број ",
+  sendFrom: "Послато од",
+  sendFor: "Послато за",
+  startDate: "Време слања",
+  endDate: "Време пријема",
+  role: "Улога",
+  state: "Стање слања",
+};
+
+export const modalForRevokeCaseMovementTranslation = {
+  heading: "Да ли сте сигурни?",
+  reject: "Не",
+  confirm: "Да",
 };

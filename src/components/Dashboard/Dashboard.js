@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import style from "./style.css";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { DashboardTranslation } from "../../translations";
+import { DashboardTranslation, dashboardTranslation } from "../../translations";
 import ParticlesBg from "particles-bg";
 import CaseMovementList from "../Containers/CaseMovementList";
 import Typography from "@material-ui/core/Typography";
@@ -78,12 +78,14 @@ class Dashboard extends Component {
                   <img src={companyLogo} alt="" />
                   <div className="font__p data-item" style={{ paddingTop: 10 }}>
                     <h5 style={{ marginRight: ".4em" }} className="font__bold">
-                      Име: {employee?.physicalEntity?.firstName}
+                      {DashboardItems.name}{" "}
+                      {employee?.physicalEntity?.firstName}
                     </h5>
                   </div>
                   <div className="font__p data-item">
                     <h6 style={{ marginRight: ".4em" }} className="font__bold">
-                      Презиме: {employee?.physicalEntity?.lastName}
+                      {DashboardItems.surname}
+                      {employee?.physicalEntity?.lastName}
                     </h6>{" "}
                     {}
                   </div>
@@ -93,7 +95,8 @@ class Dashboard extends Component {
                     style={{ paddingBottom: 10 }}
                   >
                     <h6 style={{ marginRight: ".4em" }} className="font__bold">
-                      Кориснички налог: {employee?.user?.username}
+                      {DashboardItems.username}
+                      {employee?.user?.username}
                     </h6>{" "}
                     {}
                   </div>

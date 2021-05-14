@@ -29,10 +29,12 @@ class Header extends Component {
           <MenuBarUsers />
         ) : null}
         <ul className="navbar-nav ml-auto">
-          <Switch
-            checked={this.props.darkMode}
-            onChange={this.props.handleDarkMode}
-          />
+          <Tooltip title="Промени тему" arrow>
+            <Switch
+              checked={this.props.darkMode}
+              onChange={this.props.handleDarkMode}
+            />
+          </Tooltip>
           <li
             className="nav-item"
             style={{

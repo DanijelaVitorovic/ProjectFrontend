@@ -12,6 +12,7 @@ import CaseMovementListRow from "./CaseMovementListRow";
 import { Link } from "react-router-dom";
 import Tooltip from "@material-ui/core/Tooltip";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import { modalWithCaseMovementListTranslation } from "../../translations";
 
 export default class ModalWithCaseMovementList extends Component {
   render() {
@@ -21,10 +22,7 @@ export default class ModalWithCaseMovementList extends Component {
       closeModalWithCaseMovementListOfCase,
       employeeList,
     } = this.props || {};
-    const translation = CaseModalForAddAndUpdateTranslation || {};
-    const { Header, SelectOptionsAndPlaceholders } = translation;
-    const translation1 = CaseTableTranslation || {};
-    const { HeaderColumns, Buttons } = translation1;
+    const translation = modalWithCaseMovementListTranslation || {};
 
     const caseMovementListShowedInRow = this.props.caseMovementList.map(
       (caseMovement, index) => (
@@ -55,7 +53,7 @@ export default class ModalWithCaseMovementList extends Component {
               <div className="row">
                 <div className="col-md-8 m-auto">
                   <h3 className="display-5 text-center">
-                    "Приказ кретања предмета"
+                    {translation.heading}
                   </h3>
                   <div className="table-responsive tableHeight">
                     <table
@@ -64,13 +62,13 @@ export default class ModalWithCaseMovementList extends Component {
                     >
                       <thead>
                         <tr>
-                          <th>RBR </th>
-                          <th>Послато од </th>
-                          <th>Послато за</th>
-                          <th>Време слања</th>
-                          <th>Време пријема</th>
-                          <th>Улога</th>
-                          <th>Стање слања</th>
+                          <th>{translation.index} </th>
+                          <th>{translation.sendFrom} </th>
+                          <th>{translation.sendFor} </th>
+                          <th>{translation.startDate} </th>
+                          <th>{translation.endDate} </th>
+                          <th>{translation.role} </th>
+                          <th>{translation.state} </th>
                         </tr>
                       </thead>
                       <tbody>{caseMovementListShowedInRow}</tbody>
