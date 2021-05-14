@@ -10,6 +10,7 @@ import { Navbar } from "react-bootstrap";
 import { HeaderTranslation } from "../../translations";
 import companyLogo from "../../dex-logo.png";
 import Tooltip from "@material-ui/core/Tooltip";
+import Switch from "@material-ui/core/Switch";
 
 class Header extends Component {
   logout() {
@@ -28,6 +29,12 @@ class Header extends Component {
           <MenuBarUsers />
         ) : null}
         <ul className="navbar-nav ml-auto">
+          <Tooltip title="Промени тему" arrow>
+            <Switch
+              checked={this.props.darkMode}
+              onChange={this.props.handleDarkMode}
+            />
+          </Tooltip>
           <li
             className="nav-item"
             style={{
@@ -68,23 +75,44 @@ class Header extends Component {
 
     return (
       <div>
-        <nav className="navbar navbar-expand-lg navbar-dark mb-4">
-          <Navbar.Toggle />
-          <img src={companyLogo} style={{ width: 60, height: 35 }} />
+        {!this.props.darkMode && (
+          <nav className="navbar navbar-expand-lg navbar-dark mb-4 lightNavbar">
+            <Navbar.Toggle />
+            <img src={companyLogo} style={{ width: 60, height: 35 }} />
 
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon" />
-          </button>
-          {headerLinks}
-        </nav>
+            <button
+              className="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span className="navbar-toggler-icon" />
+            </button>
+            {headerLinks}
+          </nav>
+        )}
+        {this.props.darkMode && (
+          <nav className="navbar navbar-expand-lg navbar-dark">
+            <Navbar.Toggle />
+            <img src={companyLogo} style={{ width: 60, height: 35 }} />
+
+            <button
+              className="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span className="navbar-toggler-icon" />
+            </button>
+            {headerLinks}
+          </nav>
+        )}
       </div>
     );
   }

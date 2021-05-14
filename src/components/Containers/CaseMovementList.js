@@ -5,6 +5,10 @@ import {
   acceptCaseAsOwnerOrProcessor,
 } from "../../actions/caseMovementActions";
 import CaseMovementTable from "../CaseMovement/CaseMovementTable";
+import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import Switch from "@material-ui/core/Switch";
+import Paper from "@material-ui/core/Paper";
+import Grid from "@material-ui/core/Grid";
 
 class CaseMovementList extends Component {
   componentDidMount() {
@@ -26,8 +30,8 @@ class CaseMovementList extends Component {
         <div className="row">
           <div className="col-md-12 m-auto">
             <div className="card text-left mb-3">
-              <div className="card-header text-black">
-                <h3>Kretanje predmeta</h3>
+              <div className="card-header">
+                <h3>Предмети на додели</h3>
               </div>
               <div class="col-md-12 m-auto">
                 <div className="card-body"></div>

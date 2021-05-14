@@ -5,7 +5,8 @@ import { getCase, getCases, updateCase } from "../../actions/caseActions";
 import {
   addOwnerToCase,
   addProcessorToCase,
-  getCaseMovementByCaseId,
+  getCaseMovementListByCase,
+  revokeCaseMovement,
 } from "../../actions/caseMovementActions";
 import { connect } from "react-redux";
 import {
@@ -13,7 +14,7 @@ import {
   documentListTranslation,
   CaseProcessingListTranslation,
 } from "../../translations";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Card } from "react-bootstrap";
 import { formatDateFromBackend } from "../../utils";
 import {
   createDocument,
@@ -36,6 +37,11 @@ import { resetError } from "../../actions/organizationalUnitAcitons";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import ModalForAddProcessorToCase from "./ModalForAddProcessorToCase";
 import { CaseState, CaseTypes } from "../../../src/globals";
+import CloseIcon from "@material-ui/icons/Close";
+import FindInPageIcon from "@material-ui/icons/FindInPage";
+import ModalForRevokeCaseMovement from "./ModalForRevokeCaseMovement";
+import ConfirmAlert from "../Reusable/ConfirmAlert";
+import ModalWithCaseMovementList from "./ModalWithCaseMovementList";
 
 class CaseProcessingList extends Component {
   constructor() {
@@ -45,6 +51,8 @@ class CaseProcessingList extends Component {
       showModalForAddOwner: false,
       showModalForAddProcessor: false,
       signalForChangingCaseState: false,
+      showModalWithCaseMovementList: false,
+      showModalForRevokeCaseMovement: false,
     };
   }
 
@@ -65,6 +73,31 @@ class CaseProcessingList extends Component {
   handleAdd = (newDocument) => {
     this.props.createDocument(newDocument);
     this.closeModal();
+  };
+
+  showModalForRevokingCaseMovement = () => {
+    this.setState({ showModalForRevokeCaseMovement: true });
+  };
+
+  closeModalForRevokingCaseMovement = () => {
+    this.setState({ showModalForRevokeCaseMovement: false });
+    this.props.resetError();
+  };
+
+  handleRevokingCaseMovement = (caseForUpdate) => {
+    this.props.resetError();
+    this.props.revokeCaseMovement(
+      caseForUpdate,
+      this.closeModalForRevokingCaseMovement
+    );
+  };
+
+  showModalWithCaseMovementListOfCase = () => {
+    this.setState({ showModalWithCaseMovementList: true });
+  };
+
+  closeModalWithCaseMovementListOfCase = () => {
+    this.setState({ showModalWithCaseMovementList: false });
   };
 
   showModalForAddOwnerToCase = () => {
@@ -107,6 +140,7 @@ class CaseProcessingList extends Component {
     this.props.getDocumentsByCase(id);
     this.props.getEmployees();
     this.setState({ signalForChangingCaseState: false });
+    this.props.getCaseMovementListByCase(id);
   }
 
   render() {
@@ -121,14 +155,14 @@ class CaseProcessingList extends Component {
     const employees = this.props.employee.employeeList || {};
     const startDate = _case?.startDate;
     const { caseList, getDocument, error } = this.props || {};
-    const { caseMovement, _caseFromCaseMovement } =
+    const { caseMovement, _caseFromCaseMovement, caseMovementList } =
       this.props.caseMovement || {};
     const caseState = _case?.caseState;
     const caseType = _case?.caseType;
     const caseStateOfCaseFromCaseMovement = _caseFromCaseMovement?.caseState;
 
     const paperCaseView = (
-      <Paper style={{ marginLeft: 100, height: "60vh" }}>
+      <Card style={{ marginLeft: 100, height: "60vh" }}>
         <div className="register">
           <div className="container">
             <div className="row">
@@ -311,11 +345,11 @@ class CaseProcessingList extends Component {
           </div>
         </div>
         <br />
-      </Paper>
+      </Card>
     );
 
     const paperDocuments = (
-      <Paper style={{ marginRight: 100, height: "60vh" }}>
+      <Card style={{ marginRight: 100, paddingTop: 15, height: "60vh" }}>
         <div className="register">
           <div className="container">
             <div className="row">
@@ -338,7 +372,7 @@ class CaseProcessingList extends Component {
             </div>
           </div>
         </div>
-      </Paper>
+      </Card>
     );
 
     return (
@@ -362,7 +396,7 @@ class CaseProcessingList extends Component {
                       arrow
                       placement="top-end"
                     >
-                      <ArrowBackIcon style={{ fontSize: 40 }} />
+                      <ArrowBackIcon style={{ fontSize: 40 }} color="primary" />
                     </Tooltip>
                   </Link>
                 </div>
@@ -372,17 +406,43 @@ class CaseProcessingList extends Component {
                     onClick={() => {
                       this.showModalForAddOwnerToCase();
                     }}
-                    style={{ fontSize: 40, color: "007BFF" }}
+                    style={{ fontSize: 40 }}
+                    color="primary"
                   />
                 </Tooltip>
                 <div style={{ paddingLeft: 60 }}>
                   <Tooltip title="Додај обрађивача" arrow placement="top-end">
                     <PersonAddIcon
                       type="submit"
+                      color="primary"
                       onClick={() => {
                         this.showModalForAddProcessorToCase();
                       }}
-                      style={{ fontSize: 40, color: "007BFF" }}
+                      style={{ fontSize: 40 }}
+                    />
+                  </Tooltip>
+                </div>
+                <div style={{ paddingLeft: 60 }}>
+                  <Tooltip title="Опозови доделу" arrow placement="top-end">
+                    <CloseIcon
+                      color="primary"
+                      type="submit"
+                      onClick={() => {
+                        this.showModalForRevokingCaseMovement();
+                      }}
+                      style={{ fontSize: 40 }}
+                    />
+                  </Tooltip>
+                </div>
+                <div style={{ paddingLeft: 60 }}>
+                  <Tooltip title="Прикажи кретање" arrow placement="top-end">
+                    <FindInPageIcon
+                      color="primary"
+                      type="submit"
+                      onClick={() => {
+                        this.showModalWithCaseMovementListOfCase();
+                      }}
+                      style={{ fontSize: 40 }}
                     />
                   </Tooltip>
                 </div>
@@ -393,7 +453,8 @@ class CaseProcessingList extends Component {
                       onClick={() => {
                         this.showModal();
                       }}
-                      style={{ fontSize: 40, color: "007BFF" }}
+                      style={{ fontSize: 40 }}
+                      color="primary"
                     />
                   </Tooltip>
                 </div>
@@ -445,6 +506,43 @@ class CaseProcessingList extends Component {
             caseMovementForUpdate={caseMovement}
           />
         }
+        {
+          <ModalWithCaseMovementList
+            showModalWithCaseMovementList={
+              this.state.showModalWithCaseMovementList
+            }
+            closeModalWithCaseMovementListOfCase={
+              this.closeModalWithCaseMovementListOfCase
+            }
+            caseMovementList={caseMovementList}
+            employeeList={employees}
+            physicalEntityList={physicalEntityList}
+            id={this.props.match.params.id}
+            error={error}
+            caseForUpdate={_case}
+            resetError={this.props.resetError}
+            caseMovementForUpdate={caseMovement}
+          />
+        }
+        {
+          <ModalForRevokeCaseMovement
+            showModalForRevokeCaseMovement={
+              this.state.showModalForRevokeCaseMovement
+            }
+            closeModalForRevokingCaseMovement={
+              this.closeModalForRevokingCaseMovement
+            }
+            handleRevokingCaseMovement={this.handleRevokingCaseMovement}
+            caseMovementList={caseMovementList}
+            employeeList={employees}
+            physicalEntityList={physicalEntityList}
+            id={this.props.match.params.id}
+            error={error}
+            caseForUpdate={_case}
+            resetError={this.props.resetError}
+            caseMovementForUpdate={caseMovement}
+          />
+        }
       </Fragment>
     );
   }
@@ -471,5 +569,6 @@ export default connect(mapStateToProps, {
   updateCase,
   resetError,
   addProcessorToCase,
-  getCaseMovementByCaseId,
+  getCaseMovementListByCase,
+  revokeCaseMovement,
 })(CaseProcessingList);

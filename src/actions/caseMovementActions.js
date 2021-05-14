@@ -6,6 +6,7 @@ import {
   GET_ERRORS,
   ADD_PROCESSOR_TO_CASE,
   GET_CASE_MOVEMENT_BY_CASE_ID,
+  REVOKE_CASE_MOVEMENT,
 } from "../actions/types";
 
 export const addOwnerToCase =
@@ -65,7 +66,7 @@ export const addProcessorToCase =
     }
   };
 
-export const getCaseMovementByCaseId = (id) => async (dispatch) => {
+export const getCaseMovementListByCase = (id) => async (dispatch) => {
   const res = await axios.get(
     `/api/caseMovement/findCaseMovementByCaseId/${id}`
   );
@@ -74,3 +75,23 @@ export const getCaseMovementByCaseId = (id) => async (dispatch) => {
     payload: res.data,
   });
 };
+
+export const revokeCaseMovement =
+  (caseMovement, closeModal) => async (dispatch) => {
+    try {
+      await axios
+        .post("/api/case/revokeCaseMovement", caseMovement)
+        .then((response) => {
+          dispatch({
+            type: REVOKE_CASE_MOVEMENT,
+            payload: response.data,
+          });
+        });
+      closeModal();
+    } catch (exception) {
+      dispatch({
+        type: GET_ERRORS,
+        payload: exception.response.data,
+      });
+    }
+  };

@@ -1,11 +1,15 @@
-import React, {Component, Fragment} from 'react';
-import {Button} from 'react-bootstrap';
-import ModalForUpdateDocument from './ModalForUpdateDocument';
-import {getDocumentEmployeeCreated} from '../../../src/globals';
-import DeleteButton from '../Reusable/DeleteButton';
-import ConfirmAlert from '../Reusable/ConfirmAlert';
-import {Link} from 'react-router-dom';
-import {documentRowTranslation} from '../../translations';
+import React, { Component, Fragment } from "react";
+import { Button } from "react-bootstrap";
+import ModalForUpdateDocument from "./ModalForUpdateDocument";
+import { getDocumentEmployeeCreated } from "../../../src/globals";
+import DeleteButton from "../Reusable/DeleteButton";
+import ConfirmAlert from "../Reusable/ConfirmAlert";
+import { Link } from "react-router-dom";
+import { documentRowTranslation } from "../../translations";
+import BusinessCenterIcon from "@material-ui/icons/BusinessCenter";
+import Tooltip from "@material-ui/core/Tooltip";
+import IconButton from "@material-ui/core/IconButton";
+import CreateIcon from "@material-ui/icons/Create";
 
 class DocumentRow extends Component {
   constructor() {
@@ -55,16 +59,26 @@ class DocumentRow extends Component {
         <td>{getDocumentEmployeeCreated(document)}</td>
         {!caseProcessingViewSignal && (
           <Fragment>
-            <td>{document._case.caseName}</td>
-
             <td className="text-center">
-              <Link to={`/documentProcessing/${document.id}`} >
-                <button className="button">
-                  <i className="fas fa-pen-alt fa-2x"></i>
-                </button>
+              <Link to={`/caseProcessingList/${document._case.id}`}>
+                <Tooltip title="Иди на предмет" arrow>
+                  <IconButton color="primary">
+                    <BusinessCenterIcon />
+                  </IconButton>
+                </Tooltip>
               </Link>
             </td>
-
+          </Fragment>
+        )}
+        <td className="text-center">
+          <Link to={`/documentProcessing/${document.id}`}>
+            <IconButton color="primary">
+              <CreateIcon />
+            </IconButton>
+          </Link>
+        </td>
+        {!caseProcessingViewSignal && (
+          <Fragment>
             <td className="text-center">
               <DeleteButton
                 onDeleteClick={this.onDeleteClick}

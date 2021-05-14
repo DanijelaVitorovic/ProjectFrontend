@@ -145,7 +145,7 @@ export const CaseState = {
   },
   REVOKE: {
     value: "2",
-    translation: "Обозван",
+    translation: "Опозван",
     color: "red",
   },
   TAKEOVER: {
@@ -166,4 +166,47 @@ export const CaseTypes = {
     translation: "Друго",
     color: "red",
   },
+};
+
+export const getCaseMovementEmployeeSend = (caseMovement) => {
+  return caseMovement?.employeeSend
+    ? caseMovement?.employeeSend?.physicalEntity?.firstName +
+        " " +
+        caseMovement?.employeeSend?.physicalEntity?.lastName
+    : "";
+};
+
+export const CaseMovementState = {
+  SENT: {
+    value: "0",
+    translation: "Послатo",
+    color: "green",
+  },
+  REJECTED: {
+    value: "1",
+    translation: "Одбијенo",
+    color: "red",
+  },
+  REVOKED: {
+    value: "2",
+    translation: "Опозванo",
+    color: "red",
+  },
+  RECEIVED: {
+    value: "3",
+    translation: "Примљено",
+    color: "green",
+  },
+};
+
+export const getCaseMovementSendTo = (caseMovement) => {
+  return caseMovement?._case?.processor
+    ? caseMovement?._case?.processor?.physicalEntity?.firstName +
+        " " +
+        caseMovement?._case?.processor?.physicalEntity?.lastName
+    : caseMovement?._case?.owner
+    ? caseMovement?._case?.owner?.physicalEntity?.firstName +
+      " " +
+      caseMovement?._case?.owner?.physicalEntity?.lastName
+    : "";
 };

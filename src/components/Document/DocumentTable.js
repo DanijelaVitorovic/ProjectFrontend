@@ -98,7 +98,7 @@ class DocumentTable extends Component {
             <div align="left" style={{ paddingBottom: 20 }}>
               <Link to={`/dashboard`}>
                 <Tooltip title={Buttons.back} arrow>
-                  <ArrowBackIcon style={{ fontSize: 40 }} />
+                  <ArrowBackIcon style={{ fontSize: 40 }} color="primary" />
                 </Tooltip>
               </Link>
 
@@ -128,9 +128,13 @@ class DocumentTable extends Component {
               {!caseProcessingViewSignal && (
                 <Fragment>
                   <th scope="col">{HeaderColumns._case}</th>
-                  <th scope="col" className="text-center">
-                    {HeaderColumns.update}
-                  </th>
+                </Fragment>
+              )}
+              <th scope="col" className="text-center">
+                {HeaderColumns.update}
+              </th>
+              {!caseProcessingViewSignal && (
+                <Fragment>
                   <th scope="col" className="text-center">
                     {HeaderColumns.delete}
                   </th>
