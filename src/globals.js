@@ -1,96 +1,112 @@
 export const Statement = {
   ACTIVE: {
-    value: "0",
-    translation: "Активан",
-    color: "green",
+    value: '0',
+    translation: 'Активан',
+    color: 'green',
   },
   PASSIVE: {
-    value: "1",
-    translation: "Пасиван",
-    color: "red",
+    value: '1',
+    translation: 'Пасиван',
+    color: 'red',
   },
 };
 export const CaseType = {
   ADMINISTRATIVE_PROCEDURE: {
-    translation: "Administrativne procedure",
+    translation: 'Administrativne procedure',
   },
 
   OTHER: {
-    translation: "Ostalo",
+    translation: 'Ostalo',
   },
 };
 
 export const DocumentType = {
   INTERNAL: {
-    translation: "Интерни",
+    translation: 'Интерни',
   },
   EXTERNAL: {
-    translation: "Екстерни",
+    translation: 'Екстерни',
   },
   SUBMISSION: {
-    translation: "Доставни",
+    translation: 'Доставни',
   },
   ACT: {
-    translation: "Актни",
+    translation: 'Актни',
   },
   ATTACHMENT: {
-    translation: "Прилози",
+    translation: 'Прилози',
   },
 };
 
 export const documentStatus = {
   PROCEEDING: {
-    value: "PROCEEDING",
-    translation: "Подношење",
+    value: 'PROCEEDING',
+    translation: 'Подношење',
   },
   VERIFICATION: {
-    value: "VERIFICATION",
-    translation: "Верификација",
+    value: 'VERIFICATION',
+    translation: 'Верификација',
   },
   SIGNING: {
-    value: "SIGNING",
-    translation: "Потписивање",
+    value: 'SIGNING',
+    translation: 'Потписивање',
   },
   SIGNED: {
-    value: "SIGNED",
-    translation: "Потписан",
+    value: 'SIGNED',
+    translation: 'Потписан',
   },
   FIRST_SENDING: {
-    translation: "Прво слање",
+    translation: 'Прво слање',
   },
   FIRST_RETURNED: {
-    translation: "Прво враћање",
+    translation: 'Прво враћање',
   },
   SECOND_SENDING: {
-    translation: "Друго слање",
+    translation: 'Друго слање',
   },
   SECOND_RETURNED: {
-    translation: "Друго враћање",
+    translation: 'Друго враћање',
   },
   BULLETIN_BOARD: {
-    translation: "Огласна табла",
+    translation: 'Огласна табла',
   },
   DELIVERED: {
-    translation: "Испоручен",
+    translation: 'Испоручен',
   },
   FINAL: {
-    value: "FINAL",
-    translation: "Завршен",
+    value: 'FINAL',
+    translation: 'Завршен',
   },
   REVOKED: {
-    translation: "Опозван",
+    translation: 'Опозван',
   },
 };
+
+export const deadline = {
+  U_ROKU: {
+    value: '0',
+    color: 'green',
+  },
+  VAN_ROKA: {
+    value: '1',
+    color: 'red',
+  },
+  PRED_ISTEK: {
+    value: '2',
+    color: 'yellow',
+  },
+};
+
 export const getEmployeeName = (employee) => {
   return (
     employee?.physicalEntity?.firstName +
-    " " +
+    ' ' +
     employee?.physicalEntity?.lastName
   );
 };
 
 export const getPhysicalEntityName = (physicalEntity) => {
-  return physicalEntity?.firstName + " " + physicalEntity?.lastName;
+  return physicalEntity?.firstName + ' ' + physicalEntity?.lastName;
 };
 
 export const getCaseOwner = (_case) => {
@@ -118,7 +134,7 @@ export const getCaseRefersTo = (_case) => {
 export const getDocumentEmployeeCreated = (document) => {
   return (
     document?.employeeCreated?.physicalEntity?.firstName +
-    " " +
+    ' ' +
     document?.employeeCreated?.physicalEntity?.lastName
   );
 };
@@ -128,8 +144,8 @@ export const handleErrorMessage = (clientValidationMessage) => {
 };
 
 export const caseRole = {
-  OWNER: "Власник",
-  PROCESSOR: "Обрађивач",
+  OWNER: 'Власник',
+  PROCESSOR: 'Обрађивач',
 };
 
 export const CaseState = {

@@ -1,27 +1,27 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { logout } from "../../actions/securityActions";
-import authorizationService from "../../securityUtils/authorizationService";
-import MenuBarUsers from "../MenuBar/MenuBarUsers";
-import MenuBarUserNotAuthenticated from "../MenuBar/MenuBarUserNotAuthenticated";
-import { Navbar } from "react-bootstrap";
-import { HeaderTranslation } from "../../translations";
-import companyLogo from "../../dex-logo.png";
-import Tooltip from "@material-ui/core/Tooltip";
-import Switch from "@material-ui/core/Switch";
+import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {logout} from '../../actions/securityActions';
+import authorizationService from '../../securityUtils/authorizationService';
+import MenuBarUsers from '../MenuBar/MenuBarUsers';
+import MenuBarUserNotAuthenticated from '../MenuBar/MenuBarUserNotAuthenticated';
+import {Navbar} from 'react-bootstrap';
+import {HeaderTranslation} from '../../translations';
+import companyLogo from '../../dex-logo.png';
+import Tooltip from '@material-ui/core/Tooltip';
+import Switch from '@material-ui/core/Switch';
 
 class Header extends Component {
   logout() {
     this.props.logout();
-    window.location.href = "/";
+    window.location.href = '/';
   }
 
   render() {
-    const { validToken, loggedUser } = this.props.loggedUser;
+    const {validToken, loggedUser} = this.props.loggedUser;
     const translation = HeaderTranslation || {};
-    const { HeaderItems } = translation;
+    const {HeaderItems} = translation;
 
     const userIsAuthenticated = (
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
@@ -44,7 +44,7 @@ class Header extends Component {
             <Link
               to="/dashboard"
               className="nav-link "
-              style={{ textTransform: "uppercase" }}
+              style={{textTransform: 'uppercase'}}
             >
               {loggedUser.username}
             </Link>
@@ -78,7 +78,7 @@ class Header extends Component {
         {!this.props.darkMode && (
           <nav className="navbar navbar-expand-lg navbar-dark mb-4 lightNavbar">
             <Navbar.Toggle />
-            <img src={companyLogo} style={{ width: 60, height: 35 }} />
+            <img src={companyLogo} style={{width: 60, height: 35}} />
 
             <button
               className="navbar-toggler"
@@ -97,7 +97,7 @@ class Header extends Component {
         {this.props.darkMode && (
           <nav className="navbar navbar-expand-lg navbar-dark">
             <Navbar.Toggle />
-            <img src={companyLogo} style={{ width: 60, height: 35 }} />
+            <img src={companyLogo} style={{width: 60, height: 35}} />
 
             <button
               className="navbar-toggler"
@@ -128,4 +128,4 @@ const mapStateToProps = (state) => ({
   error: state.errors,
 });
 
-export default connect(mapStateToProps, { logout })(Header);
+export default connect(mapStateToProps, {logout})(Header);

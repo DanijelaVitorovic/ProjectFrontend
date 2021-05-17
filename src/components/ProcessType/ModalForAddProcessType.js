@@ -8,8 +8,9 @@ class ModalForAddProcessType extends Component {
     super();
 
     this.state = {
-      type: "",
-      description: "",
+      type: '',
+      description: '',
+      deadline: '',
       errors: {},
     };
   }
@@ -30,6 +31,7 @@ class ModalForAddProcessType extends Component {
     const newProcessType = {
       type: this.state.type,
       description: this.state.description,
+      deadline: this.state.deadline,
       errors: {},
     };
 
@@ -88,6 +90,23 @@ class ModalForAddProcessType extends Component {
                       </div>
                     )}
                   </div>
+
+                  <div className="form-group">
+                    <input
+                      type="text"
+                      name="deadline"
+                      value={this.state.deadline}
+                      placeholder={
+                        SelectOptionsAndPlaceholders.deadlinePlaceholder
+                      }
+                      className="form-control"
+                      onChange={this.onChange}
+                    />
+                    {errors.deadline && (
+                      <div className="invalid-feedback">{errors.deadline}</div>
+                    )}
+                  </div>
+
                   <div className="text-center">
                     <Button
                       variant="success"

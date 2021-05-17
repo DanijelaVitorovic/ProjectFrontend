@@ -14,6 +14,7 @@ import {connect} from 'react-redux';
 import DocumentTable from '../Document/DocumentTable';
 import {getPhysicalEntities} from '../../actions/physicalEntityActions';
 import {documentListTranslation} from '../../translations';
+import {getProcessTypes} from '../../actions/processTypeActions';
 
 class DocumentList extends Component {
   componentDidMount() {
@@ -21,6 +22,7 @@ class DocumentList extends Component {
     this.props.getCases();
     this.props.getPhysicalEntities();
     this.props.getEmployees();
+    this.props.getProcessTypes();
   }
   render() {
     const {
@@ -34,6 +36,7 @@ class DocumentList extends Component {
       physicalEntityList,
       caseList,
       documentList,
+      processTypeList,
     } = this.props || {};
 
     const translation = documentListTranslation || {};
@@ -55,6 +58,7 @@ class DocumentList extends Component {
                   deleteDocument={deleteDocument}
                   employeeList={employeeList}
                   caseList={caseList}
+                  processTypeList={processTypeList}
                   physicalEntityList={physicalEntityList}
                   createDocumentWithCase={createDocumentWithCase}
                   createDocumentWithCaseAndAttachment={
@@ -78,6 +82,7 @@ const mapStateToProps = (state) => ({
   employeeList: state.employee.employeeList,
   physicalEntityList: state.physicalEntity.physicalEntityList,
   caseList: state.case.caseList,
+  processTypeList: state.processType.processTypeList,
   errors: state.errors,
 });
 
@@ -92,4 +97,5 @@ export default connect(mapStateToProps, {
   getPhysicalEntities,
   createDocumentWithCase,
   createDocumentWithCaseAndAttachment,
+  getProcessTypes,
 })(DocumentList);

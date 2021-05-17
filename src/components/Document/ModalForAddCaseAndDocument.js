@@ -24,15 +24,16 @@ class ModalForAddCaseAndDocument extends Component {
   constructor() {
     super();
     this.state = {
-      title: "",
-      description: "",
-      documentType: "",
-      documentStatus: "",
-      employeeCreated: "",
-      caseName: "",
-      caseNumber: "",
-      caseType: "",
-      refersTo: "",
+      title: '',
+      description: '',
+      documentType: '',
+      documentStatus: '',
+      employeeCreated: '',
+      caseName: '',
+      caseNumber: '',
+      caseType: '',
+      refersTo: '',
+      processType: '',
       activeStep: 0,
       errors: {},
     };
@@ -126,14 +127,18 @@ class ModalForAddCaseAndDocument extends Component {
       description: this.state.description,
       documentType: this.state.documentType,
       documentStatus: this.state.documentStatus,
-      employeeCreated: { id: this.state.employeeCreated },
+      employeeCreated: {id: this.state.employeeCreated},
       _case: {
         caseName: this.state.caseName,
         caseNumber: this.state.caseNumber,
-        refersTo: { id: this.state.refersTo },
+        refersTo: {id: this.state.refersTo},
         caseType: this.state.caseType,
+        process: {
+          processType: {id: this.state.processType},
+        },
       },
     };
+
     const formData = new FormData();
     formData.append("file", this.state.uploadedFile);
 
@@ -147,7 +152,8 @@ class ModalForAddCaseAndDocument extends Component {
     const translation1 = documentModalForAddAndUpdateTranslation || {};
     const SelectOptionsAndPlaceholders1 =
       translation1.SelectOptionsAndPlaceholders;
-    const { errors } = this.state;
+    const {errors} = this.state;
+    const {processTypeList} = this.props || {};
 
     switch (step) {
       case 0:
@@ -229,6 +235,34 @@ class ModalForAddCaseAndDocument extends Component {
                   </option>
                 ))}
               </select>
+            </div>
+
+            <div className="form-group">
+              <select
+                processTypeList={processTypeList}
+                onChange={this.onChange}
+                className={classnames('form-control', {
+                  'is-invalid': errors.processType,
+                })}
+                name="processType"
+              >
+                <option value="" selected disabled>
+                  {SelectOptionsAndPlaceholders.process}
+                </option>
+                {processTypeList?.map((processType) => {
+                  return (
+                    <option value={processType.id}>{processType.type}</option>
+                  );
+                })}
+              </select>
+              {handleErrorMessage(errors.processType) && (
+                <span
+                  className="invalid-feedback"
+                  style={{fontSize: 16, color: 'red'}}
+                >
+                  {errors.processType}
+                </span>
+              )}
             </div>
           </div>
         );

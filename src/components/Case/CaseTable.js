@@ -1,26 +1,26 @@
-import React, { Component, Fragment } from "react";
-import CaseRow from "./CaseRow";
-import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import ModalForAddCase from "./ModalForAddCase";
-import { CaseTableTranslation } from "../../translations";
-import Tooltip from "@material-ui/core/Tooltip";
-import AddIcon from "@material-ui/icons/Add";
-import IconButton from "@material-ui/core/IconButton";
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import React, {Component, Fragment} from 'react';
+import CaseRow from './CaseRow';
+import {Button} from 'react-bootstrap';
+import {Link} from 'react-router-dom';
+import ModalForAddCase from './ModalForAddCase';
+import {CaseTableTranslation} from '../../translations';
+import Tooltip from '@material-ui/core/Tooltip';
+import AddIcon from '@material-ui/icons/Add';
+import IconButton from '@material-ui/core/IconButton';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 class CaseTable extends Component {
   constructor() {
     super();
-    this.state = { show: false, showModalForAddingCaseAndDocument: false };
+    this.state = {show: false, showModalForAddingCaseAndDocument: false};
   }
 
   showModal = () => {
-    this.setState({ show: true });
+    this.setState({show: true});
   };
 
   closeModal = () => {
-    this.setState({ show: false });
+    this.setState({show: false});
   };
 
   handleAdd = (newCase) => {
@@ -37,6 +37,8 @@ class CaseTable extends Component {
       physicalEntityList,
       employeeList,
       caseList,
+      processTypeList,
+      processList,
     } = this.props || {};
 
     const caseListShowedInRow = this.props.caseList.map((_case) => (
@@ -49,18 +51,19 @@ class CaseTable extends Component {
         caseForUpdate={caseForUpdate}
         physicalEntityList={physicalEntityList}
         employeeList={employeeList}
+        processList={processList}
       />
     ));
 
     const translation = CaseTableTranslation || {};
-    const { HeaderColumns, Buttons } = translation;
+    const {HeaderColumns, Buttons} = translation;
 
     const table = (
       <div className="table-responsive tableHeight">
         <div align="left">
           <Link to={`/dashboard`}>
             <Tooltip title={Buttons.back} arrow>
-              <ArrowBackIcon style={{ fontSize: 40 }} color="primary" />
+              <ArrowBackIcon style={{fontSize: 40}} color="primary" />
             </Tooltip>
           </Link>
         </div>
@@ -78,6 +81,7 @@ class CaseTable extends Component {
               <th>{HeaderColumns.refersTo}</th>
               <th>{HeaderColumns.startDate}</th>
               <th>{HeaderColumns.status}</th>
+              <th>{HeaderColumns.remainingDays}</th>
               <th>{HeaderColumns.update}</th>
               <th>{HeaderColumns.documents}</th>
             </tr>

@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { Menus } from "../../translations";
+import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
+import {Menus} from '../../translations';
 
 class MenuBarUserNotAuthenticated extends Component {
   render() {
     const translation = Menus || {};
-    const { UserNotAuthenticatedMenuBar } = translation;
+    const {UserNotAuthenticatedMenuBar} = translation;
 
     return (
       <ul class="navbar-nav ml-auto">

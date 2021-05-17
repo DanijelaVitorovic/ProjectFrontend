@@ -92,6 +92,7 @@ class ProcessTypeTable extends Component {
               <th scope="col">{HeaderColumns.id}</th>
               <th scope="col">{HeaderColumns.type}</th>
               <th scope="col">{HeaderColumns.description}</th>
+              <th scope="col">{HeaderColumns.deadline}</th>
               <th scope="col" className="text-center">
                 {HeaderColumns.update}
               </th>

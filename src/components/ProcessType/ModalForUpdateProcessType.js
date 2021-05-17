@@ -9,8 +9,9 @@ class ModalForUpdateProcessType extends Component {
     super();
 
     this.state = {
-      type: "",
-      description: "",
+      type: '',
+      description: '',
+      deadline: '',
       errors: {},
     };
   }
@@ -23,12 +24,13 @@ class ModalForUpdateProcessType extends Component {
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
     }
-    const { id, type, description } = nextProps.processTypeForUpdate;
+    const {id, type, description, deadline} = nextProps.processTypeForUpdate;
 
     this.setState({
       id,
       type,
       description,
+      deadline,
     });
   }
 
@@ -43,6 +45,7 @@ class ModalForUpdateProcessType extends Component {
       id: this.state.id,
       type: this.state.type,
       description: this.state.description,
+      deadline: this.state.deadline,
       errors: {},
     };
 
@@ -89,7 +92,9 @@ class ModalForUpdateProcessType extends Component {
                       className={classnames('form-control', {
                         'is-invalid': errors.description,
                       })}
-                      placeholder={Header.descriptionPlaceholder}
+                      placeholder={
+                        SelectOptionsAndPlaceholders.descriptionPlaceholder
+                      }
                       name="description"
                       value={this.state.description}
                       onChange={this.onChange}
@@ -98,6 +103,22 @@ class ModalForUpdateProcessType extends Component {
                       <div className="invalid-feedback">
                         {errors.description}
                       </div>
+                    )}
+                  </div>
+
+                  <div className="form-group">
+                    <input
+                      type="text"
+                      name="deadline"
+                      value={this.state.deadline}
+                      placeholder={
+                        SelectOptionsAndPlaceholders.deadlinePlaceholder
+                      }
+                      className="form-control"
+                      onChange={this.onChange}
+                    />
+                    {errors.deadline && (
+                      <div className="invalid-feedback">{errors.deadline}</div>
                     )}
                   </div>
 

@@ -84,26 +84,25 @@ class LegalEntityTable extends Component {
             </Tooltip>
           </div>
         </Fragment>
-                <table className="table table-hover ">
-                  <thead class="thead-light">
-                    <tr>
-                      <th scope="col">{HeaderColumns.id}</th>
-                      <th scope="col">{HeaderColumns.name}</th>
-                      <th scope="col">{HeaderColumns.pib}</th>
-                      <th scope="col">{HeaderColumns.registrationNumber}</th>
-                      <th scope="col">{HeaderColumns.email}</th>
-                      <th scope="col">{HeaderColumns.email}</th>
-                      <th scope="col" className="text-center">
-                        {HeaderColumns.update}
-                      </th>
-                      <th scope="col" className="text-center">
-                        {HeaderColumns.delete}
-                      </th>
-                    </tr>
-                  </thead>
+        <table className="table table-hover ">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">{HeaderColumns.id}</th>
+              <th scope="col">{HeaderColumns.name}</th>
+              <th scope="col">{HeaderColumns.pib}</th>
+              <th scope="col">{HeaderColumns.email}</th>
+              <th scope="col">{HeaderColumns.email}</th>
+              <th scope="col" className="text-center">
+                {HeaderColumns.update}
+              </th>
+              <th scope="col" className="text-center">
+                {HeaderColumns.delete}
+              </th>
+            </tr>
+          </thead>
 
-                  <tbody>{legalEntities}</tbody>
-                </table>
+          <tbody>{legalEntities}</tbody>
+        </table>
       </div>
     );
 

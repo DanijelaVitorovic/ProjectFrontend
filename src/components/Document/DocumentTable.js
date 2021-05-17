@@ -72,6 +72,7 @@ class DocumentTable extends Component {
       physicalEntityList,
       caseProcessingViewSignal,
       createDocumentWithCaseAndAttachment,
+      processTypeList,
     } = this.props || {};
 
     const translation = documentTableTranslation || {};
@@ -86,6 +87,7 @@ class DocumentTable extends Component {
         deleteDocument={deleteDocument}
         caseList={caseList}
         employeeList={employeeList}
+        processTypeList={processTypeList}
         physicalEntityList={physicalEntityList}
         caseProcessingViewSignal={caseProcessingViewSignal}
       />
@@ -178,6 +180,7 @@ class DocumentTable extends Component {
             createDocumentWithCaseAndAttachment={
               createDocumentWithCaseAndAttachment
             }
+            processTypeList={processTypeList}
           />
         )}
       </Fragment>

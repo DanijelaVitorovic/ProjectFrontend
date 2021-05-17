@@ -1,14 +1,14 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import ParticlesBg from "particles-bg";
-import { landingPage } from "../../translations";
+import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import ParticlesBg from 'particles-bg';
+import {landingPage} from '../../translations';
 
 class Landing extends Component {
   componentDidMount() {
     if (this.props.user.validToken) {
-      this.props.history.push("/dashboard");
+      this.props.history.push('/dashboard');
     }
   }
   render() {
@@ -21,9 +21,9 @@ class Landing extends Component {
       tha: [-40, 40],
       alpha: [0.6, 0],
       scale: [0.1, 0.4],
-      position: "all",
-      color: ["random", "#ff0000"],
-      cross: "dead",
+      position: 'all',
+      color: ['random', '#ff0000'],
+      cross: 'dead',
       // emitter: "follow",
       random: 15,
     };

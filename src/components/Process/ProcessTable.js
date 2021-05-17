@@ -75,7 +75,7 @@ class ProcessTable extends Component {
                 type="submit"
                 size="lm"
                 onClick={() => {
-                  this.showModalForAddCaseAndDocument();
+                  this.showModal();
                 }}
               >
                 <AddIcon />
