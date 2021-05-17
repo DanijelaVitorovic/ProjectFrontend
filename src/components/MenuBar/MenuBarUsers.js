@@ -1,12 +1,12 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { Menus } from "../../translations";
-import { documentTypeListTranslation } from "../../translations";
+import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
+import {Menus} from '../../translations';
+import {documentTypeListTranslation} from '../../translations';
 
 class MenuBarUsers extends Component {
   render() {
     const translation = Menus || {};
-    const { UsersMenuBar } = translation;
+    const {UsersMenuBar} = translation;
 
     return (
       <div id="navbarNavDropdownUsersDiv">

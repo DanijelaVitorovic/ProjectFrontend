@@ -11,12 +11,14 @@ import {
 import { getPhysicalEntities } from "../../actions/physicalEntityActions";
 import { getEmployees } from "../../actions/employeeActions";
 import { CaseListTranslation } from "../../translations";
+import {getProcessTypes} from '../../actions/processTypeActions';
 
 class CaseList extends Component {
   componentDidMount() {
     this.props.getCases();
     this.props.getPhysicalEntities();
     this.props.getEmployees();
+    this.props.getProcessTypes();
   }
 
   render() {
@@ -26,19 +28,19 @@ class CaseList extends Component {
     const caseList = this.props.case.caseList;
     const { createCase, updateCase, getCase, getCases, deleteCase } =
       this.props || {};
-
+    const {processTypeList, processList} = this.props || {};
     const translation = CaseListTranslation || {};
     const { Header } = translation;
 
     return (
       <div className="container">
-        <div className="row">
-          <div className="col-md-12 m-auto">
+        <div className="row" style={{margintop: '30px'}}>
+          <div className="col m-auto">
             <div className="card text-left mb-3">
               <div className="card-header text-black">
                 <h3>{Header.heading}</h3>
               </div>
-              <div class="col-md-12 m-auto">
+              <div class="col-md-12 m-auto" style={{margintop: '30px'}}>
                 <div className="card-body"></div>
                 <CaseTable
                   caseList={caseList}
@@ -50,6 +52,8 @@ class CaseList extends Component {
                   physicalEntityList={physicalEntityList}
                   caseForUpdate={_case}
                   employeeList={employeeList}
+                  processTypeList={processTypeList}
+                  processList={processList}
                 />
                 <div id="msg" />
               </div>
@@ -66,6 +70,7 @@ const mapStateToProps = (state) => ({
   errors: state.errors,
   physicalEntity: state.physicalEntity,
   employee: state.employee,
+  processTypeList: state.processType.processTypeList,
 });
 
 export default connect(mapStateToProps, {
@@ -76,4 +81,5 @@ export default connect(mapStateToProps, {
   deleteCase,
   getPhysicalEntities,
   getEmployees,
+  getProcessTypes,
 })(CaseList);

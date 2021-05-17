@@ -7,6 +7,7 @@ import UpdateButton from '../Reusable/UpdateButton';
 import DeleteButton from '../Reusable/DeleteButton';
 import ConfirmAlert from '../Reusable/ConfirmAlert';
 import {organizationalUnitRowTranslation} from '../../translations';
+import Moment from 'moment';
 
 class ProcessTypeRow extends Component {
   constructor(props) {
@@ -46,11 +47,14 @@ class ProcessTypeRow extends Component {
 
   render() {
     const {processType, getProcessType} = this.props || {};
+    const deadline = processType.deadline;
+
     const row = (
       <tr>
         <td>{processType.id}</td>
         <td>{processType.type}</td>
         <td>{processType.description}</td>
+        <td>{processType.deadline}</td>
         <td className="text-center">
           <UpdateButton
             className="button"

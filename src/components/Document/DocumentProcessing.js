@@ -120,6 +120,7 @@ class DocumentProcessing extends Component {
   onChangeCombo = (e) => {
     this.setState({[e.target.name]: {id: e.target.value}});
   };
+
   onVerificated = (document) => {
     this.props.verificationDocument(document);
   };

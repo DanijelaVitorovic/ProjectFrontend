@@ -1,20 +1,23 @@
-import React, { Component } from "react";
-import { CaseType, getPhysicalEntityName } from "../../../src/globals";
-import { Modal, ModalFooter, Card } from "react-bootstrap";
+import React, {Component} from 'react';
+import {CaseType, getPhysicalEntityName} from '../../../src/globals';
+import {Modal, ModalFooter, Card} from 'react-bootstrap';
 import {
   CaseModalForAddAndUpdateTranslation,
   caseValidationsTranslation,
-} from "../../translations";
-import { handleErrorMessage } from "../../globals";
-import classnames from "classnames";
+} from '../../translations';
+import {handleErrorMessage} from '../../globals';
+import classnames from 'classnames';
 
 class ModalForUpdateCase extends Component {
   constructor() {
     super();
     this.state = {
-      caseName: "",
-      caseNumber: "",
-      caseType: "",
+      caseName: '',
+      caseNumber: '',
+      caseType: '',
+      process: {
+        id: 0,
+      },
       refersTo: {
         id: 0,
       },
@@ -36,6 +39,7 @@ class ModalForUpdateCase extends Component {
       caseName,
       caseNumber,
       caseType,
+      process,
       owner,
       processor,
       refersTo,
@@ -45,6 +49,7 @@ class ModalForUpdateCase extends Component {
       caseName,
       caseNumber,
       caseType,
+      process,
       owner,
       processor,
       refersTo,
@@ -52,27 +57,27 @@ class ModalForUpdateCase extends Component {
   }
 
   onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({[e.target.name]: e.target.value});
   };
 
   onChangeCombo = (e) => {
-    this.setState({ [e.target.name]: { id: e.target.value } });
+    this.setState({[e.target.name]: {id: e.target.value}});
   };
 
   handleValidation = () => {
     const translationValidation = caseValidationsTranslation;
-    const { Modals } = translationValidation;
+    const {Modals} = translationValidation;
 
     let errors = {};
     let hasErrors = false;
-    let { caseName } = this.state;
+    let {caseName} = this.state;
 
     if (caseName.length < 2) {
-      errors["caseName"] = Modals.caseName;
+      errors['caseName'] = Modals.caseName;
       hasErrors = true;
     }
 
-    this.setState({ errors: errors });
+    this.setState({errors: errors});
     return hasErrors;
   };
 
@@ -84,22 +89,24 @@ class ModalForUpdateCase extends Component {
     }
 
     const updatedCase = {
-      id: this.props.id,
+      ...this.props._case,
       caseName: this.state.caseName,
       caseNumber: this.state.caseNumber,
       caseType: this.state.caseType,
-      refersTo: { id: this.state.refersTo.id },
+      refersTo: {id: this.state.refersTo.id},
       processor: this.state.processor,
       owner: this.state.owner,
     };
+
     this.props.handleUpdate(updatedCase);
   };
 
   render() {
-    const { physicalEntityList, show, closeModal } = this.props || {};
+    const {physicalEntityList, show, closeModal} = this.props || {};
     const translation = CaseModalForAddAndUpdateTranslation || {};
-    const { Header, SelectOptionsAndPlaceholders } = translation;
-    const { errors } = this.state;
+    const {Header, SelectOptionsAndPlaceholders} = translation;
+    const {errors} = this.state;
+    const {processList} = this.props || {};
 
     return (
       <Modal
@@ -110,7 +117,7 @@ class ModalForUpdateCase extends Component {
         centered
         animation
       >
-        <Card bg={"white"} text={"black"}>
+        <Card bg={'white'} text={'black'}>
           <Modal.Header closeButton></Modal.Header>
 
           <div className="register">
@@ -125,8 +132,8 @@ class ModalForUpdateCase extends Component {
                     <div className="form-group">
                       <input
                         type="text"
-                        className={classnames("form-control", {
-                          "is-invalid": errors.caseName,
+                        className={classnames('form-control', {
+                          'is-invalid': errors.caseName,
                         })}
                         placeholder={
                           SelectOptionsAndPlaceholders.caseNamePlaceholder
@@ -138,7 +145,7 @@ class ModalForUpdateCase extends Component {
                       {handleErrorMessage(errors.caseName) && (
                         <span
                           className="invalid-feedback"
-                          style={{ fontSize: 16, color: "red" }}
+                          style={{fontSize: 16, color: 'red'}}
                         >
                           {errors.caseName}
                         </span>

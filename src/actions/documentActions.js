@@ -86,14 +86,14 @@ export const deleteDocument = (id) => async (dispatch) => {
 
 export const createDocumentWithCase = (newDocument) => async (dispatch) => {
   try {
-    await axios
-      .post("/api/document/createDocumentWithCase", newDocument)
-      .then((response) => {
-        dispatch({
-          type: ADD_CASE_DOCUMENT_DTO,
-          payload: response.data,
-        });
-      });
+   const response = await axios
+     .post('/api/document/createDocumentWithCase', newDocument)
+     .then((response) => {
+       dispatch({
+         type: ADD_CASE_DOCUMENT_DTO,
+         payload: response.data,
+       });
+     });
   } catch (err) {
     dispatch({
       type: GET_ERRORS,
@@ -178,23 +178,19 @@ export const getDocumentsByCase = (id) => async (dispatch) => {
   });
 };
 
-export const createDocumentWithCaseAndAttachment =
-  (document, uploadFile) => async (dispatch) => {
-    const response = await axios.post(
-      "/api/document/createDocumentWithCase",
-      document
-    );
-    dispatch({
-      type: ADD_CASE_DOCUMENT_DTO,
-      payload: response.data,
-    });
-    const id = response.data.id;
-    await axios
-      .post(`/api/documentAttachment/upload/${id}`, uploadFile)
-      .then((response) => {
-        dispatch({
-          type: UPLOAD_DOCUMENT_ATTACHMENT,
-          payload: response.data,
-        });
-      });
-  };
+export const createDocumentWithCaseAndAttachment = (
+  document,
+  uploadFile
+) => async (dispatch) => {
+   const response = await axios.post(
+     '/api/document/createDocumentWithCase',
+     document
+   );
+   dispatch({
+     type: ADD_CASE_DOCUMENT_DTO,
+     payload: response.data,
+   });
+   const id = response.data.id;
+
+  uploadDocumentAttachment(uploadFile, id);
+};

@@ -6,30 +6,30 @@ export const CaseListTranslation = {
 
 export const CaseTableTranslation = {
   HeaderColumns: {
-    name: "Назив",
-    number: "Број",
-    owner: "Власник",
-    processor: "Обрађивач",
-    refersTo: "Односи се на",
-    startDate: "Почетак",
-    status: "Статус",
-    update: "Измена",
-    documents: "Документа предмета",
-    delete: "Избриши",
+    name: 'Назив',
+    number: 'Број',
+    owner: 'Власник',
+    processor: 'Обрађивач',
+    refersTo: 'Односи се на',
+    startDate: 'Почетак',
+    status: 'Статус',
+    update: 'Измена',
+    documents: 'Документа предмета',
+    remainingDays: 'Преостали дани',
   },
   Buttons: {
-    addNewCase: "Додај нови предмет",
-    name: "Назив",
-    number: "Број",
-    owner: "Власник",
-    processor: "Обрађивач",
-    refersTo: "Односи се на",
-    startDate: "Почетак",
-    status: "Статус",
-    update: "Измени",
+    addNewCase: 'Додај нови предмет',
+    name: 'Назив',
+    number: 'Број',
+    owner: 'Власник',
+    processor: 'Обрађивач',
+    refersTo: 'Односи се на',
+    startDate: 'Почетак',
+    status: 'Статус',
+    update: 'Измени',
   },
   Buttons: {
-    back: "Врати се на почетну страну",
+    back: 'Врати се на почетну страну',
   },
 };
 
@@ -41,15 +41,16 @@ export const CaseRowTranslation = {
 
 export const CaseModalForAddAndUpdateTranslation = {
   Header: {
-    heading: "Унос предмета и документа",
-    headingAddModal: "Унос новог предмета",
-    headingUpdateModal: "Измени предмет",
+    heading: 'Унос предмета и документа',
+    headingAddModal: 'Унос новог предмета',
+    headingUpdateModal: 'Измени предмет',
   },
   SelectOptionsAndPlaceholders: {
-    caseNamePlaceholder: "Унесите име предмета",
-    caseNumberPlaceholder: "Унесите број предмета",
-    refersToOption: "Изаберите на кога се односи",
-    caseType: "Унесите тип предмета",
+    caseNamePlaceholder: 'Унесите име предмета',
+    caseNumberPlaceholder: 'Унесите број предмета',
+    refersToOption: 'Изаберите на кога се односи',
+    caseType: 'Унесите тип предмета',
+    process: 'Унесите тип процеса',
   },
 };
 
@@ -335,11 +336,12 @@ export const processTypeListTranslation = {
 
 export const processTypeTableTranslation = {
   HeaderColumns: {
-    id: "Ид",
-    type: "Тип",
-    description: "Опис",
-    update: "Измени",
-    delete: "Обриши",
+    id: 'Ид',
+    type: 'Тип',
+    description: 'Опис',
+    deadline: 'Рок',
+    update: 'Измени',
+    delete: 'Обриши',
   },
   Buttons: {
     back: "Назад",
@@ -353,12 +355,13 @@ export const processTypeRowTranslation = {
 
 export const processTypeModalForAddAndUpdateTransaltion = {
   Header: {
-    headingAddModal: "Додај нови тип",
-    headingUpdateModal: "Измени тип",
+    headingAddModal: 'Додај нови тип',
+    headingUpdateModal: 'Измени тип',
   },
   SelectOptionsAndPlaceholders: {
-    typePlaceholder: "Тип",
-    descriptionPlaceholder: "Опис",
+    typePlaceholder: 'Тип',
+    descriptionPlaceholder: 'Опис',
+    deadlinePlaceholder: 'Рок',
   },
 };
 

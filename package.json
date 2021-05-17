@@ -17,7 +17,7 @@
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.11",
     "mdbreact": "^5.0.2",
-    "moment": "^2.24.0",
+    "moment": "^2.29.1",
     "particles-bg": "^2.5.5",
     "popper.js": "^1.15.0",
     "react": "^16.8.6",

@@ -57,7 +57,6 @@ class LegalEntityRow extends Component {
         <td>{legalEntity.id}</td>
         <td>{legalEntity.name}</td>
         <td>{legalEntity.pib}</td>
-        <td>{legalEntity.registrationNumber}</td>
         <td>{legalEntity.email}</td>
         <td style={{color: Statement[statement].color}}>
           {Statement[statement].translation}

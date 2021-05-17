@@ -36,6 +36,7 @@ import ModalForAddOwnerToCase from "./ModalForAddOwnerToCase";
 import { resetError } from "../../actions/organizationalUnitAcitons";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import ModalForAddProcessorToCase from "./ModalForAddProcessorToCase";
+import {getProcessTypes} from '../../actions/processTypeActions';
 import { CaseState, CaseTypes } from "../../../src/globals";
 import CloseIcon from "@material-ui/icons/Close";
 import FindInPageIcon from "@material-ui/icons/FindInPage";
@@ -139,6 +140,7 @@ class CaseProcessingList extends Component {
     this.props.getCase(id);
     this.props.getDocumentsByCase(id);
     this.props.getEmployees();
+    this.props.getProcessTypes();
     this.setState({ signalForChangingCaseState: false });
     this.props.getCaseMovementListByCase(id);
   }
@@ -169,7 +171,7 @@ class CaseProcessingList extends Component {
               <div className="col-md-12 m-auto">
                 <h3
                   className="display-5 text-center"
-                  style={{ paddingBottom: 20, paddingTop: 20 }}
+                  style={{paddingBottom: 20, paddingTop: 20}}
                 >
                   {translationCaseProcessing.heading} {_case.id}
                 </h3>
@@ -306,6 +308,19 @@ class CaseProcessingList extends Component {
                           className="form-control"
                           name="refersTo"
                           value={getCaseRefersTo(_case)}
+                          disabled
+                        />
+                      </label>
+                    </div>
+                  </Col>
+                  <Col xs={12} md={6}>
+                    <div className="form-group">
+                      <label>
+                        tip procesa
+                        <input
+                          className="form-control"
+                          name="process"
+                          value={_case.process?.processType.type}
                           disabled
                         />
                       </label>
@@ -555,6 +570,7 @@ const mapStateToProps = (state) => ({
   caseList: state.case.caseList,
   error: state.error,
   caseMovement: state.caseMovement,
+  processTypeList: state.processType.processTypeList,
 });
 
 export default connect(mapStateToProps, {
@@ -569,6 +585,7 @@ export default connect(mapStateToProps, {
   updateCase,
   resetError,
   addProcessorToCase,
+  getProcessTypes,
   getCaseMovementListByCase,
   revokeCaseMovement,
 })(CaseProcessingList);
