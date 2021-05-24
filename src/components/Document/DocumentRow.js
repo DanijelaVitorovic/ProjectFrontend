@@ -21,11 +21,11 @@ class DocumentRow extends Component {
   }
 
   showModal = () => {
-    this.setState({ show: true });
+    this.setState({show: true});
   };
 
   closeModal = () => {
-    this.setState({ show: false });
+    this.setState({show: false});
   };
 
   handleUpdate = (updatedDocument) => {
@@ -35,8 +35,8 @@ class DocumentRow extends Component {
 
   onDeleteClick = (id) => {
     const translation = documentRowTranslation;
-    const { deleteString } = translation;
-    const { deleteDocument } = this.props || {};
+    const {deleteString} = translation;
+    const {deleteDocument} = this.props || {};
     ConfirmAlert(id, deleteDocument, deleteString);
   };
 

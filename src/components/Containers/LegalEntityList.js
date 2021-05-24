@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import LegalEntityTable from "../LegalEntity/LegalEntityTable";
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import LegalEntityTable from '../LegalEntity/LegalEntityTable';
 import {
   getLegalEntity,
   getLegalEntites,
@@ -8,7 +8,8 @@ import {
   deleteLegalEntity,
   updateLegalEntity,
 } from '../../actions/legalEntityAction';
-import { legalEntityListTranslation } from "../../translations";
+import {legalEntityListTranslation} from '../../translations';
+import i18next from 'i18next';
 
 class LegalEntityList extends Component {
   componentDidMount() {
@@ -16,17 +17,23 @@ class LegalEntityList extends Component {
   }
 
   render() {
-    const {legalEntityList} =  this.props.legalEntity || {};
-    const {createLegalEntity, updateLegalEntity, getLegalEntity, deleteLegalEntity } = this.props || {};
-    const translation = legalEntityListTranslation || {};
-    const { Header } = translation;
+    const {legalEntityList} = this.props.legalEntity || {};
+    const {
+      createLegalEntity,
+      updateLegalEntity,
+      getLegalEntity,
+      deleteLegalEntity,
+    } = this.props || {};
+        const translation = legalEntityListTranslation;
+    const {Header} = translation;
+
     return (
       <div className="container">
         <div className="row">
           <div className="col-md-12 m-auto">
             <div className="card text-left mb-3">
               <div className="card-body">
-                <h3>{Header.heading}</h3>
+                <h3> {i18next.t('legalEntityListTranslation')}</h3>
                 <LegalEntityTable
                   legalEntityList={legalEntityList}
                   createLegalEntity={createLegalEntity}
@@ -34,7 +41,6 @@ class LegalEntityList extends Component {
                   getLegalEntity={getLegalEntity}
                   deleteLegalEntity={deleteLegalEntity}
                 />
-
                 <div id="msg" />
               </div>
             </div>

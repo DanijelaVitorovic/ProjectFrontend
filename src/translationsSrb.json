@@ -1,0 +1,15 @@
+{
+    "legalEntityListTranslation": "Правна лица",
+
+    "documentListTranslationHeading": "Документи",
+    "documentTableTranslationAddNewDocument": "Додај документ са предметом",
+    "documentTableTranslationBack": "Врати се на почетну страну",
+    "documentTableTranslatioId": "Ид",
+    "documentTableTranslatioTitle": "Наслов",
+    "documentTableTranslatioType": "Тип",
+    "documentTableTranslatioStatus": "Статус",
+    "documentTableTranslatioEmployee": "Запослени",
+    "documentTableTranslatioCase": "Предмет",
+    "documentTableTranslatioUpdate": "Измена",
+    "documentTableTranslatioDelete": "Брисање"
+}
