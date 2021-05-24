@@ -8,6 +8,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import {Link} from 'react-router-dom';
 import AddIcon from '@material-ui/icons/Add';
 import IconButton from '@material-ui/core/IconButton';
+import i18next from 'i18next';
 
 class LegalEntityTable extends Component {
   constructor() {
@@ -43,6 +44,7 @@ class LegalEntityTable extends Component {
   render() {
     const translation = legalEntityTableTranslation || {};
     const {HeaderColumns, Buttons} = translation;
+
     const {
       legalEntityList,
       updateLegalEntity,

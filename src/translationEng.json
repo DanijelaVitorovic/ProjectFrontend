@@ -1,0 +1,17 @@
+{
+    "legalEntityListTranslation": "Legal  Entity",
+
+
+    "documentListTranslationHeading": "Documents",
+    "documentTableTranslationAddNewDocument": "Add new document with case",
+    "documentTableTranslationBack": "Back to home page",
+    "documentTableTranslatioId": "ID",
+    "documentTableTranslatioTitle": "Title",
+    "documentTableTranslatioType": "Type",
+    "documentTableTranslatioStatus": "Status",
+    "documentTableTranslatioEmployee": "Employee",
+    "documentTableTranslatioCase": "Case",
+    "documentTableTranslatioUpdate": "Update",
+    "documentTableTranslatioDelete": "Delete"
+
+}

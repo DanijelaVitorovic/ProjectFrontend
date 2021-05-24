@@ -15,6 +15,7 @@ import DocumentTable from '../Document/DocumentTable';
 import {getPhysicalEntities} from '../../actions/physicalEntityActions';
 import {documentListTranslation} from '../../translations';
 import {getProcessTypes} from '../../actions/processTypeActions';
+import i18next from 'i18next';
 
 class DocumentList extends Component {
   componentDidMount() {
@@ -47,7 +48,7 @@ class DocumentList extends Component {
           <div className="col-md-12 m-auto">
             <div className="card text-left mb-3 success">
               <div className="card-header text-black ">
-                <h3>{Header.heading}</h3>
+                <h3> {i18next.t('documentListTranslationHeading')}</h3>
               </div>
               <div className="card-body">
                 <DocumentTable

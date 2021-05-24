@@ -1,15 +1,16 @@
-import React, { Component, Fragment } from "react";
-import { Button, Col, Row } from "react-bootstrap";
-import DocumentRow from "./DocumentRow";
-import ModalForAddDocument from "./ModalForAddDocument";
-import table from "./table.css";
-import { documentTableTranslation } from "../../translations";
-import ModalForAddCaseAndDocument from "./ModalForAddCaseAndDocument";
-import Tooltip from "@material-ui/core/Tooltip";
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import { Link } from "react-router-dom";
-import AddIcon from "@material-ui/icons/Add";
-import IconButton from "@material-ui/core/IconButton";
+import React, {Component, Fragment} from 'react';
+import {Button, Col, Row} from 'react-bootstrap';
+import DocumentRow from './DocumentRow';
+import ModalForAddDocument from './ModalForAddDocument';
+import table from './table.css';
+import {documentTableTranslation} from '../../translations';
+import ModalForAddCaseAndDocument from './ModalForAddCaseAndDocument';
+import Tooltip from '@material-ui/core/Tooltip';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import {Link} from 'react-router-dom';
+import AddIcon from '@material-ui/icons/Add';
+import IconButton from '@material-ui/core/IconButton';
+import i18next from 'i18next';
 
 class DocumentTable extends Component {
   constructor() {
@@ -21,11 +22,11 @@ class DocumentTable extends Component {
   }
 
   showModal = () => {
-    this.setState({ show: true });
+    this.setState({show: true});
   };
 
   closeModal = () => {
-    this.setState({ show: false });
+    this.setState({show: false});
   };
 
   handleAdd = (newDocument) => {
@@ -34,19 +35,19 @@ class DocumentTable extends Component {
   };
 
   showModalForAddCaseAndDocument = () => {
-    this.setState({ showModalForAddingCaseAndDocument: true });
+    this.setState({showModalForAddingCaseAndDocument: true});
   };
 
   closeModalForAddCaseAndDocument = () => {
-    this.setState({ showModalForAddingCaseAndDocument: false });
+    this.setState({showModalForAddingCaseAndDocument: false});
   };
 
   onFileUpload = () => {
     const formData = new FormData();
 
-    formData.append("file", this.state.uploadedFile);
+    formData.append('file', this.state.uploadedFile);
 
-    const { id } = this.props;
+    const {id} = this.props;
 
     this.props.uploadDocumentAttachment(formData, id);
     this.closeModal();
@@ -76,7 +77,7 @@ class DocumentTable extends Component {
     } = this.props || {};
 
     const translation = documentTableTranslation || {};
-    const { HeaderColumns, Buttons } = translation;
+    const {HeaderColumns, Buttons} = translation;
     const documents = documentList?.map((document) => (
       <DocumentRow
         key={document.id}
@@ -97,14 +98,20 @@ class DocumentTable extends Component {
       <div className="table-responsive tableHeight">
         {!caseProcessingViewSignal && (
           <Fragment>
-            <div align="left" style={{ paddingBottom: 20 }}>
+            <div align="left" style={{paddingBottom: 20}}>
               <Link to={`/dashboard`}>
-                <Tooltip title={Buttons.back} arrow>
-                  <ArrowBackIcon style={{ fontSize: 40 }} color="primary" />
+                <Tooltip
+                  title={i18next.t('documentTableTranslationBack')}
+                  arrow
+                >
+                  <ArrowBackIcon style={{fontSize: 40}} color="primary" />
                 </Tooltip>
               </Link>
 
-              <Tooltip title={Buttons.add} arrow>
+              <Tooltip
+                title={i18next.t('documentTableTranslationAddNewDocument')}
+                arrow
+              >
                 <IconButton
                   className="btn btn-info"
                   type="submit"
@@ -122,23 +129,28 @@ class DocumentTable extends Component {
         <table id="example" className="table table-hover">
           <thead className="thead-light">
             <tr className="card-body table-success">
-              <th scope="col">{HeaderColumns.id}</th>
-              <th scope="col">{HeaderColumns.title}</th>
-              <th scope="col">{HeaderColumns.type}</th>
-              <th scope="col">{HeaderColumns.status}</th>
-              <th scope="col">{HeaderColumns.employee}</th>
+              <th scope="col"> {i18next.t('documentTableTranslatioId')}</th>
+              <th scope="col"> {i18next.t('documentTableTranslatioTitle')}</th>
+              <th scope="col">{i18next.t('documentTableTranslatioType')}</th>
+              <th scope="col">{i18next.t('documentTableTranslatioStatus')}</th>
+              <th scope="col">
+                {i18next.t('documentTableTranslatioEmployee')}
+              </th>
               {!caseProcessingViewSignal && (
                 <Fragment>
-                  <th scope="col">{HeaderColumns._case}</th>
+                  <th scope="col">
+                    {' '}
+                    {i18next.t('documentTableTranslatioCase')}
+                  </th>
                 </Fragment>
               )}
               <th scope="col" className="text-center">
-                {HeaderColumns.update}
+                {i18next.t('documentTableTranslatioUpdate')}
               </th>
               {!caseProcessingViewSignal && (
                 <Fragment>
                   <th scope="col" className="text-center">
-                    {HeaderColumns.delete}
+                    {i18next.t('documentTableTranslatioDelete')}
                   </th>
                 </Fragment>
               )}
@@ -146,13 +158,67 @@ class DocumentTable extends Component {
           </thead>
           <tbody>{documents}</tbody>
         </table>
+        <nav aria-label="Page navigation example">
+          <ul class="pagination pagination-lg justify-content-center">
+            <li class="page-item disabled">
+              <a
+                class="page-link"
+                href="#"
+                tabindex="-1"
+                onClick={() => this.handlePageChange(this.state.page - 1)}
+              >
+                {' '}
+                Prev
+              </a>
+            </li>
+            <li class="page-item">
+              <a
+                class="page-link"
+                href="#"
+                tabindex="-1"
+                onClick={() => this.handlePageChange(1)}
+              >
+                1
+              </a>
+            </li>
+            <li class="page-item">
+              <a
+                class="page-link"
+                href="#"
+                tabindex="-1"
+                onClick={() => this.handlePageChange(2)}
+              >
+                2
+              </a>
+            </li>
+            <li class="page-item">
+              <a
+                class="page-link"
+                href="#"
+                tabindex="-1"
+                onClick={() => this.handlePageChange(3)}
+              >
+                3
+              </a>
+            </li>
+            <li class="page-item">
+              <a
+                class="page-link"
+                href="#"
+                tabindex="-1"
+                onClick={() => this.handlePageChange(this.state.page + 1)}
+              >
+                Next
+              </a>
+            </li>
+          </ul>
+        </nav>
       </div>
     );
 
     return (
       <Fragment>
         {renderTable}
-
         {
           <ModalForAddDocument
             show={this.state.show}

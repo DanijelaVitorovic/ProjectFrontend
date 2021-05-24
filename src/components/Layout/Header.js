@@ -11,6 +11,10 @@ import {HeaderTranslation} from '../../translations';
 import companyLogo from '../../dex-logo.png';
 import Tooltip from '@material-ui/core/Tooltip';
 import Switch from '@material-ui/core/Switch';
+import {Fragment} from 'react';
+import {blue} from '@material-ui/core/colors';
+import '../Layout/Header';
+import i18next from 'i18next';
 
 class Header extends Component {
   logout() {
@@ -18,9 +22,17 @@ class Header extends Component {
     window.location.href = '/';
   }
 
+  onChange(option) {
+    localStorage.setItem('lang', option.target.value);
+    window.location.reload();
+  }
+
   render() {
+    const lang = localStorage.getItem('lang') || 'sr';
     const {validToken, loggedUser} = this.props.loggedUser;
-    const translation = HeaderTranslation || {};
+    let translation;
+    translation = HeaderTranslation;
+
     const {HeaderItems} = translation;
 
     const userIsAuthenticated = (
@@ -29,12 +41,22 @@ class Header extends Component {
           <MenuBarUsers />
         ) : null}
         <ul className="navbar-nav ml-auto">
+          <br></br>
           <Tooltip title="Промени тему" arrow>
             <Switch
               checked={this.props.darkMode}
               onChange={this.props.handleDarkMode}
             />
-          </Tooltip>
+          </Tooltip>{' '}
+          <select
+            style={{width: 100, height: 40, marginRight: 20, marginLeft: 10}}
+            className="custom-select pull-right"
+            onChange={this.onChange}
+            value={lang}
+          >
+            <option value="sr">Srb</option>
+            <option value="en">Eng</option>
+          </select>
           <li
             className="nav-item"
             style={{
@@ -49,7 +71,6 @@ class Header extends Component {
               {loggedUser.username}
             </Link>
           </li>
-
           <li className="nav-item">
             <Link
               to="/logout"
@@ -79,7 +100,6 @@ class Header extends Component {
           <nav className="navbar navbar-expand-lg navbar-dark mb-4 lightNavbar">
             <Navbar.Toggle />
             <img src={companyLogo} style={{width: 60, height: 35}} />
-
             <button
               className="navbar-toggler"
               type="button"
@@ -110,6 +130,8 @@ class Header extends Component {
             >
               <span className="navbar-toggler-icon" />
             </button>
+            <div className="container mb-4 mt-4">
+            </div>
             {headerLinks}
           </nav>
         )}

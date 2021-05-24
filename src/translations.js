@@ -406,20 +406,20 @@ export const documentListTranslation = {
 
 export const documentTableTranslation = {
   HeaderColumns: {
-    id: "Ид",
-    title: "Наслов",
-    description: "Опис",
-    type: "Тип",
-    status: "Статус",
-    employee: "Запослени",
-    _case: "Случај",
-    update: "Измена",
-    delete: "Брисање",
+    id: 'Ид',
+    title: 'Наслов',
+    description: 'Опис',
+    type: 'Тип',
+    status: 'Статус',
+    employee: 'Запослени',
+    _case: 'Предмет',
+    update: 'Измена',
+    delete: 'Брисање',
   },
   Buttons: {
-    addNewDocument: "Унеси нови документ",
-    back: "Врати се на почетну страну",
-    add: "Додај документ са предметом",
+    addNewDocument: 'Унеси нови документ',
+    back: 'Врати се на почетну страну',
+    add: 'Додај документ са предметом',
   },
 };
 
