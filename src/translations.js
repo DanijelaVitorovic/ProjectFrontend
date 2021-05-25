@@ -115,36 +115,37 @@ export const PhysicalEntityModalForAddAndUpdateTranslation = {
 
 export const Menus = {
   UserNotAuthenticatedMenuBar: {
-    registration: "Регистрација",
-    login: "Пријава",
+    registration: 'Регистрација',
+    login: 'Пријава',
   },
   UsersMenuBar: {
-    heading: "Корисници",
-    userList: "Приказ корисника",
-    addUser: "Креирај новог корисника",
+    heading: 'Корисници',
+    userList: 'Приказ корисника',
+    addUser: 'Креирај новог корисника',
 
     Subjects: {
-      heading: "Субјекти",
-      physicalEntityList: "Приказ физичких лица",
-      employeeList: "Приказ запослених лица",
-      legalEntityList: "Приказ правних лица",
-      processTypeList: "Приказ типова процеса",
-      organizationalUnitList: "Приказ организациних јединица",
-      documentsList: "Приказ докумената",
+      heading: 'Субјекти',
+      physicalEntityList: 'Приказ физичких лица',
+      employeeList: 'Приказ запослених лица',
+      legalEntityList: 'Приказ правних лица',
+      processTypeList: 'Приказ типова процеса',
+      organizationalUnitList: 'Приказ организациних јединица',
+      documentsList: 'Приказ докумената',
     },
     Cases: {
-      heading: "Предмети",
-      caseList: "Приказ предмета",
-      caseClassificationList: "Приказ предметних класификација",
+      heading: 'Предмети',
+      caseList: 'Приказ предмета',
+      caseClassificationList: 'Приказ предметних класификација',
     },
     Process: {
-      heading: "Процеси",
-      addProcess: "Додај процес",
-      showProcessList: "Приказ процеса",
+      heading: 'Процеси',
+      addProcess: 'Додај процес',
+      showProcessList: 'Приказ процеса',
     },
     Document: {
-      heading: "Документа",
-      showDocumentList: "Приказ докумената",
+      heading: 'Документа',
+      showDocumentList: 'Приказ докумената',
+      showDocumentClassificationList: 'Приказ класификације докумената',
     },
   },
 };
@@ -429,20 +430,22 @@ export const documentRowTranslation = {
 
 export const documentModalForAddAndUpdateTranslation = {
   Header: {
-    headingAddModal: "Унос новог документа",
-    headingUpdateModal: "Измена документа",
+    headingAddModal: 'Унос новог документа',
+    headingUpdateModal: 'Измена документа',
   },
   SelectOptionsAndPlaceholders: {
-    titlePlaceholder: "Наслов",
-    descriptionPlaceholder: "Опис",
-    typePlaceholder: "Унесите тип предмета",
-    typeOption: "Унесите тип документа",
-    statusPlaceholder: "Унесите статус документа",
-    statusOption: "Унесите статус документа",
-    employeePlaceholder: "Одаберите запослено лице",
-    employeeOption: "Одаберите запослено лице",
-    _casePlaceholder: "Одаберите случај",
-    _caseOption: "Одаберите случај",
+    titlePlaceholder: 'Наслов',
+    descriptionPlaceholder: 'Опис',
+    typePlaceholder: 'Унесите тип предмета',
+    typeOption: 'Унесите тип документа',
+    statusPlaceholder: 'Унесите статус документа',
+    statusOption: 'Унесите статус документа',
+    employeePlaceholder: 'Одаберите запослено лице',
+    employeeOption: 'Одаберите запослено лице',
+    _casePlaceholder: 'Одаберите случај',
+    _caseOption: 'Одаберите случај',
+    documentClassificationPlaceholder: 'Одаберите класификацију',
+    documentClassificationOption: 'Одаберите класификацију',
   },
 };
 
@@ -526,13 +529,14 @@ export const employeeValidationsTranslation = {
 
 export const caseValidationsTranslation = {
   Modals: {
-    title: "Морате унети наслов документа",
-    employeeCreated: "Морате унети запослено лице",
-    caseName: "Морате унети назив предмета",
-    refersTo: "Морате изабрати",
-    title: "Морате унети наслов документа",
-    alertCase: "Нисте попунили сва потребна поља прве старне",
-    alertDocument: "Нисте попунили сва потребна поља друге стране",
+    title: 'Морате унети наслов документа',
+    employeeCreated: 'Морате унети запослено лице',
+    caseName: 'Морате унети назив предмета',
+    refersTo: 'Морате изабрати',
+    title: 'Морате унети наслов документа',
+    alertCase: 'Нисте попунили сва потребна поља прве старне',
+    alertDocument: 'Нисте попунили сва потребна поља друге стране',
+    documentClassification: 'Морате унети класификацију документа',
   },
 };
 
@@ -630,4 +634,47 @@ export const modalForRevokeCaseMovementTranslation = {
   heading: "Да ли сте сигурни?",
   reject: "Не",
   confirm: "Да",
+};
+
+export const documentClassificationListTranslation = {
+  Header: {
+    heading: 'Класификације докумената',
+  },
+};
+
+export const documentClassificationTableTranslation = {
+  Buttons: {
+    back: 'Назад',
+    addDocumentClassification: 'Унеси нову класификацију',
+  },
+  HeaderColumns: {
+    title: 'Наслов',
+    code: 'Шифра',
+    description: 'Опис',
+    document: 'Документ',
+    update: 'Измена',
+    delete: 'Брисање',
+  },
+};
+
+export const documentClassificationRowTranslation = {
+  deleteString: 'Да желите да обришете изабрану класификацију документа?',
+};
+
+export const modalForAddAndUpdateDocumentClassificationTranslation = {
+  headingAdd: 'Додајте класификацију документа',
+  headingUpdate: 'Измени класификацију документа',
+  titlePlaceholder: 'Унесите наслов класификације',
+  codePlaceholder: 'Унесите шифру класификације',
+  descriptionPlaceholder: 'Унесите опис класификације',
+  documentOption: 'Изаберите документ',
+  documentSelect: 'Изаберите документ на који се односи',
+};
+
+export const documentClassificationValidationsTranslation = {
+  Modals: {
+    title: 'Наслов је обавезнo и треба имати минимум 2 карактера',
+    code: 'Шифра је обавезна и треба имати минимум 2 цифре',
+    document: 'Документ је обавезно поље',
+  },
 };

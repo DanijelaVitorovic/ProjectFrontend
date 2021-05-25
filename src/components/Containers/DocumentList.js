@@ -9,6 +9,7 @@ import {
   createDocumentWithCaseAndAttachment,
   getAllDocuments,
 } from '../../actions/documentActions';
+import {getDocumentClassificatonList} from '../../actions/documentClassificationActions';
 import {getCases} from '../../actions/caseActions';
 import {getEmployees} from '../../actions/employeeActions';
 import {connect} from 'react-redux';
@@ -37,6 +38,7 @@ class DocumentList extends Component {
     this.props.getPhysicalEntities();
     this.props.getEmployees();
     this.props.getProcessTypes();
+    this.props.getDocumentClassificatonList();
     this.setState({
       totalElements: this.props.totalElements,
       totalPages: this.props.totalElements / rowsPerPage,
@@ -70,6 +72,7 @@ class DocumentList extends Component {
       caseList,
       documentList,
       processTypeList,
+      documentClassificationList,
       totalElements,
     } = this.props || {};
 
@@ -112,6 +115,7 @@ class DocumentList extends Component {
                   createDocumentWithCaseAndAttachment={
                     createDocumentWithCaseAndAttachment
                   }
+                  documentClassificationList={documentClassificationList}
                   totalElements={this.props.document.totalElements}
                 />
                 <div id="msg" />
@@ -133,6 +137,8 @@ const mapStateToProps = (state) => ({
   physicalEntityList: state.physicalEntity.physicalEntityList,
   caseList: state.case.caseList,
   processTypeList: state.processType.processTypeList,
+  documentClassificationList:
+    state.documentClassification.documentClassificationList,
   errors: state.errors,
 });
 
@@ -148,5 +154,6 @@ export default connect(mapStateToProps, {
   createDocumentWithCase,
   createDocumentWithCaseAndAttachment,
   getProcessTypes,
+  getDocumentClassificatonList,
   getAllDocuments,
 })(DocumentList);

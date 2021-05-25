@@ -18,6 +18,7 @@ class DocumentTable extends Component {
 
     this.state = {
       show: false,
+      documentClassification: '',
     };
   }
 
@@ -61,6 +62,10 @@ class DocumentTable extends Component {
     this.closeModalForAddCaseAndDocument();
   };
 
+  onChange = (e) => {
+    this.setState({[e.target.name]: e.target.value});
+  };
+
   render() {
     const {
       documentList,
@@ -74,6 +79,7 @@ class DocumentTable extends Component {
       caseProcessingViewSignal,
       createDocumentWithCaseAndAttachment,
       processTypeList,
+      documentClassificationList,
     } = this.props || {};
 
     const translation = documentTableTranslation || {};
@@ -123,6 +129,48 @@ class DocumentTable extends Component {
                   <AddIcon />
                 </IconButton>
               </Tooltip>
+            </div>
+            <div
+              className=" navbar-expand-sm navbar-dark mb-12 lightNavbar"
+              style={{background: 'white', width: 400}}
+            >
+              <ul className="navbar-nav mr-auto">
+                <li>
+                  <div>
+                    <select
+                      documentClassificationList={documentClassificationList}
+                      name="document"
+                      onChange={this.onChange}
+                    >
+                      <option value="" selected disabled>
+                        Klasifikacija
+                      </option>
+                      {documentClassificationList.map(
+                        (documentClassification) => {
+                          return (
+                            <option value={documentClassification.id}>
+                              {documentClassification.title}
+                            </option>
+                          );
+                        }
+                      )}
+                    </select>
+                  </div>
+                </li>{' '}
+                <li className="nav-item dropdown">
+                  <a
+                    className="nav-link dropdown-toggle"
+                    href="#"
+                    id="navbarDropdownUsersLink"
+                    role="button"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    ddddd
+                  </a>
+                </li>
+              </ul>
             </div>
           </Fragment>
         )}
@@ -192,6 +240,7 @@ class DocumentTable extends Component {
               createDocumentWithCaseAndAttachment
             }
             processTypeList={processTypeList}
+            documentClassificationList={documentClassificationList}
           />
         )}
       </Fragment>

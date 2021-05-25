@@ -15,6 +15,7 @@ import caseMovementReducer from "./caseMovementReducer";
 import documentAttachmentReducer from "./documentAttachmentReducer";
 import documentTypeReducer from "./documentTypeReducer";
 import documentTypeAttachmentReducer from "./documentTypeAttachmentReducer";
+import documentClassificationReducer from './documentClassificationReducer';
 
 export default combineReducers({
   error: errorReducer,
@@ -33,4 +34,5 @@ export default combineReducers({
   documentAttachment: documentAttachmentReducer,
   documentType: documentTypeReducer,
   documentTypeAttachment: documentTypeAttachmentReducer,
+  documentClassification: documentClassificationReducer,
 });
