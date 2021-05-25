@@ -126,6 +126,9 @@ class MenuBarUsers extends Component {
               <Link className="dropdown-item" to="/documentTypeList">
                 {documentTypeListTranslation.Header.heading}
               </Link>
+              <Link className="dropdown-item" to="/documentClassificationList">
+                {UsersMenuBar.Document.showDocumentClassificationList}
+              </Link>
             </div>
           </li>
         </ul>
