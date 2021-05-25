@@ -1,7 +1,6 @@
-import { Button } from "bootstrap";
 
 export const CaseListTranslation = {
-  Header: { heading: "Предмети" },
+  Header: { heading: "Предмети" }
 };
 
 export const CaseTableTranslation = {
@@ -441,6 +440,7 @@ export const documentModalForAddAndUpdateTranslation = {
     statusPlaceholder: 'Унесите статус документа',
     statusOption: 'Унесите статус документа',
     employeePlaceholder: 'Одаберите запослено лице',
+    employeeCreatedPlaceholder: 'Запослено лице',
     employeeOption: 'Одаберите запослено лице',
     _casePlaceholder: 'Одаберите случај',
     _caseOption: 'Одаберите случај',
@@ -615,8 +615,50 @@ export const documentTypeRowTranslation = {
 };
 
 export const modalForAddProcessorTranslation = {
-  addProcessor: "Додели обрађивача",
-  selectEmployee: "Изаберите обрађивача",
+  addProcessor: 'Додели обрађивача',
+  selectEmployee: 'Изаберите обрађивача',
+};
+
+export const documentMovementListTranslation = {
+  Header: {heading: 'Кретање документа'},
+};
+
+export const documentMovementTableTranslation = {
+  name: 'Назив',
+  employeeSend: 'Подноси',
+  employeeReceived: 'Прихвата',
+  startDate: 'Почетак',
+  role: 'Улога',
+  confirm: 'Прихвати',
+};
+
+export const documentMovementRowTranslation = {
+  confirmString: 'Да ли заиста желите да прихватите?',
+  acceptTooltip: 'Прихвати!',
+};
+
+export const modalForAddVerificationEmployee = {
+  addVerificationEmployee:
+    'Одаберите запосленог коме ће документ бити послат на верификовање',
+  selectVerificationEmployee:
+    'Одаберите запосленог коме ће документ бити послат на верификовање',
+};
+
+export const modalForAddSingingEmployee = {
+  addSingingEmployee:
+    'Одаберите запосленог коме ће документ бити послат на потписивање',
+  selectSingingEmployee:
+    'Одаберите запосленог коме ће документ бити послат на потписивање',
+};
+
+export const modalForAddSingedEmployee = {
+  addSingedEmployee: 'Одаберите запосленог који ће потписати документ',
+  selectSingedEmployee: 'Одаберите запосленог који ће потписати документ',
+};
+
+export const modalForAddFinalEmployee = {
+  addFinalEmployee: 'Одаберите запосленог који ће затворити документ',
+  selectFinalEmployee: 'Одаберите запосленог који ће затворити документ',
 };
 
 export const modalWithCaseMovementListTranslation = {
@@ -637,24 +679,31 @@ export const modalForRevokeCaseMovementTranslation = {
 };
 
 export const documentClassificationListTranslation = {
-  Header: {
-    heading: 'Класификације докумената',
-  },
+  Header: {heading: 'Класификација докумената'},
 };
 
 export const documentClassificationTableTranslation = {
-  Buttons: {
-    back: 'Назад',
-    addDocumentClassification: 'Унеси нову класификацију',
+  Header: {
+    heading: 'Класификације докумената',
   },
   HeaderColumns: {
     title: 'Наслов',
     code: 'Шифра',
     description: 'Опис',
     document: 'Документ',
-    update: 'Измена',
-    delete: 'Брисање',
+    update: 'Измени',
+    delete: 'Обриши',
   },
+  Buttons: {
+    back: 'Назад',
+    addDocumentClassification: 'Унеси нову класификацију',
+  },
+};
+
+export const modalForRevokeDocumentMovement = {
+  heading: 'Ипак желите да вратите документ са доделе?',
+  accept: 'Да',
+  reject: 'Не',
 };
 
 export const documentClassificationRowTranslation = {

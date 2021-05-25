@@ -32,6 +32,22 @@ import {
 } from '../../translations';
 import DocumentAttachemntList from '../Containers/DocumentAttachmentList';
 import {input} from '../DocumentAttachment/input.css';
+import {
+  getDocumentMovementByDocumentId,
+  addDocumentVerificationEmployee,
+  addDocumentSingingEmployee,
+  addDocumentSingedEmployee,
+  addDocumentFinalEmployee,
+  revokeDocumentMovement,
+} from '../../actions/documentMovementActions';
+import ModalForAddVerificationEmployeeToDocument from './ModalForAddVerificationEmployeeToDocument';
+import ModalForSingingEmployeeToDocument from './ModalForAddSigingEmployeeToDocument';
+import ModalForSingedEmployeeToDocument from './ModalForSingedEmployeeToDocument';
+import ModalForFinalEmployeeToDocument from './ModalForFinalEmployeeToDocument';
+import {resetError} from '../../actions/organizationalUnitAcitons';
+import ModalForRevokeDocumentMovement from './ModalForRevokeDocumentMovement';
+import Tooltip from '@material-ui/core/Tooltip';
+import CloseIcon from '@material-ui/icons/Close';
 
 class DocumentProcessing extends Component {
   constructor() {
@@ -39,6 +55,11 @@ class DocumentProcessing extends Component {
 
     this.state = {
       show: false,
+      showModalForAddVerificationEmployee: false,
+      showModalForAddSingingEmployee: false,
+      showModalForAddSingedEmployee: false,
+      showModalForAddFinalEmployee: false,
+      showModalForRevokeDocumentMovement: false,
       title: '',
       documentNumber: '',
       externalNumber: '',
@@ -59,6 +80,7 @@ class DocumentProcessing extends Component {
     const {id} = this.props.match.params;
     this.props.getDocument(id);
     this.props.getDocumentAttachmentsByDocument(id);
+    this.props.getEmployees();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -113,7 +135,6 @@ class DocumentProcessing extends Component {
         id: this.state._case.id,
       },
     };
-
     this.props.updateDocument(updatedDocument);
   };
 
@@ -121,20 +142,81 @@ class DocumentProcessing extends Component {
     this.setState({[e.target.name]: {id: e.target.value}});
   };
 
-  onVerificated = (document) => {
-    this.props.verificationDocument(document);
+  showModalForAddVerificationEmployee = () => {
+    this.setState({showModalForAddVerificationEmployee: true});
   };
 
-  onSinging = (document) => {
-    this.props.signingDocument(document);
+  closeModalForAddVerificationEmployee = () => {
+    this.setState({showModalForAddVerificationEmployee: false});
   };
 
-  onSinged = (document) => {
-    this.props.signedDocument(document);
+  handleAddVerificationEmployee = (documentMovement) => {
+    this.props.addDocumentVerificationEmployee(
+      documentMovement,
+      this.closeModalForAddVerificationEmployee
+    );
   };
 
-  onFinal = (document) => {
-    this.props.finalDocument(document);
+  showModalForAddSingingEmployee = () => {
+    this.setState({showModalForAddSingingEmployee: true});
+  };
+
+  closeModalForAddSingingEmployee = () => {
+    this.setState({showModalForAddSingingEmployee: false});
+  };
+
+  handleAddSingingEmployee = (documentMovement) => {
+    this.props.addDocumentSingingEmployee(
+      documentMovement,
+      this.closeModalForAddSingingEmployee
+    );
+  };
+
+  showModalForAddSingedEmployee = () => {
+    this.setState({showModalForAddSingedEmployee: true});
+  };
+
+  closeModalForAddSingedEmployee = () => {
+    this.setState({showModalForAddSingedEmployee: false});
+  };
+
+  handleAddSingedEmployee = (documentMovement) => {
+    this.props.addDocumentSingedEmployee(
+      documentMovement,
+      this.closeModalForAddSingedEmployee
+    );
+  };
+
+  showModalForAddFinalEmployee = () => {
+    this.setState({showModalForAddFinalEmployee: true});
+  };
+
+  closeModalForAddFinalEmployee = () => {
+    this.setState({showModalForAddFinalEmployee: false});
+  };
+
+  handleAddFinalEmployee = (documentMovement) => {
+    this.props.addDocumentFinalEmployee(
+      documentMovement,
+      this.closeModalForAddFinalEmployee
+    );
+  };
+
+  showModalForRevokeDocumentMovement = () => {
+    this.setState({showModalForRevokeDocumentMovement: true});
+  };
+
+  closeModalForRevokeDocumentMovement = () => {
+    this.setState({showModalForRevokeDocumentMovement: false});
+    this.props.resetError();
+  };
+
+  handleRevokeDocumentMovement = (documentForUpdate) => {
+    this.props.resetError();
+    this.props.revokeCaseMovement(
+      documentForUpdate,
+      this.showModalForRevokeDocumentMovement
+    );
   };
 
   showModal = () => {
@@ -159,6 +241,7 @@ class DocumentProcessing extends Component {
       document,
       employeeList,
       caseList,
+      physicalEntityList,
       documentAttachmentList,
       attachmentContent,
       uploadDocumentAttachment,
@@ -166,6 +249,9 @@ class DocumentProcessing extends Component {
       deleteDocumentAttachment,
       getDocumentAttachmentsByDocument,
       getDocumentAttachmentByDocumentName,
+      error,
+      documentFromDocumentMovement,
+      resetError,
     } = this.props || {};
 
     return (
@@ -322,7 +408,7 @@ class DocumentProcessing extends Component {
                   <Button
                     className="button"
                     variant="link"
-                    onClick={() => this.onVerificated(document)}
+                    onClick={() => this.showModalForAddVerificationEmployee()}
                   >
                     <i class="fas fa-user-check fa-3x" />
                   </Button>
@@ -333,7 +419,7 @@ class DocumentProcessing extends Component {
                     className="button"
                     variant="link"
                     type="submit"
-                    onClick={() => this.onSinging(document)}
+                    onClick={() => this.showModalForAddSingingEmployee()}
                   >
                     <i class="fas fa-pen-fancy fa-3x" />
                   </Button>
@@ -344,7 +430,7 @@ class DocumentProcessing extends Component {
                     className="button"
                     variant="link"
                     type="submit"
-                    onClick={() => this.onSinged(document)}
+                    onClick={() => this.showModalForAddSingedEmployee()}
                   >
                     <i class="fas fa-stamp fa-3x" />
                   </Button>
@@ -355,11 +441,24 @@ class DocumentProcessing extends Component {
                     className="button"
                     variant="link"
                     type="submit"
-                    onClick={() => this.onFinal(document)}
+                    onClick={() => this.showModalForAddFinalEmployee()}
                   >
                     <i class="far fa-check-circle fa-3x" />
                   </Button>
                 )}
+                <Tooltip title="Опозови" arrow placement="top-end">
+                  <Button
+                    className="button"
+                    variant="link"
+                    type="submit"
+                    onClick={() => {
+                      this.showModalForRevokeDocumentMovement();
+                    }}
+                    style={{fontSize: 40}}
+                  >
+                    <i class="fas fa-user-times"></i>
+                  </Button>
+                </Tooltip>
               </div>
             </div>
             <div className="documentAttachemntTable">
@@ -378,6 +477,101 @@ class DocumentProcessing extends Component {
                 }
               />
             </div>
+
+            {this.state.showModalForAddVerificationEmployee && (
+              <ModalForAddVerificationEmployeeToDocument
+                id={this.props.match.params.id}
+                document={document}
+                error={error}
+                showModalForAddVerificationEmployee={
+                  this.state.showModalForAddVerificationEmployee
+                }
+                closeModalForAddVerificationEmployee={
+                  this.closeModalForAddVerificationEmployee
+                }
+                handleAddVerificationEmployee={
+                  this.handleAddVerificationEmployee
+                }
+                employeeList={employeeList}
+                physicalEntityList={physicalEntityList}
+                documentFromDocumentMovement={documentFromDocumentMovement}
+                resetError={resetError}
+              />
+            )}
+            {this.state.showModalForAddSingingEmployee && (
+              <ModalForSingingEmployeeToDocument
+                id={this.props.match.params.id}
+                document={document}
+                error={error}
+                showModalForAddSingingEmployee={
+                  this.state.showModalForAddSingingEmployee
+                }
+                closeModalForAddSingingEmployee={
+                  this.closeModalForAddSingingEmployee
+                }
+                handleAddSingingEmployee={this.handleAddSingingEmployee}
+                employeeList={employeeList}
+                physicalEntityList={physicalEntityList}
+                documentFromDocumentMovement={documentFromDocumentMovement}
+                resetError={resetError}
+              />
+            )}
+
+            {this.state.showModalForAddSingedEmployee && (
+              <ModalForSingedEmployeeToDocument
+                id={this.props.match.params.id}
+                document={document}
+                error={error}
+                showModalForAddSingedEmployee={
+                  this.state.showModalForAddSingedEmployee
+                }
+                closeModalForAddSingedEmployee={
+                  this.closeModalForAddSingedEmployee
+                }
+                handleAddSingedEmployee={this.handleAddSingedEmployee}
+                employeeList={employeeList}
+                physicalEntityList={physicalEntityList}
+                documentFromDocumentMovement={documentFromDocumentMovement}
+                resetError={resetError}
+              />
+            )}
+
+            {this.state.showModalForAddFinalEmployee && (
+              <ModalForFinalEmployeeToDocument
+                id={this.props.match.params.id}
+                document={document}
+                error={error}
+                showModalForAddFinalEmployee={
+                  this.state.showModalForAddFinalEmployee
+                }
+                closeModalForAddFinalEmployee={
+                  this.closeModalForAddFinalEmployee
+                }
+                handleAddFinalEmployee={this.handleAddFinalEmployee}
+                employeeList={employeeList}
+                physicalEntityList={physicalEntityList}
+                documentFromDocumentMovement={documentFromDocumentMovement}
+                resetError={resetError}
+              />
+            )}
+            {this.showModalForRevokeDocumentMovement && (
+              <ModalForRevokeDocumentMovement
+                id={this.props.match.params.id}
+                document={document}
+                error={error}
+                showModalForRevokeDocumentMovement={
+                  this.state.showModalForRevokeDocumentMovement
+                }
+                closeModalForRevokeDocumentMovement={
+                  this.closeModalForRevokeDocumentMovement
+                }
+                handleRevokeDocumentMovement={this.handleRevokeDocumentMovement}
+                employeeList={employeeList}
+                physicalEntityList={physicalEntityList}
+                documentFromDocumentMovement={documentFromDocumentMovement}
+                resetError={resetError}
+              />
+            )}
           </div>
         </div>
         <br></br>
@@ -396,7 +590,8 @@ const mapStateToProps = (state) => ({
   caseList: state.case.caseList,
   documentAttachmentList: state.documentAttachment.documentAttachmentList,
   attachmentContent: state.documentAttachment.attachmentContent,
-  errors: state.errors,
+  documentMovement: state.documentMovement,
+  error: state.error,
 });
 
 export default connect(mapStateToProps, {
@@ -417,4 +612,10 @@ export default connect(mapStateToProps, {
   getDocumentAttachmentByDocumentName,
   clearDocumentAttachmets,
   deleteDocumentAttachment,
+  addDocumentVerificationEmployee,
+  addDocumentSingingEmployee,
+  addDocumentSingedEmployee,
+  addDocumentFinalEmployee,
+  revokeDocumentMovement,
+  resetError,
 })(DocumentProcessing);

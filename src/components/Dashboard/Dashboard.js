@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { DashboardTranslation, dashboardTranslation } from "../../translations";
 import ParticlesBg from "particles-bg";
 import CaseMovementList from "../Containers/CaseMovementList";
+import DocumentMovementList from '../Containers/DocumentMovementList';
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
@@ -104,6 +105,12 @@ class Dashboard extends Component {
               </div>
             </Paper>
           </Grid>
+        </Grid>
+        <br></br>
+        <Grid>
+          <Paper>
+            <DocumentMovementList />
+          </Paper>
         </Grid>
       </div>
     );
