@@ -53,19 +53,12 @@ export const updateDocument = (document) => async (dispatch) => {
 };
 
 export const getDocument = (id) => async (dispatch) => {
-  try {
-    const res = await axios.get(`/api/document/find/${id}`).then((response) => {
-      dispatch({
-        type: GET_DOCUMENT,
-        payload: response.data,
-      });
-    });
-  } catch (exception) {
+  const res = await axios.get(`/api/document/find/${id}`).then((response) => {
     dispatch({
-      type: GET_ERRORS,
-      payload: exception.response.data,
+      type: GET_DOCUMENT,
+      payload: response.data,
     });
-  }
+  });
 };
 
 export const getDocuments = () => async (dispatch) => {
