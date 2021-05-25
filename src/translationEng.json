@@ -12,6 +12,6 @@
     "documentTableTranslatioEmployee": "Employee",
     "documentTableTranslatioCase": "Case",
     "documentTableTranslatioUpdate": "Update",
-    "documentTableTranslatioDelete": "Delete"
-
+    "documentTableTranslatioDelete": "Delete",
+    "rowsPerPage": "Rows per page"
 }

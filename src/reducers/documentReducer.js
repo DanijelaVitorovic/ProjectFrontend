@@ -12,12 +12,14 @@ import {
   GET_DOCUMENT_LIST_BY_CASE,
   CREATE_DOCUMENT_WITH_CASE_AND_ATTACHMENT,
   UPLOAD_DOCUMENT_ATTACHMENT,
+  GET_ALL_DOCUMENTS,
 } from '../actions/types';
 
 const initialState = {
   documentList: [],
   document: {},
   documentAttachmentList: [],
+  totalElements: '',
 };
 
 export default function (state = initialState, action) {
@@ -93,6 +95,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         documentList: state.documentList.concat(action.payload),
+      };
+    case GET_ALL_DOCUMENTS:
+      return {
+        ...state,
+        documentList: action.payload.content,
+        totalElements: action.payload.totalElements,
       };
     default:
       return state;
