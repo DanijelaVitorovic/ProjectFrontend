@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, {Component} from 'react';
 import {
   createDocument,
   updateDocument,
@@ -7,24 +7,56 @@ import {
   deleteDocument,
   createDocumentWithCase,
   createDocumentWithCaseAndAttachment,
+  getAllDocuments,
 } from '../../actions/documentActions';
 import {getCases} from '../../actions/caseActions';
 import {getEmployees} from '../../actions/employeeActions';
 import {connect} from 'react-redux';
 import DocumentTable from '../Document/DocumentTable';
 import {getPhysicalEntities} from '../../actions/physicalEntityActions';
-import {documentListTranslation} from '../../translations';
 import {getProcessTypes} from '../../actions/processTypeActions';
+import './prevAndNextButtons.css';
+import TablePagination from '@material-ui/core/TablePagination';
 import i18next from 'i18next';
 
 class DocumentList extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      page: 0,
+      rowsPerPage: 10,
+      totalPages: '',
+      totalElements: '',
+    };
+    this.pageSizes = [5, 10, 15, 20];
+  }
   componentDidMount() {
-    this.props.getDocuments();
-    this.props.getCases();
+    const {page, rowsPerPage} = this.state;
+    this.props.getAllDocuments(0, this.state.rowsPerPage);
     this.props.getPhysicalEntities();
     this.props.getEmployees();
     this.props.getProcessTypes();
+    this.setState({
+      totalElements: this.props.totalElements,
+      totalPages: this.props.totalElements / rowsPerPage,
+    });
   }
+
+  onChangePage = (event, value) => {
+    this.setState({
+      page: value,
+    });
+    this.props.getAllDocuments(value, this.state.rowsPerPage);
+  };
+
+  onChangeRowsPerPage = (event, value) => {
+    this.setState({
+      rowsPerPage: event.target.value,
+    });
+    this.props.getAllDocuments(this.state.page, event.target.value);
+  };
+
   render() {
     const {
       createDocument,
@@ -38,10 +70,9 @@ class DocumentList extends Component {
       caseList,
       documentList,
       processTypeList,
+      totalElements,
     } = this.props || {};
 
-    const translation = documentListTranslation || {};
-    const {Header} = translation;
     return (
       <div className="container ">
         <div className="row">
@@ -49,6 +80,22 @@ class DocumentList extends Component {
             <div className="card text-left mb-3 success">
               <div className="card-header text-black ">
                 <h3> {i18next.t('documentListTranslationHeading')}</h3>
+              </div>
+              <div className="mt-3">
+                <div style={{marginLeft: '35%'}}>
+                  <TablePagination
+                    component="div"
+                    name="page"
+                    count={totalElements}
+                    page={this.state.page}
+                    onChangePage={this.onChangePage}
+                    rowsPerPage={this.state.rowsPerPage}
+                    onChangeRowsPerPage={this.onChangeRowsPerPage}
+                    variant="outlined"
+                    color="primary"
+                    size="large"
+                  />
+                </div>
               </div>
               <div className="card-body">
                 <DocumentTable
@@ -65,6 +112,7 @@ class DocumentList extends Component {
                   createDocumentWithCaseAndAttachment={
                     createDocumentWithCaseAndAttachment
                   }
+                  totalElements={this.props.document.totalElements}
                 />
                 <div id="msg" />
               </div>
@@ -78,7 +126,8 @@ class DocumentList extends Component {
 
 const mapStateToProps = (state) => ({
   documentList: state.document.documentList,
-  document: state.document.document,
+  totalElements: state.document.totalElements,
+  document: state.document,
   documentAttachmentList: state.documentAttachment.documentAttachmentList,
   employeeList: state.employee.employeeList,
   physicalEntityList: state.physicalEntity.physicalEntityList,
@@ -99,4 +148,5 @@ export default connect(mapStateToProps, {
   createDocumentWithCase,
   createDocumentWithCaseAndAttachment,
   getProcessTypes,
+  getAllDocuments,
 })(DocumentList);

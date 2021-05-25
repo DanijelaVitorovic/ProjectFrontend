@@ -158,61 +158,6 @@ class DocumentTable extends Component {
           </thead>
           <tbody>{documents}</tbody>
         </table>
-        <nav aria-label="Page navigation example">
-          <ul class="pagination pagination-lg justify-content-center">
-            <li class="page-item disabled">
-              <a
-                class="page-link"
-                href="#"
-                tabindex="-1"
-                onClick={() => this.handlePageChange(this.state.page - 1)}
-              >
-                {' '}
-                Prev
-              </a>
-            </li>
-            <li class="page-item">
-              <a
-                class="page-link"
-                href="#"
-                tabindex="-1"
-                onClick={() => this.handlePageChange(1)}
-              >
-                1
-              </a>
-            </li>
-            <li class="page-item">
-              <a
-                class="page-link"
-                href="#"
-                tabindex="-1"
-                onClick={() => this.handlePageChange(2)}
-              >
-                2
-              </a>
-            </li>
-            <li class="page-item">
-              <a
-                class="page-link"
-                href="#"
-                tabindex="-1"
-                onClick={() => this.handlePageChange(3)}
-              >
-                3
-              </a>
-            </li>
-            <li class="page-item">
-              <a
-                class="page-link"
-                href="#"
-                tabindex="-1"
-                onClick={() => this.handlePageChange(this.state.page + 1)}
-              >
-                Next
-              </a>
-            </li>
-          </ul>
-        </nav>
       </div>
     );
 

@@ -11,5 +11,6 @@
     "documentTableTranslatioEmployee": "Запослени",
     "documentTableTranslatioCase": "Предмет",
     "documentTableTranslatioUpdate": "Измена",
-    "documentTableTranslatioDelete": "Брисање"
+    "documentTableTranslatioDelete": "Брисање",
+    "rowsPerPage": "Број редова"
 }

@@ -13,7 +13,8 @@ import {
   GET_DOCUMENT_LIST,
   CREATE_DOCUMENT_WITH_CASE_AND_ATTACHMENT,
   UPLOAD_DOCUMENT_ATTACHMENT,
-} from "./types";
+  GET_ALL_DOCUMENTS,
+} from './types';
 import axios from "axios";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { ContactsOutlined } from "@material-ui/icons";
@@ -194,3 +195,14 @@ export const createDocumentWithCaseAndAttachment = (
 
   uploadDocumentAttachment(uploadFile, id);
 };
+
+export const getAllDocuments = (pageNo, pageSize) => async (dispatch) => {
+  const res = await axios
+    .get(`/api/document/getAllDocuments/${pageNo}/${pageSize}`)
+    .then((response) => {
+      dispatch({
+        type: GET_ALL_DOCUMENTS,
+        payload: response.data,
+      });
+    });
+}; 
