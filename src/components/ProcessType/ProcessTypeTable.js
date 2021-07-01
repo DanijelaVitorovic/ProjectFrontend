@@ -9,6 +9,8 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import {Link} from 'react-router-dom';
 import AddIcon from '@material-ui/icons/Add';
 import IconButton from '@material-ui/core/IconButton';
+import {Input} from 'mdbreact';
+import '../DocumentAttachment/input.css';
 
 class ProcessTypeTable extends Component {
   constructor() {
@@ -16,11 +18,17 @@ class ProcessTypeTable extends Component {
 
     this.state = {
       show: false,
+      search: '',
+      list: [],
       type: '',
       description: '',
       errors: {},
     };
   }
+
+  onChangeSearch = (e) => {
+    this.setState({search: e.target.value});
+  };
 
   showModal = () => {
     this.setState({show: true});
@@ -51,7 +59,15 @@ class ProcessTypeTable extends Component {
     const translation = processTypeTableTranslation || {};
     const {HeaderColumns, Buttons} = translation;
 
-    const processTypes = processTypeList.map((processType) => (
+    const {search} = this.state;
+
+    this.state.list = processTypeList.filter((processType) => {
+      return (
+        processType.type.toLowerCase().indexOf(search.toLowerCase()) !== -1
+      );
+    });
+
+    const processTypes = this.state.list.map((processType) => (
       <ProcessTypeRow
         key={processType.id}
         processType={processType}
@@ -64,8 +80,8 @@ class ProcessTypeTable extends Component {
 
     const table = (
       <div>
-        <Fragment>
-          <div align="left" style={{paddingBottom: 20}}>
+        <div className="addAndSearch">
+          <div className="first" align="left" style={{paddingBottom: 20}}>
             <Link to={`/dashboard`}>
               <Tooltip title={Buttons.back} arrow>
                 <ArrowBackIcon style={{fontSize: 40}} />
@@ -85,7 +101,14 @@ class ProcessTypeTable extends Component {
               </IconButton>
             </Tooltip>
           </div>
-        </Fragment>
+          <Input
+            style={{width: '300px'}}
+            className="search"
+            label="Претражи по типу"
+            icon="search"
+            onChange={this.onChangeSearch}
+          />
+        </div>
         <table className="table table-hover">
           <thead class="thead-light">
             <tr className=" card-body">

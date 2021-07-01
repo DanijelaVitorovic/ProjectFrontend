@@ -8,6 +8,8 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import {Link} from 'react-router-dom';
 import AddIcon from '@material-ui/icons/Add';
 import IconButton from '@material-ui/core/IconButton';
+import {Input} from 'mdbreact';
+import '../DocumentAttachment/input.css';
 
 class ProcessTable extends Component {
   constructor() {
@@ -15,8 +17,14 @@ class ProcessTable extends Component {
 
     this.state = {
       show: false,
+      search: '',
+      list: [],
     };
   }
+
+  onChangeSearch = (e) => {
+    this.setState({search: e.target.value});
+  };
 
   showModal = () => {
     this.setState({show: true});
@@ -47,7 +55,16 @@ class ProcessTable extends Component {
       getProcessTypes,
       process,
     } = this.props || {};
-    const processes = processList.map((process) => (
+
+    const {search} = this.state;
+    this.state.list = processList.filter((process) => {
+      return (
+        (
+        process?.processType?.type.toLowerCase().indexOf(search.toLowerCase()) !== -1
+      )
+      );
+    });;
+    const processes = this.state.list.map((process) => (
       <ProcessRow
         key={process.id}
         process={process}
@@ -59,10 +76,9 @@ class ProcessTable extends Component {
       />
     ));
     const table = (
-      <div className="table-responsive tableHeight">
-              <br></br>
-        <Fragment>
-          <div align="left" style={{paddingBottom: 20}}>
+      <div >
+        <div className="addAndSearch">
+          <div className="first" align="left" style={{paddingBottom: 20}}>
             <Link to={`/dashboard`}>
               <Tooltip title={Buttons.back} arrow>
                 <ArrowBackIcon style={{fontSize: 40}} />
@@ -82,8 +98,15 @@ class ProcessTable extends Component {
               </IconButton>
             </Tooltip>
           </div>
-        </Fragment>
-        <table id="example" className="table table-hover">
+          <Input
+            style={{width: '300px'}}
+            className="search"
+            label="Претражи по типу"
+            icon="search"
+            onChange={this.onChangeSearch}
+          />
+        </div>
+        <table className="table table-hover">
           <thead className="thead-light">
             <tr className="card-body table-success">
               <th scope="col">{HeaderColumns.id}</th>

@@ -2,7 +2,7 @@ import React, {Component, Fragment} from 'react';
 import {Button, Col, Row} from 'react-bootstrap';
 import DocumentRow from './DocumentRow';
 import ModalForAddDocument from './ModalForAddDocument';
-import table from './table.css';
+import './table.css';
 import {documentTableTranslation} from '../../translations';
 import ModalForAddCaseAndDocument from './ModalForAddCaseAndDocument';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -10,6 +10,10 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import {Link} from 'react-router-dom';
 import AddIcon from '@material-ui/icons/Add';
 import IconButton from '@material-ui/core/IconButton';
+import {Input} from 'mdbreact';
+import Search from '../Reusable/Search';
+import './table.css';
+import '../DocumentAttachment/input.css';
 import i18next from 'i18next';
 
 class DocumentTable extends Component {
@@ -18,9 +22,15 @@ class DocumentTable extends Component {
 
     this.state = {
       show: false,
+      search: '',
+      list: [],
       documentClassification: '',
     };
   }
+
+  onChange = (e) => {
+    this.setState({search: e.target.value});
+  };
 
   showModal = () => {
     this.setState({show: true});
@@ -61,11 +71,7 @@ class DocumentTable extends Component {
     );
     this.closeModalForAddCaseAndDocument();
   };
-
-  onChange = (e) => {
-    this.setState({[e.target.name]: e.target.value});
-  };
-
+  
   render() {
     const {
       documentList,
@@ -82,9 +88,22 @@ class DocumentTable extends Component {
       documentClassificationList,
     } = this.props || {};
 
+     const {search} = this.state;
+
+     this.state.list = documentList.filter((document) => {
+       return (
+         document._case.caseName.toLowerCase().indexOf(search.toLowerCase()) !==
+         -1
+       );
+     });
+
+     this.state.list = documentList.filter((document) => {
+       return document.title.toLowerCase().indexOf(search.toLowerCase()) !== -1;
+     });
+
     const translation = documentTableTranslation || {};
     const {HeaderColumns, Buttons} = translation;
-    const documents = documentList?.map((document) => (
+    const documents = this.state.list.map((document) => (
       <DocumentRow
         key={document.id}
         document={document}
@@ -130,47 +149,20 @@ class DocumentTable extends Component {
                 </IconButton>
               </Tooltip>
             </div>
-            <div
-              className=" navbar-expand-sm navbar-dark mb-12 lightNavbar"
-              style={{background: 'white', width: 400}}
-            >
-              <ul className="navbar-nav mr-auto">
-                <li>
-                  <div>
-                    <select
-                      documentClassificationList={documentClassificationList}
-                      name="document"
-                      onChange={this.onChange}
-                    >
-                      <option value="" selected disabled>
-                        Klasifikacija
-                      </option>
-                      {documentClassificationList.map(
-                        (documentClassification) => {
-                          return (
-                            <option value={documentClassification.id}>
-                              {documentClassification.title}
-                            </option>
-                          );
-                        }
-                      )}
-                    </select>
-                  </div>
-                </li>{' '}
-                <li className="nav-item dropdown">
-                  <a
-                    className="nav-link dropdown-toggle"
-                    href="#"
-                    id="navbarDropdownUsersLink"
-                    role="button"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    ddddd
-                  </a>
-                </li>
-              </ul>
+            <div className="secondDoc" style={{width: '500px'}}>
+              <Input
+                className="search1"
+                style={{marginleft: '10%'}}
+                label="Претражи по наслову"
+                icon="search"
+                onChange={this.onChange}
+              />
+              <Input
+                className="search2"
+                label="Претражи по случају"
+                icon="search"
+                onChange={this.onChange}
+              />
             </div>
           </Fragment>
         )}
@@ -220,7 +212,6 @@ class DocumentTable extends Component {
             createDocument={createDocument}
             caseList={caseList}
             employeeList={employeeList}
-            documents={documents}
             physicalEntityList={physicalEntityList}
           />
         }

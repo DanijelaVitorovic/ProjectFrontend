@@ -2,8 +2,14 @@ import React, {Component} from 'react';
 import classnames from 'classnames';
 import {Link} from 'react-router-dom';
 import {Modal, Button} from 'react-bootstrap';
-import {Statement} from '../../../src/globals';
+import {Statement, handleErrorMessage} from '../../../src/globals';
 import {legalEntityModalForAddAndUpdateTranslation} from '../../translations';
+import {legalEntityValidationsTranslation} from '../../translations';
+
+const validEmailRegex = RegExp(
+  /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+);
+
 class ModalForAddLegalEntity extends Component {
   constructor() {
     super();
@@ -23,12 +29,43 @@ class ModalForAddLegalEntity extends Component {
     }
   }
 
+  handleValidation = () => {
+    const translationValidation = legalEntityValidationsTranslation;
+    const {Modals} = translationValidation;
+
+    let errors = {};
+    let hasErrors = false;
+    let {name, pib, email} = this.state;
+
+    if (this.state.name.length < 2) {
+      errors['name'] = Modals.name;
+      hasErrors = true;
+    }
+
+    if (this.state.pib.length < 2) {
+      errors['pib'] = Modals.pib;
+      hasErrors = true;
+    }
+
+    if (!validEmailRegex.test(email)) {
+      errors['email'] = Modals.email;
+      hasErrors = true;
+    }
+
+    this.setState({errors: errors});
+    return hasErrors;
+  };
+
   onChange = (e) => {
     this.setState({[e.target.name]: e.target.value});
   };
 
   onSubmit = (e) => {
     e.preventDefault();
+
+    if (this.handleValidation()) {
+      return;
+    }
 
     const newLegalEntity = {
       name: this.state.name,
@@ -47,7 +84,7 @@ class ModalForAddLegalEntity extends Component {
     const {Header, SelectOptionsAndPlaceholders} = translation;
     return (
       <div>
-        <Modal show={show} onHide={closeModal} centered>
+        <Modal show={show} onHide={closeModal} centered size="lg">
           <Modal.Header closeButton>
             <h4>{Header.headingAddModal}</h4>
           </Modal.Header>

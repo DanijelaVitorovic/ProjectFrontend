@@ -10,6 +10,7 @@ import React, { Component } from "react";
 import classnames from "classnames";
 import { organizationalUnitModalForAddAndUpdateTranslation } from "../../translations";
 import { handleErrorMessage } from "../../globals";
+import {organizationalUnitValidationsTranslation} from '../../translations';
 
 class ModalForAddOrganizationalUnit extends Component {
   constructor() {
@@ -28,13 +29,20 @@ class ModalForAddOrganizationalUnit extends Component {
   };
 
   handleValidation = () => {
+    const translationValidation = organizationalUnitValidationsTranslation;
+    const {Modals} = translationValidation;
+
     let errors = {};
     let hasErrors = false;
-    let { code } = this.state;
+    let {name, code} = this.state;
+
+    if (this.state.name.length < 2) {
+      errors['name'] = Modals.name;
+      hasErrors = true;
+    }
 
     if (code.length > 6 || code.length == 0) {
-      errors["code"] =
-        "Не можете унети шифру дужу од 5 карактера или непостојећу вредност";
+      errors['code'] = Modals.code;
       hasErrors = true;
     }
 
@@ -105,7 +113,9 @@ class ModalForAddOrganizationalUnit extends Component {
                     <div className="form-group">
                       <input
                         type="text"
-                        className="form-control"
+                        className={classnames('form-control', {
+                          'is-invalid': errors.name,
+                        })}
                         placeholder={
                           SelectOptionsAndPlaceholders.namePlaceholder
                         }
@@ -113,6 +123,14 @@ class ModalForAddOrganizationalUnit extends Component {
                         value={this.state.name}
                         onChange={this.onChange}
                       />
+                      {handleErrorMessage(errors.name) && (
+                        <span
+                          className="invalid-feedback"
+                          style={{fontSize: 16, color: 'red'}}
+                        >
+                          {errors.name}
+                        </span>
+                      )}
                     </div>
 
                     <div className="form-group">

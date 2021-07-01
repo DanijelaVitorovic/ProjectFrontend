@@ -1,18 +1,55 @@
-.table-hover tbody tr:hover {
-  background-color: #e6ffe3;
+.tr:hover {
+  background-color: #caf7c5;
 }
 
 .dugme {
+  margin-left: 18%;
+}
+
+.wrapperDP {
+  position: center;
+  align-items: center;
+  display: grid;
+  grid-template-columns: [first] 40% [second] 95% [trird];
+  grid-gap: 6%;
   margin-left: 8%;
   margin-top: 5%;
 }
 
 .documentProcessing {
-  margin-top: 4%;
-  margin-left: -10%;
+  grid-column: first/second;
+  margin-top: 6%;
+  margin-left: -60%;
 }
 
 .documentAttachemntTable {
-  margin-top: 5%;
-  margin-left: 13%;
+  grid-column: second/trird;
+  margin-top: 6%;
+  margin-right: 5%;
+}
+
+.addAndSearchDoc {
+  display: grid;
+  grid-template-columns: [first] 10% [second] 60% [third];
+  grid-gap:38%;
+}
+
+.firstDoc {
+  grid-column: first/second;
+}
+
+.secondDoc {
+  grid-column: second/third;
+  display: grid;
+  grid-template-columns: [first] 50% [second] 50% [third];
+  grid-gap: 8%;
+  width: 300px;
+}
+
+.search1 {
+  grid-column: first/second;
+}
+
+.search2 {
+  grid-column: second/third;
 }

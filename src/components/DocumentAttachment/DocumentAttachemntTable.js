@@ -1,6 +1,4 @@
 import React, {Component, Fragment} from 'react';
-import ModalForAddDocument from '../Document/ModalForAddDocument';
-import {Button} from 'react-bootstrap';
 import DocumentAttachmentRow from '../DocumentAttachment/DocumentAttachmentRow';
 import {documentAttachmentTableTranslation} from '../../translations';
 import ModalForUploadDocumentAttachment from './ModalForUploadDocumentAttachment';
@@ -9,6 +7,8 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import {Link} from 'react-router-dom';
 import AddIcon from '@material-ui/icons/Add';
 import IconButton from '@material-ui/core/IconButton';
+import {Input} from 'mdbreact';
+import "./input.css";
 
 class DocumentAttachemntTable extends Component {
   constructor() {
@@ -16,8 +16,14 @@ class DocumentAttachemntTable extends Component {
 
     this.state = {
       show: false,
+      search: '',
+      documentAttachmentList: [],
     };
   }
+
+  onChange = (e) => {
+    this.setState({search: e.target.value});
+  };
 
   showModal = () => {
     this.setState({show: true});
@@ -46,8 +52,20 @@ class DocumentAttachemntTable extends Component {
 
     const translation = documentAttachmentTableTranslation || {};
     const {HeaderColumns, Buttons} = translation;
+    
+    const {search} = this.state;
 
-    const documentAttachments = documentAttachmentList.map(
+     this.state.documentAttachmentList = documentAttachmentList.filter(
+       (documentAttachment) => {
+         return (
+           documentAttachment.documentName
+             ?.toLowerCase()
+             ?.indexOf(search.toLowerCase()) !== -1
+         );
+       }
+     );
+
+    const documentAttachments = this.state.documentAttachmentList.map(
       (documentAttachment) => (
         <DocumentAttachmentRow
           key={documentAttachment.id}
@@ -66,8 +84,8 @@ class DocumentAttachemntTable extends Component {
 
     const table = (
       <div className="table-responsive tableHeight">
-        <Fragment>
-          <div align="left" style={{paddingBottom: 20}}>
+        <div className="addAndSearch">
+          <div className="first" align="left" style={{paddingBottom: 20}}>
             <Link to={`/dashboard`}>
               <Tooltip title={Buttons.back} arrow>
                 <ArrowBackIcon style={{fontSize: 40}} />
@@ -87,7 +105,13 @@ class DocumentAttachemntTable extends Component {
               </IconButton>
             </Tooltip>
           </div>
-        </Fragment>
+          <Input
+            className="search"
+            label="Претражи по имену"
+            icon="search"
+            onChange={this.onChange}
+          />
+        </div>
         <br />
         <table id="example" className="table table-hover">
           <thead className="thead-light">

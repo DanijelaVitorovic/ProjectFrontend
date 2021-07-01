@@ -27,10 +27,11 @@ import {getEmployees} from '../../actions/employeeActions';
 import {getPhysicalEntities} from '../../actions/physicalEntityActions';
 import ModalForUpdateDocument from './ModalForUpdateDocument';
 import {
-  documentAttachmentListTranslation,
   documentModalForAddAndUpdateTranslation,
 } from '../../translations';
 import DocumentAttachemntList from '../Containers/DocumentAttachmentList';
+import './table.css';
+import {Row, Col} from 'react-bootstrap';
 import {input} from '../DocumentAttachment/input.css';
 import {
   getDocumentMovementByDocumentId,
@@ -255,164 +256,169 @@ class DocumentProcessing extends Component {
     } = this.props || {};
 
     return (
-      <div className="register">
+      <div className="table-responsive tableHeight">
         <div className="container">
           <div className="row">
-            <div className="documentProcessing">
-              {SelectOptionsAndPlaceholders.titlePlaceholder}
-              <div className="form-group">
-                <input
-                  type="text"
-                  className={classnames('form-control', {
-                    'is-invalid': errors.title,
-                  })}
-                  placeholder={SelectOptionsAndPlaceholders.titlePlaceholder}
-                  name="title"
-                  value={this.state.title}
-                  disabled
-                />
-              </div>
+            <div className="wrapperDP">
+              <div className="documentProcessing">
+                <Row className="col-md-14 m-auto">
+                  <Col xs={12} md={6}>
+                    <div className="form-group">
+                      {SelectOptionsAndPlaceholders.titlePlaceholder}
+                      <input
+                        type="text"
+                        className={classnames('form-control', {
+                          'is-invalid': errors.title,
+                        })}
+                        placeholder={
+                          SelectOptionsAndPlaceholders.titlePlaceholder
+                        }
+                        name="title"
+                        value={this.state.title}
+                        disabled
+                      />
+                    </div>
+                  </Col>
+                  <Col xs={12} md={6}>
+                    <div className="form-group">
+                      {SelectOptionsAndPlaceholders.descriptionPlaceholder}
+                      <input
+                        type="text"
+                        className={classnames('form-control', {
+                          'is-invalid': errors.description,
+                        })}
+                        placeholder={
+                          SelectOptionsAndPlaceholders.descriptionPlaceholder
+                        }
+                        name="description"
+                        value={this.state.description}
+                        disabled
+                      />
+                    </div>
+                  </Col>
+                </Row>
+                <Row className="col-md-14 m-auto">
+                  <Col xs={12} md={6}>
+                    <div className="form-group">
+                      {SelectOptionsAndPlaceholders.typePlaceholder}
+                      <input
+                        className="form-control form-control-lg"
+                        placeholder={
+                          SelectOptionsAndPlaceholders.typePlaceholder
+                        }
+                        name="documentType"
+                        value={this.state.documentType}
+                        style={{fontSize: '1rem'}}
+                        disabled
+                      />
+                    </div>
+                  </Col>
+                  <Col xs={12} md={6}>
+                    <div className="form-group">
+                      {SelectOptionsAndPlaceholders.statusPlaceholder}
+                      <input
+                        className="form-control form-control-lg"
+                        placeholder={
+                          SelectOptionsAndPlaceholders.statusPlaceholder
+                        }
+                        name="documentStatus"
+                        value={this.state.documentStatus}
+                        style={{fontSize: '1rem'}}
+                        onChange={this.onChange}
+                        disabled
+                      />
+                    </div>
+                  </Col>
+                </Row>
+                <Row className="col-md-16 m-auto">
+                  <Col xs={12} md={6}>
+                    <div className="form-group">
+                      {SelectOptionsAndPlaceholders.employeePlaceholder}
+                      <input
+                        className="form-control form-control-lg"
+                        employeeList={employeeList}
+                        name="employeeCreated"
+                        placeholder={
+                          SelectOptionsAndPlaceholders.employeePlaceholder
+                        }
+                        value={this.state?.employeeCreated?.id}
+                        style={{fontSize: '1rem'}}
+                        disabled
+                      />
+                    </div>
+                  </Col>
+                  <Col xs={12} md={6}>
+                    <div className="form-group">
+                      {SelectOptionsAndPlaceholders._casePlaceholder}
+                      <input
+                        className="form-control form-control-lg"
+                        caseList={caseList}
+                        name="_case"
+                        placeholder={
+                          SelectOptionsAndPlaceholders._casePlaceholder
+                        }
+                        value={this.state?._case?.id}
+                        style={{fontSize: '1rem'}}
+                        disabled
+                      />
+                    </div>
+                  </Col>
+                </Row>
+<hr/>
+                <Row style = {{marginLeft:"5%"}}>
+                <div className="dugme" style = {{margin:"2%"}}> 
+                  <Link to={`/documentList`} >
+                    <i className="fas fa-arrow-circle-left fa-3x fa-pull-left" />
+                  </Link>
+                  </div>
 
-              <div className="form-group">
-                {SelectOptionsAndPlaceholders.descriptionPlaceholder}
-                <input
-                  type="text"
-                  className={classnames('form-control', {
-                    'is-invalid': errors.description,
-                  })}
-                  placeholder={
-                    SelectOptionsAndPlaceholders.descriptionPlaceholder
-                  }
-                  name="description"
-                  value={this.state.description}
-                  disabled
-                />
-              </div>
-
-              <div className="form-group">
-                {SelectOptionsAndPlaceholders.typePlaceholder}
-                <select
-                  className="form-control form-control-lg"
-                  placeholder={SelectOptionsAndPlaceholders.typePlaceholder}
-                  name="documentType"
-                  value={this.state.documentType}
-                  style={{fontSize: '1rem'}}
-                  disabled
-                >
-                  <option value="" selected disabled>
-                    {SelectOptionsAndPlaceholders.typeOption}
-                  </option>
-                  {Object.keys(DocumentType).map((key) => (
-                    <option key={key} value={key}>
-                      {DocumentType[key].translation}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div className="form-group">
-                {SelectOptionsAndPlaceholders.statusPlaceholder}
-                <select
-                  className="form-control form-control-lg"
-                  placeholder={SelectOptionsAndPlaceholders.statusPlaceholder}
-                  name="documentStatus"
-                  value={this.state.documentStatus}
-                  style={{fontSize: '1rem'}}
-                  onChange={this.onChange}
-                  disabled
-                >
-                  <option value="" selected disabled>
-                    {SelectOptionsAndPlaceholders.statusOption}
-                  </option>
-                  {Object.keys(documentStatus).map((key) => (
-                    <option key={key} value={key}>
-                      {documentStatus[key].translation}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div className="form-group">
-                {SelectOptionsAndPlaceholders.employeePlaceholder}
-                <select
-                  className="form-control form-control-lg"
-                  employeeList={employeeList}
-                  name="employeeCreated"
-                  placeholder={SelectOptionsAndPlaceholders.employeePlaceholder}
-                  value={this.state?.employeeCreated?.id}
-                  style={{fontSize: '1rem'}}
-                  disabled
-                >
-                  <option value="" selected disabled>
-                    {SelectOptionsAndPlaceholders.employeeOption}
-                  </option>
-                  {employeeList.map((employee) => {
-                    return (
-                      <option value={employee.id}>
-                        {employee.physicalEntity.firstName}{' '}
-                        {employee.physicalEntity.lastName}
-                      </option>
-                    );
-                  })}
-                </select>
-              </div>
-
-              <div className="form-group">
-                {SelectOptionsAndPlaceholders._casePlaceholder}
-                <select
-                  className="form-control form-control-lg"
-                  caseList={caseList}
-                  name="_case"
-                  placeholder={SelectOptionsAndPlaceholders._casePlaceholder}
-                  value={this.state?._case?.id}
-                  style={{fontSize: '1rem'}}
-                  disabled
-                >
-                  <option value="" selected disabled>
-                    {SelectOptionsAndPlaceholders._caseOption}
-                  </option>
-                  {caseList.map((_case) => {
-                    return <option value={_case.id}>{_case.caseName}</option>;
-                  })}
-                </select>
-              </div>
-
-              <div>
-                <Link to={`/documentList`}>
-                  <i className="fas fa-arrow-circle-left fa-3x fa-pull-left" />
-                </Link>
-
-                <Button
-                  className="dugme"
-                  variant="link"
-                  onClick={() => {
-                    this.showModal();
-                  }}
-                >
-                  <i className="fas fa-pen-alt fa-3x"></i>
-                </Button>
-                {this.state.show && (
-                  <ModalForUpdateDocument
-                    show={this.state.show}
-                    id={this.state.id}
-                    documentForUpdate={this.state}
-                    handleUpdate={this.handleUpdate}
-                    closeModal={this.closeModal}
-                    getDocument={this.props.getDocument}
-                    employeeList={employeeList}
-                    caseList={caseList}
-                  />
-                )}
-
-                {this.state.documentStatus === 'PROCEEDING' && (
                   <Button
                     className="button"
                     variant="link"
                     onClick={() => this.showModalForAddVerificationEmployee()}
                   >
-                    <i class="fas fa-user-check fa-3x" />
+                    <i className="fas fa-pen-alt fa-3x"></i>
                   </Button>
-                )}
+                  {this.state.show && (
+                    <ModalForUpdateDocument
+                      show={this.state.show}
+                      id={this.state.id}
+                      documentForUpdate={this.state}
+                      handleUpdate={this.handleUpdate}
+                      closeModal={this.closeModal}
+                      getDocument={this.props.getDocument}
+                      employeeList={employeeList}
+                      caseList={caseList}
+                    />
+                  )}
+
+                  {this.state.documentStatus === 'PROCEEDING' && (
+                    <Button
+                      className="button"
+                      variant="link"
+                      onClick={() => this.onVerificated(document)}
+                    >
+                      <i class="fas fa-user-check fa-3x" />
+                    </Button>
+                  )}
+                </Row>
+              </div>
+              <div className="documentAttachemntTable">
+                <DocumentAttachemntList
+                  id={document.id}
+                  documentAttachmentList={documentAttachmentList}
+                  attachmentContent={attachmentContent}
+                  uploadDocumentAttachment={uploadDocumentAttachment}
+                  getDocumentAttachmentsByDocument={
+                    getDocumentAttachmentsByDocument
+                  }
+                  clearDocumentAttachmets={clearDocumentAttachmets}
+                  deleteDocumentAttachment={deleteDocumentAttachment}
+                  getDocumentAttachmentByDocumentName={
+                    getDocumentAttachmentByDocumentName
+                  }
+                />
+                )
 
                 {this.state.documentStatus === 'VERIFICATION' && (
                   <Button
@@ -460,22 +466,6 @@ class DocumentProcessing extends Component {
                   </Button>
                 </Tooltip>
               </div>
-            </div>
-            <div className="documentAttachemntTable">
-              <DocumentAttachemntList
-                id={document.id}
-                documentAttachmentList={documentAttachmentList}
-                attachmentContent={attachmentContent}
-                uploadDocumentAttachment={uploadDocumentAttachment}
-                getDocumentAttachmentsByDocument={
-                  getDocumentAttachmentsByDocument
-                }
-                clearDocumentAttachmets={clearDocumentAttachmets}
-                deleteDocumentAttachment={deleteDocumentAttachment}
-                getDocumentAttachmentByDocumentName={
-                  getDocumentAttachmentByDocumentName
-                }
-              />
             </div>
 
             {this.state.showModalForAddVerificationEmployee && (
@@ -573,8 +563,8 @@ class DocumentProcessing extends Component {
               />
             )}
           </div>
+          <br></br>
         </div>
-        <br></br>
       </div>
     );
   }

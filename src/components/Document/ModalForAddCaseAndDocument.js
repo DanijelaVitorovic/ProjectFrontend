@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Modal, Card} from 'react-bootstrap';
+import {Modal, ModalFooter, Card} from 'react-bootstrap';
 import {
   CaseModalForAddAndUpdateTranslation,
   caseValidationsTranslation,
@@ -17,8 +17,9 @@ import {
 } from '../../../src/globals';
 import {DocumentType, documentStatus} from '../../../src/globals';
 import classnames from 'classnames';
-import axios from 'axios';
 import {documentAttachmentForAddAndUpdateTranslation} from '../../translations';
+import {documentValidationsTranslation} from '../../translations';
+import axios from 'axios';
 
 class ModalForAddCaseAndDocument extends Component {
   constructor() {
@@ -86,7 +87,7 @@ class ModalForAddCaseAndDocument extends Component {
   };
 
   handleValidationDocument = () => {
-    const translationValidation = caseValidationsTranslation;
+    const translationValidation = documentValidationsTranslation;
     const {Modals} = translationValidation;
 
     let errors = {};
@@ -315,7 +316,9 @@ class ModalForAddCaseAndDocument extends Component {
 
             <div className="form-group">
               <select
-                className="form-control"
+                className={classnames('form-control', {
+                  'is-invalid': errors.documentType,
+                })}
                 placeholder={SelectOptionsAndPlaceholders1.typePlaceholder}
                 name="documentType"
                 value={this.state.documentType}
@@ -331,11 +334,21 @@ class ModalForAddCaseAndDocument extends Component {
                   </option>
                 ))}
               </select>
+              {handleErrorMessage(errors.documentType) && (
+                <span
+                  className="invalid-feedback"
+                  style={{fontSize: 16, color: 'red'}}
+                >
+                  {errors.documentType}
+                </span>
+              )}
             </div>
 
             <div className="form-group">
               <select
-                className="form-control"
+                className={classnames('form-control', {
+                  'is-invalid': errors.documentStatus,
+                })}
                 placeholder={SelectOptionsAndPlaceholders1.statusPlaceholder}
                 name="documentStatus"
                 value={this.state.documentStatus}
@@ -351,6 +364,14 @@ class ModalForAddCaseAndDocument extends Component {
                   </option>
                 ))}
               </select>
+              {handleErrorMessage(errors.documentStatus) && (
+                <span
+                  className="invalid-feedback"
+                  style={{fontSize: 16, color: 'red'}}
+                >
+                  {errors.documentStatus}
+                </span>
+              )}
             </div>
 
             <div className="form-group">

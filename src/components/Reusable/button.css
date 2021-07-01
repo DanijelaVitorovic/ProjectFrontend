@@ -25,6 +25,7 @@
   border-width: initial;
   color: rgb(226, 28, 28);
   background-color: white;
+  margin-bottom: 15px;
 }
 
 .delete:hover {

@@ -1,15 +1,16 @@
-import React, { Component, Fragment } from "react";
-import { Button } from "react-bootstrap";
-import ModalForUpdateDocument from "./ModalForUpdateDocument";
-import { getDocumentEmployeeCreated } from "../../../src/globals";
-import DeleteButton from "../Reusable/DeleteButton";
-import ConfirmAlert from "../Reusable/ConfirmAlert";
-import { Link } from "react-router-dom";
-import { documentRowTranslation } from "../../translations";
-import BusinessCenterIcon from "@material-ui/icons/BusinessCenter";
-import Tooltip from "@material-ui/core/Tooltip";
-import IconButton from "@material-ui/core/IconButton";
-import CreateIcon from "@material-ui/icons/Create";
+import React, {Component, Fragment} from 'react';
+import {Button} from 'react-bootstrap';
+import ModalForUpdateDocument from './ModalForUpdateDocument';
+import {getDocumentEmployeeCreated} from '../../../src/globals';
+import DeleteButton from '../Reusable/DeleteButton';
+import ConfirmAlert from '../Reusable/ConfirmAlert';
+import {Link} from 'react-router-dom';
+import {documentRowTranslation} from '../../translations';
+import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
+import Tooltip from '@material-ui/core/Tooltip';
+import IconButton from '@material-ui/core/IconButton';
+import CreateIcon from '@material-ui/icons/Create';
+import './table.css';
 
 class DocumentRow extends Component {
   constructor() {

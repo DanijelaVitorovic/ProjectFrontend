@@ -8,6 +8,8 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import {Link} from 'react-router-dom';
 import AddIcon from '@material-ui/icons/Add';
 import IconButton from '@material-ui/core/IconButton';
+import {Input} from 'mdbreact';
+import '../DocumentAttachment/input.css';
 import i18next from 'i18next';
 
 class LegalEntityTable extends Component {
@@ -16,6 +18,8 @@ class LegalEntityTable extends Component {
 
     this.state = {
       show: false,
+      search: '',
+      list: [],
       name: '',
       pib: '',
       email: '',
@@ -23,6 +27,10 @@ class LegalEntityTable extends Component {
       errors: {},
     };
   }
+
+  onChangeSearch = (e) => {
+    this.setState({search: e.target.value});
+  };
 
   showModal = () => {
     this.setState({show: true});
@@ -51,7 +59,13 @@ class LegalEntityTable extends Component {
       getLegalEntity,
       deleteLegalEntity,
     } = this.props || {};
-    const legalEntities = legalEntityList.map((legalEntity) => (
+
+    const {search} = this.state;
+    this.state.list = legalEntityList.filter((legalEntity) => {
+      return legalEntity.pib.toLowerCase().indexOf(search.toLowerCase()) !== -1;
+    });
+
+    const legalEntities = this.state.list.map((legalEntity) => (
       <LegalEntityRow
         key={legalEntity.id}
         legalEntity={legalEntity}
@@ -64,8 +78,8 @@ class LegalEntityTable extends Component {
 
     const table = (
       <div>
-        <Fragment>
-          <div align="left" style={{paddingBottom: 20}}>
+        <div className="addAndSearch">
+          <div className="first" align="left" style={{paddingBottom: 20}}>
             <Link to={`/dashboard`}>
               <Tooltip title={Buttons.back} arrow>
                 <ArrowBackIcon style={{fontSize: 40}} />
@@ -85,26 +99,33 @@ class LegalEntityTable extends Component {
               </IconButton>
             </Tooltip>
           </div>
-        </Fragment>
-        <table className="table table-hover ">
-          <thead class="thead-light">
-            <tr>
-              <th scope="col">{HeaderColumns.id}</th>
-              <th scope="col">{HeaderColumns.name}</th>
-              <th scope="col">{HeaderColumns.pib}</th>
-              <th scope="col">{HeaderColumns.email}</th>
-              <th scope="col">{HeaderColumns.email}</th>
-              <th scope="col" className="text-center">
-                {HeaderColumns.update}
-              </th>
-              <th scope="col" className="text-center">
-                {HeaderColumns.delete}
-              </th>
-            </tr>
-          </thead>
+          <Input
+            style={{width: '300px'}}
+            className="search"
+            label="Претражи по пибу"
+            icon="search"
+            onChange={this.onChangeSearch}
+          />
+          <table className="table table-hover ">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">{HeaderColumns.id}</th>
+                <th scope="col">{HeaderColumns.name}</th>
+                <th scope="col">{HeaderColumns.pib}</th>
+                <th scope="col">{HeaderColumns.email}</th>
+                <th scope="col">{HeaderColumns.email}</th>
+                <th scope="col" className="text-center">
+                  {HeaderColumns.update}
+                </th>
+                <th scope="col" className="text-center">
+                  {HeaderColumns.delete}
+                </th>
+              </tr>
+            </thead>
 
-          <tbody>{legalEntities}</tbody>
-        </table>
+            <tbody>{legalEntities}</tbody>
+          </table>
+        </div>
       </div>
     );
 
