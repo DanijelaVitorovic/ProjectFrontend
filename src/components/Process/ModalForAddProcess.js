@@ -1,33 +1,58 @@
 import React, { Component } from "react";
 import { Modal, Button } from "react-bootstrap";
 import classnames from "classnames";
-import {processModalForAddAndUpdateTransaltion} from "../../translations";
+import {handleErrorMessage} from '../../globals';
+import {
+  processModalForAddAndUpdateTransaltion,
+  processValidationsTranslation,
+} from '../../translations';
 
 class ModalForAddProcess extends Component {
   constructor() {
     super();
 
     this.state = {
-      nextCaseStatus: "",
-      processType: "",
+      nextCaseStatus: '',
+      processType: '',
       errors: {},
     };
   }
 
+  handleValidation = () => {
+    const translationValidation = processValidationsTranslation;
+    const {Modals} = translationValidation;
+
+    let errors = {};
+    let hasErrors = false;
+    let {nextCaseStatus} = this.state;
+
+    if (nextCaseStatus.length < 2) {
+      errors['nextCaseStatus'] = Modals.nextCaseStatus;
+      hasErrors = true;
+    }
+
+    this.setState({errors: errors});
+    return hasErrors;
+  };
+
   onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({[e.target.name]: e.target.value});
   };
 
   onChangeCombo = (e) => {
-    this.setState({[e.target.name]: {id: e.target.value}})
-  }
+    this.setState({[e.target.name]: {id: e.target.value}});
+  };
 
   onSubmit = (e) => {
     e.preventDefault();
 
+     if (this.handleValidation()) {
+       return;
+     }
+
     const newProcess = {
       nextCaseStatus: this.state.nextCaseStatus,
-      processType: { id: this.state.processType },
+      processType: {id: this.state.processType},
       errors: {},
     };
 
@@ -36,12 +61,12 @@ class ModalForAddProcess extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
-      this.setState({ errors: nextProps.errors });
+      this.setState({errors: nextProps.errors});
     }
   }
 
   render() {
-    const { errors } = this.state;
+    const {errors} = this.state;
     const {processTypeList, show, closeModal} = this.props || {};
     const translation = processModalForAddAndUpdateTransaltion;
     const {Header, SelectOptionsAndPlaceholders} = translation;
@@ -69,10 +94,13 @@ class ModalForAddProcess extends Component {
                       value={this.state.nextCaseStatus}
                       onChange={this.onChange}
                     />
-                    {errors.nextCaseStatus && (
-                      <div className="invalid-feedback">
+                    {handleErrorMessage(errors.nextCaseStatus) && (
+                      <span
+                        className="invalid-feedback"
+                        style={{fontSize: 16, color: 'red'}}
+                      >
                         {errors.nextCaseStatus}
-                      </div>
+                      </span>
                     )}
                   </div>
 

@@ -62,3 +62,18 @@
 word-break: break-all;
 margin: 7%;
 }
+
+.addAndSearch {
+	display: grid;
+	grid-template-columns: [first] 15% [second] 45% [third];
+	grid-gap: 50%;
+}
+
+.first {
+  grid-column: first/second;
+}
+
+.search {
+	margin-left: 10%;
+  grid-column: second/third;
+}

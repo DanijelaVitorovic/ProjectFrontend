@@ -1,7 +1,11 @@
-import React, { Component } from "react";
-import classnames from "classnames";
-import { Modal, Button } from "react-bootstrap";
-import {processTypeModalForAddAndUpdateTransaltion} from '../../translations';
+import React, {Component} from 'react';
+import classnames from 'classnames';
+import {Modal, Button} from 'react-bootstrap';
+import {handleErrorMessage} from '../../globals';
+import {
+  processTypeModalForAddAndUpdateTransaltion,
+  processTypeValidationsTranslation,
+} from '../../translations';
 
 class ModalForAddProcessType extends Component {
   constructor() {
@@ -17,16 +21,37 @@ class ModalForAddProcessType extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
-      this.setState({ errors: nextProps.errors });
+      this.setState({errors: nextProps.errors});
     }
   }
 
   onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({[e.target.name]: e.target.value});
+  };
+
+  handleValidation = () => {
+    const translationValidation = processTypeValidationsTranslation;
+    const {Modals} = translationValidation;
+
+    let errors = {};
+    let hasErrors = false;
+    let {type} = this.state;
+
+    if (type.length < 2) {
+      errors['type'] = Modals.type;
+      hasErrors = true;
+    }
+
+    this.setState({errors: errors});
+    return hasErrors;
   };
 
   onSubmit = (e) => {
     e.preventDefault();
+
+    if (this.handleValidation()) {
+      return;
+    }
 
     const newProcessType = {
       type: this.state.type,
@@ -42,8 +67,8 @@ class ModalForAddProcessType extends Component {
     const {show, closeModal} = this.props || {};
     const {errors} = this.state;
     const translation = processTypeModalForAddAndUpdateTransaltion || {};
-    const {Header, SelectOptionsAndPlaceholders} = translation;    
-    
+    const {Header, SelectOptionsAndPlaceholders} = translation;
+
     return (
       <Modal show={show} centered onHide={closeModal} size="lg">
         <Modal.Header closeButton>
@@ -66,8 +91,13 @@ class ModalForAddProcessType extends Component {
                       value={this.state.type}
                       onChange={this.onChange}
                     />
-                    {errors.type && (
-                      <div className="invalid-feedback">{errors.type}</div>
+                    {handleErrorMessage(errors.type) && (
+                      <span
+                        className="invalid-feedback"
+                        style={{fontSize: 16, color: 'red'}}
+                      >
+                        {errors.type}
+                      </span>
                     )}
                   </div>
 
