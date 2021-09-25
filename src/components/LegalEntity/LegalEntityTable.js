@@ -1,20 +1,20 @@
-import {Button} from 'react-bootstrap';
-import React, {Component, Fragment} from 'react';
-import LegalEntityRow from './LegalEntityRow';
-import ModalForAddLegalEntity from './ModalForAddLegalEntity';
-import {legalEntityTableTranslation} from '../../translations';
-import Tooltip from '@material-ui/core/Tooltip';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import {Link} from 'react-router-dom';
-import AddIcon from '@material-ui/icons/Add';
-import IconButton from '@material-ui/core/IconButton';
-import {Input} from 'mdbreact';
-import '../DocumentAttachment/input.css';
-import i18next from 'i18next';
+import { Button } from 'react-bootstrap'
+import React, { Component, Fragment } from 'react'
+import LegalEntityRow from './LegalEntityRow'
+import ModalForAddLegalEntity from './ModalForAddLegalEntity'
+import { legalEntityTableTranslation } from '../../translations'
+import Tooltip from '@material-ui/core/Tooltip'
+import ArrowBackIcon from '@material-ui/icons/ArrowBack'
+import { Link } from 'react-router-dom'
+import AddIcon from '@material-ui/icons/Add'
+import IconButton from '@material-ui/core/IconButton'
+import { Input } from 'mdbreact'
+// import '../DocumentAttachment/input.css';
+import i18next from 'i18next'
 
 class LegalEntityTable extends Component {
   constructor() {
-    super();
+    super()
 
     this.state = {
       show: false,
@@ -25,45 +25,45 @@ class LegalEntityTable extends Component {
       email: '',
       statment: '',
       errors: {},
-    };
+    }
   }
 
   onChangeSearch = (e) => {
-    this.setState({search: e.target.value});
-  };
+    this.setState({ search: e.target.value })
+  }
 
   showModal = () => {
-    this.setState({show: true});
-  };
+    this.setState({ show: true })
+  }
 
   closeModal = () => {
-    this.setState({show: false});
-  };
+    this.setState({ show: false })
+  }
 
   onChange = (e) => {
-    this.setState({[e.target.name]: e.target.value});
-  };
+    this.setState({ [e.target.name]: e.target.value })
+  }
 
   handleAdd = (newLegalEntity) => {
-    this.props.createLegalEntity(newLegalEntity);
-    this.closeModal();
-  };
+    this.props.createLegalEntity(newLegalEntity)
+    this.closeModal()
+  }
 
   render() {
-    const translation = legalEntityTableTranslation || {};
-    const {HeaderColumns, Buttons} = translation;
+    const translation = legalEntityTableTranslation || {}
+    const { HeaderColumns, Buttons } = translation
 
     const {
       legalEntityList,
       updateLegalEntity,
       getLegalEntity,
       deleteLegalEntity,
-    } = this.props || {};
+    } = this.props || {}
 
-    const {search} = this.state;
+    const { search } = this.state
     this.state.list = legalEntityList.filter((legalEntity) => {
-      return legalEntity.pib.toLowerCase().indexOf(search.toLowerCase()) !== -1;
-    });
+      return legalEntity.pib.toLowerCase().indexOf(search.toLowerCase()) !== -1
+    })
 
     const legalEntities = this.state.list.map((legalEntity) => (
       <LegalEntityRow
@@ -74,15 +74,15 @@ class LegalEntityTable extends Component {
         legalEntityForUpdate={legalEntity}
         deleteLegalEntity={deleteLegalEntity}
       />
-    ));
+    ))
 
     const table = (
       <div>
         <div className="addAndSearch">
-          <div className="first" align="left" style={{paddingBottom: 20}}>
+          <div className="first" align="left" style={{ paddingBottom: 20 }}>
             <Link to={`/dashboard`}>
               <Tooltip title={Buttons.back} arrow>
-                <ArrowBackIcon style={{fontSize: 40}} />
+                <ArrowBackIcon style={{ fontSize: 40 }} />
               </Tooltip>
             </Link>
 
@@ -92,7 +92,7 @@ class LegalEntityTable extends Component {
                 type="submit"
                 size="lm"
                 onClick={() => {
-                  this.showModal();
+                  this.showModal()
                 }}
               >
                 <AddIcon />
@@ -100,7 +100,7 @@ class LegalEntityTable extends Component {
             </Tooltip>
           </div>
           <Input
-            style={{width: '300px'}}
+            style={{ width: '300px' }}
             className="search"
             label="Претражи по пибу"
             icon="search"
@@ -127,7 +127,7 @@ class LegalEntityTable extends Component {
           </table>
         </div>
       </div>
-    );
+    )
 
     return (
       <Fragment>
@@ -140,8 +140,8 @@ class LegalEntityTable extends Component {
           />
         )}
       </Fragment>
-    );
+    )
   }
 }
 
-export default LegalEntityTable;
+export default LegalEntityTable

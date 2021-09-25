@@ -1,51 +1,51 @@
-import React, {Component, Fragment} from 'react';
-import ProcessRow from './ProcessRow';
-import {Button} from 'react-bootstrap';
-import ModalForAddProcess from './ModalForAddProcess';
-import {processTableTranslation} from '../../translations';
-import Tooltip from '@material-ui/core/Tooltip';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import {Link} from 'react-router-dom';
-import AddIcon from '@material-ui/icons/Add';
-import IconButton from '@material-ui/core/IconButton';
-import {Input} from 'mdbreact';
-import '../DocumentAttachment/input.css';
+import React, { Component, Fragment } from 'react'
+import ProcessRow from './ProcessRow'
+import { Button } from 'react-bootstrap'
+import ModalForAddProcess from './ModalForAddProcess'
+import { processTableTranslation } from '../../translations'
+import Tooltip from '@material-ui/core/Tooltip'
+import ArrowBackIcon from '@material-ui/icons/ArrowBack'
+import { Link } from 'react-router-dom'
+import AddIcon from '@material-ui/icons/Add'
+import IconButton from '@material-ui/core/IconButton'
+import { Input } from 'mdbreact'
+// import '../DocumentAttachment/input.css';
 
 class ProcessTable extends Component {
   constructor() {
-    super();
+    super()
 
     this.state = {
       show: false,
       search: '',
       list: [],
-    };
+    }
   }
 
   onChangeSearch = (e) => {
-    this.setState({search: e.target.value});
-  };
+    this.setState({ search: e.target.value })
+  }
 
   showModal = () => {
-    this.setState({show: true});
-  };
+    this.setState({ show: true })
+  }
 
   closeModal = () => {
-    this.setState({show: false});
-  };
+    this.setState({ show: false })
+  }
 
   onChange = (e) => {
-    this.setState({[e.target.name]: e.target.value});
-  };
+    this.setState({ [e.target.name]: e.target.value })
+  }
 
   handleAdd = (newProcess) => {
-    this.props.createProcess(newProcess);
-    this.closeModal();
-  };
+    this.props.createProcess(newProcess)
+    this.closeModal()
+  }
 
   render() {
-    const translation = processTableTranslation;
-    const {HeaderColumns, Buttons} = translation || {};
+    const translation = processTableTranslation
+    const { HeaderColumns, Buttons } = translation || {}
     const {
       processList,
       getProcess,
@@ -54,16 +54,16 @@ class ProcessTable extends Component {
       processTypeList,
       getProcessTypes,
       process,
-    } = this.props || {};
+    } = this.props || {}
 
-    const {search} = this.state;
+    const { search } = this.state
     this.state.list = processList.filter((process) => {
       return (
-        (
-        process?.processType?.type.toLowerCase().indexOf(search.toLowerCase()) !== -1
+        process?.processType?.type
+          .toLowerCase()
+          .indexOf(search.toLowerCase()) !== -1
       )
-      );
-    });;
+    })
     const processes = this.state.list.map((process) => (
       <ProcessRow
         key={process.id}
@@ -74,14 +74,14 @@ class ProcessTable extends Component {
         processTypeList={processTypeList}
         getProcessTypes={getProcessTypes}
       />
-    ));
+    ))
     const table = (
-      <div >
+      <div>
         <div className="addAndSearch">
-          <div className="first" align="left" style={{paddingBottom: 20}}>
+          <div className="first" align="left" style={{ paddingBottom: 20 }}>
             <Link to={`/dashboard`}>
               <Tooltip title={Buttons.back} arrow>
-                <ArrowBackIcon style={{fontSize: 40}} />
+                <ArrowBackIcon style={{ fontSize: 40 }} />
               </Tooltip>
             </Link>
 
@@ -91,7 +91,7 @@ class ProcessTable extends Component {
                 type="submit"
                 size="lm"
                 onClick={() => {
-                  this.showModal();
+                  this.showModal()
                 }}
               >
                 <AddIcon />
@@ -99,7 +99,7 @@ class ProcessTable extends Component {
             </Tooltip>
           </div>
           <Input
-            style={{width: '300px'}}
+            style={{ width: '300px' }}
             className="search"
             label="Претражи по типу"
             icon="search"
@@ -124,7 +124,7 @@ class ProcessTable extends Component {
           <tbody>{processes}</tbody>
         </table>
       </div>
-    );
+    )
 
     return (
       <Fragment>
@@ -139,8 +139,8 @@ class ProcessTable extends Component {
           />
         )}
       </Fragment>
-    );
+    )
   }
 }
 
-export default ProcessTable;
+export default ProcessTable

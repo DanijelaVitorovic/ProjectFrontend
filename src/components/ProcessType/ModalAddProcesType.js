@@ -1,30 +1,29 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import ProcessTypeTable from "../ProcessType/ProcessTypeTable";
-import { getProcessTypes } from "../../actions/processTypeActions";
-import { Link } from "react-router-dom";
-import { Button, Modal } from "react-bootstrap";
-import AddProcessType from "../ProcessType/AddProcessType";
-import ProcessTypeList from "../Containers/ProcessTypeList";
-
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import ProcessTypeTable from '../ProcessType/ProcessTypeTable'
+import { getProcessTypes } from '../../actions/processTypeActions'
+import { Link } from 'react-router-dom'
+import { Button, Modal } from 'react-bootstrap'
+import AddProcessType from '../ProcessType/AddProcessType'
+// import ProcessTypeList from "../Containers/ProcessTypeList";
 class ModalAddProcessType extends Component {
   constructor() {
-    super();
+    super()
 
     this.state = {
       show: false,
-    };
+    }
   }
   handleModal(stanje) {
-    this.setState({ show: this.state.show });
+    this.setState({ show: this.state.show })
   }
 
   handleClose = () => {
-    this.props.handleClose();
-  };
+    this.props.handleClose()
+  }
 
   render() {
-    const show = this.props.show;
+    const show = this.props.show
     return (
       <div>
         <div className="container">
@@ -34,7 +33,7 @@ class ModalAddProcessType extends Component {
                 show={this.props.show}
                 centered
                 onHide={() => {
-                  this.handleModal();
+                  this.handleModal()
                 }}
               >
                 <Modal.Header closeButton>
@@ -51,8 +50,8 @@ class ModalAddProcessType extends Component {
           </div>
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default ModalAddProcessType;
+export default ModalAddProcessType

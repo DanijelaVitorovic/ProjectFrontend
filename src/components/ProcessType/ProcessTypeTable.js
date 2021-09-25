@@ -1,20 +1,20 @@
-import React, {Component, Fragment} from 'react';
-import ProcessTypeRow from './ProcessTypeRow';
-import {Modal, Button} from 'react-bootstrap';
-import {times} from 'lodash';
-import ModalForAddProcessType from './ModalForAddProcessType';
-import {processTypeTableTranslation} from '../../translations';
-import Tooltip from '@material-ui/core/Tooltip';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import {Link} from 'react-router-dom';
-import AddIcon from '@material-ui/icons/Add';
-import IconButton from '@material-ui/core/IconButton';
-import {Input} from 'mdbreact';
-import '../DocumentAttachment/input.css';
+import React, { Component, Fragment } from 'react'
+import ProcessTypeRow from './ProcessTypeRow'
+import { Modal, Button } from 'react-bootstrap'
+import { times } from 'lodash'
+import ModalForAddProcessType from './ModalForAddProcessType'
+import { processTypeTableTranslation } from '../../translations'
+import Tooltip from '@material-ui/core/Tooltip'
+import ArrowBackIcon from '@material-ui/icons/ArrowBack'
+import { Link } from 'react-router-dom'
+import AddIcon from '@material-ui/icons/Add'
+import IconButton from '@material-ui/core/IconButton'
+import { Input } from 'mdbreact'
+// import '../DocumentAttachment/input.css';
 
 class ProcessTypeTable extends Component {
   constructor() {
-    super();
+    super()
 
     this.state = {
       show: false,
@@ -23,29 +23,29 @@ class ProcessTypeTable extends Component {
       type: '',
       description: '',
       errors: {},
-    };
+    }
   }
 
   onChangeSearch = (e) => {
-    this.setState({search: e.target.value});
-  };
+    this.setState({ search: e.target.value })
+  }
 
   showModal = () => {
-    this.setState({show: true});
-  };
+    this.setState({ show: true })
+  }
 
   closeModal = () => {
-    this.setState({show: false});
-  };
+    this.setState({ show: false })
+  }
 
   onChange = (e) => {
-    this.setState({[e.target.name]: e.target.value});
-  };
+    this.setState({ [e.target.name]: e.target.value })
+  }
 
   handleAdd = (newProcessType) => {
-    this.props.createProcessType(newProcessType);
-    this.closeModal();
-  };
+    this.props.createProcessType(newProcessType)
+    this.closeModal()
+  }
 
   render() {
     const {
@@ -54,18 +54,16 @@ class ProcessTypeTable extends Component {
       getProcessType,
       updateProcessType,
       deleteProcessType,
-    } = this.props || {};
+    } = this.props || {}
 
-    const translation = processTypeTableTranslation || {};
-    const {HeaderColumns, Buttons} = translation;
+    const translation = processTypeTableTranslation || {}
+    const { HeaderColumns, Buttons } = translation
 
-    const {search} = this.state;
+    const { search } = this.state
 
     this.state.list = processTypeList.filter((processType) => {
-      return (
-        processType.type.toLowerCase().indexOf(search.toLowerCase()) !== -1
-      );
-    });
+      return processType.type.toLowerCase().indexOf(search.toLowerCase()) !== -1
+    })
 
     const processTypes = this.state.list.map((processType) => (
       <ProcessTypeRow
@@ -76,15 +74,15 @@ class ProcessTypeTable extends Component {
         updateProcessType={updateProcessType}
         deleteProcessType={deleteProcessType}
       />
-    ));
+    ))
 
     const table = (
       <div>
         <div className="addAndSearch">
-          <div className="first" align="left" style={{paddingBottom: 20}}>
+          <div className="first" align="left" style={{ paddingBottom: 20 }}>
             <Link to={`/dashboard`}>
               <Tooltip title={Buttons.back} arrow>
-                <ArrowBackIcon style={{fontSize: 40}} />
+                <ArrowBackIcon style={{ fontSize: 40 }} />
               </Tooltip>
             </Link>
 
@@ -94,7 +92,7 @@ class ProcessTypeTable extends Component {
                 type="submit"
                 size="lm"
                 onClick={() => {
-                  this.showModal();
+                  this.showModal()
                 }}
               >
                 <AddIcon />
@@ -102,7 +100,7 @@ class ProcessTypeTable extends Component {
             </Tooltip>
           </div>
           <Input
-            style={{width: '300px'}}
+            style={{ width: '300px' }}
             className="search"
             label="Претражи по типу"
             icon="search"
@@ -128,7 +126,7 @@ class ProcessTypeTable extends Component {
           <tbody>{processTypes}</tbody>
         </table>
       </div>
-    );
+    )
 
     return (
       <Fragment>
@@ -143,8 +141,8 @@ class ProcessTypeTable extends Component {
           />
         )}
       </Fragment>
-    );
+    )
   }
 }
 
-export default ProcessTypeTable;
+export default ProcessTypeTable
